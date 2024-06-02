@@ -26,13 +26,24 @@ public class NewsDAO {
     public List<News> getAllNews() {
         List<News> newsList = new ArrayList<>();
         String sql = "SELECT * FROM News";
+
         try (Connection conn = contextDAO.getConnection(); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
+
             while (rs.next()) {
-                newsList.add(new News(rs.getInt("newID"), rs.getString("title"), rs.getString("image"), rs.getString("content"), rs.getInt("doctorID")));
+                News news = new News(
+                        rs.getInt("newID"),
+                        rs.getString("title"),
+                        rs.getString("image"),
+                        rs.getString("content"),
+                        rs.getInt("doctorID"),
+                        rs.getDate("date")
+                );
+                newsList.add(news);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         return newsList;
     }
     

@@ -4,6 +4,8 @@
  */
 package com.thdap.vaccine.model;
 
+import java.sql.Date;
+
 /**
  *
  * @author Xuan Vinh
@@ -14,16 +16,18 @@ public class News {
     private String image;
     private String content;
     private int doctorID;
+    private Date date;
 
     public News() {
     }
 
-    public News(int newID, String title, String image, String content, int doctorID) {
+    public News(int newID, String title, String image, String content, int doctorID, Date date) {
         this.newID = newID;
         this.title = title;
         this.image = image;
         this.content = content;
         this.doctorID = doctorID;
+        this.date = date;
     }
 
     public int getNewID() {
@@ -66,10 +70,16 @@ public class News {
         this.doctorID = doctorID;
     }
 
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
     @Override
     public String toString() {
-        return "News{" + "newID=" + newID + ", title=" + title + ", image=" + image + ", content=" + content + ", doctorID=" + doctorID + '}';
+        return "News{" + "newID=" + newID + ", title=" + title + ", image=" + image + ", content=" + content + ", doctorID=" + doctorID + ", date=" + date + '}';
     }
-    
-    
 }
