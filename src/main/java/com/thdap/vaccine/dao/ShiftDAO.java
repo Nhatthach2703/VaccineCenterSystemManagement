@@ -6,6 +6,7 @@ package com.thdap.vaccine.dao;
 
 import com.thdap.vaccine.model.Shift;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -34,6 +35,24 @@ public class ShiftDAO {
             e.printStackTrace();
         }
         return shifts;
+    }
+    
+    public Shift getShiftById(int id) {
+        String sql = "SELECT * FROM Shift WHERE shiftID = ?";
+        try (Connection conn = contextDAO.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, id);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    return new Shift(rs.getInt("shiftID"),
+                            rs.getTime("startTime").toLocalTime(),
+                            rs.getTime("endTime").toLocalTime());
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
     
 //    public static void main(String[] args) {

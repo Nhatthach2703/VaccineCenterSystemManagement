@@ -33,9 +33,11 @@ E:\FPT University\Summer 2024\SWP391\code\Vaccine\src\main\java\com\thdap\vaccin
 E:\FPT University\Summer 2024\SWP391\code\Vaccine\src\main\java\com\thdap\vaccine\dao\ShiftDAO.java
 E:\FPT University\Summer 2024\SWP391\code\Vaccine\src\main\java\com\thdap\vaccine\controller\ListVaccineServlet.java
 E:\FPT University\Summer 2024\SWP391\code\Vaccine\src\main\java\com\thdap\vaccine\dao\DoctorDAO.java
+E:\FPT University\Summer 2024\SWP391\code\Vaccine\src\main\java\com\thdap\vaccine\model\ConsultationSchedule.java
 E:\FPT University\Summer 2024\SWP391\code\Vaccine\src\main\java\com\thdap\vaccine\dao\NewsDAO.java
 E:\FPT University\Summer 2024\SWP391\code\Vaccine\src\main\java\com\thdap\vaccine\controller\ConfirmCodeServlet.java
 E:\FPT University\Summer 2024\SWP391\code\Vaccine\src\main\java\com\thdap\vaccine\dao\ContextDAO.java
+E:\FPT University\Summer 2024\SWP391\code\Vaccine\src\main\java\com\thdap\vaccine\controller\AddConsultationScheduleServlet.java
 E:\FPT University\Summer 2024\SWP391\code\Vaccine\src\main\java\com\thdap\vaccine\dao\TypeOfVaccineDAO.java
 E:\FPT University\Summer 2024\SWP391\code\Vaccine\src\main\java\com\thdap\vaccine\model\WorkLocation.java
 E:\FPT University\Summer 2024\SWP391\code\Vaccine\src\main\java\com\thdap\vaccine\JakartaRestConfiguration.java
@@ -47,6 +49,7 @@ E:\FPT University\Summer 2024\SWP391\code\Vaccine\src\main\java\com\thdap\vaccin
 E:\FPT University\Summer 2024\SWP391\code\Vaccine\src\main\java\com\thdap\vaccine\controller\GoogleLogin.java
 E:\FPT University\Summer 2024\SWP391\code\Vaccine\src\main\java\com\thdap\vaccine\dao\AccountDAO.java
 E:\FPT University\Summer 2024\SWP391\code\Vaccine\src\main\java\com\thdap\vaccine\controller\CRUDTypeOfVaccineServlet.java
+E:\FPT University\Summer 2024\SWP391\code\Vaccine\src\main\java\com\thdap\vaccine\dao\ConsultationScheduleDAO.java
 E:\FPT University\Summer 2024\SWP391\code\Vaccine\src\main\java\com\thdap\vaccine\controller\LoginServlet.java
 E:\FPT University\Summer 2024\SWP391\code\Vaccine\src\main\java\com\thdap\vaccine\model\TypeOfVaccine.java
 E:\FPT University\Summer 2024\SWP391\code\Vaccine\src\main\java\com\thdap\vaccine\dao\AdminDAO.java

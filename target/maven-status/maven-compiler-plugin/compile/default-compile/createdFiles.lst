@@ -10,15 +10,19 @@ com\thdap\vaccine\controller\ChangeUserAvatarServlet.class
 com\thdap\vaccine\dao\AccountDAO.class
 com\thdap\vaccine\dao\WorkScheduleDAO.class
 com\thdap\vaccine\model\Doctor.class
+com\thdap\vaccine\controller\SendMail$3.class
 com\thdap\vaccine\dao\VaccineDAO.class
 com\thdap\vaccine\dao\FrequentlyAskedQuestionsDAO.class
 com\thdap\vaccine\model\User.class
 com\thdap\vaccine\controller\CRUDTypeOfVaccineServlet.class
 com\thdap\vaccine\controller\ChangePasswordServlet.class
+com\thdap\vaccine\controller\AddConsultationScheduleServlet.class
 com\thdap\vaccine\controller\LoginGoogleServlet.class
 com\thdap\vaccine\controller\DeleteWorkScheduleServlet.class
 com\thdap\vaccine\model\Account.class
 com\thdap\vaccine\controller\UpdateVaccineServlet.class
+com\thdap\vaccine\controller\ViewConsultationSchedulesServlet.class
+com\thdap\vaccine\dao\ConsultationScheduleDAO.class
 com\thdap\vaccine\dao\TypeOfVaccineDAO.class
 com\thdap\vaccine\dao\UserDAO.class
 com\thdap\vaccine\model\Room.class
@@ -31,6 +35,7 @@ com\thdap\vaccine\controller\SignUpServlet.class
 com\thdap\vaccine\controller\Iconstant.class
 com\thdap\vaccine\dao\ShiftDAO.class
 com\thdap\vaccine\model\WorkLocation.class
+com\thdap\vaccine\model\ConsultationSchedule.class
 com\thdap\vaccine\controller\VaccineDetailsServlet.class
 com\thdap\vaccine\model\Admin.class
 com\thdap\vaccine\model\Shift.class

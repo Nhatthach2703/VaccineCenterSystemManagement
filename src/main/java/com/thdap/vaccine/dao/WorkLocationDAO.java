@@ -6,6 +6,7 @@ package com.thdap.vaccine.dao;
 
 import com.thdap.vaccine.model.WorkLocation;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -42,6 +43,26 @@ public class WorkLocationDAO {
             System.out.println(e);
         }
         return workLocations;
+    }
+    
+    public WorkLocation getWorkLocationById(int id) {
+        String query = "SELECT * FROM WorkLocation WHERE workLocationID = ?";
+        try (Connection conn = contextDAO.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setInt(1, id);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    return new WorkLocation(
+                            rs.getInt("workLocationID"),
+                            rs.getString("name"),
+                            rs.getString("address"),
+                            rs.getString("map")
+                    );
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
     }
     
     public static void main(String[] args) {
