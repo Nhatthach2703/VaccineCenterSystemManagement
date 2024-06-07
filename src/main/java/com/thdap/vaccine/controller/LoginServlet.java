@@ -64,7 +64,7 @@ public class LoginServlet extends HttpServlet {
                 User user = dao.getUserByAccountID(account.getAccountID());
                 session.setAttribute("account", account);
                 session.setAttribute("user", user);
-
+//                session.setAttribute("userID", user.getUserID());
                 // Check the role of the user and redirect accordingly
                   String roleID = account.getRoleID();
                 if ("Admin".equals(roleID)) {

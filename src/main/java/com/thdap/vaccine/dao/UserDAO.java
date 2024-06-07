@@ -49,7 +49,7 @@ public class UserDAO {
 
         return users;
     }
-    
+
     public void update(User user) {
         String query = "UPDATE Users SET fullName = ?, doB = ?, gender = ?, address = ?, phoneNumber = ? WHERE userID = ?";
         try (Connection conn = contextDAO.getConnection(); PreparedStatement statement = conn.prepareStatement(query)) {
@@ -66,7 +66,7 @@ public class UserDAO {
             e.printStackTrace();
         }
     }
-    
+
 //    public void updateByUserID(int userID, User user) {
 //        String query = "UPDATE Users SET fullName = ?, doB = ?, gender = ?, address = ?, phoneNumber = ? WHERE userID = ?";
 //        try (Connection conn = contextDAO.getConnection(); PreparedStatement statement = conn.prepareStatement(query)) {
@@ -84,7 +84,6 @@ public class UserDAO {
 //            // Xử lý ngoại lệ hoặc ghi log lỗi ở đây
 //        }
 //    }
-    
     public User getUserById(String userId) {
         User user = null;
         try {
@@ -112,7 +111,7 @@ public class UserDAO {
         }
         return user;
     }
-    
+
     public User findUserByID(int userID) {
         User user = null;
         String query = "SELECT * FROM Users WHERE userID = ?";
@@ -139,7 +138,7 @@ public class UserDAO {
         }
         return user;
     }
-    
+
     public boolean updateImageByID(int userID, String imageFileName) {
         boolean success = false;
         String query = "UPDATE Users SET image = ? WHERE userID = ?";
@@ -155,7 +154,6 @@ public class UserDAO {
 
         return success;
     }
-    
 
     public static void main(String[] args) {
         UserDAO userDAO = new UserDAO();

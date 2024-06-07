@@ -51,6 +51,19 @@ public class TypeOfVaccineDAO {
         }
     }
 
+    public boolean isTypeOfVaccineExists(String name) throws SQLException {
+        String query = "SELECT COUNT(*) FROM TypeOfVaccine WHERE name = ?";
+        try (Connection conn = contextDAO.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setString(1, name);
+            try (ResultSet resultSet = pstmt.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getInt(1) > 0;
+                }
+            }
+        }
+        return false;
+    }
+
     // Read a TypeOfVaccine by ID
     public TypeOfVaccine getTypeOfVaccine(int typeID) throws SQLException {
         String sql = "SELECT * FROM TypeOfVaccine WHERE typeID = ?";
@@ -107,59 +120,5 @@ public class TypeOfVaccineDAO {
         }
     }
 }
-//   public static void main(String[] args) {
-//        TypeOfVaccineDAO typeOfVaccineDAO = new TypeOfVaccineDAO();
-//
-//        try {
-//            // Create a new TypeOfVaccine
-//            System.out.println("Adding new TypeOfVaccine...");
-//            typeOfVaccineDAO.addTypeOfVaccine("abc");
-//
-//            // Read a TypeOfVaccine by ID
-//            System.out.println("Reading TypeOfVaccine with typeID 1...");
-//            TypeOfVaccine type = typeOfVaccineDAO.getTypeOfVaccine(1);
-//            if (type != null) {
-//                System.out.println("TypeOfVaccine found: ID = " + type.getTypeID() + ", Name = " + type.getName());
-//            } else {
-//                System.out.println("TypeOfVaccine not found.");
-//            }
-//
-//            // Update a TypeOfVaccine
-//            System.out.println("Updating TypeOfVaccine with typeID 1...");
-//            typeOfVaccineDAO.updateTypeOfVaccine(1, "Updated COVID-19 Vaccine");
-//
-//            // Read the updated TypeOfVaccine
-//            System.out.println("Reading updated TypeOfVaccine with typeID 1...");
-//            type = typeOfVaccineDAO.getTypeOfVaccine(1);
-//            if (type != null) {
-//                System.out.println("Updated TypeOfVaccine: ID = " + type.getTypeID() + ", Name = " + type.getName());
-//            } else {
-//                System.out.println("TypeOfVaccine not found.");
-//            }
-//
-//            // List all TypeOfVaccines
-//            System.out.println("Listing all TypeOfVaccines...");
-//            List<TypeOfVaccine> list = typeOfVaccineDAO.getAllTypesOfVaccine();
-//            for (TypeOfVaccine t : list) {
-//                System.out.println("ID = " + t.getTypeID() + ", Name = " + t.getName());
-//            }
-//
-//            // Delete a TypeOfVaccine
-//            System.out.println("Deleting TypeOfVaccine with typeID 1...");
-//            typeOfVaccineDAO.deleteTypeOfVaccine(1);
-//
-//            // Try to read the deleted TypeOfVaccine
-//            System.out.println("Trying to read deleted TypeOfVaccine with typeID 1...");
-//            type = typeOfVaccineDAO.getTypeOfVaccine(1);
-//            if (type != null) {
-//                System.out.println("TypeOfVaccine found: ID = " + type.getTypeID() + ", Name = " + type.getName());
-//            } else {
-//                System.out.println("TypeOfVaccine not found.");
-//            }
-//
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//    }
-//}
+
 

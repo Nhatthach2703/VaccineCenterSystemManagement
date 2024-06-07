@@ -50,18 +50,7 @@ public class CreateVaccineServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet CreateVaccineServlet</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet CreateVaccineServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -81,6 +70,13 @@ public class CreateVaccineServlet extends HttpServlet {
         TypeOfVaccineDAO typeOfVaccineDAO = new TypeOfVaccineDAO();
         List<TypeOfVaccine> typeOfVaccines = typeOfVaccineDAO.getAllTypesOfVaccine();
         request.setAttribute("typeOfVaccines", typeOfVaccines);
+        String errorMessage = (String) request.getSession().getAttribute("errorMessage");
+        if (errorMessage != null) {
+            request.setAttribute("errorMessage", errorMessage);
+            // Remove the error message from the session
+            request.getSession().removeAttribute("errorMessage");
+        }
+
         request.getRequestDispatcher("CreateVaccine.jsp").forward(request, response);
 
     }
@@ -116,17 +112,26 @@ public class CreateVaccineServlet extends HttpServlet {
             List<FileItem> items = upload.parseRequest(request);
             HashMap<String, String> fields = new HashMap<>();
             String filename = null;
+            String existingImage = null;
 
             for (FileItem item : items) {
                 if (item.isFormField()) {
                     fields.put(item.getFieldName(), item.getString("UTF-8"));
+                    if (item.getFieldName().equals("existingImage")) {
+                        existingImage = item.getString("UTF-8");
+                    }
+                    System.out.println("name: " + item.getFieldName());
+                    System.out.println("value: " + item.getString("UTF-8"));
                 } else {
                     filename = item.getName();
+                    System.out.println("filename: " + filename);
+
                     if (filename != null && !filename.isEmpty()) {
                         Path path = Paths.get(filename);
                         String storePath = servletContext.getRealPath("/uploads");
                         File uploadFile = new File(storePath, path.getFileName().toString());
                         item.write(uploadFile);
+                        System.out.println("Stored file at: " + uploadFile.getAbsolutePath());
                     }
                 }
             }
@@ -148,17 +153,15 @@ public class CreateVaccineServlet extends HttpServlet {
             boolean haveToOrder = fields.get("haveToOrder") != null;
 
             // Validate required fields
-            if (name == null || summary == null || source == null || typeIDStr == null || injectionRoute == null
-                    || contraindicated == null || usingNote == null || drugInteractions == null || unwantedEffects == null
-                    || preserve == null || objectOfUse == null || injectionRegimen == null || priceStr == null) {
-                request.setAttribute("error", "Vui lòng nhập đầy đủ thông tin.");
-                request.getRequestDispatcher("CreateVaccine.jsp").forward(request, response);
+            int typeID = Integer.parseInt(typeIDStr);
+            int price;
+            try {
+                price = Integer.parseInt(priceStr);
+            } catch (NumberFormatException e) {
+                request.setAttribute("errorMessage", "Vui lòng nhập đúng định dạng cho giá tiền");
+                response.sendRedirect("CreateVaccineServlet");
                 return;
             }
-
-            int typeID = Integer.parseInt(typeIDStr);
-            int price = Integer.parseInt(priceStr);
-
             // Create and save or update Vaccine object
             Vaccine vaccine = new Vaccine();
             vaccine.setName(name);
@@ -178,14 +181,17 @@ public class CreateVaccineServlet extends HttpServlet {
             if (filename != null && !filename.isEmpty()) {
                 vaccine.setImage(filename);
             }
-
-            vaccineDAO.addVaccine(name, summary, source, typeID, filename, injectionRoute, contraindicated, usingNote,
-                    drugInteractions, unwantedEffects, preserve, objectOfUse, injectionRegimen, price, haveToOrder);
-            request.setAttribute("vaccines", vaccineDAO.getAllVaccines());
-
-            // Redirecting to the list servlet
-            response.sendRedirect("ListVaccineServlet");
-
+            // Check if the name already exists
+            if (vaccineDAO.isVaccineExists(name)) {
+                // Set the error message as a session attribute
+                request.getSession().setAttribute("errorMessage", "Tên loại vaccine đã tồn tại");
+                // Redirect to the form page
+                response.sendRedirect("CreateVaccineServlet");
+            } else {
+                vaccineDAO.addVaccine(name, summary, source, typeID, filename, injectionRoute, contraindicated, usingNote, drugInteractions, unwantedEffects, preserve, objectOfUse, injectionRegimen, price, haveToOrder);
+                response.sendRedirect("ListVaccineServlet");
+            }
+//            response.sendRedirect("ListVaccineServlet");
         } catch (Exception e) {
             e.printStackTrace();
         }

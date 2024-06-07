@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import static org.eclipse.persistence.config.TargetDatabase.Database;
 
 /**
@@ -194,10 +195,183 @@ public class VaccineDAO {
             e.printStackTrace();
         }
     }
+//    hàm check cho update và add
+
+    public boolean isVaccineExists(String name) throws SQLException {
+        String query = "SELECT COUNT(*) FROM Vaccine WHERE name = ?";
+        try (Connection conn = contextDAO.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setString(1, name);
+            try (ResultSet resultSet = pstmt.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getInt(1) > 0;
+                }
+            }
+        }
+        return false;
+    }
+//   search 
+
+    public List<Vaccine> searchVaccinesByTypeName(String typeName) {
+        List<Vaccine> vaccines = new ArrayList<>();
+        String query = "SELECT v.* FROM Vaccine v JOIN TypeOfVaccine t ON v.typeID = t.typeID WHERE t.name LIKE ?";
+
+        try (Connection conn = contextDAO.getConnection(); PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, "%" + typeName + "%");
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    Vaccine vaccine = new Vaccine(
+                            rs.getInt("vaccineID"),
+                            rs.getString("name"),
+                            rs.getString("summary"),
+                            rs.getString("source"),
+                            rs.getInt("typeID"),
+                            rs.getString("image"),
+                            rs.getString("injectionRoute"),
+                            rs.getString("contraindicated"),
+                            rs.getString("usingNote"),
+                            rs.getString("drugInteractions"),
+                            rs.getString("unwantedEffects"),
+                            rs.getString("preserve"),
+                            rs.getString("objectOfUse"),
+                            rs.getString("injectionRegimen"),
+                            rs.getInt("price"),
+                            rs.getBoolean("haveToOrder")
+                    );
+                    vaccines.add(vaccine);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return vaccines;
+    }
+
+    public List<Vaccine> searchVaccines(Optional<String> name) {
+        List<Vaccine> vaccines = new ArrayList<>();
+        StringBuilder queryBuilder = new StringBuilder("SELECT * FROM Vaccine WHERE 1=1");
+
+        if (name.isPresent() && !name.get().isEmpty()) {
+            queryBuilder.append(" AND name LIKE ?");
+        }
+
+        String query = queryBuilder.toString();
+
+        try (Connection conn = contextDAO.getConnection(); PreparedStatement stmt = conn.prepareStatement(query)) {
+            int paramIndex = 1;
+
+            if (name.isPresent() && !name.get().isEmpty()) {
+                stmt.setString(paramIndex++, "%" + name.get() + "%");
+            }
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    Vaccine vaccine = new Vaccine(
+                            rs.getInt("vaccineID"),
+                            rs.getString("name"),
+                            rs.getString("summary"),
+                            rs.getString("source"),
+                            rs.getInt("typeID"),
+                            rs.getString("image"),
+                            rs.getString("injectionRoute"),
+                            rs.getString("contraindicated"),
+                            rs.getString("usingNote"),
+                            rs.getString("drugInteractions"),
+                            rs.getString("unwantedEffects"),
+                            rs.getString("preserve"),
+                            rs.getString("objectOfUse"),
+                            rs.getString("injectionRegimen"),
+                            rs.getInt("price"),
+                            rs.getBoolean("haveToOrder")
+                    );
+                    vaccines.add(vaccine);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return vaccines;
+    }
+
+    public List<Vaccine> searchVaccinesByOptions(String typeName, String source) {
+    List<Vaccine> vaccines = new ArrayList<>();
+    String query = "SELECT v.* FROM Vaccine v JOIN TypeOfVaccine t ON v.typeID = t.typeID WHERE 1=1";
+    if (typeName != null && !typeName.isEmpty()) {
+        query += " AND t.name LIKE ?";
+    }
+    if (source != null && !source.isEmpty()) {
+        query += " AND v.source LIKE ?";
+    }
+
+    try (Connection conn = contextDAO.getConnection(); PreparedStatement stmt = conn.prepareStatement(query)) {
+        int parameterIndex = 1;
+        if (typeName != null && !typeName.isEmpty()) {
+            stmt.setString(parameterIndex++, "%" + typeName + "%");
+        }
+        if (source != null && !source.isEmpty()) {
+            stmt.setString(parameterIndex++, "%" + source + "%");
+        }
+
+        try (ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                Vaccine vaccine = new Vaccine(
+                        rs.getInt("vaccineID"),
+                        rs.getString("name"),
+                        rs.getString("summary"),
+                        rs.getString("source"),
+                        rs.getInt("typeID"),
+                        rs.getString("image"),
+                        rs.getString("injectionRoute"),
+                        rs.getString("contraindicated"),
+                        rs.getString("usingNote"),
+                        rs.getString("drugInteractions"),
+                        rs.getString("unwantedEffects"),
+                        rs.getString("preserve"),
+                        rs.getString("objectOfUse"),
+                        rs.getString("injectionRegimen"),
+                        rs.getInt("price"),
+                        rs.getBoolean("haveToOrder")
+                );
+                vaccines.add(vaccine);
+            }
+        }
+    } catch (SQLException e) {
+        System.out.println(e);
+    }
+    return vaccines;
+}
+
+//  public static void main(String[] args) {
+//        // Khởi tạo DAO
+//       VaccineDAO vaccineDAO = new VaccineDAO();// Thay YourDAOClass bằng tên lớp DAO thực tế của bạn
+//        
+//        // Test tìm kiếm vaccine theo loại
+//        String typeName = "duyen"; // Thay Type1 bằng loại vaccine cụ thể
+//        List<Vaccine> vaccinesByType = vaccineDAO.searchVaccinesByOptions(typeName, null);
+//        System.out.println("Vaccines by Type: " + typeName);
+//        for (Vaccine vaccine : vaccinesByType) {
+//            System.out.println(vaccine);
+//        }
+//        
+//        // Test tìm kiếm vaccine theo nguồn gốc
+//        String source = "coconut"; // Thay Source1 bằng nguồn gốc cụ thể
+//        List<Vaccine> vaccinesBySource = vaccineDAO.searchVaccinesByOptions(null, source);
+//        System.out.println("\nVaccines by Source: " + source);
+//        for (Vaccine vaccine : vaccinesBySource) {
+//            System.out.println(vaccine);
+//        }
+//        
+//        // Test tìm kiếm vaccine theo cả loại và nguồn gốc
+//        List<Vaccine> vaccinesByTypeAndSource = vaccineDAO.searchVaccinesByOptions(typeName, source);
+//        System.out.println("\nVaccines by Type and Source: " + typeName + " - " + source);
+//        for (Vaccine vaccine : vaccinesByTypeAndSource) {
+//            System.out.println(vaccine);
+//        }
+//    }
+//}
 
     public static void main(String[] args) {
         VaccineDAO vaccineDAO = new VaccineDAO();
-
 
         // Get all vaccines
         List<Vaccine> vaccines = vaccineDAO.getAllVaccines();
@@ -205,6 +379,6 @@ public class VaccineDAO {
             System.out.println(vaccine);
         }
 
-       
+    }
 }
-}
+

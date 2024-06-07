@@ -83,15 +83,6 @@ public class SignUpServlet extends HttpServlet {
         String email = request.getParameter("email");
         String doBString = request.getParameter("doB");
         LocalDate dob = null;
-//        try {
-//            dob = LocalDate.parse(doBString);
-//        } catch (DateTimeParseException e) {
-//            request.setAttribute("kq", "Ngày sinh không hợp lệ");
-//            setRequestAttributes(request, fullName, username, email, null, request.getParameter("phoneNumber"), request.getParameter("gender"), request.getParameter("address"), request.getParameter("pass"), request.getParameter("re_pass"));
-//            request.getRequestDispatcher("SignUp.jsp").forward(request, response);
-//            return;
-//        }
-//        LocalDate dob = LocalDate.parse(request.getParameter("doB"));
         String phoneNumber = request.getParameter("phoneNumber");
         String gender = request.getParameter("gender");
         String address = request.getParameter("address");
