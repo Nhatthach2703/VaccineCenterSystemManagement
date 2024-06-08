@@ -299,7 +299,22 @@ public class AccountDAO extends ContextDAO{
             return null; // Trả về giá trị mặc định hoặc thực hiện xử lý phù hợp
         }
     }
-
+    public void addAccount(String roleID, String username, String password, String email) throws SQLException {
+    String sql = "INSERT INTO Account (roleID, username, password, email) VALUES (?, ?, ?, ?)";
+    try (Connection conn = contextDAO.getConnection(); 
+         PreparedStatement st = conn.prepareStatement(sql)) {
+        
+        st.setString(1, roleID);
+        st.setString(2, username);
+        st.setString(3, password);
+        st.setString(4, email);
+        st.executeUpdate();
+    } catch (SQLException e) {
+        // Log lỗi để dễ dàng debug
+        e.printStackTrace();
+        throw new SQLException("Error adding account", e);
+    }
+}
 
 
     public static void main(String[] args) {

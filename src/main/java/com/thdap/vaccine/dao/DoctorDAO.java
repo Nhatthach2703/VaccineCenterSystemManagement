@@ -6,6 +6,7 @@ package com.thdap.vaccine.dao;
 
 import com.thdap.vaccine.model.Doctor;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -50,6 +51,29 @@ public class DoctorDAO {
         }
         return doctors;
     }
+    public void addDoctor(String fullName, int accountID, String image, String email, java.sql.Date doB, String phoneNumber, String address, String gender, int workLocationID, String degreeType, int yearsOfExperience) throws SQLException {
+    String sql = "INSERT INTO Doctor (fullName, accountID, image, email, doB, phoneNumber, address, gender, workLocationID, degreeType, yearsOfExperience) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    try (Connection conn = contextDAO.getConnection(); 
+         PreparedStatement st = conn.prepareStatement(sql)) {
+        
+        st.setString(1, fullName);
+        st.setInt(2, accountID);
+        st.setString(3, image);
+        st.setString(4, email);
+        st.setDate(5, doB);
+        st.setString(6, phoneNumber);
+        st.setString(7, address);
+        st.setString(8, gender);
+        st.setInt(9, workLocationID);
+        st.setString(10, degreeType);
+        st.setInt(11, yearsOfExperience);
+        st.executeUpdate();
+    } catch (SQLException e) {
+        // Log lỗi để dễ dàng debug
+        e.printStackTrace();
+        throw new SQLException("Error adding doctor", e);
+    }
+}
     
     public static void main(String[] args) {
         DoctorDAO doctorDAO = new DoctorDAO();
