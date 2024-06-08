@@ -2,11 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
+
 package com.thdap.vaccine.controller;
 
-import com.thdap.vaccine.dao.TypeOfVaccineDAO;
 import com.thdap.vaccine.dao.VaccineDAO;
-import com.thdap.vaccine.model.TypeOfVaccine;
 import com.thdap.vaccine.model.Vaccine;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -21,65 +20,52 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author ADMIN
  */
-@WebServlet(name = "VaccineDetailsServlet", urlPatterns = {"/VaccineDetailsServlet"})
-public class VaccineDetailsServlet extends HttpServlet {
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
+@WebServlet(name="PricelistVaccineServlet", urlPatterns={"/PricelistVaccineServlet"})
+public class PricelistVaccineServlet extends HttpServlet {
+   
+    /** 
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet VaccineDetailsServlet</title>");
+            out.println("<title>Servlet PricelistVaccineServlet</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet VaccineDetailsServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet PricelistVaccineServlet at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
-    }
+    } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
+    /** 
      * Handles the HTTP <code>GET</code> method.
-     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    VaccineDAO vaccinneDAO = new VaccineDAO();
-    TypeOfVaccineDAO typeOfVaccineDAO = new TypeOfVaccineDAO();
-
+    VaccineDAO vaccineDao = new VaccineDAO();
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        String vaccineID = request.getParameter("vaccineID");
-        int vaccineId = Integer.parseInt(vaccineID);
-        request.setAttribute("vaccine", vaccinneDAO.getVaccineById(vaccineId));
-        List<TypeOfVaccine> typeOfVaccine = typeOfVaccineDAO.getAllTypesOfVaccine();
-        request.setAttribute("typeOfVaccine", typeOfVaccine);
+    throws ServletException, IOException {
+         List<Vaccine> vaccine = vaccineDao.getAllVaccines();
+         request.setAttribute("vaccine", vaccine);
+         request.getRequestDispatcher("PricelistVaccine.jsp").forward(request, response);
+    } 
 
-        List<Vaccine> vaccines = vaccinneDAO.getAllVaccines();
-        request.setAttribute("vaccines", vaccines);
-        request.getRequestDispatcher("VaccineDetails.jsp").forward(request, response);
-
-    }
-
-    /**
+    /** 
      * Handles the HTTP <code>POST</code> method.
-     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -87,13 +73,12 @@ public class VaccineDetailsServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    /**
+    /** 
      * Returns a short description of the servlet.
-     *
      * @return a String containing servlet description
      */
     @Override
