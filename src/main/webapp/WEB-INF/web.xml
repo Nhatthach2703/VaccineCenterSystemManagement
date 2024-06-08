@@ -7,9 +7,17 @@
         <servlet-name>LogoutServlet</servlet-name>
         <servlet-class>com.thdap.vaccine.controller.LogoutServlet</servlet-class>
     </servlet>
+        <servlet>
+        <servlet-name>AddDoctorServlet</servlet-name>
+        <servlet-class>com.thdap.vaccine.controller.AddDoctorServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LogoutServlet</servlet-name>
         <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+        <servlet-mapping>
+        <servlet-name>AddDoctorServlet</servlet-name>
+        <url-pattern>/AddDoctor</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
