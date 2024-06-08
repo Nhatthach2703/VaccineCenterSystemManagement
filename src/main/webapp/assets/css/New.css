@@ -57,32 +57,8 @@
   transform: translate(0, 5%);
 }
 /*==================================================================================================*/
-.opttion_vaccine{
-     margin-left: 1.5rem;
-    margin-block-start: 1rem;
-    margin-block: 1rem;
-    width: 92%;
-    padding: 5px;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    background: white;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    font-family: "Josefin Sans", sans-serif;
-     margin-bottom: 2%;
-}
-.input_infor input{
-    width: 100%;
-    display: block;
-    border: none;
-    border-bottom: 1px solid #999;
-    padding: 6px 30px;
-    font-family: "Josefin Sans", sans-serif;
-    box-sizing: border-box;
-    margin-bottom: 2%;
-}
+
+
 body {
     font-size: 13px;
     line-height: 1.8;
@@ -97,7 +73,7 @@ body {
     width: 80%;
     background: #fff;
     margin: 0 auto;
-    box-shadow: 0px 15px 16.83px 0.17px rgba(0, 0, 0, 0.05);
+    box-shadow: 10px 30px 20px 10px rgba(0, 0, 0, 0.05);
     -moz-box-shadow: 0px 15px 16.83px 0.17px rgba(0, 0, 0, 0.05);
     -webkit-box-shadow: 0px 15px 16.83px 0.17px rgba(0, 0, 0, 0.05);
     -o-box-shadow: 0px 15px 16.83px 0.17px rgba(0, 0, 0, 0.05);
@@ -109,8 +85,12 @@ body {
     -ms-border-radius: 20px;
     font-family: "Tilt Neon";
 }
-.input_content {
-    padding: 50px;
-    
-  
+
+.list-card{
+    margin: 2rem 2rem;
+    width: 30%
 }
+
+
+
+
