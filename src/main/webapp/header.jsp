@@ -29,10 +29,10 @@
               </ul>
             </li>
             <li>
-              <a class="nav-link scrollto" href="#team">Thông tin chuyên gia</a>
+              <a class="nav-link scrollto" href="doctorInfo">Thông tin chuyên gia</a>
             </li>
             <li><a class="nav-link scrollto" href="#pricing">Quy trình</a></li>
-            <li><a class="nav-link scrollto" href="#pricing">Phác đồ</a></li>
+            <li><a class="nav-link scrollto" href="injectionRegimens">Phác đồ</a></li>
             <li class="dropdown">
               <a href="#"
                 ><span>Tiêm</span> <i class="bi bi-chevron-down"></i
