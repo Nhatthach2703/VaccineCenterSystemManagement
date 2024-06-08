@@ -54,7 +54,7 @@
                                                     </c:if>
                                                 </c:forEach>
                                             </td>
-                                            <td><img src="${user.image}" alt="User Image" width="100px"></td>
+                                            <td><img src="uploads/${user.image}" alt="User Image" width="100px"></td>
                                             <td>${user.email}</td>
                                             <td>${user.doB}</td>
                                             <td>${user.phoneNumber}</td>
@@ -96,7 +96,7 @@
                                                     </c:if>
                                                 </c:forEach>
                                             </td>
-                                            <td><img src="${doctor.image}" alt="Doctor Image" width="100px"></td>
+                                            <td><img src="uploads/${doctor.image}" alt="Doctor Image" width="100px"></td>
                                             <td>${doctor.email}</td>
                                             <td>${doctor.doB}</td>
                                             <td>${doctor.phoneNumber}</td>

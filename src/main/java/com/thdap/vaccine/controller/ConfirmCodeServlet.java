@@ -7,6 +7,7 @@ package com.thdap.vaccine.controller;
 import com.thdap.vaccine.dao.AccountDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import java.time.LocalDate;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -84,7 +85,7 @@ public class ConfirmCodeServlet extends HttpServlet {
             String fullName = (String) request.getSession().getAttribute("fullName");
             String username = (String) request.getSession().getAttribute("username");
             String email = (String) request.getSession().getAttribute("email");
-            LocalDate dob = (LocalDate) request.getSession().getAttribute("dob");
+            Date dob = (Date) request.getSession().getAttribute("dob");
             String phoneNumber = (String) request.getSession().getAttribute("phoneNumber");
             String gender = (String) request.getSession().getAttribute("gender");
             String address = (String) request.getSession().getAttribute("address");
@@ -99,7 +100,7 @@ public class ConfirmCodeServlet extends HttpServlet {
 
                 if (accountCreated) {
                     int accountID = dao.getAccountID(username);
-                    boolean userCreated = dao.createUser(fullName, accountID, email, java.sql.Date.valueOf(dob), phoneNumber, address, gender);
+                    boolean userCreated = dao.createUser(fullName, accountID, email, dob, phoneNumber, address, gender);
 
                     // Debugging statement to check user creation
                     System.out.println("User Created: " + userCreated);

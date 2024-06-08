@@ -7,15 +7,21 @@ import com.thdap.vaccine.model.WorkLocation;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 @MultipartConfig
 public class AddDoctorServlet extends HttpServlet {
@@ -58,87 +64,103 @@ public class AddDoctorServlet extends HttpServlet {
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         String roleID = "Doctor";
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        String email = request.getParameter("email");
-        String fullName = request.getParameter("fullName");
+        String username = null;
+        String password = null;
+        String email = null;
+        String fullName = null;
         java.sql.Date doB = null;
-        String phoneNumber = request.getParameter("phoneNumber");
-        String address = request.getParameter("address");
-        String gender = request.getParameter("gender");
+        String phoneNumber = null;
+        String address = null;
+        String gender = null;
         int workLocationID = 0;
-        String degreeType = request.getParameter("degreeType");
+        String degreeType = null;
         int yearsOfExperience = 0;
+        String filename = null;
 
-        Part filePart = request.getPart("image");
-        String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
-        
-        // Sử dụng thư mục src/main/webapp/uploads để lưu trữ file
-        String uploadDir = "D:\\SWP391\\Code\\VaccineCenterSystemManagement\\src\\main\\webapp\\uploads";
-
-        File uploadDirFile = new File(uploadDir);
-        if (!uploadDirFile.exists()) {
-            uploadDirFile.mkdirs();
-        }
-
-        File file = new File(uploadDirFile, fileName);
         try {
-            filePart.write(file.getAbsolutePath());
-            if (file.exists()) {
-                System.out.println("File saved successfully: " + file.getAbsolutePath());
-            } else {
-                throw new IOException("Failed to save file: " + file.getAbsolutePath());
+            // Create a factory for disk-based file items
+            DiskFileItemFactory factory = new DiskFileItemFactory();
+
+            // Configure a repository (to ensure a secure temp location is used)
+            ServletContext servletContext = this.getServletConfig().getServletContext();
+            File repository = (File) servletContext.getAttribute("javax.servlet.context.tempdir");
+            factory.setRepository(repository);
+
+            // Create a new file upload handler
+            ServletFileUpload upload = new ServletFileUpload(factory);
+
+            // Parse the request
+            List<FileItem> items = upload.parseRequest(request);
+            HashMap<String, String> fields = new HashMap<>();
+
+            for (FileItem item : items) {
+                if (item.isFormField()) {
+                    fields.put(item.getFieldName(), item.getString("UTF-8"));
+                } else {
+                    filename = item.getName();
+                    if (filename != null && !filename.isEmpty()) {
+                        Path path = Paths.get(filename);
+                        String storePath = servletContext.getRealPath("/uploads");
+                        File uploadFile = new File(storePath, path.getFileName().toString());
+                        item.write(uploadFile);
+                    }
+                }
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-            request.setAttribute("errorMessage", "Error saving file: " + e.getMessage());
-            request.getRequestDispatcher("error.jsp").forward(request, response);
-            return;
-        }
 
-        String image = "uploads/" + fileName;
+            // Extract and validate form fields
+            username = fields.get("username");
+            password = fields.get("password");
+            email = fields.get("email");
+            fullName = fields.get("fullName");
+            phoneNumber = fields.get("phoneNumber");
+            address = fields.get("address");
+            gender = fields.get("gender");
+            degreeType = fields.get("degreeType");
 
-        // Kiểm tra dữ liệu đầu vào
-        if (username == null || password == null || email == null || fullName == null || 
-            request.getParameter("doB") == null || phoneNumber == null || 
-            address == null || gender == null || request.getParameter("workLocationID") == null || 
-            degreeType == null || request.getParameter("yearsOfExperience") == null) {
-            request.setAttribute("errorMessage", "Invalid input parameters.");
-            request.getRequestDispatcher("error.jsp").forward(request, response);
-            return;
-        }
-
-        // Chuyển đổi dữ liệu đầu vào
-        try {
-            doB = java.sql.Date.valueOf(request.getParameter("doB"));
-            workLocationID = Integer.parseInt(request.getParameter("workLocationID"));
-            yearsOfExperience = Integer.parseInt(request.getParameter("yearsOfExperience"));
-        } catch (IllegalArgumentException e) {
-            request.setAttribute("errorMessage", "Invalid date or number format.");
-            request.getRequestDispatcher("error.jsp").forward(request, response);
-            return;
-        }
-
-        DoctorDAO doctorDAO = new DoctorDAO();
-        AccountDAO accountDAO = new AccountDAO();
-        
-        try {
-            // Kiểm tra email đã tồn tại
-            if (accountDAO.emailExists(email)) {
-                request.setAttribute("errorMessage", "Email already exists.");
+            if (username == null || password == null || email == null || fullName == null
+                    || fields.get("doB") == null || phoneNumber == null
+                    || address == null || gender == null || fields.get("workLocationID") == null
+                    || degreeType == null || fields.get("yearsOfExperience") == null) {
+                request.setAttribute("errorMessage", "Invalid input parameters.");
                 request.getRequestDispatcher("error.jsp").forward(request, response);
                 return;
             }
 
-            accountDAO.addAccount(roleID, username, password, email);
-            int accountID = accountDAO.getAccountID(username);
-            doctorDAO.addDoctor(fullName, accountID, image, email, doB, phoneNumber, address, gender, workLocationID, degreeType, yearsOfExperience);
-            response.sendRedirect("success.jsp");
-        } catch (SQLException e) {
-            // Log lỗi để dễ dàng debug
+            try {
+                doB = java.sql.Date.valueOf(fields.get("doB"));
+                workLocationID = Integer.parseInt(fields.get("workLocationID"));
+                yearsOfExperience = Integer.parseInt(fields.get("yearsOfExperience"));
+            } catch (IllegalArgumentException e) {
+                request.setAttribute("errorMessage", "Invalid date or number format.");
+                request.getRequestDispatcher("error.jsp").forward(request, response);
+                return;
+            }
+
+            DoctorDAO doctorDAO = new DoctorDAO();
+            AccountDAO accountDAO = new AccountDAO();
+
+            try {
+                // Check if email already exists
+                if (accountDAO.emailExists(email)) {
+                    request.setAttribute("errorMessage", "Email already exists.");
+                    request.getRequestDispatcher("error.jsp").forward(request, response);
+                    return;
+                }
+
+                accountDAO.addAccount(roleID, username, password, email);
+                int accountID = accountDAO.getAccountID(username);
+                doctorDAO.addDoctor(fullName, accountID, filename, email, doB, phoneNumber, address, gender, workLocationID, degreeType, yearsOfExperience);
+                response.sendRedirect("success.jsp");
+            } catch (SQLException e) {
+                e.printStackTrace();
+                request.setAttribute("errorMessage", "Error adding doctor: " + e.getMessage());
+                request.getRequestDispatcher("error.jsp").forward(request, response);
+            }
+        } catch (Exception e) {
             e.printStackTrace();
-            request.setAttribute("errorMessage", "Error adding doctor: " + e.getMessage());
+            request.setAttribute("errorMessage", "Error saving file: " + e.getMessage());
             request.getRequestDispatcher("error.jsp").forward(request, response);
+            return;
         }
     }
 

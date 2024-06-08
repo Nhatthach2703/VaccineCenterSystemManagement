@@ -13,8 +13,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-
-public class AccountDAO extends ContextDAO{
+public class AccountDAO extends ContextDAO {
 
     private ContextDAO contextDAO;
 
@@ -44,7 +43,7 @@ public class AccountDAO extends ContextDAO{
 
         return accounts;
     }
-    
+
     public Account getAccountById(String accountId) {
         Account account = null;
         try (Connection conn = contextDAO.getConnection()) {
@@ -65,7 +64,7 @@ public class AccountDAO extends ContextDAO{
         }
         return account;
     }
-    
+
     public boolean updatePassword(int accountID, String newPassword) {
         boolean success = false;
         String query = "UPDATE Account SET password = ? WHERE accountID = ?";
@@ -84,7 +83,7 @@ public class AccountDAO extends ContextDAO{
 
         return success;
     }
-    
+
     public boolean updatePassword(String email, String newPassword) {//theo email
         boolean isUpdated = false;
         String query = "UPDATE Account SET password = ? WHERE email = ?";
@@ -116,15 +115,12 @@ public class AccountDAO extends ContextDAO{
         }
         return null;
     }
-   
-    
-    
+
     public User getUserByAccountID(int accountID) {//lấy user theo accountID
         User user = null;
         String query = "SELECT * FROM Users WHERE accountID = ?";
 
-        try (Connection conn = contextDAO.getConnection();
-             PreparedStatement statement = conn.prepareStatement(query)) {
+        try (Connection conn = contextDAO.getConnection(); PreparedStatement statement = conn.prepareStatement(query)) {
             statement.setInt(1, accountID);
 
             try (ResultSet resultSet = statement.executeQuery()) {
@@ -147,7 +143,8 @@ public class AccountDAO extends ContextDAO{
 
         return user;
     }
-      public boolean createAccount(String username, String password, String email) {
+
+    public boolean createAccount(String username, String password, String email) {
         String roleID = "User";
         String sql = "INSERT INTO Account (roleID, username, password, email,status) VALUES (?, ?, ?, ?, ?)";
         try (Connection conn = contextDAO.getConnection(); PreparedStatement st = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
@@ -245,7 +242,7 @@ public class AccountDAO extends ContextDAO{
             return -1; // Trả về giá trị mặc định hoặc thực hiện xử lý phù hợp
         }
     }
-    
+
     public Account getAccountEmail(String email) {
 
         try {
@@ -275,11 +272,12 @@ public class AccountDAO extends ContextDAO{
             ps.close();
 
         } catch (SQLException ex) {
-            
+
         }
         return null;
     }
-      public String getRoleID(int accountID) {
+
+    public String getRoleID(int accountID) {
         String sql = "SELECT roleID FROM Account WHERE accountID = ?";
         try {
             Connection conn = contextDAO.getConnection(); // Lấy kết nối từ contextDAO
@@ -296,23 +294,22 @@ public class AccountDAO extends ContextDAO{
             return null; // Trả về giá trị mặc định hoặc thực hiện xử lý phù hợp
         }
     }
-    public void addAccount(String roleID, String username, String password, String email) throws SQLException {
-    String sql = "INSERT INTO Account (roleID, username, password, email) VALUES (?, ?, ?, ?)";
-    try (Connection conn = contextDAO.getConnection(); 
-         PreparedStatement st = conn.prepareStatement(sql)) {
-        
-        st.setString(1, roleID);
-        st.setString(2, username);
-        st.setString(3, password);
-        st.setString(4, email);
-        st.executeUpdate();
-    } catch (SQLException e) {
-        // Log lỗi để dễ dàng debug
-        e.printStackTrace();
-        throw new SQLException("Error adding account", e);
-    }
-}
 
+    public void addAccount(String roleID, String username, String password, String email) throws SQLException {
+        String sql = "INSERT INTO Account (roleID, username, password, email, status) VALUES (?, ?, ?, ?, ?)";
+        try (Connection conn = contextDAO.getConnection(); PreparedStatement st = conn.prepareStatement(sql)) {
+            st.setString(1, roleID);
+            st.setString(2, username);
+            st.setString(3, password);
+            st.setString(4, email);
+            st.setBoolean(5, true);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            // Log lỗi để dễ dàng debug
+            e.printStackTrace();
+            throw new SQLException("Error adding account", e);
+        }
+    }
 
     public static void main(String[] args) {
         AccountDAO accountDAO = new AccountDAO();
@@ -331,7 +328,7 @@ public class AccountDAO extends ContextDAO{
         String roleID = accountDAO.getRoleID(accountID);
         System.out.println("Role ID for accountID " + accountID + " is: " + roleID);
     }
-    
+
     public Account getAccountByEmail(String email) {
         Account account = null;
         String query = "SELECT * FROM Account WHERE email = ?";

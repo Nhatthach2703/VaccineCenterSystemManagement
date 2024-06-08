@@ -27,7 +27,8 @@
                         
                     </ul>
                 </li>
-                <li><a class="nav-link scrollto" href="#services">Bảng giá</a></li>
+                <li><a class="nav-link scrollto" href="ViewWorkSchedulesServlet">Quản lý lịch làm việc</a></li>
+                <!--<li><a class="nav-link scrollto" href="#"></a></li>-->
                 <li class="dropdown">
                     <a href="#"
                        ><span>Vaccine</span> <i class="bi bi-chevron-down"></i
@@ -39,17 +40,12 @@
                         <li><a href="#">Drop Down 4</a></li>
                     </ul>
                 </li>
-                <li>
-                    <a class="nav-link scrollto" href="#team"></a>
-                </li>
-                <li><a class="nav-link scrollto" href="#pricing"></a></li>
-                <li><a class="nav-link scrollto" href="#pricing"></a></li>
                 <li class="dropdown">
-                    <a href="#"
-                       ><span></span> <i class="bi bi-chevron-down"></i
-                        ></a>
+                    <a href="#"><span>Tài khoản</span> <i class="bi bi-chevron-down"></i></a>
                     <ul>
-                        <li><a href="#">Drop Down 1</a></li>
+                        <li><a href="ListAccountServlet">Quản lý tài khoản</a></li>
+                        <li><a href="AddDoctor">Tạo tại khoản bác sĩ</a></li>
+                <li class="dropdown"></a></li>
                         <li class="dropdown">
                             <a href="#"
                                ><span>Deep Drop Down</span>
@@ -63,7 +59,6 @@
                                 <li><a href="#">Deep Drop Down 5</a></li>
                             </ul>
                         </li>
-                        <li><a href="#">Drop Down 2</a></li>
                         <li><a href="#">Drop Down 3</a></li>
                         <li><a href="#">Drop Down 4</a></li>
                     </ul>
