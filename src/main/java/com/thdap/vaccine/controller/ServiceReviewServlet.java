@@ -65,19 +65,25 @@ public class ServiceReviewServlet extends HttpServlet {
     ServiceReviewDAO serviceReviewDAO = new ServiceReviewDAO();
     UserDAO userDAO = new UserDAO();
     AccountDAO accountDAO = new AccountDAO();
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         response.setContentType("text/html;charset=UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         List<User> users = userDAO.getAllUsers();
         request.setAttribute("users", users);
         List<Account> accounts = accountDAO.getAllAccounts();
         request.setAttribute("accounts", accounts);
+        
         List<ServiceReview> serviceReviews = serviceReviewDAO.getAllServiceReviews();
         request.setAttribute("serviceReviews", serviceReviews);
-        request.getRequestDispatcher("ServiceReview.jsp").forward(request, response);
 
+        try {
+            request.getRequestDispatcher("ServiceReview.jsp").forward(request, response);
+        } catch (Exception e) {
+            throw new ServletException("Error accessing database.", e);
+        }
     }
 
     /**
@@ -91,7 +97,46 @@ public class ServiceReviewServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
 
+        if (user == null) {
+            // Người dùng chưa đăng nhập
+            response.sendRedirect("login.jsp");
+            return;
+        }
+
+        response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
+
+        // Kiểm tra đầu vào
+        String content = request.getParameter("content");
+        String ratingStr = request.getParameter("rating");
+        if (content == null || content.isEmpty() || ratingStr == null || ratingStr.isEmpty()) {
+            // Thông báo lỗi và quay lại trang đánh giá nếu đầu vào không hợp lệ
+            request.setAttribute("errorMessage", "Vui lòng nhập đầy đủ thông tin đánh giá.");
+            request.getRequestDispatcher("ServiceReview.jsp").forward(request, response);
+            return;
+        }
+
+        int userID = user.getUserID();  // Lấy userID từ phiên làm việc
+        int rate = Integer.parseInt(ratingStr);
+
+        // Thêm đánh giá vào cơ sở dữ liệu
+        try {
+            serviceReviewDAO.insertServiceReview(userID, content, rate);
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Xử lý lỗi nếu cần
+            request.setAttribute("errorMessage", "Có lỗi xảy ra khi thêm đánh giá. Vui lòng thử lại.");
+            request.getRequestDispatcher("ServiceReview.jsp").forward(request, response);
+            return;
+        }
+
+        // Chuyển hướng người dùng trở lại trang đánh giá sau khi thêm xong
+        response.sendRedirect("ServiceReviewServlet");
     }
 
     /**

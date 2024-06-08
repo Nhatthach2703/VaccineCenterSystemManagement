@@ -43,26 +43,56 @@
     <body>
         <div class="container-fluid">
             <jsp:include page="header.jsp"/>
-            <jsp:include page="banner.jsp"/>
-            <div class="container">
-                <div class="row">
+            <section id="hero" class="d-flex align-items-center">
+                <div class="container">
                     <div class="row">
-                        <c:forEach var="vaccine" items="${vaccine}">
-                            <div class="col-md-6 col-lg-4 d-flex align-items-stretch mb-5 mb-lg-0">
-                                <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
-                                    <img src="uploads/${vaccine.image}" alt="Vaccine Image" width="300" height="180"/>
-                                    <h4 class="title">${vaccine.name}</h4>
-                                    <p>${vaccine.source}</p>
-                                    <p class="description">Price: ${vaccine.price} .000 đồng</p>
+                        <div
+                            class="col-lg-6 pt-5 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-center"
+                            >
+                            <h1 data-aos="fade-up">THDAP Hệ Thống Trung Tâm tiêm chủng</h1>
 
-                                </div>
-                            </div>
-                        </c:forEach>
+                            
+                        </div>
+                        <div
+                            class="col-lg-6 order-1 order-lg-2 hero-img"
+                            data-aos="fade-left"
+                            data-aos-delay="200"
+                            >
+                            <img
+                                src="./assets/img/priceVaccine.png"
+                                class="img-fluid animated"
+                                alt=""
+                                />
+                        </div>
                     </div>
                 </div>
+            </section>
+
+            <div class="container mt-5">
+
+                <div class="row row-cols-1 row-cols-md-3 g-5">
+                    <c:forEach var="vaccine" items="${vaccine}">
+                        <div class="col mb-4 "data-aos="fade-up" data-aos-delay="800">
+                            <div class="card h-100 p-3 rounded-4" style="width: 25rem;border-width: 2px;border-color: black">
+                                <a href="VaccineDetailsServlet?vaccineID=${vaccine.vaccineID}">
+                                    <div class="card-body icon-box"  data-aos-delay="100" style="color: black">
+                                        <img class="card-img-top" src="uploads/${vaccine.image}" alt="Vaccine Image" width="300" height="180"/>
+                                        <h4 class="title" style="font-family: 'Tilt Neon', sans-serif">${vaccine.name}</h4>
+                                        <p class="description">Nguồn gốc: ${vaccine.source}</p>
+                                        <p class="description">Price: ${vaccine.price} .000 đồng</p>
+
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </c:forEach>
+                </div>
             </div>
+
+
+
         </div>
-            <jsp:include page="footer.jsp"/>
+        <jsp:include page="footer.jsp"/>
         <script src="assets/vendor/aos/aos.js"></script>
         <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>

@@ -60,7 +60,7 @@
                     <h1 class="text-center mb-5" style="font-family: 'Tilt Neon', sans-serif;color: rgb(55,153,220)">Thông tin sản phẩm Vaccine</h1>
                     <div class="card-title">
                         <form action="TypeOfVaccineServlet" method="post">                         
-                            <div class="basic-search text-center " id="searchWrapper">
+                            <div class="basic-search text-center " id="searchWrapper" style="height: 200px">
                                 <div class="container input-field">
                                     <input class="rounded-pill" type="text" name="searchValue" id="searchValue" placeholder="Tìm kiếm"/>
                                     <div class="icon-wrap">
@@ -102,7 +102,7 @@
                         </form>
 
                     </div>
-                    <div class="slide-content swiper mySwiper mt-5">
+                    <div class="slide-content swiper mySwiper mt-3 mb-5">
                         <div class="card-wrapper swiper-wrapper ">
 
                             <c:forEach var="typeOfVaccines" items="${typeOfVaccines}">
@@ -137,12 +137,12 @@
 
             <!--===============================================================================-->
             <!--vaccine-->
-            <div class="container">
+            <div class="container mt-5">
 
                 <div class="row row-cols-1 row-cols-md-3 g-5">
                     <c:forEach var="vaccine" items="${vaccines}">
                         <div class="col mb-4 "data-aos="fade-up" data-aos-delay="800">
-                            <div class="card h-100 p-3" style="width: 25rem;">
+                            <div class="card h-100 p-3" style="width: 25rem;border-width: 2px;border-color: black">
                                 <a href="VaccineDetailsServlet?vaccineID=${vaccine.vaccineID}">
                                     <div class="card-body icon-box"  data-aos-delay="100" style="color: black">
                                         <img class="card-img-top" src="uploads/${vaccine.image}" alt="Vaccine Image" width="300" height="180"/>

@@ -34,7 +34,7 @@ public void insertServiceReview(int userID, String content, int rate) throws SQL
     // Method to retrieve all reviews from the ServiceReviews table
     public List<ServiceReview> getAllServiceReviews() {
     List<ServiceReview> reviews = new ArrayList<>();
-    String query = "SELECT reviewID, userID, content, rate, date FROM ServiceReviews";
+    String query = "SELECT * FROM ServiceReviews ORDER BY reviewID DESC";
     try (Connection conn = contextDAO.getConnection(); 
          PreparedStatement pstmt = conn.prepareStatement(query); 
          ResultSet resultSet = pstmt.executeQuery()) {

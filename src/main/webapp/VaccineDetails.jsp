@@ -46,37 +46,17 @@
 
     <!-- Template Main CSS File -->
     <link href="assets/css/style.css" rel="stylesheet" />
-    <<link rel="stylesheet" href="./assets/css/TypeOfVaccine.css"/>
+    <link rel="stylesheet" href="./assets/css/TypeOfVaccine.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
-    <style>
-        h1, h2, p ,label{
-            font-family: "Tilt Neon", sans-serif;
-        }
-        h1{
-            color: rgb(52,152,219);
-        }
-        .btn-light ,label{
-            color: rgb(52,152,219);
-        }
-        label{
-            font-size: 23px;
-        }
-        a{
-            width: 90%;
-            padding-top: 30px;
-        }
-        h2{
-            background-color: rgb(52,152,219);
-            color: white;
-
-        }
-        p{
-            line-height: 1.7; /* Điều chỉnh khoảng cách giữa các dòng */
-            letter-spacing: 1px; /* Điều chỉnh khoảng cách giữa các chữ */
-            font-size: 18px;
-        }
-
-    </style>
+    <link rel="stylesheet" href="./assets/css/VaccineDetail.css"/>
+<!--    <style>
+        .sidebar {
+    
+    position: sticky;
+    top: 14%; /* Adjust this value as needed */
+   
+}
+    </style>-->
     <body>
         <div class="container-fluid">
             <jsp:include page="header.jsp"/>
@@ -96,7 +76,7 @@
                             data-aos-delay="200"
                             >
                             <img
-                                src="./assets/img/z5450047682372_b4e7f2bde84b660dcb803c0b7e60cfb0.jpg"
+                                src="./assets/img/banner_vaccinedetail.png"
                                 class="img-fluid animated"
                                 alt=""
                                 />
@@ -111,16 +91,23 @@
 
                 <h1  class="vaccine-value mt-5">${vaccine.name} (${vaccine.source})</h1>
             </div>
-            <div class="row mt-5 mb-5"data-aos="fade-up" data-aos-delay="800">
-                <div class="col-sm-4"style="width:18rem;margin-left:7% " >
+            
+            <div class=" row mt-5 mb-5 "data-aos="fade-up" data-aos-delay="800">
+                
+                <div class=" col-sm-4 fixed-sidebar"style="width:18rem;margin-left:7% ">
+                    <div class="sidebar">
+                        
+                        <a class="btn btn-light mb-4 rounded-4" href="#contraindicated"><p>1. Chống chỉ định</p></a><br>
+                        <a class="btn btn-light mb-4 rounded-4" href="#drugInteractions"><p>2. Tương tác thuốc</p></a><br>
+                        <a class="btn btn-light mb-4 rounded-4" href="#objectOfUse"><p>3. Đối tượng</p></a><br>
+                        <a class="btn btn-light mb-4 rounded-4" href="#injectionRegimen"><p>4. Phác đồ tiêm</p></a><br>
+                        <a class="btn btn-light mb-4 rounded-4" href="#price"><p>5. Xem bảng giá</p></a><br>
+                        <a class="btn btn-light mb-4 rounded-4" href="#injectionRegimen"><p>6. Một số câu hỏi thường gặp</p></a><br>
+                        <a class="btn btn-light mb-4 rounded-4" href="#vaccine"><p>7. Các loại vaccine khác</p></a><br>
+                    
 
-                    <a class="btn btn-light mb-4 rounded-4" href="#summary"><p>1. Thông tin chi tiết</p></a><br>
-                    <a class="btn btn-light mb-4 rounded-4" href="#contraindicated"><p>2. Chống chỉ định</p></a><br>
-                    <a class="btn btn-light mb-4 rounded-4" href="#drugInteractions"><p>3. Tương tác thuốc</p></a><br>
-                    <a class="btn btn-light mb-4 rounded-4" href="#objectOfUse"><p>4. Đối tượng</p></a><br>
-                    <a class="btn btn-light mb-4 rounded-4" href="#injectionRegimen"><p>5. Phác đồ tiêm</p></a><br>
-                    <a class="btn btn-light mb-4 rounded-4" href="#price"><p>6. Xem bảng giá</p></a><br>
-                    <a class="btn btn-light mb-4 rounded-4" href="#injectionRegimen"><p>7. Một số câu hỏi thường gặp</p></a><br>
+                    </div>
+                       
 
                 </div>
                 <div class="card p-4 col-sm-8 card_inforDetail" style="width: 60rem ;border-width: 3px; border-color: black" data-aos="fade-up" data-aos-delay="1000">
@@ -190,21 +177,37 @@
 
             </div>
 
-            <div class="row row-cols-1 row-cols-md-3 g-5">
-                <c:forEach var="vaccine" items="${vaccines}">
-                    <div class="col mb-4 ">
-                        <div class="card h-100 p-3" style="width: 25rem;">
-                            <a href="VaccineDetailsServlet?vaccineID=${vaccine.vaccineID}">
-                                <div class="card-body icon-box" data-aos="fade-up" data-aos-delay="100" style="color: black">
-                                    <img class="card-img-top" src="uploads/${vaccine.image}" alt="Vaccine Image" width="300" height="180"/>
-                                    <h4 class="title" style="font-family: 'Tilt Neon', sans-serif">${vaccine.name}</h4>
-                                    <p class="description">Nguồn gốc: ${vaccine.source}</p>
-                                    <p class="description">${fn:substring(vaccine.summary, 0, 200)}<span>...</span></p>
-                                </div>
-                            </a>
-                        </div>
+            <div class="slide-container pt-4 pb-4 container text-center mb-5"id="vaccine">
+                <div class="slide-content swiper mySwiper mt-5 mb-4">
+                    <div class="card-wrapper swiper-wrapper ">
+                        <c:forEach var="vaccine" items="${vaccines}">
+
+                            <div class="card h-100 p-3 swiper-slide"style="width: 25rem;border-width: 2px;border-color: black">
+
+                                <a href="VaccineDetailsServlet?vaccineID=${vaccine.vaccineID}">
+
+                                    <div class="image-content">
+
+
+                                        <img class="card-img-top" src="uploads/${vaccine.image}" alt="Vaccine Image" width="400" height="180"/>
+
+                                    </div>
+                                    <div class="card-content mt-2">
+                                        <h4 class="title" style="font-family: 'Tilt Neon', sans-serif">${vaccine.name}</h4>               
+                                        <p class="description">Nguồn gốc: ${vaccine.source}</p>
+                                        <p class="description text-justify text-dark">${fn:substring(vaccine.summary, 0, 200)}<span>...</span></p>
+                                    </div>
+                                </a>
+
+                            </div>
+
+                        </c:forEach>
                     </div>
-                </c:forEach>
+
+                    <div class="swiper-button-next swiper-navBtn"></div>
+                    <div class="swiper-button-prev swiper-navBtn"></div>
+                    <div class="swiper-pagination"></div>    
+                </div>
             </div>
         </div>
         <jsp:include page="footer.jsp"/>
@@ -224,6 +227,38 @@
             AOS.init();
         </script>
         <!-- Initialize Swiper -->
+        <script>
+            var swiper = new Swiper(".mySwiper", {
+                slidesPerView: 3,
+                spaceBetween: 20,
+                loop: true,
+                centerSlide: 'true',
+                fade: 'true',
+                grabCursor: 'true',
+                pagination: {
+                    el: ".swiper-pagination",
+                    clickable: true,
+                    dynamicBullets: true,
+                },
+                navigation: {
+                    nextEl: ".swiper-button-next",
+                    prevEl: ".swiper-button-prev",
+                },
+                breakpoints: {
+                    0: {
+                        slidesPerView: 1,
+                    },
+                    520: {
+                        slidesPerView: 2,
+                    },
+                    950: {
+                        slidesPerView: 3,
+                    },
 
+                },
+            });
+
+        </script>
+        <script src="js/extention/choices.js"></script>
     </body>
 </html>

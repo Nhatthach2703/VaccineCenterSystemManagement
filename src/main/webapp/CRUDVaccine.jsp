@@ -114,7 +114,7 @@
                                         <td> ${typeOfVaccines.name}</td>
                                     </c:if>
                                 </c:forEach>
-                                <td><img <img src="uploads/${vaccine.image}" alt="Vaccine Image" width="100" height="80"/></td>
+                                <td><img src="uploads/${vaccine.image}" alt="Vaccine Image" width="100" height="80"/></td>
                                 <td>${vaccine.objectOfUse}</td>
                                 <td>${vaccine.price}</td>
 
