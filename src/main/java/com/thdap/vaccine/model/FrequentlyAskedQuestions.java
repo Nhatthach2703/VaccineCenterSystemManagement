@@ -9,19 +9,30 @@ package com.thdap.vaccine.model;
  * @author Xuan Vinh
  */
 public class FrequentlyAskedQuestions {
+
     private int questionID;
     private String shortenedQuestion;
     private String question;
     private String answer;
+    private String image; // Đảm bảo rằng thuộc tính image được định nghĩa
 
     public FrequentlyAskedQuestions() {
     }
 
-    public FrequentlyAskedQuestions(int questionID, String shortenedQuestion, String question, String answer) {
+    public FrequentlyAskedQuestions(int questionID, String shortenedQuestion, String question, String answer, String image) {
         this.questionID = questionID;
         this.shortenedQuestion = shortenedQuestion;
         this.question = question;
         this.answer = answer;
+        this.image = image;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public int getQuestionID() {
@@ -58,8 +69,9 @@ public class FrequentlyAskedQuestions {
 
     @Override
     public String toString() {
-        return "FrequentlyAskedQuestions{" + "questionID=" + questionID + ", shortenedQuestion=" + shortenedQuestion + ", question=" + question + ", answer=" + answer + '}';
+        return "FrequentlyAskedQuestions{" + "questionID=" + questionID + ", shortenedQuestion=" + shortenedQuestion + ", question=" + question + ", answer=" + answer + ", image=" + image + '}';
     }
-    
-    
+
+   
+
 }

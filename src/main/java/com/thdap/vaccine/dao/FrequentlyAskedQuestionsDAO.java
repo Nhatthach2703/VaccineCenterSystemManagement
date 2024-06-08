@@ -35,8 +35,8 @@ public class FrequentlyAskedQuestionsDAO {
                 String shortenedQuestion = resultSet.getString("shortenedQuestion");
                 String question = resultSet.getString("question");
                 String answer = resultSet.getString("answer");
-
-                FrequentlyAskedQuestions faq = new FrequentlyAskedQuestions(questionID, shortenedQuestion, question, answer);
+                String image = resultSet.getString("image");
+                FrequentlyAskedQuestions faq = new FrequentlyAskedQuestions(questionID, shortenedQuestion, question, answer,image);
                 faqs.add(faq);
             }
         } catch (SQLException e) {
@@ -44,13 +44,40 @@ public class FrequentlyAskedQuestionsDAO {
         }
         return faqs;
     }
+    public FrequentlyAskedQuestions getFaqById(int id) {
+    FrequentlyAskedQuestions faq = null;
+    String query = "SELECT * FROM FrequentlyAskedQuestions WHERE questionID = ?";
+    
+    try (Connection conn = contextDAO.getConnection();
+         PreparedStatement stmt = conn.prepareStatement(query)) {
+        
+        stmt.setInt(1, id);
+        
+        try (ResultSet rs = stmt.executeQuery()) {
+            if (rs.next()) {
+                faq = new FrequentlyAskedQuestions();
+                faq.setQuestionID(rs.getInt("questionID"));
+                faq.setShortenedQuestion(rs.getString("shortenedQuestion"));
+                faq.setQuestion(rs.getString("question"));
+                faq.setAnswer(rs.getString("answer"));
+                faq.setImage(rs.getString("image"));
+            }
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    
+    return faq;
+}
     
     
-//    public static void main(String[] args) {
-//        FrequentlyAskedQuestionsDAO faqDAO = new FrequentlyAskedQuestionsDAO();
-//        List<FrequentlyAskedQuestions> faqList = faqDAO.getAllFAQs();
-//        for (FrequentlyAskedQuestions faq : faqList) {
-//            System.out.println(faq);
-//        }
-//    }
+    public static void main(String[] args) {
+        FrequentlyAskedQuestionsDAO faqDAO = new FrequentlyAskedQuestionsDAO();
+        List<FrequentlyAskedQuestions> faqList = faqDAO.getAllFAQs();
+        for (FrequentlyAskedQuestions faq : faqList) {
+            System.out.println(faq);
+        }
+        FrequentlyAskedQuestions faqList1 = faqDAO.getFaqById(1);
+        System.out.println(faqList1);
+    }
 }
