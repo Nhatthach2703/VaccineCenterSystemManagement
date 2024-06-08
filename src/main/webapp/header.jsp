@@ -15,7 +15,7 @@
             <li>
               <a class="nav-link scrollto active" href="index.jsp">Trang chủ</a>
             </li>
-            <li><a class="nav-link scrollto" href="TypeOfVaccine.jsp">Danh sách vaccine</a></li>
+            <li><a class="nav-link scrollto" href="TypeOfVaccineServlet">Danh sách vaccine</a></li>
             <li><a class="nav-link scrollto" href="PricelistVaccineServlet">Bảng giá</a></li>
             <li class="dropdown">
               <a href="#"
@@ -33,6 +33,7 @@
             </li>
             <li><a class="nav-link scrollto" href="#pricing">Quy trình</a></li>
             <li><a class="nav-link scrollto" href="injectionRegimens">Phác đồ</a></li>
+            <li><a class="nav-link scrollto" href="ServiceReviewServlet">Xem đánh giá</a></li>
             <li class="dropdown">
               <a href="#"
                 ><span>Tiêm</span> <i class="bi bi-chevron-down"></i
@@ -87,4 +88,3 @@
       </div>
     </header>
     <!-- End Header -->
-
