@@ -84,6 +84,19 @@ public class TypeOfVaccineDAO {
         }
     }
 
+    public boolean isTypeOfVaccineExists(String name) throws SQLException {
+        String query = "SELECT COUNT(*) FROM TypeOfVaccine WHERE name = ?";
+        try (Connection conn = contextDAO.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setString(1, name);
+            try (ResultSet resultSet = pstmt.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getInt(1) > 0;
+                }
+            }
+        }
+        return false;
+    }
+
     public String getNameById(int typeId) {
         String name = null;
         String query = "SELECT name FROM TypeOfVaccine WHERE typeID = ?";

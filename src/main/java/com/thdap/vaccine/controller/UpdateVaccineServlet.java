@@ -67,15 +67,20 @@ public class UpdateVaccineServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         int id = Integer.parseInt(request.getParameter("vaccineID"));
 
-         Vaccine v = vaccineDAO.getVaccineById(id);
-            request.setAttribute("vaccine", v);
-            TypeOfVaccineDAO typeOfVaccineDAO = new TypeOfVaccineDAO();
-             List<TypeOfVaccine> typeOfVaccines = typeOfVaccineDAO.getAllTypesOfVaccine();
-            request.setAttribute("typeOfVaccines", typeOfVaccines);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("UpdateVaccine.jsp");
-            dispatcher.forward(request, response);
+        Vaccine v = vaccineDAO.getVaccineById(id);
+        request.setAttribute("vaccine", v);
+        TypeOfVaccineDAO typeOfVaccineDAO = new TypeOfVaccineDAO();
+        List<TypeOfVaccine> typeOfVaccines = typeOfVaccineDAO.getAllTypesOfVaccine();
+        request.setAttribute("typeOfVaccines", typeOfVaccines);
+        String errorMessage = (String) request.getSession().getAttribute("errorMessage");
+        if (errorMessage != null) {
+            request.setAttribute("errorMessage", errorMessage);
+            // Remove the error message from the session
+            request.getSession().removeAttribute("errorMessage");
+        }
+        RequestDispatcher dispatcher = request.getRequestDispatcher("UpdateVaccine.jsp");
+        dispatcher.forward(request, response);
     }
-    
 
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -173,13 +178,16 @@ public class UpdateVaccineServlet extends HttpServlet {
             } else {
                 vaccine.setImage(existingImage);
             }
-
             vaccineDAO.updateVaccine(vaccine);
-            System.out.println("//====== Update ======");
-
-            // Redirect or forward to appropriate view
-//        request.setAttribute("vaccines", vaccineDAO.getAllVaccines());
-            response.sendRedirect("ListVaccineServlet");
+            if (vaccineDAO.isVaccineExists(name)) {
+                // Set the error message as a session attribute
+                request.getSession().setAttribute("errorMessage", "Tên loại vaccine đã tồn tại");
+                // Redirect to the form page
+                response.sendRedirect("UpdateVaccineServlet?vaccineID=" + vaccineID);
+            } else {
+                vaccineDAO.updateVaccine(vaccine);
+                response.sendRedirect("ListVaccineServlet");
+            }
 
         } catch (Exception e) {
             e.printStackTrace();

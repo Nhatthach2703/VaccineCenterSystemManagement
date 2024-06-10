@@ -66,7 +66,6 @@ public class CRUDTypeOfVaccineServlet extends HttpServlet {
 
         try {
             switch (action) {
-
                 case "insert":
                     insertTypeOfVaccine(request, response);
                     break;
@@ -76,6 +75,16 @@ public class CRUDTypeOfVaccineServlet extends HttpServlet {
                 case "list":
                     List<TypeOfVaccine> listTypes = typeOfVaccineDAO.getAllTypesOfVaccine();
                     request.setAttribute("listTypesOfVaccine", listTypes);
+
+                    // Retrieve the error message from the session, if present
+                    String errorMessage = (String) request.getSession().getAttribute("errorMessage");
+                    if (errorMessage != null) {
+                        request.setAttribute("errorMessage", errorMessage);
+                        // Remove the error message from the session
+                        request.getSession().removeAttribute("errorMessage");
+                    }
+
+                    // Forward to the form page
                     RequestDispatcher dispatcher = request.getRequestDispatcher("CRUDTypeOfVaccine.jsp");
                     dispatcher.forward(request, response);
                     break;
@@ -83,7 +92,6 @@ public class CRUDTypeOfVaccineServlet extends HttpServlet {
         } catch (SQLException ex) {
             throw new ServletException(ex);
         }
-        processRequest(request, response);
     }
 
     /**
@@ -100,29 +108,27 @@ public class CRUDTypeOfVaccineServlet extends HttpServlet {
 
     }
 
-//    private void listTypesOfVaccine(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        try {
-//            List<TypeOfVaccine> listTypes = typeOfVaccineDAO.getAllTypesOfVaccine();
-//            request.setAttribute("listTypesOfVaccine", listTypes);
-//            RequestDispatcher dispatcher = request.getRequestDispatcher("CRUDTypeOfVaccine.jsp");
-//            dispatcher.forward(request, response);
-//        } catch (Exception e) {
-//            e.printStackTrace(); // Xử lý ngoại lệ
-//            // Hoặc có thể chuyển hướng đến một trang lỗi khác
-//        }
-//    }
     private void insertTypeOfVaccine(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException {
         String name = request.getParameter("name");
-        if (name == null || name.trim().isEmpty()) {
-            // Set the error message as a request attribute
-            request.setAttribute("errorMessage", "Vui lòng nhập thông tin");
 
-            // Forward the request back to the form page with the error message
-            response.sendRedirect("CRUDTypeOfVaccineServlet");// Replace with your actual form page
-        } else {
-            typeOfVaccineDAO.addTypeOfVaccine(name);
+        if (name == null || name.trim().isEmpty()) {
+            // Set the error message as a session attribute
+            request.getSession().setAttribute("errorMessage", "Vui lòng nhập thông tin");
+            // Redirect to the form page
             response.sendRedirect("CRUDTypeOfVaccineServlet");
+        } else {
+            // Check if the name already exists
+            if (typeOfVaccineDAO.isTypeOfVaccineExists(name)) {
+                // Set the error message as a session attribute
+                request.getSession().setAttribute("errorMessage", "Tên loại vaccine đã tồn tại");
+                // Redirect to the form page
+                response.sendRedirect("CRUDTypeOfVaccineServlet");
+            } else {
+                // Insert the new type of vaccine
+                typeOfVaccineDAO.addTypeOfVaccine(name);
+                response.sendRedirect("CRUDTypeOfVaccineServlet");
+            }
         }
     }
 
