@@ -53,16 +53,36 @@ public class UpdateTypeOfVaccineServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
+
         String idString = request.getParameter("typeID");
+        String errorMessage = (String) request.getSession().getAttribute("errorMessage");
+
+        if (errorMessage != null) {
+            request.setAttribute("errorMessage", errorMessage);
+            // Remove the error message from the session
+            request.getSession().removeAttribute("errorMessage");
+        }
+
         try {
             int id = Integer.parseInt(idString);
             TypeOfVaccine v = typeOfVaccineDAO.getTypeOfVaccine(id);
             request.setAttribute("typeOfVaccine", v);
             request.getRequestDispatcher("UpdateTypeOfVaccine.jsp").forward(request, response);
         } catch (NumberFormatException e) {
-            System.out.println(e);
+            // Log the error and set an error message
+            Logger.getLogger(UpdateTypeOfVaccineServlet.class.getName()).log(Level.SEVERE, null, e);
+            request.setAttribute("errorMessage", "Invalid type ID format.");
+            request.getRequestDispatcher("error.jsp").forward(request, response);
         } catch (SQLException ex) {
+            // Log the error and set an error message
             Logger.getLogger(UpdateTypeOfVaccineServlet.class.getName()).log(Level.SEVERE, null, ex);
+            request.setAttribute("errorMessage", "Database error: " + ex.getMessage());
+            request.getRequestDispatcher("error.jsp").forward(request, response);
+        } catch (Exception ex) {
+            // Log any other unexpected errors and set an error message
+            Logger.getLogger(UpdateTypeOfVaccineServlet.class.getName()).log(Level.SEVERE, null, ex);
+            request.setAttribute("errorMessage", "An unexpected error occurred: " + ex.getMessage());
+            request.getRequestDispatcher("error.jsp").forward(request, response);
         }
     }
 
@@ -85,29 +105,39 @@ public class UpdateTypeOfVaccineServlet extends HttpServlet {
         String name = request.getParameter("name");
 
         if (typeIDStr == null || name == null || typeIDStr.isEmpty() || name.isEmpty()) {
-            request.setAttribute("errorMessage", "TypeID and Name are required fields.");
-
-            request.getRequestDispatcher("CRUDTypeOfVaccineServlet").forward(request, response);
+            request.getSession().setAttribute("errorMessage", "TypeID and Name are required fields.");
+            response.sendRedirect("UpdateTypeOfVaccineServlet?typeID=" + typeIDStr);
             return;
         }
 
         try {
+            if (typeOfVaccineDAO.isTypeOfVaccineExists(name)) {
+                request.getSession().setAttribute("errorMessage", "Tên vaccine đã tồn tại");
+                response.sendRedirect("UpdateTypeOfVaccineServlet?typeID=" + typeIDStr);
+                return;
+            }
+
             int typeID = Integer.parseInt(typeIDStr);
             typeOfVaccineDAO.updateTypeOfVaccine(typeID, name);
-
-            request.setAttribute("successMessage", "Vaccine type updated successfully.");
+            request.getSession().setAttribute("successMessage", "Vaccine type updated successfully.");
         } catch (NumberFormatException e) {
-            request.setAttribute("errorMessage", "Invalid TypeID format.");
+            request.getSession().setAttribute("errorMessage", "Invalid TypeID format.");
+            response.sendRedirect("UpdateTypeOfVaccineServlet?typeID=" + typeIDStr);
+            return;
+        } catch (SQLException ex) {
+            Logger.getLogger(UpdateTypeOfVaccineServlet.class.getName()).log(Level.SEVERE, null, ex);
+            request.getSession().setAttribute("errorMessage", "Database error: " + ex.getMessage());
+            response.sendRedirect("UpdateTypeOfVaccineServlet?typeID=" + typeIDStr);
+            return;
         } catch (Exception e) {
-            request.setAttribute("errorMessage", "An error occurred while updating the vaccine type.");
-            e.printStackTrace();  // Log the exception for debugging
+            Logger.getLogger(UpdateTypeOfVaccineServlet.class.getName()).log(Level.SEVERE, null, e);
+            request.getSession().setAttribute("errorMessage", "An error occurred while updating the vaccine type.");
+            response.sendRedirect("UpdateTypeOfVaccineServlet?typeID=" + typeIDStr);
+            return;
         }
-         response.sendRedirect("CRUDTypeOfVaccineServlet");
-      
 
+        response.sendRedirect("CRUDTypeOfVaccineServlet");
     }
-
-   
 
     /**
      * Returns a short description of the servlet.

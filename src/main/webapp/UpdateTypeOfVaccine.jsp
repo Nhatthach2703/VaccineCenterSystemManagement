@@ -59,6 +59,7 @@
                                     <input class="input_infor" placeholder="Tên Vaccine" type="text" id="ir" name="name"
                                            value="${typeOfVaccine.name}" required>
                                 </div>
+                                 <div class="m-3" style="color: red;font-family: 'Tilt Neon', sans-serif;font-size:15px; height: 10px">${errorMessage}</div>
                                 <button style="margin-right: 1rem" class="button_save">Sửa</button>
                                 <button style="margin-right: 1rem" class="button_save"><a href="CRUDTypeOfVaccineServlet" style="color: white">Trở về</a></button>
                             </form>
@@ -66,12 +67,7 @@
                     </div>
                 </div>
             </section
-            <c:if test="${not empty errorMessage}">
-                <p style="color:red;">${errorMessage}</p>
-            </c:if>
-            <c:if test="${not empty successMessage}">
-                <p style="color:green;">${successMessage}</p>
-            </c:if>
+
         </div>
         <jsp:include page="footer.jsp"/>
 

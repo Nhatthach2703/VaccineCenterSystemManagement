@@ -47,7 +47,7 @@
     <link href="assets/css/style.css" rel="stylesheet" />
 
     <!--    <link rel="stylesheet" href="assets/css/AdminVaccine.css"/>-->
-    
+
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -76,6 +76,7 @@
                                     <input type="hidden" name="action" value="insert">
                                     <input name="name" type="text" class="form-control m-1" id="inlineFormInputGroupUsername" placeholder="Tên loại Vaccine"required>
                                 </div>
+                                <div class="m-3" style="color: red;font-family: 'Tilt Neon', sans-serif;font-size:10px; height: 15px">${errorMessage}</div><br>
                                 <div class="col-1">
                                     <button type="submit" class="btn btn-primary pl-3 pr-3 mr-3" style="background-color: rgb(41,155,228)">Thêm</button>
                                 </div>

@@ -163,7 +163,7 @@
                                     </label>
                                     <div class="text" style="margin-left: 1.5rem;">Đặt mua Vaccine</div>
                                 </div>
-                                <div style="color: red;font-family: 'Tilt Neon', sans-serif;font-size:20px; height: 30px">${error}</div><br>
+                                <div style="color: red;font-family: 'Tilt Neon', sans-serif;font-size:20px; height: 15px">${errorMessage}</div><br>
                                 <div class="form-group">
                                    
                                     <button style="margin-right: 1rem" class="button_add">Thêm</button>
