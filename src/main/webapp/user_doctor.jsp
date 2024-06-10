@@ -35,12 +35,12 @@
                                         <th scope="col">User ID</th>
                                         <th scope="col">Họ và Tên</th>
                                         <th scope="col">Username</th>
-                                        <th scope="col">Image</th>
+                                        <th scope="col">Ảnh</th>
                                         <th scope="col">Email</th>
-                                        <th scope="col">Date Of Birth</th>
-                                        <th scope="col">Phone</th>
-                                        <th scope="col">Address</th>
-                                        <th scope="col">Gender</th>
+                                        <th scope="col">Ngày sinh</th>
+                                        <th scope="col">Số điện thoại</th>
+                                        <th scope="col">Địa chỉ</th>
+                                        <th scope="col">Giưới tính</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -71,18 +71,18 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">Doctor ID</th>
-                                        <th scope="col">Full Name</th>
+                                        <th scope="col">Họ và tên</th>
                                         <th scope="col">Usename</th>
-                                        <th scope="col">Image</th>
+                                        <th scope="col">Ảnh</th>
                                         <th scope="col">Email</th>
-                                        <th scope="col">Date Of Birth</th>
-                                        <th scope="col">Phone</th>
-                                        <th scope="col">Address</th>
-                                        <th scope="col">Gender</th>
-                                        <th scope="col">Work Location ID</th>
-                                        <th scope="col">Degree Type</th>
-                                        <th scope="col">Job Title</th>
-                                        <th scope="col">YoE</th>
+                                        <th scope="col">Ngày sinh</th>
+                                        <th scope="col">Số điện thoại</th>
+                                        <th scope="col">Địa chỉ</th>
+                                        <th scope="col">Giới tính</th>
+                                        <th scope="col">Nơi làm việc</th>
+                                        <th scope="col">Bằng cấp</th>
+                                        <th scope="col">Chức vụ</th>
+                                        <th scope="col">Kinh nghiệm</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -118,7 +118,7 @@
                                     <span class="circle3"></span>
                                     <span class="circle4"></span>
                                     <span class="circle5"></span>
-                                    <span class="text">Trở Về</span>
+                                    <span class="add_button"><a style="color: white" href="AdminIndex.jsp">Trở Về</a></span>
                                 </button>
                             </div>
                         </div>

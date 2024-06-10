@@ -76,6 +76,7 @@ public class AddDoctorServlet extends HttpServlet {
         String degreeType = null;
         int yearsOfExperience = 0;
         String filename = null;
+        String jobTitle = null;
 
         try {
             // Create a factory for disk-based file items
@@ -116,11 +117,12 @@ public class AddDoctorServlet extends HttpServlet {
             address = fields.get("address");
             gender = fields.get("gender");
             degreeType = fields.get("degreeType");
+            jobTitle = fields.get("jobTitle");
 
             if (username == null || password == null || email == null || fullName == null
                     || fields.get("doB") == null || phoneNumber == null
                     || address == null || gender == null || fields.get("workLocationID") == null
-                    || degreeType == null || fields.get("yearsOfExperience") == null) {
+                    || degreeType == null || fields.get("yearsOfExperience") == null || fields.get("jobTitle") == null) {
                 request.setAttribute("errorMessage", "Invalid input parameters.");
                 request.getRequestDispatcher("error.jsp").forward(request, response);
                 return;
@@ -131,7 +133,7 @@ public class AddDoctorServlet extends HttpServlet {
                 workLocationID = Integer.parseInt(fields.get("workLocationID"));
                 yearsOfExperience = Integer.parseInt(fields.get("yearsOfExperience"));
             } catch (IllegalArgumentException e) {
-                request.setAttribute("errorMessage", "Invalid date or number format.");
+                request.setAttribute("errorMessage", "Ngày hoặc số không hợp lệ.");
                 request.getRequestDispatcher("error.jsp").forward(request, response);
                 return;
             }
@@ -142,18 +144,18 @@ public class AddDoctorServlet extends HttpServlet {
             try {
                 // Check if email already exists
                 if (accountDAO.emailExists(email)) {
-                    request.setAttribute("errorMessage", "Email already exists.");
+                    request.setAttribute("errorMessage", "Email Đã tồn tại.");
                     request.getRequestDispatcher("error.jsp").forward(request, response);
                     return;
                 }
 
                 accountDAO.addAccount(roleID, username, password, email);
                 int accountID = accountDAO.getAccountID(username);
-                doctorDAO.addDoctor(fullName, accountID, filename, email, doB, phoneNumber, address, gender, workLocationID, degreeType, yearsOfExperience);
+                doctorDAO.addDoctor(fullName, accountID, filename, email, doB, phoneNumber, address, gender, workLocationID, degreeType, yearsOfExperience, jobTitle);
                 response.sendRedirect("success.jsp");
             } catch (SQLException e) {
                 e.printStackTrace();
-                request.setAttribute("errorMessage", "Error adding doctor: " + e.getMessage());
+                request.setAttribute("errorMessage", "Thêm bác sĩ bị lỗi: " + e.getMessage());
                 request.getRequestDispatcher("error.jsp").forward(request, response);
             }
         } catch (Exception e) {

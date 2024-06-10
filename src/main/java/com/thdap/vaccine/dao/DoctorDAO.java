@@ -51,8 +51,8 @@ public class DoctorDAO {
         }
         return doctors;
     }
-    public void addDoctor(String fullName, int accountID, String image, String email, java.sql.Date doB, String phoneNumber, String address, String gender, int workLocationID, String degreeType, int yearsOfExperience) throws SQLException {
-    String sql = "INSERT INTO Doctor (fullName, accountID, image, email, doB, phoneNumber, address, gender, workLocationID, degreeType, yearsOfExperience) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    public void addDoctor(String fullName, int accountID, String image, String email, java.sql.Date doB, String phoneNumber, String address, String gender, int workLocationID, String degreeType, int yearsOfExperience, String jobTitle) throws SQLException {
+    String sql = "INSERT INTO Doctor (fullName, accountID, image, email, doB, phoneNumber, address, gender, workLocationID, degreeType, yearsOfExperience, jobTitle) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     try (Connection conn = contextDAO.getConnection(); 
          PreparedStatement st = conn.prepareStatement(sql)) {
         
@@ -67,6 +67,7 @@ public class DoctorDAO {
         st.setInt(9, workLocationID);
         st.setString(10, degreeType);
         st.setInt(11, yearsOfExperience);
+        st.setString(12, jobTitle);
         st.executeUpdate();
     } catch (SQLException e) {
         // Log lỗi để dễ dàng debug

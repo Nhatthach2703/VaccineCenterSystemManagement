@@ -66,7 +66,7 @@
         <jsp:include page="banner.jsp"/>
         <div data-aos="fade-up" class="container-fluid">
             <div class="container-xl mb-5">
-                <h4 class="bold mb-3">Danh sách Vaccine</h4>
+                <h4 class="bold mb-3">Danh Mục Vaccine</h4>
                 <div class="row row-cols-lg-auto g-3 align-items-center">
                     <div class="col-12">
                         <form action="CRUDTypeOfVaccineServlet" method="get">
