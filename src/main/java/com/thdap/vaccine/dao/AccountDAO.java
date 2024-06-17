@@ -351,4 +351,18 @@ public class AccountDAO extends ContextDAO {
         }
         return account;
     }
+    public void updateAccountStatus(int accountID, boolean status) {
+        String query = "UPDATE Account SET status = ? WHERE accountID = ?";
+
+        try (Connection conn = contextDAO.getConnection();
+             PreparedStatement statement = conn.prepareStatement(query)) {
+
+            statement.setBoolean(1, status);
+            statement.setInt(2, accountID);
+            statement.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }

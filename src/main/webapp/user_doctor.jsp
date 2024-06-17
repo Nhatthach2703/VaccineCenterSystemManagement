@@ -40,7 +40,9 @@
                                         <th scope="col">Ngày sinh</th>
                                         <th scope="col">Số điện thoại</th>
                                         <th scope="col">Địa chỉ</th>
-                                        <th scope="col">Giưới tính</th>
+                                        <th scope="col">Giới tính</th>
+
+
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -60,8 +62,9 @@
                                             <td>${user.phoneNumber}</td>
                                             <td>${user.address}</td>
                                             <td>${user.gender}</td>
-                                        </tr>
-                                    </c:forEach>
+
+
+                                        </c:forEach>
                                 </tbody>
                             </table>
 
@@ -75,14 +78,16 @@
                                         <th scope="col">Usename</th>
                                         <th scope="col">Ảnh</th>
                                         <th scope="col">Email</th>
-                                        <th scope="col">Ngày sinh</th>
+                                        <!--                                        <th scope="col">Ngày sinh</th>-->
                                         <th scope="col">Số điện thoại</th>
                                         <th scope="col">Địa chỉ</th>
-                                        <th scope="col">Giới tính</th>
+                                        <!--                                        <th scope="col">Giới tính</th>-->
                                         <th scope="col">Nơi làm việc</th>
                                         <th scope="col">Bằng cấp</th>
                                         <th scope="col">Chức vụ</th>
                                         <th scope="col">Kinh nghiệm</th>
+                                        <th scope="col">Thao tác</th>
+
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -98,14 +103,32 @@
                                             </td>
                                             <td><img src="uploads/${doctor.image}" alt="Doctor Image" width="100px"></td>
                                             <td>${doctor.email}</td>
-                                            <td>${doctor.doB}</td>
+<!--                                            <td>${doctor.doB}</td>-->
                                             <td>${doctor.phoneNumber}</td>
                                             <td>${doctor.address}</td>
-                                            <td>${doctor.gender}</td>
+<!--                                            <td>${doctor.gender}</td>-->
                                             <td>${doctor.workLocationID}</td>
                                             <td>${doctor.degreeType}</td>
                                             <td>${doctor.jobTitle}</td>
                                             <td>${doctor.yearsOfExperience}</td>
+                                            <td>
+<!--                                                <a href="LockAndUnlockAccountServlet?accountID=${doctor.accountID}"
+                                                   class="settings" title="Sửa" 
+                                                   data-toggle="tooltip"> <img src="assets/img/lock-keyhole-minimalistic-svgrepo-com.svg" style="width: 1rem; margin-right: 1rem;" /></a>-->
+                                                    <c:forEach var="account" items="${accountList}">
+                                                        <c:if test="${doctor.accountID == account.accountID}">
+                                                            <c:choose>
+                                                                <c:when test="${account.status}">
+                                                                <a href="LockAndUnlockAccountServlet?accountID=${account.accountID}&action=lock" class="settings" title="Khóa" data-toggle="tooltip"><img src="assets/img/lock-keyhole-minimalistic-svgrepo-com.svg" style="width: 1rem; margin-right: 1rem;" /></a>
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                            <a href="LockAndUnlockAccountServlet?accountID=${account.accountID}&action=unlock" class="settings" title="Mở khóa" data-toggle="tooltip"><img src="assets/img/key-minimalistic-square-3-svgrepo-com.svg" style="width: 1rem; margin-right: 1rem;" /></a>
+                                                            </c:otherwise>
+                                                        </c:choose>
+                                                    </c:if>
+                                                </c:forEach>
+                                            </td>
+
                                         </tr>
                                     </c:forEach>
                                 </tbody>
@@ -118,7 +141,7 @@
                                     <span class="circle3"></span>
                                     <span class="circle4"></span>
                                     <span class="circle5"></span>
-                                    <span class="add_button"><a style="color: white" href="AdminIndex.jsp">Trở Về</a></span>
+                                    <span class="add_button"><a style="color: white;text-decoration: none;" href="AdminIndex.jsp">Trở Về</a></span>
                                 </button>
                             </div>
                         </div>
