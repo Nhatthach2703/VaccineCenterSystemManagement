@@ -90,7 +90,7 @@
                                 </div>
                                 <div class="form-group " style="display: flex">
                                     <img src="assets/img/Lo trinh.svg" style="width: 1rem; margin-right: 1rem;" />
-                                    <input placeholder="Đường tiêm" type="text" id="injectionRoute" name="injectionRoute"
+                                    <input placeholder="Lộ trình tiêm" type="text" id="injectionRoute" name="injectionRoute"
                                            required>
                                 </div>
                                 <div class="form-group " style="display: flex">
@@ -100,7 +100,7 @@
                                 </div>
                                 <div class="form-group " style="display: flex">
                                     <img src="assets/img/Tac dung phu.svg" style="width: 1rem; margin-right: 1rem;" />
-                                    <input placeholder="Thận trọng khi sử dụng" type="text" id="usingNote" name="usingNote"
+                                    <input placeholder="Hướng dẫn sử dụng" type="text" id="usingNote" name="usingNote"
                                            required>
                                 </div>
                                 <div class="form-group " style="display: flex">
