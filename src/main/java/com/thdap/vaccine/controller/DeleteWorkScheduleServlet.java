@@ -59,16 +59,12 @@ public class DeleteWorkScheduleServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 //        processRequest(request, response);
-        // Lấy ID của work schedule cần xóa từ request
         int workScheduleID = Integer.parseInt(request.getParameter("workScheduleID"));
 
-        // Tạo đối tượng WorkScheduleDAO để thực hiện xóa
         WorkScheduleDAO workScheduleDAO = new WorkScheduleDAO();
 
-        // Thực hiện xóa work schedule từ cơ sở dữ liệu
         workScheduleDAO.deleteWorkSchedule(workScheduleID);
 
-        // Chuyển hướng người dùng về trang hiển thị danh sách work schedules sau khi đã xóa
         response.sendRedirect("ViewWorkSchedulesServlet");
     }
 

@@ -1,16 +1,19 @@
-<%@page import="com.thdap.vaccine.model.Vaccine"%>
-<%@page import="com.thdap.vaccine.dao.VaccineDAO"%>
-<%@page import="java.util.List"%>
+<%-- 
+    Document   : viewInjectionSchedules
+    Created on : Jun 26, 2024, 1:44:30 PM
+    Author     : Xuan Vinh
+--%>
 
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8" />
         <meta content="width=device-width, initial-scale=1.0" name="viewport" />
 
-        <title>Xem danh sách lịch làm việc</title>
+        <title>Lịch sử tiêm phòng</title>
         <meta content="" name="description" />
         <meta content="" name="keywords" />
         <link
@@ -58,23 +61,22 @@
                 background-color: white;
                 color: black;
             }
-
         </style>
+        <link href="assets/css/style.css" rel="stylesheet" />
     </head>
     <body>
-        <jsp:include page="AdminHeader.jsp"/>
+        <jsp:include page="header.jsp"/>
         <jsp:include page="banner.jsp"/>
         <div class="container-xl mt-5 " data-aos="fade-up">
             <div class="table-wrapper">
                 <div class="table-title pt-3 pb-3">
                     <div class="row">
                         <div class="col-sm-5">
-                            <h2 class="ml-4">Lịch làm việc</h2>
+                            <h2 class="ml-4">Lịch sử tiêm phòng</h2>
                         </div>
                         <div class="col-sm-7">
                             <div style="text-justify: auto;text-align: right"class="mr-4">
-                                <a href="AddWorkScheduleServlet" class="btn btn-secondary" <span>Thêm lịch làm việc</span></a>
-                                <a href="AddWeeklyWorkScheduleServlet" class="btn btn-secondary" <span>Thêm lịch làm việc theo tuần</span></a>
+                                <a href="InjectionScheduleServlet" class="btn btn-secondary" <span>Đặt lịch tiêm phòng</span></a>
                             </div>
                         </div>
                     </div>
@@ -82,61 +84,81 @@
                 <table class="table table-striped table-hover">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Phòng</th>
-                            <th>Ca làm việc</th>
-                            <th>Bác sĩ</th>
-                            <th>Địa điểm làm việc</th>
                             <th>Ngày</th>
-                            <th>Công việc</th>
-                            <th>Thao tác</th>
+                            <th>Giờ</th>
+                            <th>Phòng</th>
+                            <th>Cơ sở</th>
+                            <th>Bác sĩ</th>
+                            <th>Tình trạng</th>
                         </tr>
                     </thead>
                     <tbody>
+                    <c:forEach var="injectionSchedule" items="${injectionSchedules}">
+                        <tr>
+                            <td class="schedule-date">
                         <c:forEach var="workSchedule" items="${workSchedules}">
-                            <tr>
-                                <td>${workSchedule.workScheduleID}</td>
-                                <td>
-                                    <c:forEach var="room" items="${rooms}">
-                                        <c:if test="${room.roomID == workSchedule.roomID}">
-                                            ${room.roomName}
-                                        </c:if>
-                                    </c:forEach>
-                                </td>
-                                <td>
-                                    <c:forEach var="shift" items="${shifts}">
-                                        <c:if test="${shift.shiftID == workSchedule.shiftID}">
-                                            ${shift.startTime} - ${shift.endTime}
-                                        </c:if>
-                                    </c:forEach>
-                                </td>
-                                <td>
-                                    <c:forEach var="doctor" items="${doctors}">
-                                        <c:if test="${doctor.doctorID == workSchedule.doctorID}">
-                                            ${doctor.fullName}
-                                        </c:if>
-                                    </c:forEach>
-                                </td>
-                                <td>
-                                    <c:forEach var="workLocation" items="${workLocations}">
-                                        <c:if test="${workLocation.workLocationID == workSchedule.workLocationID}">
-                                            ${workLocation.name}
-                                        </c:if>
-                                    </c:forEach>
-                                </td>
-                                <td>${workSchedule.date}</td>
-                                <td>${workSchedule.workType}</td>
-                                <td>
-                                    <a href="EditWorkScheduleServlet?workScheduleID=${workSchedule.workScheduleID}"
-                                       class="settings" title="Sửa" 
-                                       data-toggle="tooltip"><i class="material-icons"style="color: red"></i></a>
-                                    <a href="DeleteWorkScheduleServlet?workScheduleID=${workSchedule.workScheduleID}" 
-                                       onclick="return confirm('Bạn có chắc chắn?')" class="delete" title="Xóa" 
-                                       data-toggle="tooltip"><i class="material-icons"></i></a>
-
-                                </td>
-                            </tr>
+                            <c:if test="${workSchedule.workScheduleID == injectionSchedule.workScheduleID}">
+                                ${workSchedule.date}
+                            </c:if>
                         </c:forEach>
+                        </td>
+                        <td class="start-end-time">
+                        <c:forEach var="userShift" items="${userShifts}">
+                            <c:if test="${userShift.userShiftID == injectionSchedule.userShiftID}">
+                                ${userShift.startTime} - ${userShift.endTime}
+                            </c:if>
+                        </c:forEach>
+                        </td>
+
+                        <td class="room-name">
+                        <c:forEach var="workSchedule" items="${workSchedules}">
+                            <c:if test="${workSchedule.workScheduleID == injectionSchedule.workScheduleID}">
+                                <c:forEach var="room" items="${rooms}">
+                                    <c:if test="${room.roomID == workSchedule.roomID}">
+                                        ${room.roomName}
+                                    </c:if>
+                                </c:forEach>
+                            </c:if>
+                        </c:forEach>
+                        </td>                           
+                        <td class="work-location">
+                        <c:forEach var="workSchedule" items="${workSchedules}">
+                            <c:if test="${workSchedule.workScheduleID == injectionSchedule.workScheduleID}">
+                                <c:forEach var="location" items="${workLocations}">
+                                    <c:if test="${location.workLocationID == workSchedule.workLocationID}">
+                                        ${location.name}
+                                    </c:if>
+                                </c:forEach>
+                            </c:if>
+                        </c:forEach>
+                        </td>
+                        <td class="doctor-name">
+                        <c:forEach var="workSchedule" items="${workSchedules}">
+                            <c:if test="${workSchedule.workScheduleID == injectionSchedule.workScheduleID}">
+                                <c:forEach var="doctor" items="${doctors}">
+                                    <c:if test="${doctor.doctorID == workSchedule.doctorID}">
+                                        ${doctor.fullName}
+                                    </c:if>
+                                </c:forEach>
+                            </c:if>
+                        </c:forEach>
+                        </td>
+                        <td>
+                        <c:choose>
+                            <c:when test="${injectionSchedule.status == true}">
+                                <div class="alert alert-success d-inline-block p-1" role="alert">
+                                    Đã Hoàn Thành
+                                </div>
+                            </c:when>
+                            <c:otherwise>
+                                <div class="alert alert-danger d-inline-block p-1" role="alert">
+                                    Chưa Hoàn Thành
+                                </div>
+                            </c:otherwise>
+                        </c:choose>
+                        </td>
+                        </tr>
+                    </c:forEach>
                     </tbody>
                 </table>
             </div>

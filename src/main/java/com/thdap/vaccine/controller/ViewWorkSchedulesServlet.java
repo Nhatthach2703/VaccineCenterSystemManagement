@@ -74,7 +74,7 @@ public class ViewWorkSchedulesServlet extends HttpServlet {
         List<WorkSchedule> workSchedules = workScheduleDAO.getAllWorkSchedules();
         DoctorDAO doctorDAO = new DoctorDAO();
         List<Doctor> doctors = doctorDAO.getAllDoctors();
-        RoomDAO roomDAO= new RoomDAO();
+        RoomDAO roomDAO = new RoomDAO();
         List<Room> rooms = roomDAO.getAllRooms();
         ShiftDAO shiftDAO = new ShiftDAO();
         List<Shift> shifts = shiftDAO.getAllShifts();

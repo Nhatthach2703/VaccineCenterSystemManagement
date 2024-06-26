@@ -4,7 +4,7 @@
  */
 package com.thdap.vaccine.model;
 
-import java.time.LocalDate;
+import java.sql.Date;
 
 /**
  *
@@ -16,31 +16,30 @@ public class WorkSchedule {
     private int shiftID;
     private int doctorID;
     private int workLocationID;
-    private LocalDate date;
-    private int numberOfPatients;
+    private Date date;
+    private String workType;
 
     public WorkSchedule() {
     }
 
-    public WorkSchedule(int workScheduleID, int roomID, int shiftID, int doctorID, int workLocationID, LocalDate date, int numberOfPatients) {
+    public WorkSchedule(int workScheduleID, int roomID, int shiftID, int doctorID, int workLocationID, Date date, String workType) {
         this.workScheduleID = workScheduleID;
         this.roomID = roomID;
         this.shiftID = shiftID;
         this.doctorID = doctorID;
         this.workLocationID = workLocationID;
         this.date = date;
-        this.numberOfPatients = numberOfPatients;
+        this.workType = workType;
     }
 
-    public WorkSchedule(int roomID, int shiftID, int doctorID, int workLocationID, LocalDate date, int numberOfPatients) {
+    public WorkSchedule(int roomID, int shiftID, int doctorID, int workLocationID, Date date, String workType) {
         this.roomID = roomID;
         this.shiftID = shiftID;
         this.doctorID = doctorID;
         this.workLocationID = workLocationID;
         this.date = date;
-        this.numberOfPatients = numberOfPatients;
+        this.workType = workType;
     }
-    
     
 
     public int getWorkScheduleID() {
@@ -83,27 +82,24 @@ public class WorkSchedule {
         this.workLocationID = workLocationID;
     }
 
-    public LocalDate getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
-    public int getNumberOfPatients() {
-        return numberOfPatients;
+    public String getWorkType() {
+        return workType;
     }
 
-    public void setNumberOfPatients(int numberOfPatients) {
-        this.numberOfPatients = numberOfPatients;
+    public void setWorkType(String workType) {
+        this.workType = workType;
     }
 
     @Override
     public String toString() {
-        return "WorkSchedule{" + "workScheduleID=" + workScheduleID + ", roomID=" + roomID + ", shiftID=" + shiftID + ", doctorID=" + doctorID + ", workLocationID=" + workLocationID + ", date=" + date + ", numberOfPatients=" + numberOfPatients + '}';
+        return "WorkSchedule{" + "workScheduleID=" + workScheduleID + ", roomID=" + roomID + ", shiftID=" + shiftID + ", doctorID=" + doctorID + ", workLocationID=" + workLocationID + ", date=" + date + ", workType=" + workType + '}';
     }
-    
-    
-    
 }

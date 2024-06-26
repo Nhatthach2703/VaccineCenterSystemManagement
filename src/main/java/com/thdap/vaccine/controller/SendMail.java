@@ -146,7 +146,7 @@ public class SendMail {
         }
     }
       
-      public static void sendConsultationScheduleEmail(String to, Date date, LocalTime startTime, LocalTime endTime, String wName, String wAdress) {
+    public static void sendConsultationScheduleEmail(String userName, String to, Date date, LocalTime startTime, LocalTime endTime, String wName, String wAdress) {
         final String from = "hethongtrungtamtiemchungthdap@gmail.com";
         final String password = "sdlrilkbzljylemz";
 
@@ -185,11 +185,68 @@ public class SendMail {
             msg.setSentDate(new Date());
 
             // Nội dung email với mã xác nhận
-            String emailContent = "<h3>Xin chào!</h3>"
+            String emailContent = "<h3>Xin chào "+ userName +"!</h3>"
                     + "<p>Chúc mừng bạn đã đặt lịch tư vấn thành công!</p>"
                     + "<p>Bạn vui lòng đến " + wName + " vào lúc: " + startTime + " - " + endTime + ", ngày " + date + ", địa điểm: " + wAdress + " để buổi tư vấn cỏ thể diễn ra suông sẻ.</p>"
                     + "<p>Hi vọng bạn sẽ có những trải nghiệm tốt khi sử dụng dịch vụ của hệ thống THDAP.</p>"
-                    + "<p>Một lần nữa xin cảm ơn bạn đã tin tưởng chọn dịch vụ của chung tôi.</p>"
+                    + "<p>Một lần nữa xin cảm ơn bạn đã tin tưởng chọn dịch vụ của chúng tôi.</p>"
+                    + "<p>Chúc bạn một ngày tốt lành!</p>";
+            msg.setContent(emailContent, "text/html; charset=UTF-8");
+
+            // Gửi email
+            Transport.send(msg);
+            System.out.println("Gửi email thành công");
+
+        } catch (Exception e) {
+            System.out.println("Gặp lỗi trong quá trình gửi email");
+            e.printStackTrace();
+        }
+    }
+    
+    public static void sendInjectionScheduleEmail(String userName, String to, Date date, LocalTime startTime, LocalTime endTime, String wName, String wAdress) {
+        final String from = "hethongtrungtamtiemchungthdap@gmail.com";
+        final String password = "sdlrilkbzljylemz";
+
+        Properties props = new Properties();
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.port", "587");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+
+        Authenticator auth = new Authenticator() {
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(from, password);
+            }
+        };
+
+        // Phiên làm việc
+        Session session = Session.getInstance(props, auth);
+
+        // Tạo một tin nhắn
+        MimeMessage msg = new MimeMessage(session);
+
+        try {
+            // Kiểu nội dung
+            msg.addHeader("Content-type", "text/HTML; charset=UTF-8");
+
+            // Người gửi
+            msg.setFrom(from);
+
+            // Người nhận
+            msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to, false));
+
+            // Tiêu đề email
+            msg.setSubject("Thông báo đặt lịch tiêm thành công!");
+            // Quy đinh ngày gửi
+            msg.setSentDate(new Date());
+
+            // Nội dung email với mã xác nhận
+            String emailContent = "<h3>Xin chào " + userName + "!</h3>"
+                    + "<p>Chúc mừng bạn đã đặt lịch tiêm thành công!</p>"
+                    + "<p>Bạn vui lòng đến " + wName + " vào lúc: " + startTime + " - " + endTime + ", ngày " + date + ", địa điểm: " + wAdress + " để việc khám sáng lọc trước tiêm, tiêm và quan sát hậu tiêm chủng thể diễn ra suông sẻ.</p>"
+                    + "<p>Hi vọng bạn sẽ có những trải nghiệm tốt khi sử dụng dịch vụ của hệ thống THDAP.</p>"
+                    + "<p>Một lần nữa xin cảm ơn bạn đã tin tưởng chọn dịch vụ của chúng tôi.</p>"
                     + "<p>Chúc bạn một ngày tốt lành!</p>";
             msg.setContent(emailContent, "text/html; charset=UTF-8");
 

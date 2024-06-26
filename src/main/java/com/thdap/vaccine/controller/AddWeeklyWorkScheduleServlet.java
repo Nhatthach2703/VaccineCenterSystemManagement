@@ -4,21 +4,28 @@
  */
 package com.thdap.vaccine.controller;
 
+import com.thdap.vaccine.dao.ConsultationScheduleDAO;
 import com.thdap.vaccine.dao.DoctorDAO;
+import com.thdap.vaccine.dao.InjectionScheduleDAO;
 import com.thdap.vaccine.dao.RoomDAO;
 import com.thdap.vaccine.dao.ShiftDAO;
+import com.thdap.vaccine.dao.UserShiftDAO;
 import com.thdap.vaccine.dao.WorkLocationDAO;
 import com.thdap.vaccine.dao.WorkScheduleDAO;
+import com.thdap.vaccine.model.ConsultationSchedule;
 import com.thdap.vaccine.model.Doctor;
+import com.thdap.vaccine.model.InjectionSchedule;
 import com.thdap.vaccine.model.Room;
 import com.thdap.vaccine.model.Shift;
+import com.thdap.vaccine.model.UserShift;
 import com.thdap.vaccine.model.WorkLocation;
 import com.thdap.vaccine.model.WorkSchedule;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.time.temporal.TemporalAdjusters;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -51,7 +58,7 @@ public class AddWeeklyWorkScheduleServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AddWorkScheduleByWeekServlet</title>");            
+            out.println("<title>Servlet AddWorkScheduleByWeekServlet</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet AddWorkScheduleByWeekServlet at " + request.getContextPath() + "</h1>");
@@ -73,9 +80,6 @@ public class AddWeeklyWorkScheduleServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 //        processRequest(request, response);
-        WorkLocationDAO workLocationDAO = new WorkLocationDAO();
-        List<WorkLocation> workLocations = workLocationDAO.getAllWorkLocations();
-
         RoomDAO roomDAO = new RoomDAO();
         List<Room> rooms = roomDAO.getAllRooms();
 
@@ -84,6 +88,9 @@ public class AddWeeklyWorkScheduleServlet extends HttpServlet {
 
         DoctorDAO doctorDAO = new DoctorDAO();
         List<Doctor> doctors = doctorDAO.getAllDoctors();
+
+        WorkLocationDAO workLocationDAO = new WorkLocationDAO();
+        List<WorkLocation> workLocations = workLocationDAO.getAllWorkLocations();
 
         request.setAttribute("rooms", rooms);
         request.setAttribute("shifts", shifts);
@@ -106,35 +113,151 @@ public class AddWeeklyWorkScheduleServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 //        processRequest(request, response);
-        int weekNumber = Integer.parseInt(request.getParameter("weekNumber"));
-        LocalDate startDate = LocalDate.now().with(DayOfWeek.MONDAY).plusWeeks(weekNumber);
-        LocalDate endDate = startDate.plusDays(4); // Include Friday in the week
+        String startDateStr = request.getParameter("startDate");
         int roomID = Integer.parseInt(request.getParameter("roomID"));
         int shiftID = Integer.parseInt(request.getParameter("shiftID"));
         int doctorID = Integer.parseInt(request.getParameter("doctorID"));
-//        int numberOfPatients = Integer.parseInt(request.getParameter("numberOfPatients"));
-        int numberOfPatients = 0;
+        String workType = request.getParameter("workType");
 
-        RoomDAO roomDAO = new RoomDAO();
-        Room room = roomDAO.getRoomById(roomID);
-        int workLocationID = room.getWorkLocationID();
+        LocalDate startDate = LocalDate.parse(startDateStr);
+        LocalDate endDateOfWeek = startDate.with(TemporalAdjusters.nextOrSame(DayOfWeek.FRIDAY)); // End on Friday
+        
+        if (workType.equals("1")) {
+            workType = "Tiêm";
+        } else {
+            workType = "Tư vấn";
+        }
+        
+        WorkScheduleDAO workScheduleDAO = new WorkScheduleDAO();
+        
+        for (LocalDate date = startDate; date.isBefore(endDateOfWeek.plusDays(1)); date = date.plusDays(1)) {
+            // Skip Saturday and Sunday
+            if (date.getDayOfWeek() == DayOfWeek.SATURDAY || date.getDayOfWeek() == DayOfWeek.SUNDAY) {
+                continue;
+            }
 
-        // Create a list of days from Monday to Friday
-        List<LocalDate> daysOfWeek = new ArrayList<>();
-        for (LocalDate date = startDate; !date.isAfter(endDate); date = date.plusDays(1)) {
-            if (date.getDayOfWeek().getValue() >= DayOfWeek.MONDAY.getValue() && date.getDayOfWeek().getValue() <= DayOfWeek.FRIDAY.getValue()) {
-                daysOfWeek.add(date);
+            Date sqlDate = Date.valueOf(date);
+            // Kiểm tra thêm lịch làm việc có bị trùng không
+            if (workScheduleDAO.workScheduleExists(roomID, shiftID, doctorID, sqlDate, workType)) {
+                request.setAttribute("errorMessage", "Lịch làm việc cho bác sĩ đã tồn tại vào ngày " + sqlDate + ".");
+                doGet(request, response);
+                return;
+            }
+            // Kiểm tra thêm nếu bác sĩ đó có bị xếp trùng shift khác room hay không
+            if (workScheduleDAO.isDoctorAssignedToAnotherRoom(doctorID, shiftID, sqlDate)) {
+                request.setAttribute("errorMessage", "Bác sĩ đã được xếp vào Phòng khác trong ca này khác trong ngày " + sqlDate + ".");
+                doGet(request, response);
+                return;
+            }
+            // Kiểm tra xem phòng đó có bác sĩ khác làm việc trong shift đó hay không
+            if (workScheduleDAO.isRoomOccupiedByAnotherDoctor(roomID, shiftID, sqlDate)) {
+                request.setAttribute("errorMessage", "Phòng đã có bác sĩ khác làm việc trong ca này vào ngày " + sqlDate + ".");
+                doGet(request, response);
+                return;
+            }
+            // Kiểm tra ngày làm việc đó có phải quá khứ không
+            if (sqlDate.before(new java.util.Date())) {
+                request.setAttribute("errorMessage", "Không thể tạo lịch làm việc trong quá khứ vào ngày " + sqlDate + ".");
+                doGet(request, response);
+                return;
             }
         }
+        
+        for (LocalDate date = startDate; date.isBefore(endDateOfWeek.plusDays(1)); date = date.plusDays(1)) {
+            // Skip Saturday and Sunday
+            if (date.getDayOfWeek() == DayOfWeek.SATURDAY || date.getDayOfWeek() == DayOfWeek.SUNDAY) {
+                continue;
+            }
 
-        // Create Work Schedule for each day in the week and add to the database
-        WorkScheduleDAO workScheduleDAO = new WorkScheduleDAO();
-        for (LocalDate date : daysOfWeek) {
-            WorkSchedule workSchedule = new WorkSchedule(roomID, shiftID, doctorID, workLocationID, date, numberOfPatients);
+            Date sqlDate = Date.valueOf(date);
+
+            // Create and add work schedule
+            RoomDAO roomDAO = new RoomDAO();
+            Room room = roomDAO.getRoomById(roomID);
+            int workLocationID = room.getWorkLocationID();
+            
+            WorkSchedule workSchedule = new WorkSchedule(roomID, shiftID, doctorID, workLocationID, sqlDate, workType);
             workScheduleDAO.addWorkSchedule(workSchedule);
+            int workScheduleID = workScheduleDAO.getWorkScheduleID(roomID, shiftID, doctorID, workLocationID, sqlDate, workType);
+
+            if (workType.equals("Tiêm")) {
+                createInjectionSchedules(workScheduleID, shiftID);
+            } else if (workType.equals("Tư vấn")) {
+                createConsultationSchedules(workScheduleID, shiftID);
+            }
         }
+//        // Loop through each day of the week (Monday to Friday) and add work schedules
+//        for (LocalDate date = startDate; date.isBefore(endDateOfWeek.plusDays(1)); date = date.plusDays(1)) {
+//            // Skip Saturday and Sunday
+//            if (date.getDayOfWeek() == DayOfWeek.SATURDAY || date.getDayOfWeek() == DayOfWeek.SUNDAY) {
+//                continue;
+//            }
+//
+//            Date sqlDate = Date.valueOf(date);
+//            // Kiểm tra thêm lịch làm việc có bị trùng không
+//            if (workScheduleDAO.workScheduleExists(roomID, shiftID, doctorID, sqlDate, workType)) {
+//                request.setAttribute("errorMessage", "Lịch làm việc cho bác sĩ đã tồn tại vào ngày này.");
+//                doGet(request, response);
+//                return;
+//            }
+//            // Kiểm tra thêm nếu bác sĩ đó có bị xếp trùng shift khác room hay không
+//            if (workScheduleDAO.isDoctorAssignedToAnotherRoom(doctorID, shiftID, sqlDate)) {
+//                request.setAttribute("errorMessage", "Bác sĩ đã được xếp vào Phòng khác trong ca này khác trong ngày này.");
+//                doGet(request, response);
+//                return;
+//            }
+//            //Kiểm tra xem phòng đó có bác sĩ khác làm việc trong shift đó hay không
+//            if (workScheduleDAO.isRoomOccupiedByAnotherDoctor(roomID, shiftID, sqlDate)) {
+//                request.setAttribute("errorMessage", "Phòng đã có bác sĩ khác làm việc trong ca này.");
+//                doGet(request, response);
+//                return;
+//            }
+//            //Kiểm tra ngày làm việc đó có phải quá khứ ko 
+//            if (sqlDate.before(new java.util.Date())) {
+//                request.setAttribute("errorMessage", "Không thể tạo lịch làm việc trong quá khứ.");
+//                doGet(request, response);
+//                return;
+//            }
+//
+//            RoomDAO roomDAO = new RoomDAO();
+//            Room room = roomDAO.getRoomById(roomID);
+//            int workLocationID = room.getWorkLocationID();
+//            
+//            // Create and add work schedule
+//            WorkSchedule workSchedule = new WorkSchedule(roomID, shiftID, doctorID, workLocationID, sqlDate, workType);
+//            workScheduleDAO.addWorkSchedule(workSchedule);
+//            int workScheduleID = workScheduleDAO.getWorkScheduleID(roomID, shiftID, doctorID, workLocationID, sqlDate, workType);
+//
+//            if (workType.equals("Tiêm")) {
+//                createInjectionSchedules(workScheduleID, shiftID);
+//            } else if (workType.equals("Tư vấn")) { 
+//                createConsultationSchedules(workScheduleID, shiftID);
+//            }
+//        }
 
         response.sendRedirect("ViewWorkSchedulesServlet");
+    }
+
+    private void createConsultationSchedules(int workScheduleID, int shiftID) {
+        UserShiftDAO userShiftDAO = new UserShiftDAO();
+        List<UserShift> userShifts = userShiftDAO.getUserShiftsByShiftID(shiftID);
+
+        ConsultationScheduleDAO consultationScheduleDAO = new ConsultationScheduleDAO();
+        for (UserShift userShift : userShifts) {
+            ConsultationSchedule consultationSchedule = new ConsultationSchedule(workScheduleID, userShift.getUserShiftID(), false);
+            consultationScheduleDAO.addConsultationSchedule(consultationSchedule);
+        }
+    }
+
+    private void createInjectionSchedules(int workScheduleID, int shiftID) {
+        UserShiftDAO userShiftDAO = new UserShiftDAO();
+        List<UserShift> userShifts = userShiftDAO.getUserShiftsByShiftID(shiftID);
+
+        InjectionScheduleDAO injectionScheduleDAO = new InjectionScheduleDAO();
+        for (UserShift userShift : userShifts) {
+            InjectionSchedule injectionSchedule = new InjectionSchedule(workScheduleID, userShift.getUserShiftID(), false);
+            injectionScheduleDAO.addInjectionSchedule(injectionSchedule);
+        }
     }
 
     /**

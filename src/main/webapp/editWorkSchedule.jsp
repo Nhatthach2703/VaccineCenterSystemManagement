@@ -84,18 +84,27 @@
                                 <div class="form-group" style="display: flex; align-items: center;">
                                     <img src="assets/img/pills-calendar-svgrepo-com.svg" style="width: 1rem; margin-right: 2.5rem;"  />
                                     <input placeholder="ngày" type="date" id="date" name="date" style="width: 300px; font-family: 'Josefin Sans', sans-serif;" value="${workSchedule.date}" required>
-                                </div>                                                  
-                                <div class="form-group">
-                                    <button style="margin-right: 1rem" class="button_add" type="submit">sửa</button>
-                                    <button class="button_add"><a href="ViewWorkSchedulesServlet" style="color: white">Trở về</a></button>
                                 </div>
-                            </form>
+                                <div>
+                                    <img src="assets/img/work-type-icon.svg" style="width: 1rem; margin-right: 1rem;" />
+                                    <select class="opttion_vaccine" id="workType" name="workType" required>
+                                        <option value="" disabled="" selected="">Loại công việc</option>
+                                        <option value="1" <c:if test="${workSchedule.workType == 'Tiêm'}">selected</c:if>>Tiêm</option>
+                                        <option value="2" <c:if test="${workSchedule.workType == 'Tư vấn'}">selected</c:if>>Tư vấn</option>
+                                        </select>
+                                    </div>
+                                    <div style="color: red; font-family: 'Tilt Neon', sans-serif;">${errorMessage}</div><br>
+                                    <div class="form-group">
+                                        <button style="margin-right: 1rem" class="button_add" type="submit">sửa</button>
+                                        <button class="button_add"><a href="ViewWorkSchedulesServlet" style="color: white">Trở về</a></button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </section>
+                </section>
 
-        </div>
+            </div>
 
         <jsp:include page="footer.jsp"/>
         <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>

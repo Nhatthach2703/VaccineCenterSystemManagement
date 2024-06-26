@@ -18,8 +18,7 @@ import com.thdap.vaccine.model.WorkLocation;
 import com.thdap.vaccine.model.WorkSchedule;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Collections;
-import java.util.Comparator;
+import java.time.LocalDate;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -31,8 +30,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Xuan Vinh
  */
-@WebServlet(name = "ViewConsultationSchedulesServlet", urlPatterns = {"/ViewConsultationSchedulesServlet"})
-public class ViewConsultationSchedulesServlet extends HttpServlet {
+@WebServlet(name = "ConsultationScheduleServlet", urlPatterns = {"/ConsultationScheduleServlet"})
+public class ConsultationScheduleServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -51,10 +50,10 @@ public class ViewConsultationSchedulesServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ViewConsultationSchedulesServlet</title>");
+            out.println("<title>Servlet ConsultationScheduleServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ViewConsultationSchedulesServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ConsultationScheduleServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -72,9 +71,25 @@ public class ViewConsultationSchedulesServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int userID = Integer.parseInt(request.getParameter("userID"));
-        WorkLocationDAO workLocationDAO = new WorkLocationDAO();
-        List<WorkLocation> workLocations = workLocationDAO.getAllWorkLocations();
+//        processRequest(request, response);
+        String filterDate = request.getParameter("filterDate");
+        String filterWorkLocation = request.getParameter("filterWorkLocation");
+        
+        // Set defaut là ngày hôm nay
+        if (filterDate == null || filterDate.isEmpty()) {
+            filterDate = LocalDate.now().toString();
+        }
+        
+        // Kiểm tra nếu filterDate là ngày trong quá khứ
+        LocalDate selectedDate = LocalDate.parse(filterDate);
+        if (selectedDate.isBefore(LocalDate.now())) {
+            // Nếu là ngày trong quá khứ, hiển thị thông báo lỗi
+            request.setAttribute("errorMessage", "Không thể xem lịch tư vấn cho ngày trong quá khứ.");
+            request.getRequestDispatcher("addConsultationSchedule.jsp").forward(request, response);
+            return;
+        }
+
+        // Lấy các danh sách dữ liệu cần thiết từ DAO
         WorkScheduleDAO workScheduleDAO = new WorkScheduleDAO();
         List<WorkSchedule> workSchedules = workScheduleDAO.getAllWorkSchedules();
         UserShiftDAO userShiftDAO = new UserShiftDAO();
@@ -83,29 +98,44 @@ public class ViewConsultationSchedulesServlet extends HttpServlet {
         List<Room> rooms = roomDAO.getAllRooms();
         DoctorDAO doctorDAO = new DoctorDAO();
         List<Doctor> doctors = doctorDAO.getAllDoctors();
+        WorkLocationDAO workLocationDAO = new WorkLocationDAO();
+        List<WorkLocation> workLocations = workLocationDAO.getAllWorkLocations();
         ConsultationScheduleDAO consultationScheduleDAO = new ConsultationScheduleDAO();
-        List<ConsultationSchedule> consultationSchedules = consultationScheduleDAO.getConsultationSchedulesByUserID(userID);
-        
-        // Sort consultationSchedules theo ngày giảm dần
-        Collections.sort(consultationSchedules, new Comparator<ConsultationSchedule>() {
-            @Override
-            public int compare(ConsultationSchedule cs1, ConsultationSchedule cs2) {
-                // Get dates of WorkSchedules corresponding to cs1 and cs2
-                WorkSchedule ws1 = workScheduleDAO.getWorkScheduleByID(cs1.getWorkScheduleID());
-                WorkSchedule ws2 = workScheduleDAO.getWorkScheduleByID(cs2.getWorkScheduleID());
+        List<ConsultationSchedule> consultationSchedules = null;
 
-                // Sort descending based on dates
-                return ws2.getDate().compareTo(ws1.getDate());
+        try {
+            if (filterDate != null && !filterDate.isEmpty() && filterWorkLocation != null && !filterWorkLocation.isEmpty()) {
+                consultationSchedules = consultationScheduleDAO.getConsultationSchedulesByDateAndLocation(filterDate, filterWorkLocation);//
+            } else if (filterDate != null && !filterDate.isEmpty()) {
+                consultationSchedules = consultationScheduleDAO.getConsultationSchedulesByDate(filterDate);//
+            } else if (filterWorkLocation != null && !filterWorkLocation.isEmpty()) {
+                consultationSchedules = consultationScheduleDAO.getConsultationSchedulesByLocation(filterWorkLocation);//
+            } else {
+                consultationSchedules = consultationScheduleDAO.getAllConsultationSchedules();
             }
-        });
 
-        request.setAttribute("workLocations", workLocations);
-        request.setAttribute("workSchedules", workSchedules);
-        request.setAttribute("userShifts", userShifts);
-        request.setAttribute("rooms", rooms);
-        request.setAttribute("doctors", doctors);
-        request.setAttribute("consultationSchedules", consultationSchedules);
-        request.getRequestDispatcher("viewConsultationSchedules.jsp").forward(request, response);
+            if (consultationSchedules == null || consultationSchedules.isEmpty()) {
+                request.setAttribute("filterDate", filterDate);
+                request.setAttribute("filterWorkLocation", filterWorkLocation);
+                request.setAttribute("workLocations", workLocations);
+                request.setAttribute("errorMessage", "Không có lịch tư vấn nào phù hợp theo các tiêu chí bạn chọn!");
+                request.getRequestDispatcher("addConsultationSchedule.jsp").forward(request, response);
+                return;
+            }
+
+            // Đặt các danh sách vào request để truyền cho JSP
+            request.setAttribute("filterDate", filterDate);
+            request.setAttribute("filterWorkLocation", filterWorkLocation);
+            request.setAttribute("consultationSchedules", consultationSchedules);
+            request.setAttribute("workSchedules", workSchedules);
+            request.setAttribute("userShifts", userShifts);
+            request.setAttribute("rooms", rooms);
+            request.setAttribute("doctors", doctors);
+            request.setAttribute("workLocations", workLocations);
+            request.getRequestDispatcher("addConsultationSchedule.jsp").forward(request, response);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**

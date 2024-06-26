@@ -4,22 +4,21 @@
  */
 package com.thdap.vaccine.model;
 
-
 /**
  *
  * @author Xuan Vinh
  */
-public class ConsultationSchedule {
+public class InjectionSchedule {
     private int scheduleID;
     private int userID;
     private int workScheduleID;
     private int userShiftID;
     private boolean status;
 
-    public ConsultationSchedule() {
+    public InjectionSchedule() {
     }
 
-    public ConsultationSchedule(int scheduleID, int userID, int workScheduleID, int userShiftID, boolean status) {
+    public InjectionSchedule(int scheduleID, int userID, int workScheduleID, int userShiftID, boolean status) {
         this.scheduleID = scheduleID;
         this.userID = userID;
         this.workScheduleID = workScheduleID;
@@ -27,13 +26,13 @@ public class ConsultationSchedule {
         this.status = status;
     }
 
-    public ConsultationSchedule(int workScheduleID, int userShiftID, boolean status) {
+    public InjectionSchedule(int workScheduleID, int userShiftID, boolean status) {
         this.workScheduleID = workScheduleID;
         this.userShiftID = userShiftID;
         this.status = status;
     }
     
-    
+
     public int getScheduleID() {
         return scheduleID;
     }
@@ -76,8 +75,8 @@ public class ConsultationSchedule {
 
     @Override
     public String toString() {
-        return "ConsultationSchedule{" + "scheduleID=" + scheduleID + ", userID=" + userID + ", workScheduleID=" + workScheduleID + ", userShiftID=" + userShiftID + ", status=" + status + '}';
+        return "InjectionSchedule{" + "scheduleID=" + scheduleID + ", userID=" + userID + ", workScheduleID=" + workScheduleID + ", userShiftID=" + userShiftID + ", status=" + status + '}';
     }
-
+    
     
 }
