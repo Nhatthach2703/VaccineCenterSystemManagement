@@ -11,8 +11,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @WebServlet(name = "TypeOfVaccineServlet", urlPatterns = {"/TypeOfVaccineServlet"})
 public class TypeOfVaccineServlet extends HttpServlet {
@@ -21,7 +23,7 @@ public class TypeOfVaccineServlet extends HttpServlet {
     private TypeOfVaccineDAO typeOfVaccineDAO = new TypeOfVaccineDAO();
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+      protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
@@ -36,27 +38,30 @@ public class TypeOfVaccineServlet extends HttpServlet {
         String source = request.getParameter("source");
         List<Vaccine> vaccines;
        
-        
         String typeIDParam = request.getParameter("typeID");
        
-
-        
-
-        
         if ((typeName != null && !typeName.isEmpty()) || (source != null && !source.isEmpty())) {
             vaccines = vaccineDAO.searchVaccinesByOptions(typeName, source);
         } else if (searchValue != null && !searchValue.isEmpty()) {
             vaccines = vaccineDAO.searchVaccines(Optional.of(searchValue));
-        }else if (typeIDParam != null && !typeIDParam.isEmpty()) {
+        } else if (typeIDParam != null && !typeIDParam.isEmpty()) {
             int typeID = Integer.parseInt(typeIDParam); // Convert typeIDParam to an integer
             vaccines = vaccineDAO.getVaccinesByType(typeID);
         } else {
             vaccines = vaccineDAO.getAllVaccines();
         }
 
+        // Extract unique sources from the list of vaccines
+        Set<String> uniqueSources = new LinkedHashSet<>();
+        for (Vaccine vaccine : vaccines) {
+            uniqueSources.add(vaccine.getSource());
+        }
+
         request.setAttribute("vaccines", vaccines);
+        request.setAttribute("uniqueSources", uniqueSources);
         request.getRequestDispatcher("TypeOfVaccine.jsp").forward(request, response);
     }
+
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
