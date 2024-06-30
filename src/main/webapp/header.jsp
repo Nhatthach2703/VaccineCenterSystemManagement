@@ -90,7 +90,10 @@
                 </ul>
               </li>
             </c:if>
+                           
+
           </ul>
+              
           <i class="bi bi-list mobile-nav-toggle"></i>
         </nav>
         <!-- .navbar -->

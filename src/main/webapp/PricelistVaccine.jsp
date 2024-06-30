@@ -68,11 +68,11 @@
                 </div>
             </section>
 
-            <div class="container mt-5">
+            <div class="container mt-5" data-aos="fade-up" data-aos-delay="800">
 
                 <div class="row row-cols-1 row-cols-md-3 g-5">
                     <c:forEach var="vaccine" items="${vaccine}">
-                        <div class="col mb-4 "data-aos="fade-up" data-aos-delay="800">
+                        <div class="col mb-4 ">
                             <div class="card h-100 p-3 rounded-4" style="width: 25rem;border-width: 2px;border-color: black">
                                 <a href="VaccineDetailsServlet?vaccineID=${vaccine.vaccineID}">
                                     <div class="card-body icon-box"  data-aos-delay="100" style="color: black">

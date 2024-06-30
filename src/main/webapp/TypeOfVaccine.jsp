@@ -50,11 +50,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
 
     <body>
-        <div class="container-fluid">
+        <div class="container-fluid"data-aos="fade-down">
             <jsp:include page="header.jsp"/>
 
             <!--type of vaccine-->
-            <div class="wapper mt-5"data-aos="fade-down">
+            <div class="wapper mt-5">
                 <div class="slide-container pt-4 pb-4 border border-dark rounded-4 p-3 ">
 
                     <h1 class="text-center mb-5" style="font-family: 'Tilt Neon', sans-serif;color: rgb(55,153,220)">Thông tin sản phẩm Vaccine</h1>
@@ -69,13 +69,13 @@
                                         </svg>
                                     </div>
                                 </div>
-                                <div id="searchDropdowns"style="display: none;">
+                                <div id="searchDropdowns" style="display: none;">
                                     <!-- Dropdowns for vaccine types and sources -->
                                     <div class="container px-4 text-center mt-4" style="width: 90%">
                                         <div class="row gx-5">
                                             <div class="col">
                                                 <select class="p-3 form-select form-select-sm rounded-4" name="typeName" id="typeName">
-                                                    <option value="${type.name}">--Loại Vaccine--</option>
+                                                    <option value="">--Loại Vaccine--</option>
                                                     <c:forEach items="${typeOfVaccines}" var="type">
                                                         <option value="${type.name}">${type.name}</option>
                                                     </c:forEach>
@@ -83,16 +83,15 @@
                                             </div>
                                             <div class="col">
                                                 <select class="p-3 form-select form-select-sm rounded-4" name="source" id="source">
-                                                    <option value="${vaccine.source}">--Nguồn gốc--</option>
-                                                    <c:forEach items="${vaccines}" var="vaccine">
-                                                        <option value="${vaccine.source}">${vaccine.source}</option>
+                                                    <option value="">--Nguồn gốc--</option>
+                                                    <c:forEach items="${uniqueSources}" var="source">
+                                                        <option value="${source}">${source}</option>
                                                     </c:forEach>
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="mt-4 d-flex justify-content-end">
                                             <input class="search" type="submit" value="Tìm">
-
                                         </div>
                                     </div>
                                 </div>
@@ -126,11 +125,11 @@
 
             <!--===============================================================================-->
             <!--vaccine-->
-            <div class="container mt-5">
+            <div class="container mt-5"data-aos="fade-up">
 
                 <div class="row row-cols-1 row-cols-md-3 g-5">
                     <c:forEach var="vaccine" items="${vaccines}">
-                        <div class="col mb-4 "data-aos="fade-up" data-aos-delay="800">
+                        <div class="col mb-4 " data-aos-delay="800">
                             <div class="card h-100 p-3" style="width: 25rem;border-width: 2px;border-color: black">
                                 <a href="VaccineDetailsServlet?vaccineID=${vaccine.vaccineID}">
                                     <div class="card-body icon-box"  data-aos-delay="100" style="color: black">
