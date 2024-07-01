@@ -15,30 +15,39 @@
             <li>
               <a class="nav-link scrollto active" href="index.jsp">Trang chủ</a>
             </li>
-            <li><a class="nav-link scrollto" href="TypeOfVaccine.jsp">Danh sách vaccine</a></li>
-            <li><a class="nav-link scrollto" href="PricelistVaccineServlet">Bảng giá</a></li>
             <li class="dropdown">
               <a href="#"
                 ><span>Vắc xin</span> <i class="bi bi-chevron-down"></i
               ></a>
               <ul>
-                <li><a href="#">Drop Down 1</a></li>
-                <li><a href="#">Drop Down 2</a></li>
+                <li><a href="TypeOfVaccineServlet">Danh sách vaccine</a></li>
+                <li><a href="PricelistVaccineServlet">Bảng giá</a></li>
                 <li><a href="#">Drop Down 3</a></li>
                 <li><a href="#">Drop Down 4</a></li>
               </ul>
             </li>
             <li>
-              <a class="nav-link scrollto" href="#team">Thông tin chuyên gia</a>
+              <a class="nav-link scrollto" href="doctorInfo">Thông tin chuyên gia</a>
             </li>
             <li><a class="nav-link scrollto" href="#pricing">Quy trình</a></li>
-            <li><a class="nav-link scrollto" href="#pricing">Phác đồ</a></li>
+            <li><a class="nav-link scrollto" href="injectionRegimens">Phác đồ</a></li>
+            <li class="dropdown">
+                <a href="#"
+                   ><span>Đặt lịch</span> <i class="bi bi-chevron-down"></i
+                    ></a>
+                <ul>
+                    <li><a href="AddConsultationScheduleServlet">Đặt lịch tư vấn</a></li>
+                    <li><a href="#">Drop Down 3</a></li>
+                    <li><a href="#">Drop Down 4</a></li>
+                </ul>
+            </li>
             <li class="dropdown">
               <a href="#"
-                ><span>Tiêm</span> <i class="bi bi-chevron-down"></i
+                ><span>Thông tin</span> <i class="bi bi-chevron-down"></i
               ></a>
               <ul>
-                <li><a href="#">Drop Down 1</a></li>
+                <li><a href="FaQsSevlet">Câu hỏi thường gặp</a></li>
+                <li><a href="newsSevlet">Tin tức</a></li>
                 <li class="dropdown">
                   <a href="#"
                     ><span>Deep Drop Down</span>
@@ -52,8 +61,8 @@
                     <li><a href="#">Deep Drop Down 5</a></li>
                   </ul>
                 </li>
-                <li><a href="#">Drop Down 2</a></li>
-                <li><a href="#">Drop Down 3</a></li>
+             
+                <li><a href="ServiceReviewServlet">Xem đánh giá</a></li>
                 <li><a href="#">Drop Down 4</a></li>
               </ul>
             </li>
@@ -76,6 +85,7 @@
                 <!--<a href="index.jsp" class="getstarted scrollto dropdown-toggle" data-toggle="dropdown">Hello ${sessionScope.user.fullName} <b class="caret"></b></a> -->
                 <ul class="dropdown-menu">
                   <li><a href="viewProfile.jsp">Xem hồ sơ</a></li>
+                  <li><a href="ViewConsultationSchedulesServlet?userID=${sessionScope.user.userID}">Xem lịch sử tư vấn</a></li>
                   <li><a href="logout">Đăng xuất</a></li>
                 </ul>
               </li>
@@ -87,4 +97,3 @@
       </div>
     </header>
     <!-- End Header -->
-

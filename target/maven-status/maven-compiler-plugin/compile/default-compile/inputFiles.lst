@@ -1,57 +1,82 @@
-E:\FPT University\Summer 2024\SWP391\code\Vaccine\src\main\java\com\thdap\vaccine\controller\SendMail.java
-E:\FPT University\Summer 2024\SWP391\code\Vaccine\src\main\java\com\thdap\vaccine\controller\Iconstant.java
-E:\FPT University\Summer 2024\SWP391\code\Vaccine\src\main\java\com\thdap\vaccine\model\News.java
-E:\FPT University\Summer 2024\SWP391\code\Vaccine\src\main\java\com\thdap\vaccine\controller\CreateVaccineServlet.java
-E:\FPT University\Summer 2024\SWP391\code\Vaccine\src\main\java\com\thdap\vaccine\model\FrequentlyAskedQuestions.java
-E:\FPT University\Summer 2024\SWP391\code\Vaccine\src\main\java\com\thdap\vaccine\dao\WorkScheduleDAO.java
-E:\FPT University\Summer 2024\SWP391\code\Vaccine\src\main\java\com\thdap\vaccine\model\Shift.java
-E:\FPT University\Summer 2024\SWP391\code\Vaccine\src\main\java\com\thdap\vaccine\model\Room.java
-E:\FPT University\Summer 2024\SWP391\code\Vaccine\src\main\java\com\thdap\vaccine\controller\AddWeeklyWorkScheduleServlet.java
-E:\FPT University\Summer 2024\SWP391\code\Vaccine\src\main\java\com\thdap\vaccine\controller\LogoutServlet.java
-E:\FPT University\Summer 2024\SWP391\code\Vaccine\src\main\java\com\thdap\vaccine\controller\UserUpdateServlet.java
-E:\FPT University\Summer 2024\SWP391\code\Vaccine\src\main\java\com\thdap\vaccine\model\WorkSchedule.java
-E:\FPT University\Summer 2024\SWP391\code\Vaccine\src\main\java\com\thdap\vaccine\controller\ChangeUserAvatarServlet.java
-E:\FPT University\Summer 2024\SWP391\code\Vaccine\src\main\java\com\thdap\vaccine\dao\WorkLocationDAO.java
-E:\FPT University\Summer 2024\SWP391\code\Vaccine\src\main\java\com\thdap\vaccine\model\Admin.java
-E:\FPT University\Summer 2024\SWP391\code\Vaccine\src\main\java\com\thdap\vaccine\controller\ViewWorkSchedulesServlet.java
-E:\FPT University\Summer 2024\SWP391\code\Vaccine\src\main\java\com\thdap\vaccine\controller\DeleteVaccineServlet.java
-E:\FPT University\Summer 2024\SWP391\code\Vaccine\src\main\java\com\thdap\vaccine\controller\DeleteWorkScheduleServlet.java
-E:\FPT University\Summer 2024\SWP391\code\Vaccine\src\main\java\com\thdap\vaccine\controller\ValidOtpServlet.java
-E:\FPT University\Summer 2024\SWP391\code\Vaccine\src\main\java\com\thdap\vaccine\dao\UserDAO.java
-E:\FPT University\Summer 2024\SWP391\code\Vaccine\src\main\java\com\thdap\vaccine\controller\AddWorkScheduleServlet.java
-E:\FPT University\Summer 2024\SWP391\code\Vaccine\src\main\java\com\thdap\vaccine\model\GoogleAccount.java
-E:\FPT University\Summer 2024\SWP391\code\Vaccine\src\main\java\com\thdap\vaccine\dao\RoomDAO.java
-E:\FPT University\Summer 2024\SWP391\code\Vaccine\src\main\java\com\thdap\vaccine\model\Doctor.java
-E:\FPT University\Summer 2024\SWP391\code\Vaccine\src\main\java\com\thdap\vaccine\resources\JakartaEE8Resource.java
-E:\FPT University\Summer 2024\SWP391\code\Vaccine\src\main\java\com\thdap\vaccine\controller\SignUpServlet.java
-E:\FPT University\Summer 2024\SWP391\code\Vaccine\src\main\java\com\thdap\vaccine\dao\FrequentlyAskedQuestionsDAO.java
-E:\FPT University\Summer 2024\SWP391\code\Vaccine\src\main\java\com\thdap\vaccine\controller\EditWorkScheduleServlet.java
-E:\FPT University\Summer 2024\SWP391\code\Vaccine\src\main\java\com\thdap\vaccine\controller\ChangePasswordServlet.java
-E:\FPT University\Summer 2024\SWP391\code\Vaccine\src\main\java\com\thdap\vaccine\model\User.java
-E:\FPT University\Summer 2024\SWP391\code\Vaccine\src\main\java\com\thdap\vaccine\model\Vaccine.java
-E:\FPT University\Summer 2024\SWP391\code\Vaccine\src\main\java\com\thdap\vaccine\dao\VaccineDAO.java
-E:\FPT University\Summer 2024\SWP391\code\Vaccine\src\main\java\com\thdap\vaccine\dao\ShiftDAO.java
-E:\FPT University\Summer 2024\SWP391\code\Vaccine\src\main\java\com\thdap\vaccine\controller\ListVaccineServlet.java
-E:\FPT University\Summer 2024\SWP391\code\Vaccine\src\main\java\com\thdap\vaccine\dao\DoctorDAO.java
-E:\FPT University\Summer 2024\SWP391\code\Vaccine\src\main\java\com\thdap\vaccine\model\ConsultationSchedule.java
-E:\FPT University\Summer 2024\SWP391\code\Vaccine\src\main\java\com\thdap\vaccine\dao\NewsDAO.java
-E:\FPT University\Summer 2024\SWP391\code\Vaccine\src\main\java\com\thdap\vaccine\controller\ConfirmCodeServlet.java
-E:\FPT University\Summer 2024\SWP391\code\Vaccine\src\main\java\com\thdap\vaccine\dao\ContextDAO.java
-E:\FPT University\Summer 2024\SWP391\code\Vaccine\src\main\java\com\thdap\vaccine\controller\AddConsultationScheduleServlet.java
-E:\FPT University\Summer 2024\SWP391\code\Vaccine\src\main\java\com\thdap\vaccine\dao\TypeOfVaccineDAO.java
-E:\FPT University\Summer 2024\SWP391\code\Vaccine\src\main\java\com\thdap\vaccine\model\WorkLocation.java
-E:\FPT University\Summer 2024\SWP391\code\Vaccine\src\main\java\com\thdap\vaccine\JakartaRestConfiguration.java
-E:\FPT University\Summer 2024\SWP391\code\Vaccine\src\main\java\com\thdap\vaccine\controller\LoginGoogleServlet.java
-E:\FPT University\Summer 2024\SWP391\code\Vaccine\src\main\java\com\thdap\vaccine\controller\VaccineDetailsServlet.java
-E:\FPT University\Summer 2024\SWP391\code\Vaccine\src\main\java\com\thdap\vaccine\controller\UpdateTypeOfVaccineServlet.java
-E:\FPT University\Summer 2024\SWP391\code\Vaccine\src\main\java\com\thdap\vaccine\controller\UpdateVaccineServlet.java
-E:\FPT University\Summer 2024\SWP391\code\Vaccine\src\main\java\com\thdap\vaccine\controller\ForgotPassServlet.java
-E:\FPT University\Summer 2024\SWP391\code\Vaccine\src\main\java\com\thdap\vaccine\controller\GoogleLogin.java
-E:\FPT University\Summer 2024\SWP391\code\Vaccine\src\main\java\com\thdap\vaccine\dao\AccountDAO.java
-E:\FPT University\Summer 2024\SWP391\code\Vaccine\src\main\java\com\thdap\vaccine\controller\CRUDTypeOfVaccineServlet.java
-E:\FPT University\Summer 2024\SWP391\code\Vaccine\src\main\java\com\thdap\vaccine\dao\ConsultationScheduleDAO.java
-E:\FPT University\Summer 2024\SWP391\code\Vaccine\src\main\java\com\thdap\vaccine\controller\LoginServlet.java
-E:\FPT University\Summer 2024\SWP391\code\Vaccine\src\main\java\com\thdap\vaccine\model\TypeOfVaccine.java
-E:\FPT University\Summer 2024\SWP391\code\Vaccine\src\main\java\com\thdap\vaccine\dao\AdminDAO.java
-E:\FPT University\Summer 2024\SWP391\code\Vaccine\src\main\java\com\thdap\vaccine\model\Account.java
-E:\FPT University\Summer 2024\SWP391\code\Vaccine\src\main\java\com\thdap\vaccine\controller\NewPassServlet.java
+D:\swp-project\vaccine_17\VaccineCenterSystemManagement\src\main\java\com\thdap\vaccine\controller\SendMail.java
+D:\swp-project\vaccine_17\VaccineCenterSystemManagement\src\main\java\com\thdap\vaccine\model\Room.java
+D:\swp-project\vaccine_17\VaccineCenterSystemManagement\src\main\java\com\thdap\vaccine\controller\PricelistVaccineServlet.java
+D:\swp-project\vaccine_17\VaccineCenterSystemManagement\src\main\java\com\thdap\vaccine\dao\AccountDAO.java
+D:\swp-project\vaccine_17\VaccineCenterSystemManagement\src\main\java\com\thdap\vaccine\model\WorkSchedule.java
+D:\swp-project\vaccine_17\VaccineCenterSystemManagement\src\main\java\com\thdap\vaccine\dao\WorkLocationDAO.java
+D:\swp-project\vaccine_17\VaccineCenterSystemManagement\src\main\java\com\thdap\vaccine\model\Admin.java
+D:\swp-project\vaccine_17\VaccineCenterSystemManagement\src\main\java\com\thdap\vaccine\dao\WorkScheduleDAO.java
+D:\swp-project\vaccine_17\VaccineCenterSystemManagement\src\main\java\com\thdap\vaccine\controller\ChangeUserAvatarServlet.java
+D:\swp-project\vaccine_17\VaccineCenterSystemManagement\src\main\java\com\thdap\vaccine\controller\ViewConsultationSchedulesServlet.java
+D:\swp-project\vaccine_17\VaccineCenterSystemManagement\src\main\java\com\thdap\vaccine\controller\ListNewsServlet.java
+D:\swp-project\vaccine_17\VaccineCenterSystemManagement\src\main\java\com\thdap\vaccine\model\Account.java
+D:\swp-project\vaccine_17\VaccineCenterSystemManagement\src\main\java\com\thdap\vaccine\controller\FaQsSevlet.java
+D:\swp-project\vaccine_17\VaccineCenterSystemManagement\src\main\java\com\thdap\vaccine\controller\ForgotPassServlet.java
+D:\swp-project\vaccine_17\VaccineCenterSystemManagement\src\main\java\com\thdap\vaccine\controller\NewsSevlet.java
+D:\swp-project\vaccine_17\VaccineCenterSystemManagement\src\main\java\com\thdap\vaccine\dao\FrequentlyAskedQuestionsDAO.java
+D:\swp-project\vaccine_17\VaccineCenterSystemManagement\src\main\java\com\thdap\vaccine\model\ConsultationSchedule.java
+D:\swp-project\vaccine_17\VaccineCenterSystemManagement\src\main\java\com\thdap\vaccine\controller\DoctorInfoServlet.java
+D:\swp-project\vaccine_17\VaccineCenterSystemManagement\src\main\java\com\thdap\vaccine\controller\TypeOfVaccineServlet.java
+D:\swp-project\vaccine_17\VaccineCenterSystemManagement\src\main\java\com\thdap\vaccine\controller\ServiceReviewServlet.java
+D:\swp-project\vaccine_17\VaccineCenterSystemManagement\src\main\java\com\thdap\vaccine\controller\ConfirmCodeServlet.java
+D:\swp-project\vaccine_17\VaccineCenterSystemManagement\src\main\java\com\thdap\vaccine\controller\AddConsultationScheduleServlet.java
+D:\swp-project\vaccine_17\VaccineCenterSystemManagement\src\main\java\com\thdap\vaccine\controller\UpdateFAQsServlet.java
+D:\swp-project\vaccine_17\VaccineCenterSystemManagement\src\main\java\com\thdap\vaccine\controller\CreateFAQsServlet.java
+D:\swp-project\vaccine_17\VaccineCenterSystemManagement\src\main\java\com\thdap\vaccine\controller\NewPassServlet.java
+D:\swp-project\vaccine_17\VaccineCenterSystemManagement\src\main\java\com\thdap\vaccine\controller\ViewWorkSchedulesServlet.java
+D:\swp-project\vaccine_17\VaccineCenterSystemManagement\src\main\java\com\thdap\vaccine\controller\ChangePasswordServlet.java
+D:\swp-project\vaccine_17\VaccineCenterSystemManagement\src\main\java\com\thdap\vaccine\controller\LogoutServlet.java
+D:\swp-project\vaccine_17\VaccineCenterSystemManagement\src\main\java\com\thdap\vaccine\controller\CreateNewsServlet.java
+D:\swp-project\vaccine_17\VaccineCenterSystemManagement\src\main\java\com\thdap\vaccine\controller\AddDoctorServlet.java
+D:\swp-project\vaccine_17\VaccineCenterSystemManagement\src\main\java\com\thdap\vaccine\controller\AddWorkScheduleServlet.java
+D:\swp-project\vaccine_17\VaccineCenterSystemManagement\src\main\java\com\thdap\vaccine\controller\CreateVaccineServlet.java
+D:\swp-project\vaccine_17\VaccineCenterSystemManagement\src\main\java\com\thdap\vaccine\dao\ContextDAO.java
+D:\swp-project\vaccine_17\VaccineCenterSystemManagement\src\main\java\com\thdap\vaccine\dao\RoomDAO.java
+D:\swp-project\vaccine_17\VaccineCenterSystemManagement\src\main\java\com\thdap\vaccine\controller\DeleteVaccineServlet.java
+D:\swp-project\vaccine_17\VaccineCenterSystemManagement\src\main\java\com\thdap\vaccine\dao\DoctorDAO.java
+D:\swp-project\vaccine_17\VaccineCenterSystemManagement\src\main\java\com\thdap\vaccine\model\Doctor.java
+D:\swp-project\vaccine_17\VaccineCenterSystemManagement\src\main\java\com\thdap\vaccine\dao\ConsultationScheduleDAO.java
+D:\swp-project\vaccine_17\VaccineCenterSystemManagement\src\main\java\com\thdap\vaccine\JakartaRestConfiguration.java
+D:\swp-project\vaccine_17\VaccineCenterSystemManagement\src\main\java\com\thdap\vaccine\model\Shift.java
+D:\swp-project\vaccine_17\VaccineCenterSystemManagement\src\main\java\com\thdap\vaccine\controller\UpdateTypeOfVaccineServlet.java
+D:\swp-project\vaccine_17\VaccineCenterSystemManagement\src\main\java\com\thdap\vaccine\dao\UserDAO.java
+D:\swp-project\vaccine_17\VaccineCenterSystemManagement\src\main\java\com\thdap\vaccine\controller\DeleteNewsServlet.java
+D:\swp-project\vaccine_17\VaccineCenterSystemManagement\src\main\java\com\thdap\vaccine\controller\Iconstant.java
+D:\swp-project\vaccine_17\VaccineCenterSystemManagement\src\main\java\com\thdap\vaccine\model\WorkLocation.java
+D:\swp-project\vaccine_17\VaccineCenterSystemManagement\src\main\java\com\thdap\vaccine\controller\DeleteFAQsServlet.java
+D:\swp-project\vaccine_17\VaccineCenterSystemManagement\src\main\java\com\thdap\vaccine\model\TypeOfVaccine.java
+D:\swp-project\vaccine_17\VaccineCenterSystemManagement\src\main\java\com\thdap\vaccine\model\User.java
+D:\swp-project\vaccine_17\VaccineCenterSystemManagement\src\main\java\com\thdap\vaccine\controller\EditWorkScheduleServlet.java
+D:\swp-project\vaccine_17\VaccineCenterSystemManagement\src\main\java\com\thdap\vaccine\controller\InjectionRegimenServlet.java
+D:\swp-project\vaccine_17\VaccineCenterSystemManagement\src\main\java\com\thdap\vaccine\controller\ListVaccineServlet.java
+D:\swp-project\vaccine_17\VaccineCenterSystemManagement\src\main\java\com\thdap\vaccine\controller\LoginServlet.java
+D:\swp-project\vaccine_17\VaccineCenterSystemManagement\src\main\java\com\thdap\vaccine\dao\ShiftDAO.java
+D:\swp-project\vaccine_17\VaccineCenterSystemManagement\src\main\java\com\thdap\vaccine\controller\LockAndUnlockAccountServlet.java
+D:\swp-project\vaccine_17\VaccineCenterSystemManagement\src\main\java\com\thdap\vaccine\controller\SignUpServlet.java
+D:\swp-project\vaccine_17\VaccineCenterSystemManagement\src\main\java\com\thdap\vaccine\dao\VaccineDAO.java
+D:\swp-project\vaccine_17\VaccineCenterSystemManagement\src\main\java\com\thdap\vaccine\controller\ValidOtpServlet.java
+D:\swp-project\vaccine_17\VaccineCenterSystemManagement\src\main\java\com\thdap\vaccine\dao\NewsDAO.java
+D:\swp-project\vaccine_17\VaccineCenterSystemManagement\src\main\java\com\thdap\vaccine\controller\DeleteWorkScheduleServlet.java
+D:\swp-project\vaccine_17\VaccineCenterSystemManagement\src\main\java\com\thdap\vaccine\dao\InjectionRegimenDAO.java
+D:\swp-project\vaccine_17\VaccineCenterSystemManagement\src\main\java\com\thdap\vaccine\controller\UpdateNewsServlet.java
+D:\swp-project\vaccine_17\VaccineCenterSystemManagement\src\main\java\com\thdap\vaccine\controller\UserUpdateServlet.java
+D:\swp-project\vaccine_17\VaccineCenterSystemManagement\src\main\java\com\thdap\vaccine\controller\ViewFaQsSevlet.java
+D:\swp-project\vaccine_17\VaccineCenterSystemManagement\src\main\java\com\thdap\vaccine\controller\ViewNewSevlet.java
+D:\swp-project\vaccine_17\VaccineCenterSystemManagement\src\main\java\com\thdap\vaccine\model\ServiceReview.java
+D:\swp-project\vaccine_17\VaccineCenterSystemManagement\src\main\java\com\thdap\vaccine\controller\AddWeeklyWorkScheduleServlet.java
+D:\swp-project\vaccine_17\VaccineCenterSystemManagement\src\main\java\com\thdap\vaccine\controller\LoginGoogleServlet.java
+D:\swp-project\vaccine_17\VaccineCenterSystemManagement\src\main\java\com\thdap\vaccine\controller\CRUDTypeOfVaccineServlet.java
+D:\swp-project\vaccine_17\VaccineCenterSystemManagement\src\main\java\com\thdap\vaccine\model\GoogleAccount.java
+D:\swp-project\vaccine_17\VaccineCenterSystemManagement\src\main\java\com\thdap\vaccine\model\InjectionRegimen.java
+D:\swp-project\vaccine_17\VaccineCenterSystemManagement\src\main\java\com\thdap\vaccine\resources\JakartaEE8Resource.java
+D:\swp-project\vaccine_17\VaccineCenterSystemManagement\src\main\java\com\thdap\vaccine\controller\GoogleLogin.java
+D:\swp-project\vaccine_17\VaccineCenterSystemManagement\src\main\java\com\thdap\vaccine\controller\ListAccountServlet.java
+D:\swp-project\vaccine_17\VaccineCenterSystemManagement\src\main\java\com\thdap\vaccine\dao\TypeOfVaccineDAO.java
+D:\swp-project\vaccine_17\VaccineCenterSystemManagement\src\main\java\com\thdap\vaccine\model\FrequentlyAskedQuestions.java
+D:\swp-project\vaccine_17\VaccineCenterSystemManagement\src\main\java\com\thdap\vaccine\controller\listFAQsServlet.java
+D:\swp-project\vaccine_17\VaccineCenterSystemManagement\src\main\java\com\thdap\vaccine\model\News.java
+D:\swp-project\vaccine_17\VaccineCenterSystemManagement\src\main\java\com\thdap\vaccine\controller\UpdateVaccineServlet.java
+D:\swp-project\vaccine_17\VaccineCenterSystemManagement\src\main\java\com\thdap\vaccine\dao\ServiceReviewDAO.java
+D:\swp-project\vaccine_17\VaccineCenterSystemManagement\src\main\java\com\thdap\vaccine\model\Vaccine.java
+D:\swp-project\vaccine_17\VaccineCenterSystemManagement\src\main\java\com\thdap\vaccine\dao\AdminDAO.java
+D:\swp-project\vaccine_17\VaccineCenterSystemManagement\src\main\java\com\thdap\vaccine\controller\VaccineDetailsServlet.java

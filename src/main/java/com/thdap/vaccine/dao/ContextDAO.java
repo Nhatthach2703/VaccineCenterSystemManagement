@@ -15,7 +15,7 @@ public class ContextDAO {
     private String url = "jdbc:sqlserver://localhost:1433;databaseName=VaccineSystem;encrypt=false;";
     private String className = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
     private String username = "sa";
-    private String password = "123123";
+    private String password = "sa123456";
 
     public Connection getConnection() {
         Connection conn = null;

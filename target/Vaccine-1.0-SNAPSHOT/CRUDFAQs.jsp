@@ -10,7 +10,7 @@
         <meta charset="utf-8" />
         <meta content="width=device-width, initial-scale=1.0" name="viewport" />
 
-        <title>Xem danh sách lịch làm việc</title>
+        <title>Danh sách Câu Hỏi Thường Gặp</title>
         <meta content="" name="description" />
         <meta content="" name="keywords" />
         <link
@@ -49,6 +49,13 @@
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+        <!--        <link rel="stylesheet" href="./assets/css/adminUI.css"/>-->
+
+        <script>
+            $(document).ready(function () {
+                $('[data-toggle="tooltip"]').tooltip();
+            });
+        </script>
         <style>
             .table-title{
                 background-color: rgb(52,152,219);
@@ -62,86 +69,71 @@
         </style>
     </head>
     <body>
-        <jsp:include page="AdminHeader.jsp"/>
-        <jsp:include page="banner.jsp"/>
+
+
         <div class="container-xl mt-5 " data-aos="fade-up">
+
             <div class="table-wrapper">
                 <div class="table-title pt-3 pb-3">
                     <div class="row">
                         <div class="col-sm-5">
-                            <h2 class="ml-4">Lịch làm việc</h2>
+                            <h2 class="ml-4">Danh sách Câu Hỏi Thường Gặp</h2>
                         </div>
                         <div class="col-sm-7">
                             <div style="text-justify: auto;text-align: right"class="mr-4">
-                                <a href="AddWorkScheduleServlet" class="btn btn-secondary" <span>Thêm lịch làm việc</span></a>
-                                <a href="AddWeeklyWorkScheduleServlet" class="btn btn-secondary" <span>Thêm lịch làm việc theo tuần</span></a>
+
+                                <a href="/Vaccine/create-faq" class="btn btn-secondary" <span>Thêm Câu Hỏi Thường Gặp</span></a>
+
                             </div>
                         </div>
                     </div>
                 </div>
+
                 <table class="table table-striped table-hover">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Phòng</th>
-                            <th>Ca làm việc</th>
-                            <th>Bác sĩ</th>
-                            <th>Địa điểm làm việc</th>
-                            <th>Ngày</th>
-                            <th>Số bệnh nhân</th>
+                          
+                            <th>Câu Hỏi Ngắn</th>
+                            <th>Câu Hỏi </th>
+                            <th>Trả Lời</th>
+                            <th>Ảnh</th>
+
                             <th>Thao tác</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <c:forEach var="workSchedule" items="${workSchedules}">
+
+                        <c:forEach var="faq" items="${faqs}">
                             <tr>
-                                <td>${workSchedule.workScheduleID}</td>
-                                <td>
-                                    <c:forEach var="room" items="${rooms}">
-                                        <c:if test="${room.roomID == workSchedule.roomID}">
-                                            ${room.roomName}
-                                        </c:if>
-                                    </c:forEach>
-                                </td>
-                                <td>
-                                    <c:forEach var="shift" items="${shifts}">
-                                        <c:if test="${shift.shiftID == workSchedule.shiftID}">
-                                            ${shift.startTime} - ${shift.endTime}
-                                        </c:if>
-                                    </c:forEach>
-                                </td>
-                                <td>
-                                    <c:forEach var="doctor" items="${doctors}">
-                                        <c:if test="${doctor.doctorID == workSchedule.doctorID}">
-                                            ${doctor.fullName}
-                                        </c:if>
-                                    </c:forEach>
-                                </td>
-                                <td>
-                                    <c:forEach var="workLocation" items="${workLocations}">
-                                        <c:if test="${workLocation.workLocationID == workSchedule.workLocationID}">
-                                            ${workLocation.name}
-                                        </c:if>
-                                    </c:forEach>
-                                </td>
-                                <td>${workSchedule.date}</td>
-                                <td>${workSchedule.numberOfPatients}</td>
-                                <td>
-                                    <a href="EditWorkScheduleServlet?workScheduleID=${workSchedule.workScheduleID}"
-                                       class="settings" title="Sửa" 
-                                       data-toggle="tooltip"><i class="material-icons"style="color: red"></i></a>
+                               
+                                <td>${faq.shortenedQuestion}</td>
+                                <td>${faq.question}</td>
+                                <td>${faq.answer}</td>
 
-                                    <a href="DeleteWorkScheduleServlet?workScheduleID=${workSchedule.workScheduleID}" 
-                                       onclick="return confirm('Bạn có chắc chắn?')" class="delete" title="Xóa" 
-                                       data-toggle="tooltip"><i class="material-icons"></i></a>
+                                <td><img <img src="uploads/${faq.image}" alt="FAQ Image" width="100" height="80"/></td>
 
+
+
+                                <td>
+                                    <a href="update-faq?id=${faq.questionID}" class="settings" title="Edit" data-toggle="tooltip">
+                                        <i class="material-icons" style="color: red">edit</i>
+                                    </a>
+                                    <a href="delete-faq?id=${faq.questionID}" onclick="return confirm('Are you sure?')" class="delete" title="Delete" data-toggle="tooltip">
+                                        <i class="material-icons">delete</i>
+                                    </a>
                                 </td>
                             </tr>
                         </c:forEach>
                     </tbody>
                 </table>
+
+
+
+
             </div>
         </div>
+
+
         <jsp:include page="footer.jsp"/>
 
         <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
