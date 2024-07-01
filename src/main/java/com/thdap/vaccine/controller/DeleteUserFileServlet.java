@@ -4,7 +4,7 @@
  */
 package com.thdap.vaccine.controller;
 
-import com.thdap.vaccine.dao.WorkScheduleDAO;
+import com.thdap.vaccine.dao.UserFileDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -17,8 +17,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Xuan Vinh
  */
-@WebServlet(name = "DeleteWorkScheduleServlet", urlPatterns = {"/DeleteWorkScheduleServlet"})
-public class DeleteWorkScheduleServlet extends HttpServlet {
+@WebServlet(name = "DeleteUserFileServlet", urlPatterns = {"/DeleteUserFileServlet"})
+public class DeleteUserFileServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,10 +37,10 @@ public class DeleteWorkScheduleServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet DeleteWorkScheduleServlet</title>");            
+            out.println("<title>Servlet DeleteUserFileServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet DeleteWorkScheduleServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet DeleteUserFileServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -58,14 +58,7 @@ public class DeleteWorkScheduleServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        processRequest(request, response);
-        int workScheduleID = Integer.parseInt(request.getParameter("workScheduleID"));
-
-        WorkScheduleDAO workScheduleDAO = new WorkScheduleDAO();
-
-        workScheduleDAO.deleteWorkSchedule(workScheduleID);
-
-        response.sendRedirect("ViewWorkSchedulesServlet");
+        processRequest(request, response);
     }
 
     /**
@@ -79,7 +72,22 @@ public class DeleteWorkScheduleServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        processRequest(request, response);
+        String userFileIDParam = request.getParameter("userFileID");
+        UserFileDAO userFileDAO = new UserFileDAO();
+        if (userFileIDParam != null && !userFileIDParam.isEmpty()) {
+            int userFileID = Integer.parseInt(userFileIDParam);
+            boolean isDeleted = userFileDAO.deleteUserFile(userFileID);
+
+            if (isDeleted) {
+                response.sendRedirect("ViewUserFilesServlet");
+            } else {
+                request.setAttribute("errorMessage", "Xóa hồ sơ bệnh án thất bại.");
+                request.getRequestDispatcher("ViewUserFilesServlet").forward(request, response);
+            }
+        } else {
+            request.setAttribute("errorMessage", "Tham số không hợp lệ.");
+            request.getRequestDispatcher("ViewUserFilesServlet").forward(request, response);
+        }
     }
 
     /**

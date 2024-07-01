@@ -56,9 +56,9 @@
                         <div class="signin-form">
                             <h2 class="form-title mb-4">Thêm lịch làm việc theo tuần</h2>
                             <form action="AddWeeklyWorkScheduleServlet" method="post" class="register-form input_infor" id="login-form" accept-charset="UTF-8">
-                                <div class="form-group " style="display: flex">
-                                    <img src="assets/img/pills-calendar-svgrepo-com.svg" style="width: 1rem; margin-right: 1rem;" />
-                                    <input placeholder="Tuần số" type="number" id="weekNumber" name="weekNumber" required>
+                                <div class="form-group" style="display: flex; align-items: center;">
+                                    <img src="assets/img/pills-calendar-svgrepo-com.svg" style="width: 1rem; margin-right: 2.5rem;" />
+                                    <input placeholder="ngày bắt đầu" type="date" id="startDate" name="startDate" style="width: 300px; font-family: 'Josefin Sans', sans-serif;"  required>
                                 </div>
                                 <div>
                                     <img src="assets/img/hospital-svgrepo-com.svg" style="width: 1rem; margin-right: 1rem;"  />
@@ -93,6 +93,15 @@
                                         </c:forEach>
                                     </select>
                                 </div>
+                                <div>
+                                    <img src="assets/img/work-type-icon.svg" style="width: 1rem; margin-right: 1rem;" />
+                                    <select class="opttion_vaccine" id="workType" name="workType" required>
+                                        <option value="" disabled="" selected="">Loại công việc</option>
+                                        <option value="1">Tiêm</option>
+                                        <option value="2">Tư vấn</option>
+                                    </select>
+                                </div>
+                                <div style="color: red; font-family: 'Tilt Neon', sans-serif;">${errorMessage}</div><br>
                                 <div class="form-group">
                                     <button style="margin-right: 1rem" class="button_add">Thêm</button>
                                     <button class="button_add"><a href="ViewWorkSchedulesServlet" style="color: white">Trở về</a></button>

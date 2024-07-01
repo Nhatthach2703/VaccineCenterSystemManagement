@@ -1,6 +1,6 @@
 <%-- 
-    Document   : addConsultationSchedule
-    Created on : Jun 6, 2024, 10:15:04 AM
+    Document   : addInjectionSchedule
+    Created on : Jun 26, 2024, 1:05:03 PM
     Author     : Xuan Vinh
 --%>
 
@@ -10,7 +10,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Đặt lịch tư vấn</title>
+        <title>Đặt lịch tiêm phòng</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
         <!-- Main CSS -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
@@ -51,11 +51,11 @@
                 <div class="table-title pt-3 pb-3">
                     <div class="row">
                         <div class="col-sm-5">
-                            <h2 class="mx-3">Lịch tư vấn</h2>
+                            <h2 class="mx-3">Lịch tiêm phòng</h2>
                         </div>
                         <div class="col-sm-7">
                             <div style="text-justify: auto; text-align: right" class="mr-4">
-                                <form class="d-flex justify-content-between" method="get" action="ConsultationScheduleServlet">
+                                <form class="d-flex justify-content-between" method="get" action="InjectionScheduleServlet">
                                     <!-- Tạo dropdown để lọc theo ngày -->
                                     <input class="mx-2" placeholder="ngày" type="date" id="filterDate" name="filterDate" style="width: 300px; font-family: 'Josefin Sans', sans-serif;" value="${filterDate}" >
                                     <!-- Tạo dropdown để lọc theo cơ sở -->
@@ -83,25 +83,25 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <c:forEach var="consultationSchedule" items="${consultationSchedules}">
+                        <c:forEach var="injectionSchedule" items="${injectionSchedules}">
                             <tr>
                                 <td class="start-end-time">
                                     <c:forEach var="userShift" items="${userShifts}" varStatus="shiftStatus">
-                                        <c:if test="${userShift.userShiftID == consultationSchedule.userShiftID}">
+                                        <c:if test="${userShift.userShiftID == injectionSchedule.userShiftID}">
                                             ${userShift.startTime} - ${userShift.endTime}
                                         </c:if>
                                     </c:forEach>
                                 </td>
                                 <td class="schedule-date">
                                     <c:forEach var="workSchedule" items="${workSchedules}" varStatus="scheduleStatus">
-                                        <c:if test="${workSchedule.workScheduleID == consultationSchedule.workScheduleID}">
+                                        <c:if test="${workSchedule.workScheduleID == injectionSchedule.workScheduleID}">
                                             ${workSchedule.date}
                                         </c:if>
                                     </c:forEach>
                                 </td>
                                 <td class="room-name">
                                     <c:forEach var="workSchedule" items="${workSchedules}">
-                                        <c:if test="${workSchedule.workScheduleID == consultationSchedule.workScheduleID}">
+                                        <c:if test="${workSchedule.workScheduleID == injectionSchedule.workScheduleID}">
                                             <c:forEach var="room" items="${rooms}">
                                                 <c:if test="${room.roomID == workSchedule.roomID}">
                                                     ${room.roomName}
@@ -112,7 +112,7 @@
                                 </td>
                                 <td class="doctor-name">
                                     <c:forEach var="workSchedule" items="${workSchedules}">
-                                        <c:if test="${workSchedule.workScheduleID == consultationSchedule.workScheduleID}">
+                                        <c:if test="${workSchedule.workScheduleID == injectionSchedule.workScheduleID}">
                                             <c:forEach var="doctor" items="${doctors}">
                                                 <c:if test="${doctor.doctorID == workSchedule.doctorID}">
                                                     ${doctor.fullName}
@@ -123,7 +123,7 @@
                                 </td>
                                 <td class="work-location">
                                     <c:forEach var="workSchedule" items="${workSchedules}">
-                                        <c:if test="${workSchedule.workScheduleID == consultationSchedule.workScheduleID}">
+                                        <c:if test="${workSchedule.workScheduleID == injectionSchedule.workScheduleID}">
                                             <c:forEach var="location" items="${workLocations}">
                                                 <c:if test="${location.workLocationID == workSchedule.workLocationID}">
                                                     ${location.name}
@@ -133,7 +133,7 @@
                                     </c:forEach>
                                 </td>
                                 <td>
-                                    <c:if test="${consultationSchedule.userID == 0}">
+                                    <c:if test="${injectionSchedule.userID == 0}">
                                         <c:choose>
                                             <c:when test="${empty sessionScope.user.userID}">
                                                 <!-- User is not logged in -->
@@ -141,15 +141,15 @@
                                             </c:when>
                                             <c:otherwise>
                                                 <!-- User is logged in -->
-                                                <form action="BookConsultationServlet" method="post">
-                                                    <input type="hidden" name="consultationScheduleID" value="${consultationSchedule.scheduleID}">
+                                                <form action="BookInjectionServlet" method="post">
+                                                    <input type="hidden" name="injectionScheduleID" value="${injectionSchedule.scheduleID}">
                                                     <input type="hidden" name="userID" value="${sessionScope.user.userID}">
                                                     <button type="submit" class="btn btn-success" onclick="return confirmBooking(this)">Đặt lịch</button>
                                                 </form>
                                             </c:otherwise>
                                         </c:choose>
                                     </c:if>
-                                    <c:if test="${consultationSchedule.userID != 0}">
+                                    <c:if test="${injectionSchedule.userID != 0}">
                                         <button type="button" class="btn btn-secondary" disabled>Đã kín</button>
                                     </c:if>
                                 </td>
@@ -181,7 +181,7 @@
                 Swal.fire({
                     icon: 'info',
                     title: 'Bạn cần đăng nhập!',
-                    text: 'Bạn cần đăng nhập để đặt lịch tư vấn.',
+                    text: 'Bạn cần đăng nhập để đặt lịch tiêm phòng.',
                     showCancelButton: true,
                     confirmButtonText: 'Đăng nhập',
                     cancelButtonText: 'Hủy'
@@ -205,7 +205,7 @@
 //                console.log("Phòng: " + room);
 //                console.log("Bác sĩ: " + doctor);
 //                console.log("Cơ sở: " + location);
-                const confirmationMessage = `Bạn có chắc chắn muốn đặt lịch tư vấn vào:\n\nGiờ: `+ time +`\nNgày: `+ date + `\nPhòng: ` + room + `\nBác sĩ: `+ doctor +`\nCơ sở: ` + location;
+                const confirmationMessage = `Bạn có chắc chắn muốn đặt lịch tiêm phòng vào:\n\nGiờ: `+ time +`\nNgày: `+ date + `\nPhòng: ` + room + `\nBác sĩ: `+ doctor +`\nCơ sở: ` + location;
                 return confirm(confirmationMessage);
             }
         </script>

@@ -4,19 +4,12 @@
  */
 package com.thdap.vaccine.controller;
 
-import com.thdap.vaccine.dao.DoctorDAO;
-import com.thdap.vaccine.dao.RoomDAO;
-import com.thdap.vaccine.dao.ShiftDAO;
-import com.thdap.vaccine.dao.WorkLocationDAO;
-import com.thdap.vaccine.dao.WorkScheduleDAO;
-import com.thdap.vaccine.model.Doctor;
-import com.thdap.vaccine.model.Room;
-import com.thdap.vaccine.model.Shift;
-import com.thdap.vaccine.model.WorkLocation;
-import com.thdap.vaccine.model.WorkSchedule;
+import com.thdap.vaccine.dao.UserDAO;
+import com.thdap.vaccine.dao.UserFileDAO;
+import com.thdap.vaccine.model.UserFile;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -27,8 +20,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Xuan Vinh
  */
-@WebServlet(name = "ViewWorkSchedulesServlet", urlPatterns = {"/ViewWorkSchedulesServlet"})
-public class ViewWorkSchedulesServlet extends HttpServlet {
+@WebServlet(name = "ViewUserFilesServlet", urlPatterns = {"/ViewUserFilesServlet"})
+public class ViewUserFilesServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,19 +35,18 @@ public class ViewWorkSchedulesServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-//        try (PrintWriter out = response.getWriter()) {
-//            /* TODO output your page here. You may use following sample code. */
-//            out.println("<!DOCTYPE html>");
-//            out.println("<html>");
-//            out.println("<head>");
-//            out.println("<title>Servlet ViewWorkSchedulesServlet</title>");            
-//            out.println("</head>");
-//            out.println("<body>");
-//            out.println("<h1>Servlet ViewWorkSchedulesServlet at " + request.getContextPath() + "</h1>");
-//            out.println("</body>");
-//            out.println("</html>");
-//        }
-        
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet ViewUserFilesServlet</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet ViewUserFilesServlet at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -69,25 +61,13 @@ public class ViewWorkSchedulesServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        processRequest(request, response);
-        WorkScheduleDAO workScheduleDAO = new WorkScheduleDAO();
-        List<WorkSchedule> workSchedules = workScheduleDAO.getAllWorkSchedules();
-        DoctorDAO doctorDAO = new DoctorDAO();
-        List<Doctor> doctors = doctorDAO.getAllDoctors();
-        RoomDAO roomDAO = new RoomDAO();
-        List<Room> rooms = roomDAO.getAllRooms();
-        ShiftDAO shiftDAO = new ShiftDAO();
-        List<Shift> shifts = shiftDAO.getAllShifts();
-        WorkLocationDAO workLocationDAO = new WorkLocationDAO();
-        List<WorkLocation> workLocations = workLocationDAO.getAllWorkLocations();
-        request.setAttribute("workSchedules", workSchedules);//
-        request.setAttribute("doctors", doctors);
-        request.setAttribute("rooms", rooms);
-        request.setAttribute("shifts", shifts);
-        request.setAttribute("workLocations", workLocations);
-        
-        RequestDispatcher dispatcher = request.getRequestDispatcher("viewWorkSchedules.jsp");
-        dispatcher.forward(request, response);
+        UserFileDAO userFileDAO = new UserFileDAO();
+        List<UserFile> userFiles = userFileDAO.getAllUserFiles();
+
+        request.setAttribute("userFiles", userFiles);
+        request.setAttribute("userDAO", new UserDAO());
+
+        request.getRequestDispatcher("viewUserFiles.jsp").forward(request, response);
     }
 
     /**

@@ -36,7 +36,8 @@
                    ><span>Đặt lịch</span> <i class="bi bi-chevron-down"></i
                     ></a>
                 <ul>
-                    <li><a href="AddConsultationScheduleServlet">Đặt lịch tư vấn</a></li>
+                    <li><a href="ConsultationScheduleServlet">Đặt lịch tư vấn</a></li>
+                    <li><a href="InjectionScheduleServlet">Đặt lịch tiêm</a></li>
                     <li><a href="#">Drop Down 3</a></li>
                     <li><a href="#">Drop Down 4</a></li>
                 </ul>
@@ -85,12 +86,16 @@
                 <!--<a href="index.jsp" class="getstarted scrollto dropdown-toggle" data-toggle="dropdown">Hello ${sessionScope.user.fullName} <b class="caret"></b></a> -->
                 <ul class="dropdown-menu">
                   <li><a href="viewProfile.jsp">Xem hồ sơ</a></li>
-                  <li><a href="ViewConsultationSchedulesServlet?userID=${sessionScope.user.userID}">Xem lịch sử tư vấn</a></li>
+                  <li><a href="ViewConsultationSchedulesServlet?userID=${sessionScope.user.userID}">Xem lịch sử lịch tư vấn</a></li>
+                  <li><a href="ViewInjectionSchedulesServlet?userID=${sessionScope.user.userID}">Xem lịch sử lịch tiêm</a></li>
                   <li><a href="logout">Đăng xuất</a></li>
                 </ul>
               </li>
             </c:if>
+                           
+
           </ul>
+              
           <i class="bi bi-list mobile-nav-toggle"></i>
         </nav>
         <!-- .navbar -->

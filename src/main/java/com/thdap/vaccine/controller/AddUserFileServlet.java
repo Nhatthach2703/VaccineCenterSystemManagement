@@ -4,7 +4,8 @@
  */
 package com.thdap.vaccine.controller;
 
-import com.thdap.vaccine.dao.WorkScheduleDAO;
+import com.thdap.vaccine.dao.UserFileDAO;
+import com.thdap.vaccine.model.UserFile;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -17,8 +18,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Xuan Vinh
  */
-@WebServlet(name = "DeleteWorkScheduleServlet", urlPatterns = {"/DeleteWorkScheduleServlet"})
-public class DeleteWorkScheduleServlet extends HttpServlet {
+@WebServlet(name = "AddUserFileServlet", urlPatterns = {"/AddUserFileServlet"})
+public class AddUserFileServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,10 +38,10 @@ public class DeleteWorkScheduleServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet DeleteWorkScheduleServlet</title>");            
+            out.println("<title>Servlet AddUserFileServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet DeleteWorkScheduleServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet AddUserFileServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -58,14 +59,7 @@ public class DeleteWorkScheduleServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        processRequest(request, response);
-        int workScheduleID = Integer.parseInt(request.getParameter("workScheduleID"));
-
-        WorkScheduleDAO workScheduleDAO = new WorkScheduleDAO();
-
-        workScheduleDAO.deleteWorkSchedule(workScheduleID);
-
-        response.sendRedirect("ViewWorkSchedulesServlet");
+        processRequest(request, response);
     }
 
     /**
@@ -79,7 +73,51 @@ public class DeleteWorkScheduleServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        processRequest(request, response);
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        UserFileDAO userFileDAO = new UserFileDAO();
+        String userIDStr = request.getParameter("userID");
+        String healthInsuranceCardNumber = request.getParameter("healthInsuranceCardNumber");
+        String bloodType = request.getParameter("bloodType");
+        String medicalHistory = request.getParameter("medicalHistory");
+        String historyOfDrugAllergies = request.getParameter("historyOfDrugAllergies");
+
+        // Validating the userID input
+        int userID = 0;
+        try {
+            userID = Integer.parseInt(userIDStr);
+        } catch (NumberFormatException e) {
+            request.setAttribute("errorMessage", "Invalid userID");
+            request.getRequestDispatcher("addUserFile.jsp").forward(request, response);
+            return;
+        }
+
+        if (userFileDAO.isHealthInsuranceCardNumberExists(healthInsuranceCardNumber)) {
+            request.setAttribute("userID", userID);
+            request.setAttribute("healthInsuranceCardNumber", healthInsuranceCardNumber);
+            request.setAttribute("bloodType", bloodType);
+            request.setAttribute("medicalHistory", medicalHistory);
+            request.setAttribute("historyOfDrugAllergies", historyOfDrugAllergies);
+            request.setAttribute("errorMessage", "Thẻ bảo hiểm xã hội đã tồn tại, vui lòng nhập lại!");
+            request.getRequestDispatcher("addUserFile.jsp").forward(request, response);
+            return;
+        }
+
+        UserFile userFile = new UserFile();
+        userFile.setUserID(userID);
+        userFile.setHealthInsuranceCardNumber(healthInsuranceCardNumber);
+        userFile.setBloodType(bloodType);
+        userFile.setMedicalHistory(medicalHistory);
+        userFile.setHistoryOfDrugAllergies(historyOfDrugAllergies);
+
+        boolean isInserted = userFileDAO.addUserFile(userFile);
+
+        if (isInserted) {
+            response.sendRedirect("ViewUserFilesServlet");
+        } else {
+            request.setAttribute("errorMessage", "Thêm hồ sơ bệnh nhân thất bại");
+            request.getRequestDispatcher("addUserFile.jsp").forward(request, response);
+        }
     }
 
     /**

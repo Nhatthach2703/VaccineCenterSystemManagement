@@ -5,22 +5,16 @@
 package com.thdap.vaccine.controller;
 
 import com.thdap.vaccine.dao.ConsultationScheduleDAO;
-import com.thdap.vaccine.dao.DoctorDAO;
-import com.thdap.vaccine.dao.RoomDAO;
 import com.thdap.vaccine.dao.UserShiftDAO;
 import com.thdap.vaccine.dao.WorkLocationDAO;
 import com.thdap.vaccine.dao.WorkScheduleDAO;
 import com.thdap.vaccine.model.ConsultationSchedule;
-import com.thdap.vaccine.model.Doctor;
-import com.thdap.vaccine.model.Room;
+import com.thdap.vaccine.model.User;
 import com.thdap.vaccine.model.UserShift;
 import com.thdap.vaccine.model.WorkLocation;
 import com.thdap.vaccine.model.WorkSchedule;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -31,8 +25,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Xuan Vinh
  */
-@WebServlet(name = "ViewConsultationSchedulesServlet", urlPatterns = {"/ViewConsultationSchedulesServlet"})
-public class ViewConsultationSchedulesServlet extends HttpServlet {
+@WebServlet(name = "BookConsultationServlet", urlPatterns = {"/BookConsultationServlet"})
+public class BookConsultationServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -51,10 +45,10 @@ public class ViewConsultationSchedulesServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ViewConsultationSchedulesServlet</title>");
+            out.println("<title>Servlet BookConsultationServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ViewConsultationSchedulesServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet BookConsultationServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -72,40 +66,7 @@ public class ViewConsultationSchedulesServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int userID = Integer.parseInt(request.getParameter("userID"));
-        WorkLocationDAO workLocationDAO = new WorkLocationDAO();
-        List<WorkLocation> workLocations = workLocationDAO.getAllWorkLocations();
-        WorkScheduleDAO workScheduleDAO = new WorkScheduleDAO();
-        List<WorkSchedule> workSchedules = workScheduleDAO.getAllWorkSchedules();
-        UserShiftDAO userShiftDAO = new UserShiftDAO();
-        List<UserShift> userShifts = userShiftDAO.getAllUserShifts();
-        RoomDAO roomDAO = new RoomDAO();
-        List<Room> rooms = roomDAO.getAllRooms();
-        DoctorDAO doctorDAO = new DoctorDAO();
-        List<Doctor> doctors = doctorDAO.getAllDoctors();
-        ConsultationScheduleDAO consultationScheduleDAO = new ConsultationScheduleDAO();
-        List<ConsultationSchedule> consultationSchedules = consultationScheduleDAO.getConsultationSchedulesByUserID(userID);
-        
-        // Sort consultationSchedules theo ngày giảm dần
-        Collections.sort(consultationSchedules, new Comparator<ConsultationSchedule>() {
-            @Override
-            public int compare(ConsultationSchedule cs1, ConsultationSchedule cs2) {
-                // Get dates of WorkSchedules corresponding to cs1 and cs2
-                WorkSchedule ws1 = workScheduleDAO.getWorkScheduleByID(cs1.getWorkScheduleID());
-                WorkSchedule ws2 = workScheduleDAO.getWorkScheduleByID(cs2.getWorkScheduleID());
-
-                // Sort descending based on dates
-                return ws2.getDate().compareTo(ws1.getDate());
-            }
-        });
-
-        request.setAttribute("workLocations", workLocations);
-        request.setAttribute("workSchedules", workSchedules);
-        request.setAttribute("userShifts", userShifts);
-        request.setAttribute("rooms", rooms);
-        request.setAttribute("doctors", doctors);
-        request.setAttribute("consultationSchedules", consultationSchedules);
-        request.getRequestDispatcher("viewConsultationSchedules.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /**
@@ -119,7 +80,36 @@ public class ViewConsultationSchedulesServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+//        processRequest(request, response);
+        int consultationScheduleID = Integer.parseInt(request.getParameter("consultationScheduleID"));
+        int userID = Integer.parseInt(request.getParameter("userID"));
+        
+        ConsultationScheduleDAO consultationScheduleDAO = new ConsultationScheduleDAO();
+        ConsultationSchedule schedule = new ConsultationSchedule();
+        schedule.setScheduleID(consultationScheduleID);
+        schedule.setUserID(userID);
+        
+        boolean isBooked = consultationScheduleDAO.bookConsultation(schedule);   
+        
+        if (isBooked) {
+            User user = (User) request.getSession().getAttribute("user");
+            WorkScheduleDAO workScheduleDAO = new WorkScheduleDAO();
+            WorkSchedule workSchedule = new WorkSchedule();
+            ConsultationSchedule consultationSchedule = new ConsultationSchedule();
+            consultationSchedule = consultationScheduleDAO.getConsultationScheduleByID(consultationScheduleID);
+            workSchedule = workScheduleDAO.getWorkScheduleByID(consultationSchedule.getWorkScheduleID());
+            UserShiftDAO userShiftDAO = new UserShiftDAO();
+            UserShift userShift = new UserShift();
+            userShift = userShiftDAO.getUserShiftByUserShiftID(consultationSchedule.getUserShiftID());
+            WorkLocationDAO workLocationDAO = new WorkLocationDAO();
+            WorkLocation workLocation = (WorkLocation) workLocationDAO.getWorkLocationById(workSchedule.getWorkLocationID());
+            SendMail.sendConsultationScheduleEmail(user.getFullName(),user.getEmail(), workSchedule.getDate(), userShift.getStartTime(), userShift.getEndTime(), workLocation.getName(), workLocation.getAddress());
+            
+            request.getRequestDispatcher("success.jsp").forward(request, response);
+        }else{
+            request.setAttribute("errorMessage", "Đặt lịch tư vấn thất bại");
+            request.getRequestDispatcher("addConsultationSchedule.jsp").forward(request, response);
+        }
     }
 
     /**

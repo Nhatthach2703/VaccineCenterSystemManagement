@@ -91,10 +91,19 @@
                                         </c:forEach>
                                     </select>
                                 </div>
+                                <div>
+                                    <img src="assets/img/work-type-icon.svg" style="width: 1rem; margin-right: 1rem;" />
+                                    <select class="opttion_vaccine" id="workType" name="workType" required>
+                                        <option value="" disabled="" selected="">Loại công việc</option>
+                                        <option value="1">Tiêm</option>
+                                        <option value="2">Tư vấn</option>
+                                    </select>
+                                </div>
                                 <div class="form-group" style="display: flex; align-items: center;">
                                     <img src="assets/img/pills-calendar-svgrepo-com.svg" style="width: 1rem; margin-right: 2.5rem;" />
                                     <input placeholder="ngày" type="date" id="date" name="date" style="width: 300px; font-family: 'Josefin Sans', sans-serif;"  required>
                                 </div>
+                                <div style="color: red; font-family: 'Tilt Neon', sans-serif;">${errorMessage}</div><br>
                                 <div class="form-group">
                                     <button style="margin-right: 1rem" class="button_add">Thêm</button>
                                     <button class="button_add"><a href="ViewWorkSchedulesServlet" style="color: white">Trở về</a></button>

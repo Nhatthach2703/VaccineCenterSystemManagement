@@ -4,7 +4,10 @@
  */
 package com.thdap.vaccine.controller;
 
-import com.thdap.vaccine.dao.WorkScheduleDAO;
+import com.thdap.vaccine.dao.UserDAO;
+import com.thdap.vaccine.dao.UserFileDAO;
+import com.thdap.vaccine.model.User;
+import com.thdap.vaccine.model.UserFile;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -17,8 +20,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Xuan Vinh
  */
-@WebServlet(name = "DeleteWorkScheduleServlet", urlPatterns = {"/DeleteWorkScheduleServlet"})
-public class DeleteWorkScheduleServlet extends HttpServlet {
+@WebServlet(name = "ViewUserFileDetailServlet", urlPatterns = {"/ViewUserFileDetailServlet"})
+public class ViewUserFileDetailServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,10 +40,10 @@ public class DeleteWorkScheduleServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet DeleteWorkScheduleServlet</title>");            
+            out.println("<title>Servlet ViewUserDetailServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet DeleteWorkScheduleServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ViewUserDetailServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -58,14 +61,17 @@ public class DeleteWorkScheduleServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        processRequest(request, response);
-        int workScheduleID = Integer.parseInt(request.getParameter("workScheduleID"));
+        int userID = Integer.parseInt(request.getParameter("userID"));
+        UserFileDAO userFileDAO = new UserFileDAO();
+        UserDAO userDAO = new UserDAO();
 
-        WorkScheduleDAO workScheduleDAO = new WorkScheduleDAO();
+        User user = userDAO.findUserByID(userID);
+        UserFile userFile = userFileDAO.findUserFileByUserID(userID);
 
-        workScheduleDAO.deleteWorkSchedule(workScheduleID);
+        request.setAttribute("user", user);
+        request.setAttribute("userFile", userFile);
 
-        response.sendRedirect("ViewWorkSchedulesServlet");
+        request.getRequestDispatcher("userFileDetail.jsp").forward(request, response);
     }
 
     /**
@@ -79,7 +85,7 @@ public class DeleteWorkScheduleServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        processRequest(request, response);
+        processRequest(request, response);
     }
 
     /**

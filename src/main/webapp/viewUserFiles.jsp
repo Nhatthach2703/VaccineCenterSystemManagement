@@ -1,6 +1,8 @@
-<%@page import="com.thdap.vaccine.model.Vaccine"%>
-<%@page import="com.thdap.vaccine.dao.VaccineDAO"%>
-<%@page import="java.util.List"%>
+<%-- 
+    Document   : viewUserFiles.jsp
+    Created on : Jun 30, 2024, 10:01:13 PM
+    Author     : Xuan Vinh
+--%>
 
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -10,7 +12,7 @@
         <meta charset="utf-8" />
         <meta content="width=device-width, initial-scale=1.0" name="viewport" />
 
-        <title>Danh sách Câu Hỏi Thường Gặp</title>
+        <title>Xem danh sách hồ sơ</title>
         <meta content="" name="description" />
         <meta content="" name="keywords" />
         <link
@@ -49,13 +51,6 @@
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-        <!--        <link rel="stylesheet" href="./assets/css/adminUI.css"/>-->
-
-        <script>
-            $(document).ready(function () {
-                $('[data-toggle="tooltip"]').tooltip();
-            });
-        </script>
         <style>
             .table-title{
                 background-color: rgb(52,152,219);
@@ -69,71 +64,48 @@
         </style>
     </head>
     <body>
-
-
-        <div class="container-xl mt-5 " data-aos="fade-up">
-
+        <jsp:include page="AdminHeader.jsp"/> // Đổi thành header của doctor
+        <jsp:include page="banner.jsp"/>
+        <div class="container-xl mt-5" data-aos="fade-up">
             <div class="table-wrapper">
                 <div class="table-title pt-3 pb-3">
                     <div class="row">
                         <div class="col-sm-5">
-                            <h2 class="ml-4">Danh sách Câu Hỏi Thường Gặp</h2>
+                            <h2 class="ml-4 text-light">Danh sách hồ sơ bệnh nhân</h2>
                         </div>
                         <div class="col-sm-7">
-                            <div style="text-justify: auto;text-align: right"class="mr-4">
-
-                                <a href="/Vaccine/create-faq" class="btn btn-secondary" <span>Thêm Câu Hỏi Thường Gặp</span></a>
-
-                            </div>
+                            <a href="addUserFile.jsp" class="btn btn-light float-right mx-5">Tạo hồ sơ bệnh nhân</a>
                         </div>
                     </div>
                 </div>
-
                 <table class="table table-striped table-hover">
                     <thead>
                         <tr>
-                          
-                            <th>Câu Hỏi Ngắn</th>
-                            <th>Câu Hỏi </th>
-                            <th>Trả Lời</th>
-                            <th>Ảnh</th>
-
-                            <th>Thao tác</th>
+                            <th>ID</th>
+                            <th>Họ và tên</th>
+                            <th>Thẻ bảo hiểm y tế</th>
+                            <th>Số điện thoại</th>
+                            <th>địa chỉ</th>
                         </tr>
                     </thead>
                     <tbody>
-
-                        <c:forEach var="faq" items="${faqs}">
+                        <c:forEach var="userFile" items="${userFiles}">
+                            <c:set var="user" value="${userDAO.findUserByID(userFile.userID)}"/>
                             <tr>
-                               
-                                <td>${faq.shortenedQuestion}</td>
-                                <td>${faq.question}</td>
-                                <td>${faq.answer}</td>
-
-                                <td><img <img src="uploads/${faq.image}" alt="FAQ Image" width="100" height="80"/></td>
-                                git add .
-
-
+                                <td>${user.userID}</td>
+                                <td>${user.fullName}</td>
+                                <td>${userFile.healthInsuranceCardNumber}</td>
+                                <td>${user.phoneNumber}</td>
+                                <td>${user.address}</td>
                                 <td>
-                                    <a href="update-faq?id=${faq.questionID}" class="settings" title="Edit" data-toggle="tooltip">
-                                        <i class="material-icons" style="color: red">edit</i>
-                                    </a>
-                                    <a href="delete-faq?id=${faq.questionID}" onclick="return confirm('Are you sure?')" class="delete" title="Delete" data-toggle="tooltip">
-                                        <i class="material-icons">delete</i>
-                                    </a>
+                                    <a href="ViewUserFileDetailServlet?userID=${user.userID}" class="btn btn-primary">Chi tiết</a>
                                 </td>
                             </tr>
                         </c:forEach>
                     </tbody>
                 </table>
-
-
-
-
             </div>
         </div>
-
-
         <jsp:include page="footer.jsp"/>
 
         <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
@@ -148,3 +120,4 @@
         <script src="assets/js/main.js"></script>
     </body>
 </html>
+
