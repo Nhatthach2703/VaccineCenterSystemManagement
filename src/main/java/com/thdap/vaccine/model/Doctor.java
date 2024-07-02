@@ -44,7 +44,20 @@ public class Doctor {
         this.yearsOfExperience = yearsOfExperience;
     }
 
-    
+     public Doctor(int doctorID, String fullName, int accountID, String email, Date doB, String phoneNumber, String address, String gender, int workLocationID, String jobTitle, String degreeType, int yearsOfExperience) {
+        this.doctorID = doctorID;
+        this.fullName = fullName;
+        this.accountID = accountID;
+        this.email = email;
+        this.doB = doB;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.gender = gender;
+        this.workLocationID = workLocationID;
+        this.jobTitle = jobTitle;
+        this.degreeType = degreeType;
+        this.yearsOfExperience = yearsOfExperience;
+    }
 
     public int getDoctorID() {
         return doctorID;

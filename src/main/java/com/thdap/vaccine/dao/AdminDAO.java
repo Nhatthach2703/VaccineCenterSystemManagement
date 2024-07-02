@@ -6,6 +6,7 @@ package com.thdap.vaccine.dao;
 
 import com.thdap.vaccine.model.Admin;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -43,6 +44,28 @@ public class AdminDAO {
             System.out.println(e);
         }
         return admins;
+    }
+    public Admin getAdminByAccountID(int accountID) {
+        Admin admin = null;
+        String query = "SELECT * FROM Admin WHERE accountID = ?";
+        try (Connection conn = contextDAO.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setInt(1, accountID);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    admin = new Admin(
+                            rs.getInt("adminID"),
+                            rs.getString("fullName"),
+                            rs.getInt("accountID"),
+                            rs.getString("image"),
+                            rs.getString("email"),
+                            rs.getString("phoneNumber")
+                    );
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return admin;
     }
     
     public static void main(String[] args) {

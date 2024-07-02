@@ -55,7 +55,7 @@
                     <i class="bi bi-chevron-right"></i
                   ></a>
                   <ul>
-                    <li><a href="#">Deep Drop Down 1</a></li>
+                    <li><a href="viewWorkSchedulesDoctorServlet">hihi</a></li>
                     <li><a href="#">Deep Drop Down 2</a></li>
                     <li><a href="#">Deep Drop Down 3</a></li>
                     <li><a href="#">Deep Drop Down 4</a></li>

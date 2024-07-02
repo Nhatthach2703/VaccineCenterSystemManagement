@@ -66,7 +66,7 @@ public class ListVaccineServlet extends HttpServlet {
        List<TypeOfVaccine> typeOfVaccines = typeOfVaccineDAO.getAllTypesOfVaccine();
         request.setAttribute("vaccines", vaccines);
         request.setAttribute("typeOfVaccines", typeOfVaccines);
-        request.getRequestDispatcher("CRUDVaccine.jsp").forward(request, response);
+        request.getRequestDispatcher("ManageListVaccine.jsp").forward(request, response);
     } 
 
     /** 

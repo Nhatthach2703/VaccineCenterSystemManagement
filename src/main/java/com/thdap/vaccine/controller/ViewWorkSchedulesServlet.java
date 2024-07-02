@@ -4,6 +4,8 @@
  */
 package com.thdap.vaccine.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.thdap.vaccine.dao.DoctorDAO;
 import com.thdap.vaccine.dao.RoomDAO;
 import com.thdap.vaccine.dao.ShiftDAO;
@@ -54,7 +56,7 @@ public class ViewWorkSchedulesServlet extends HttpServlet {
 //            out.println("</body>");
 //            out.println("</html>");
 //        }
-        
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -69,23 +71,37 @@ public class ViewWorkSchedulesServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        processRequest(request, response);
+
         WorkScheduleDAO workScheduleDAO = new WorkScheduleDAO();
-        List<WorkSchedule> workSchedules = workScheduleDAO.getAllWorkSchedules();
+        List<WorkSchedule> workSchedules = workScheduleDAO.getAllWorkSchedules();////
         DoctorDAO doctorDAO = new DoctorDAO();
-        List<Doctor> doctors = doctorDAO.getAllDoctors();
+        List<Doctor> doctors = doctorDAO.getAllDoctors_1();
         RoomDAO roomDAO = new RoomDAO();
         List<Room> rooms = roomDAO.getAllRooms();
         ShiftDAO shiftDAO = new ShiftDAO();
         List<Shift> shifts = shiftDAO.getAllShifts();
         WorkLocationDAO workLocationDAO = new WorkLocationDAO();
         List<WorkLocation> workLocations = workLocationDAO.getAllWorkLocations();
-        request.setAttribute("workSchedules", workSchedules);//
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
+
+// Sử dụng ObjectMapper để chuyển đổi đối tượng sang JSON
+        String work_Schedules = objectMapper.writeValueAsString(workSchedules);
+        String doctor = objectMapper.writeValueAsString(doctors);
+        String room = objectMapper.writeValueAsString(rooms);
+        String shift = objectMapper.writeValueAsString(shifts);
+        String workLocation = objectMapper.writeValueAsString(workLocations);
+        request.setAttribute("workSchedules", work_Schedules);//
+        request.setAttribute("workSchedule", workSchedules);//
         request.setAttribute("doctors", doctors);
         request.setAttribute("rooms", rooms);
         request.setAttribute("shifts", shifts);
         request.setAttribute("workLocations", workLocations);
-        
+        request.setAttribute("doctor", doctor);
+        request.setAttribute("room", room);
+        request.setAttribute("shift", shift);
+        request.setAttribute("workLocation", workLocation);
         RequestDispatcher dispatcher = request.getRequestDispatcher("viewWorkSchedules.jsp");
         dispatcher.forward(request, response);
     }

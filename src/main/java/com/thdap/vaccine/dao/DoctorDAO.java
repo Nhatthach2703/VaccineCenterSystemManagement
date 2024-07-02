@@ -75,7 +75,61 @@ public class DoctorDAO {
         throw new SQLException("Error adding doctor", e);
     }
 }
-    
+    public List<Doctor> getAllDoctors_1() {
+    List<Doctor> doctors = new ArrayList<>();
+    String query = "SELECT doctorID, fullName, accountID, email, doB, phoneNumber, address, gender, workLocationID, jobTitle, degreeType, yearsOfExperience FROM Doctor";
+    try (Connection conn = contextDAO.getConnection(); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(query)) {
+        while (rs.next()) {
+            Doctor doctor = new Doctor(
+                     rs.getInt("doctorID"),
+                        rs.getString("fullName"),
+                        rs.getInt("accountID"),
+                    rs.getString("email"),
+                    rs.getDate("doB"),
+                    rs.getString("phoneNumber"),
+                    rs.getString("address"),
+                    rs.getString("gender"),
+                    rs.getInt("workLocationID"),
+                    rs.getString("jobTitle"),
+                    rs.getString("degreeType"),
+                    rs.getInt("yearsOfExperience")
+            );
+            doctors.add(doctor);
+        }
+    } catch (SQLException e) {
+        System.out.println(e);
+    }
+    return doctors;
+}
+    public Doctor getDoctorByAccountID(int accountID) {
+        Doctor doctor = null;
+        String query = "SELECT * FROM Doctor WHERE accountID = ?";
+        try (Connection conn = contextDAO.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setInt(1, accountID);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    doctor = new Doctor(
+                            rs.getInt("doctorID"),
+                            rs.getString("fullName"),
+                            rs.getInt("accountID"),
+                            rs.getString("image"),
+                            rs.getString("email"),
+                            rs.getDate("doB"),
+                            rs.getString("phoneNumber"),
+                            rs.getString("address"),
+                            rs.getString("gender"),
+                            rs.getInt("workLocationID"),
+                            rs.getString("jobTitle"),
+                            rs.getString("degreeType"),
+                            rs.getInt("yearsOfExperience")
+                    );
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return doctor;
+    }
     public static void main(String[] args) {
         DoctorDAO doctorDAO = new DoctorDAO();
         List<Doctor> doctors = doctorDAO.getAllDoctors();
