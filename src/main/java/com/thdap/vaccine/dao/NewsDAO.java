@@ -26,7 +26,7 @@ public class NewsDAO {
 
      public List<News> getAllNews() {
         List<News> newsList = new ArrayList<>();
-        String sql = "SELECT * FROM News";
+        String sql = "SELECT * FROM News ORDER BY date DESC";
 
         try (Connection conn = contextDAO.getConnection(); PreparedStatement statement = conn.prepareStatement(sql); ResultSet resultSet = statement.executeQuery()) {
 
@@ -70,6 +70,52 @@ public class NewsDAO {
 
         return news;
     }
+    
+    public void addNews(News news) {
+        String sql = "INSERT INTO News (title, image, content, doctorID, date) VALUES (?, ?, ?, ?, ?)";
+
+        try (Connection conn = contextDAO.getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
+            statement.setString(1, news.getTitle());
+            statement.setString(2, news.getImage());
+            statement.setString(3, news.getContent());
+            statement.setInt(4, news.getDoctorID());
+            statement.setDate(5, news.getDate());
+
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void updateNews(News news) {
+    String sql = "UPDATE News SET title = ?, image = ?, content = ?, doctorID = ?, date = ? WHERE newID = ?";
+
+    try (Connection conn = contextDAO.getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
+        statement.setString(1, news.getTitle());
+        statement.setString(2, news.getImage());
+        statement.setString(3, news.getContent());
+        statement.setInt(4, news.getDoctorID());
+        statement.setDate(5, news.getDate());
+        statement.setInt(6, news.getNewID());
+
+        statement.executeUpdate();
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}
+
+    
+    public void deleteNews(int id) {
+    String sql = "DELETE FROM News WHERE newID = ?";
+
+    try (Connection conn = contextDAO.getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
+        statement.setInt(1, id);
+        statement.executeUpdate();
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}
+
 
 //    public static void main(String[] args) {
 //        NewsDAO newsDAO = new NewsDAO();

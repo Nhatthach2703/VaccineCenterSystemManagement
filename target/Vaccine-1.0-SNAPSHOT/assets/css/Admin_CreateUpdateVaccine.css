@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Tilt+Neon&display=swap');
+
+
 /*===========================button_add===============================*/
 .button_add {
   padding: 5px 30px;
@@ -86,7 +89,7 @@ body {
     color: #222;
     background: #f8f8f8;
     font-weight: 400;
-    font-family: "Josefin Sans", sans-serif;
+    font-family: "Tilt Neon";
 
 }
 
@@ -104,6 +107,7 @@ body {
     -webkit-border-radius: 20px;
     -o-border-radius: 20px;
     -ms-border-radius: 20px;
+    font-family: "Tilt Neon";
 }
 .input_content {
     padding: 50px;

@@ -22,7 +22,7 @@
               <ul>
                 <li><a href="TypeOfVaccineServlet">Danh sách vaccine</a></li>
                 <li><a href="PricelistVaccineServlet">Bảng giá</a></li>
-                <li><a href="#">Drop Down 3</a></li>
+                <li><a href="ChooseVaccineServlet">Đặt mua Vaccine</a></li>
                 <li><a href="#">Drop Down 4</a></li>
               </ul>
             </li>
@@ -88,6 +88,7 @@
                   <li><a href="viewProfile.jsp">Xem hồ sơ</a></li>
                   <li><a href="ViewConsultationSchedulesServlet?userID=${sessionScope.user.userID}">Xem lịch sử lịch tư vấn</a></li>
                   <li><a href="ViewInjectionSchedulesServlet?userID=${sessionScope.user.userID}">Xem lịch sử lịch tiêm</a></li>
+                  <li><a href="ViewVaccineOrderHistoryServlet?userID=${sessionScope.user.userID}">Xem lịch sử đặt vaccine</a></li>
                   <li><a href="logout">Đăng xuất</a></li>
                 </ul>
               </li>

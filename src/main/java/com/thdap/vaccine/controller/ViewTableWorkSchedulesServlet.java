@@ -29,8 +29,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Xuan Vinh
  */
-@WebServlet(name = "ViewWorkSchedulesServlet", urlPatterns = {"/ViewWorkSchedulesServlet"})
-public class ViewWorkSchedulesServlet extends HttpServlet {
+@WebServlet(name = "ViewTableWorkSchedulesServlet", urlPatterns = {"/ViewTableWorkSchedulesServlet"})
+public class ViewTableWorkSchedulesServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -49,10 +49,10 @@ public class ViewWorkSchedulesServlet extends HttpServlet {
 //            out.println("<!DOCTYPE html>");
 //            out.println("<html>");
 //            out.println("<head>");
-//            out.println("<title>Servlet ViewWorkSchedulesServlet</title>");            
+//            out.println("<title>Servlet ViewTableWorkSchedulesServlet</title>");            
 //            out.println("</head>");
 //            out.println("<body>");
-//            out.println("<h1>Servlet ViewWorkSchedulesServlet at " + request.getContextPath() + "</h1>");
+//            out.println("<h1>Servlet ViewTableWorkSchedulesServlet at " + request.getContextPath() + "</h1>");
 //            out.println("</body>");
 //            out.println("</html>");
 //        }
@@ -98,11 +98,8 @@ public class ViewWorkSchedulesServlet extends HttpServlet {
         request.setAttribute("rooms", rooms);
         request.setAttribute("shifts", shifts);
         request.setAttribute("workLocations", workLocations);
-        request.setAttribute("doctor", doctor);
-        request.setAttribute("room", room);
-        request.setAttribute("shift", shift);
-        request.setAttribute("workLocation", workLocation);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("viewWorkSchedules.jsp");
+        
+        RequestDispatcher dispatcher = request.getRequestDispatcher("viewTableWorkSchedules.jsp");
         dispatcher.forward(request, response);
     }
 

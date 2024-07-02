@@ -26,7 +26,8 @@ public class FrequentlyAskedQuestionsDAO {
     
     public List<FrequentlyAskedQuestions> getAllFAQs() {
         List<FrequentlyAskedQuestions> faqs = new ArrayList<>();
-        String sql = "SELECT * FROM FrequentlyAskedQuestions";
+        String sql = "SELECT * FROM FrequentlyAskedQuestions\n" +
+"ORDER BY questionID DESC;";
 
         try (Connection connection = contextDAO.getConnection(); PreparedStatement statement = connection.prepareStatement(sql); ResultSet resultSet = statement.executeQuery()) {
 
@@ -70,6 +71,65 @@ public class FrequentlyAskedQuestionsDAO {
     return faq;
 }
     
+    public void addFAQ(FrequentlyAskedQuestions newFAQ) {
+    String sql = "INSERT INTO FrequentlyAskedQuestions (shortenedQuestion, question, answer, image) VALUES (?, ?, ?, ?)";
+    
+    try (Connection conn = contextDAO.getConnection();
+         PreparedStatement stmt = conn.prepareStatement(sql)) {
+        
+        stmt.setString(1, newFAQ.getShortenedQuestion());
+        stmt.setString(2, newFAQ.getQuestion());
+        stmt.setString(3, newFAQ.getAnswer());
+        stmt.setString(4, newFAQ.getImage());
+        
+        int rowsInserted = stmt.executeUpdate();
+        if (rowsInserted > 0) {
+            System.out.println("A new FAQ was inserted successfully!");
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    
+    
+}
+    
+    public void updateFAQ(FrequentlyAskedQuestions faq) {
+        String sql = "UPDATE FrequentlyAskedQuestions SET shortenedQuestion = ?, question = ?, answer = ?, image = ? WHERE questionID = ?";
+        
+        try (Connection conn = contextDAO.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            
+            stmt.setString(1, faq.getShortenedQuestion());
+            stmt.setString(2, faq.getQuestion());
+            stmt.setString(3, faq.getAnswer());
+            stmt.setString(4, faq.getImage());
+            stmt.setInt(5, faq.getQuestionID());
+            
+            int rowsUpdated = stmt.executeUpdate();
+            if (rowsUpdated > 0) {
+                System.out.println("FAQ updated successfully!");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteFAQ(int id) {
+        String sql = "DELETE FROM FrequentlyAskedQuestions WHERE questionID = ?";
+        
+        try (Connection conn = contextDAO.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            
+            stmt.setInt(1, id);
+            
+            int rowsDeleted = stmt.executeUpdate();
+            if (rowsDeleted > 0) {
+                System.out.println("FAQ deleted successfully!");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
     
     public static void main(String[] args) {
         FrequentlyAskedQuestionsDAO faqDAO = new FrequentlyAskedQuestionsDAO();

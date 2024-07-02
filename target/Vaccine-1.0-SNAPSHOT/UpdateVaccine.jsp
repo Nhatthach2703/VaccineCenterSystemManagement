@@ -127,6 +127,7 @@
                                     </label>
                                     <div class="text" style="margin-left: 1.5rem;">Đặt mua Vaccine</div>
                                 </div>
+                                         <div style="color: red;font-family: 'Tilt Neon', sans-serif;font-size:15px; height: 10px">${errorMessage}</div>
                                 <div class="form-group" style=" margin-top: 2%">
                                      <button style="margin-right: 1rem" class="button_add">Sửa</button>
 
