@@ -85,7 +85,7 @@ public class CRUDTypeOfVaccineServlet extends HttpServlet {
                     }
 
                     // Forward to the form page
-                    RequestDispatcher dispatcher = request.getRequestDispatcher("CRUDTypeOfVaccine.jsp");
+                    RequestDispatcher dispatcher = request.getRequestDispatcher("ManageTypeOfVaccine.jsp");
                     dispatcher.forward(request, response);
                     break;
             }

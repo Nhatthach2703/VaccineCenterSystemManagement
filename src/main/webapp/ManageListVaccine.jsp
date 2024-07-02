@@ -1,0 +1,119 @@
+<%@page import="com.thdap.vaccine.model.Vaccine"%>
+<%@page import="com.thdap.vaccine.dao.VaccineDAO"%>
+<%@page import="java.util.List"%>
+
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>THDAP</title>
+        <link rel="shortcut icon" type="image/png" href="../assets/images/logos/favicon.png" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+        <link rel="stylesheet" href="./assets/css/AdminIndex.min.css" />
+        <script>
+            $(document).ready(function () {
+                $('[data-toggle="tooltip"]').tooltip();
+            });
+        </script>
+        <style>
+            .table-title{
+                background-color: rgb(52,152,219);
+                border-radius: 8px 8px 0px 0px;
+            }
+            .btn-secondary{
+                background-color: white;
+                color: black;
+            }
+
+        </style>
+    </head>
+
+    <body>
+        <!--  Body Wrapper -->
+        <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+             data-sidebar-position="fixed" data-header-position="fixed">
+            <!-- Sidebar Start -->
+            <jsp:include page="AdminSideBar.jsp"/>
+            <!--  Sidebar End -->
+            <!--  Main wrapper -->
+            <div class="body-wrapper">
+                <div data-aos="fade-up" class="container-fluid">
+                    <div class="container-fluid">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title fw-semibold mb-4" style="font-size: 24px; ">Danh sách Vắc xin</h5>
+                                <div class="col-sm-2 mb-3">
+                                    <div style="text-justify: auto;text-align: left"class="mr-4">
+
+                                        <a href="CreateVaccineServlet" class="btn btn-secondary" <span>Thêm Vaccine</span></a>
+
+                                    </div>
+                                </div>
+                                <table class="table table-striped table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>IDVaccine</th>
+                                            <th>Tên Vaccine</th>
+                                            <th>Nguồn</th>
+                                            <th>Loại Vaccine</th>
+                                            <th>Ảnh</th>
+                                            <th>Đối tượng Sử dụng</th>
+                                            <th>Giá</th>
+                                            <th>Thao tác</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        <c:forEach var="vaccine" items="${vaccines}">
+                                            <tr>
+                                                <td>${vaccine.vaccineID}</td>
+                                                <td>${vaccine.name}</td>
+                                                <td>${vaccine.source}</td>
+                                                <c:forEach var="typeOfVaccines" items="${typeOfVaccines}">
+                                                    <c:if test="${typeOfVaccines.typeID == vaccine.typeID}">
+                                                        <td> ${typeOfVaccines.name}</td>
+                                                    </c:if>
+                                                </c:forEach>
+                                                <td><img <img src="uploads/${vaccine.image}" alt="Vaccine Image" width="100" height="80"/></td>
+                                                <td>${vaccine.objectOfUse}</td>
+                                                <td>${vaccine.price}</td>
+
+
+                                                <td>
+                                                    <a href="UpdateVaccineServlet?vaccineID=${vaccine.vaccineID}"
+                                                       class="settings" title="Sửa" 
+                                                       data-toggle="tooltip"><i class="fas fa-edit" style="margin:0 7px; color:#299BE4;"></i></a>
+
+                                                    <a href="DeleteVaccineServlet?action=delete&id=${vaccine.vaccineID}" 
+                                                       onclick="return confirm('Bạn có chắc chắn?')" class="delete" title="Xóa" 
+                                                       data-toggle="tooltip"><i class="fas fa-trash"style="color: red"></i></a>
+
+                                                </td>
+                                            </tr>
+                                        </c:forEach>
+                                    </tbody>
+                                </table>
+                                
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+            <script src="assets/vendor/aos/aos.js"></script>
+        <script src="./assets/libs/jquery/dist/jquery.min.js"></script>
+        <script src="./assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="./assets/js/sidebarmenu.js"></script>
+        <script src="./assets/js/app.min.js"></script>
+        <script src="./assets/libs/apexcharts/dist/apexcharts.min.js"></script>
+        <script src="./assets/libs/simplebar/dist/simplebar.js"></script>
+        <script src="./assets/js/dashboard.js"></script>
+    </body>
+
+</html>

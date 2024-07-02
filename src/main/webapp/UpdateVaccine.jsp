@@ -1,49 +1,31 @@
+<%@page import="com.thdap.vaccine.model.Vaccine"%>
+<%@page import="com.thdap.vaccine.dao.VaccineDAO"%>
+<%@page import="java.util.List"%>
+
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="com.thdap.vaccine.model.Vaccine" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!doctype html>
+<html lang="en">
 
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Update Vaccine</title>
-        <!-- Font Icon -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
-        <!-- Main CSS -->
-               <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-            />
-        <!-- Favicons -->
-        <link href="assets/img/favicon.png" rel="icon" />
-        <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon" />
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>THDAP</title>
+  <link rel="shortcut icon" type="image/png" href="../assets/images/logos/favicon.png" />
+ <link rel="stylesheet" href="./assets/css/AdminIndex.min.css" />
+   <link rel="stylesheet" href="assets/css/Admin_CreateUpdateVaccine.css"/>
+</head>
 
-        <!-- Google Fonts -->
-        <link
-            href="https://fonts.googleapis.com/css2?family=Tilt+Neon&display=swap"
-            rel="stylesheet"
-            />
-
-        <!-- Vendor CSS Files -->
-        <link href="assets/vendor/aos/aos.css" rel="stylesheet" />
-        <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-        <link
-            href="assets/vendor/bootstrap-icons/bootstrap-icons.css"
-            rel="stylesheet"
-            />
-        <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet" />
-        <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet" />
-        <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet" />
-        <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet" />
-
-        <!-- Template Main CSS File -->
-        <link href="assets/css/style.css" rel="stylesheet" />
-        <<link rel="stylesheet" href="assets/css/Admin_CreateUpdateVaccine.css"/>
-
-    </head>
-    <body>
-        <jsp:include page="AdminHeader.jsp"/>
-        <div class="main" data-aos="zoom-in-left">
+<body>
+  <!--  Body Wrapper -->
+  <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+    data-sidebar-position="fixed" data-header-position="fixed">
+    <!-- Sidebar Start -->
+    <jsp:include page="AdminSideBar.jsp"/>
+    <!--  Sidebar End -->
+    <!--  Main wrapper -->
+    <div class="body-wrapper">
+          <div class="main" data-aos="zoom-in-left">
             <!-- Sign in Form -->
             <section class="sign-in" >
                 <div class="container1" >
@@ -141,22 +123,17 @@
                 </div>
             </section>
         </div>
-        <jsp:include page="footer.jsp"/>
-        <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
-        <script src="assets/vendor/aos/aos.js"></script>
-        <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-        <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-        <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-        <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-        <script src="assets/vendor/php-email-form/validate.js"></script>
 
-        <!-- Template Main JS File -->
-        <script src="assets/js/main.js"></script>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script src="assets/js/main.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-        <script>
-                                        AOS.init();
-        </script>
-    </body>
+    
+     
+  </div>
+ <script src="./assets/libs/jquery/dist/jquery.min.js"></script>
+  <script src="./assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="./assets/js/sidebarmenu.js"></script>
+  <script src="./assets/js/app.min.js"></script>
+  <script src="./assets/libs/apexcharts/dist/apexcharts.min.js"></script>
+  <script src="./assets/libs/simplebar/dist/simplebar.js"></script>
+  <script src="./assets/js/dashboard.js"></script>
+</body>
+
 </html>
