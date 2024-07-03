@@ -64,7 +64,7 @@
         </style>
     </head>
     <body>
-        <jsp:include page="AdminHeader.jsp"/>
+        <jsp:include page="header.jsp"/>
         <jsp:include page="banner.jsp"/>
         <div class="container-xl mt-5 " data-aos="fade-up">
             <div class="success-message text-center">
