@@ -85,7 +85,6 @@
                                             <div style="color: red; font-family: 'Tilt Neon', sans-serif;">${errorMessage}</div><br>
                                             <div class="form-group">
                                                 <button style="margin-right: 1rem" class="button_add">Thêm</button>
-                                                <button class="button_add"><a href="ViewWorkSchedulesServlet" style="color: white">Trở về</a></button>
                                             </div>
                                         </form>
                                     </div>

@@ -49,7 +49,7 @@ public class DeleteVaccineServlet extends HttpServlet {
             throws SQLException, IOException {
         int vaccineID = Integer.parseInt(request.getParameter("id"));
         vaccineDAO.deleteVaccine(vaccineID);
-        response.sendRedirect("CRUDVaccine.jsp");
+        response.sendRedirect("ListVaccineServlet");
     }
 
     @Override

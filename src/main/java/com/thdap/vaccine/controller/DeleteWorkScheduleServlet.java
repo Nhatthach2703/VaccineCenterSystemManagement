@@ -65,7 +65,7 @@ public class DeleteWorkScheduleServlet extends HttpServlet {
 
         workScheduleDAO.deleteWorkSchedule(workScheduleID);
 
-        response.sendRedirect("ViewWorkSchedulesServlet");
+        response.sendRedirect("ViewTableWorkSchedulesServlet");
     }
 
     /**
