@@ -60,7 +60,6 @@
                 background-color: white;
                 color: black;
             }
-
         </style>
     </head>
     <body>
@@ -104,6 +103,7 @@
                         </c:forEach>
                     </tbody>
                 </table>
+                <div style="color: red; font-family: 'Tilt Neon', sans-serif;">${errorMessage}</div><br>
             </div>
         </div>
         <jsp:include page="footer.jsp"/>

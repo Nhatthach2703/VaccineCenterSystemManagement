@@ -53,6 +53,79 @@
             }
 
         </style>
+        <script>
+            function addInjectionInfo() {
+                if (document.getElementById('newInjectionInfo') !== null) {
+                    alert("Bạn chỉ có thể thêm thông tin tiêm chủng một lần.");
+                    return;
+                }
+
+                // Fetch vaccines from the server using AJAX
+                $.ajax({
+                    url: 'GetAllVaccinesForAddInjeectionInfoServlet',
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(data) {
+                        var html = '<div class="card mb-3" id="newInjectionInfo">';
+                        html += '<div class="card-header">Thông tin tiêm chủng</div>';
+                        html += '<div class="card-body">';
+
+                        // Dropdown for selecting Vaccine
+                        html += '<div class="form-group">';
+                        html += '<label for="newVaccineID">Chọn vaccine:</label>';
+                        html += '<select id="newVaccineID" name="newVaccineID" class="form-control" required>';
+                        html += '<option value="">Chọn vaccine</option>';
+
+                        // Populate options from fetched data
+                        for (var i = 0; i < data.length; i++) {
+                            html += '<option value="' + data[i].vaccineID + '">' + data[i].name + '</option>';
+                        }
+
+                        html += '</select>';
+                        html += '</div>';
+
+                        // Other fields
+                        html += '<div class="form-group">';
+                        html += '<label for="newInjectionDate">Ngày tiêm chủng:</label>';
+                        html += '<input type="date" id="newInjectionDate" name="newInjectionDate" class="form-control" required>';
+                        html += '</div>';
+                        html += '<div class="form-group">';
+                        html += '<label for="newPatientStatus">Tình trạng bệnh nhân:</label>';
+                        html += '<input type="text" id="newPatientStatus" name="newPatientStatus" class="form-control" required>';
+                        html += '</div>';
+                        html += '<div class="form-group">';
+                        html += '<label for="newDateOfNextInjection">Ngày tiêm tiếp theo:</label>';
+                        html += '<input type="date" id="newDateOfNextInjection" name="newDateOfNextInjection" class="form-control">';
+                        html += '</div>';
+
+                        html += '</div>';
+                        html += '</div>';
+
+                        document.getElementById('injectionInfoContainer').innerHTML += html;
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error fetching vaccines:', error);
+                        alert('Không thể tải danh sách vaccine. Vui lòng thử lại sau!');
+                    }
+                });
+            }
+            
+            function validateForm() {
+                var newInjectionDate = document.getElementById("newInjectionDate");
+                var newDateOfNextInjection = document.getElementById("newDateOfNextInjection");
+
+                if (newInjectionDate && newDateOfNextInjection && newInjectionDate.value && newDateOfNextInjection.value) {
+                    var injectionDate = new Date(newInjectionDate.value);
+                    var nextInjectionDate = new Date(newDateOfNextInjection.value);
+
+                    if (nextInjectionDate <= injectionDate) {
+                        alert("Ngày tiêm tiếp theo không thể trước hoặc bằng ngày tiêm!");
+                        return false;
+                    }
+                }
+                return true;
+            }
+        </script>
     </head>
     <body>
         <jsp:include page="AdminHeader.jsp"/> <!-- Đổi lại header doctor -->
@@ -60,11 +133,11 @@
         <div class="container-xl mt-5" data-aos="fade-up">
             <div class="row">
                 <div class="col-lg-8">
-                    <h2>Chỉnh sửa hồ sơ bệnh án</h2>
-                    <form action="EditUserFileServlet" method="POST">
+                    <h3>Chỉnh sửa hồ sơ bệnh án</h3>
+                    <form action="EditUserFileServlet" method="POST" onsubmit="return validateForm()">
                         <input type="hidden" name="userFileID" value="${userFile.userFileID}">
                         <input type="hidden" name="userID" value="${userFile.userID}">
-                        <!-- Các trường chỉnh sửa của userFile -->
+                        
                         <div class="form-group">
                             <label for="healthInsuranceCardNumber">Thẻ bảo hiểm y tế:</label>
                             <input type="text" id="healthInsuranceCardNumber" name="healthInsuranceCardNumber" class="form-control" value="${userFile.healthInsuranceCardNumber}" required>
@@ -87,11 +160,44 @@
                             <label for="historyOfDrugAllergies">Dị ứng thuốc:</label>
                             <textarea id="historyOfDrugAllergies" name="historyOfDrugAllergies" class="form-control" rows="3">${userFile.historyOfDrugAllergies}</textarea>
                         </div>
+
+                        <h3>Lịch sử tiêm</h3>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Ngày tiêm</th>
+                                    <th>Vaccine</th>
+                                    <th>Tình trạng bệnh nhân</th>
+                                    <th>Ngày tiêm tiếp theo</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <c:forEach var="injectionInfo" items="${injectionInfos}">
+                                    <tr>
+                                        <td>${injectionInfo.injectionDate}</td>
+                                        <td>
+                                            <c:forEach var="vaccine" items="${vaccines}">
+                                                <c:if test="${vaccine.vaccineID == injectionInfo.vaccineID}">
+                                                    ${vaccine.name}
+                                                </c:if>
+                                            </c:forEach>
+                                        </td>
+                                        <td>${injectionInfo.patientStatus}</td>
+                                        <td>${injectionInfo.dateOfNextInjection}</td>
+                                    </tr>
+                                </c:forEach>
+                            </tbody>
+                        </table>
+
+
+                        <div id="injectionInfoContainer">
+                            <!-- Dynamic InjectionInfo fields will be added here -->
+                        </div>
+                        <button type="button" class="btn btn-success" onclick="addInjectionInfo()">Thêm thông tin tiêm chủng</button>
+
                         <div style="color: red; font-family: 'Tilt Neon', sans-serif;">${errorMessage}</div><br>
-                        <!-- Nút Submit -->
                         <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
-                        <!-- Nút Trở về -->
-                        <a href="ViewUserFilesServlet" class="btn btn-secondary">Trở về</a> <!-- Thay đổi URL tùy theo trang của bạn -->
+                        <a href="ViewUserFileDetailServlet?userID=${userFile.userID}" class="btn btn-secondary">Trở về</a>
                     </form>
                 </div>
             </div>
@@ -110,4 +216,3 @@
         <script src="assets/js/main.js"></script>
     </body>
 </html>
-

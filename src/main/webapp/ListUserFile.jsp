@@ -70,8 +70,7 @@
     </head>
     <body>
         <div class="container-xl mt-5">
-            <h1>DANH SÁCH BỆNH NHÂN</h1>
-
+            <h1>Danh sách bệnh nhân</h1>
             <form action="listUsers" method="get" class="form-inline">
                 <div class="form-group mx-sm-3 mb-2">
                     <input type="text" name="searchTerm" class="form-control" placeholder="Tên/SĐT/Số BHYT" value="${param.searchTerm}">
@@ -103,10 +102,10 @@
                             </div>
                             <c:choose>
                                 <c:when test="${userFileDAO.hasUserFile(user.userID)}">
-                                    <a href="ViewUserFileDetailServlet?userID=${user.userID}" class="btn btn-primary">Xem</a>
+                                    <a href="ViewUserFileDetailServlet?userID=${user.userID}" class="btn btn-primary">Xem hồ sơ bệnh nhân</a>
                                 </c:when>
                                 <c:otherwise>
-                                    <a href="addUserFile.jsp" class="btn btn-success">Tạo hồ sơ bệnh nhân</a>
+                                    <a href="AddUserFileServlet?userID=${user.userID}" class="btn btn-success">Tạo hồ sơ bệnh nhân</a>
                                 </c:otherwise>
                             </c:choose>
                         </div>

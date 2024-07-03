@@ -62,15 +62,19 @@
                     <img src="uploads/${user.image}" alt="User Image" class="img-fluid rounded-circle img-thumbnail" style="width: 250px; height: 250px;">
                 </div>
                 <div class="col-lg-8">
-                    <h2>Thông tin người dùng</h2>
+                    <h3>Thông tin người dùng</h3>
                     <table class="table table-bordered">
-                        <tr>
-                            <th>ID</th>
-                            <td>${user.userID}</td>
-                        </tr>
                         <tr>
                             <th>Họ và tên</th>
                             <td>${user.fullName}</td>
+                        </tr>
+                        <tr>
+                            <th>Giới tính</th>
+                            <td>${user.gender}</td>
+                        </tr>
+                        <tr>
+                            <th>Ngày sinh</th>
+                            <td>${user.doB}</td>
                         </tr>
                         <tr>
                             <th>Email</th>
@@ -80,10 +84,13 @@
                             <th>Số điện thoại</th>
                             <td>${user.phoneNumber}</td>
                         </tr>
-                        <!-- Các thông tin khác của user -->
+                        <tr>
+                            <th>Địa chỉ</th>
+                            <td>${user.address}</td>
+                        </tr>
                     </table>
 
-                    <h2>Thông tin hồ sơ bệnh án</h2>
+                    <h3>Thông tin hồ sơ bệnh án</h3>
                     <table class="table table-bordered">
                         <tr>
                             <th>Thẻ bảo hiểm y tế</th>
@@ -101,18 +108,43 @@
                             <th>Dị ứng thuốc</th>
                             <td>${empty userFile.historyOfDrugAllergies ? 'Không có' : userFile.historyOfDrugAllergies}</td>
                         </tr>
-                        <!-- Các thông tin khác của user file -->
+                    </table>
+                        
+                    <h3>Lịch sử tiêm</h3>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Ngày tiêm</th>
+                                <th>Vaccine</th>
+                                <th>Tình trạng bệnh nhân</th>
+                                <th>Ngày tiêm tiếp theo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <c:forEach var="injectionInfo" items="${injectionInfos}">
+                                <tr>
+                                    <td>${injectionInfo.injectionDate}</td>
+                                    <td>
+                                        <c:forEach var="vaccine" items="${vaccines}">
+                                            <c:if test="${vaccine.vaccineID == injectionInfo.vaccineID}">
+                                                ${vaccine.name}
+                                            </c:if>
+                                        </c:forEach>
+                                    </td>
+                                    <td>${injectionInfo.patientStatus}</td>
+                                    <td>${injectionInfo.dateOfNextInjection}</td>
+                                </tr>
+                            </c:forEach>
+                        </tbody>
                     </table>
 
-                    <!-- Nút chỉnh sửa -->
                     <a href="EditUserFileServlet?userFileID=${userFile.userFileID}" class="btn btn-primary">Chỉnh sửa</a>
-                    <!-- Nút xóa -->
                     <form action="DeleteUserFileServlet" method="post" style="display:inline;">
                         <input type="hidden" name="userFileID" value="${userFile.userFileID}">
+                        <input type="hidden" name="userID" value="${userFile.userID}">
                         <button type="submit" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa hồ sơ bệnh án này?');">Xóa</button>
                     </form>
-                    <!-- Nút trở về -->
-                    <a href="ViewUserFilesServlet" class="btn btn-secondary">Trở về</a> <!-- Thay đổi URL tùy theo trang của bạn -->
+                    <a href="listUsers?searchTerm=&searchType=fullname" class="btn btn-secondary">Trở về</a>
                 </div>
             </div>
         </div>

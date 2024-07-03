@@ -46,10 +46,7 @@
                     </div>
                 </div>
                 <form action="AddUserFileServlet" method="post">
-                    <div class="mb-3">
-                        <label for="userID" class="form-label">User ID</label>
-                        <input type="text" class="form-control" id="userID" name="userID" value="${userID}" required>
-                    </div>
+                    <input type="hidden" class="form-control" id="userID" name="userID" value="${userID}" required>
                     <div class="mb-3">
                         <label for="healthInsuranceCardNumber" class="form-label">Số thẻ bảo hiểm y tế</label>
                         <input type="text" class="form-control" id="healthInsuranceCardNumber" name="healthInsuranceCardNumber" value="${healthInsuranceCardNumber}" required>
@@ -74,7 +71,7 @@
                     </div>
                     <div style="color: red; font-family: 'Tilt Neon', sans-serif;">${errorMessage}</div><br>
                     <button type="submit" class="btn btn-primary">Submit</button>
-                    <a href="ViewUserFilesServlet" class="btn btn-secondary">Trở về</a> <!-- Thay đổi URL tùy theo trang của bạn -->
+                    <a href="listUsers?searchTerm=&searchType=fullname" class="btn btn-secondary">Trở về</a>
                 </form>
             </div>
         </div>

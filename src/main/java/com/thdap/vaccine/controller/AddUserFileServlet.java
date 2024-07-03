@@ -59,7 +59,9 @@ public class AddUserFileServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        int userID = Integer.parseInt(request.getParameter("userID"));
+        request.setAttribute("userID", userID);
+        request.getRequestDispatcher("addUserFile.jsp").forward(request, response);
     }
 
     /**
@@ -113,7 +115,7 @@ public class AddUserFileServlet extends HttpServlet {
         boolean isInserted = userFileDAO.addUserFile(userFile);
 
         if (isInserted) {
-            response.sendRedirect("ViewUserFilesServlet");
+            response.sendRedirect("listUsers?searchTerm=&searchType=fullname");
         } else {
             request.setAttribute("errorMessage", "Thêm hồ sơ bệnh nhân thất bại");
             request.getRequestDispatcher("addUserFile.jsp").forward(request, response);

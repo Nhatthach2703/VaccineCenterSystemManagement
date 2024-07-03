@@ -4,10 +4,12 @@
  */
 package com.thdap.vaccine.controller;
 
-import com.thdap.vaccine.dao.InjectionInfoDAO;
-import com.thdap.vaccine.dao.UserFileDAO;
+import com.google.gson.Gson;
+import com.thdap.vaccine.dao.VaccineDAO;
+import com.thdap.vaccine.model.Vaccine;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,8 +20,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Xuan Vinh
  */
-@WebServlet(name = "DeleteUserFileServlet", urlPatterns = {"/DeleteUserFileServlet"})
-public class DeleteUserFileServlet extends HttpServlet {
+@WebServlet(name = "GetAllVaccinesForAddInjeectionInfoServlet", urlPatterns = {"/GetAllVaccinesForAddInjeectionInfoServlet"})
+public class GetAllVaccinesForAddInjeectionInfoServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,10 +40,10 @@ public class DeleteUserFileServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet DeleteUserFileServlet</title>");
+            out.println("<title>Servlet GetAllVaccinesServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet DeleteUserFileServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet GetAllVaccinesServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -59,7 +61,19 @@ public class DeleteUserFileServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        response.setContentType("application/json");
+        PrintWriter out = response.getWriter();
+
+        VaccineDAO vaccineDAO = new VaccineDAO();
+        List<Vaccine> vaccines = vaccineDAO.getAllVaccines();
+
+        Gson gson = new Gson();
+        String json = gson.toJson(vaccines);
+
+        out.print(json);
+        out.flush();
     }
 
     /**
@@ -73,33 +87,7 @@ public class DeleteUserFileServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String userFileIDParam = request.getParameter("userFileID");
-        String userIDParam = request.getParameter("userID");
-        UserFileDAO userFileDAO = new UserFileDAO();
-        InjectionInfoDAO injectionInfoDAO = new InjectionInfoDAO();
-
-        if (userFileIDParam != null && !userFileIDParam.isEmpty() && userIDParam != null && !userIDParam.isEmpty()) {
-            try {
-                int userFileID = Integer.parseInt(userFileIDParam);
-                int userID = Integer.parseInt(userIDParam);
-
-                boolean injectionInfoDeleted = injectionInfoDAO.deleteInjectionInfoByUserFileID(userFileID);
-
-                boolean userFileDeleted = userFileDAO.deleteUserFile(userFileID);
-
-                if (userFileDeleted && injectionInfoDeleted) {
-//                    request.setAttribute("errorMessage", "Hồ sơ bệnh án và các thông tin liên quan đã được xóa thành công.");
-                } else {
-//                    request.setAttribute("errorMessage", "Xóa hồ sơ bệnh án thất bại. Vui lòng thử lại.");
-                }
-            } catch (NumberFormatException e) {
-                request.setAttribute("errorMessage", "Tham số không hợp lệ. Vui lòng thử lại.");
-            }
-        } else {
-            request.setAttribute("errorMessage", "Tham số không hợp lệ. Vui lòng thử lại.");
-        }
-
-        response.sendRedirect("listUsers?searchTerm=&searchType=fullname");
+        processRequest(request, response);
     }
 
     /**

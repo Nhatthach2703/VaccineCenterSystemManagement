@@ -17,12 +17,13 @@ import java.util.List;
  * @author Xuan Vinh
  */
 public class UserFileDAO {
+
     private ContextDAO contextDAO;
 
     public UserFileDAO() {
         contextDAO = new ContextDAO();
     }
-    
+
     public boolean addUserFile(UserFile userFile) {
         String query = "INSERT INTO UserFile (userID, healthInsuranceCardNumber, bloodType, medicalHistory, historyOfDrugAllergies) VALUES (?, ?, ?, ?, ?)";
         try (Connection conn = contextDAO.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
@@ -53,7 +54,7 @@ public class UserFileDAO {
         }
         return false;
     }
-    
+
     public List<UserFile> getAllUserFiles() {
         List<UserFile> userFiles = new ArrayList<>();
         String query = "SELECT * FROM UserFile";
@@ -74,7 +75,7 @@ public class UserFileDAO {
         }
         return userFiles;
     }
-    
+
     public UserFile findUserFileByUserID(int userID) {
         String sql = "SELECT * FROM UserFile WHERE userID = ?";
         UserFile userFile = null;
@@ -97,7 +98,7 @@ public class UserFileDAO {
         }
         return userFile;
     }
-    
+
     public UserFile findUserFileByID(int userFileID) {
         String sql = "SELECT * FROM UserFile WHERE userFileID = ?";
         UserFile userFile = null;
@@ -120,7 +121,7 @@ public class UserFileDAO {
         }
         return userFile;
     }
-    
+
     public boolean updateUserFile(UserFile userFile) {
         String query = "UPDATE UserFile SET healthInsuranceCardNumber = ?, bloodType = ?, medicalHistory = ?, historyOfDrugAllergies = ? WHERE userFileID = ?";
         try (Connection conn = contextDAO.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
@@ -137,7 +138,7 @@ public class UserFileDAO {
             return false;
         }
     }
-    
+
     public boolean deleteUserFile(int userFileID) {
         String query = "DELETE FROM UserFile WHERE userFileID = ?";
         try (Connection conn = contextDAO.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
@@ -149,33 +150,33 @@ public class UserFileDAO {
             return false;
         }
     }
-    
-   public List<UserFile> searchUserFilesByHealthInsuranceCard(String healthInsuranceCardNumber) {
-    List<UserFile> userFiles = new ArrayList<>();
-    String query = "SELECT * FROM UserFile WHERE healthInsuranceCardNumber = ?";
 
-    try (Connection conn = contextDAO.getConnection(); PreparedStatement statement = conn.prepareStatement(query)) {
-        statement.setString(1, healthInsuranceCardNumber);
-        try (ResultSet resultSet = statement.executeQuery()) {
-            while (resultSet.next()) {
-                UserFile userFile = new UserFile();
-                userFile.setUserFileID(resultSet.getInt("userFileID"));
-                userFile.setUserID(resultSet.getInt("userID"));
-                userFile.setHealthInsuranceCardNumber(resultSet.getString("healthInsuranceCardNumber"));
-                userFile.setBloodType(resultSet.getString("bloodType"));
-                userFile.setMedicalHistory(resultSet.getString("medicalHistory"));
-                userFile.setHistoryOfDrugAllergies(resultSet.getString("historyOfDrugAllergies"));
-                userFiles.add(userFile);
+    public List<UserFile> searchUserFilesByHealthInsuranceCard(String healthInsuranceCardNumber) {
+        List<UserFile> userFiles = new ArrayList<>();
+        String query = "SELECT * FROM UserFile WHERE healthInsuranceCardNumber = ?";
+
+        try (Connection conn = contextDAO.getConnection(); PreparedStatement statement = conn.prepareStatement(query)) {
+            statement.setString(1, healthInsuranceCardNumber);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    UserFile userFile = new UserFile();
+                    userFile.setUserFileID(resultSet.getInt("userFileID"));
+                    userFile.setUserID(resultSet.getInt("userID"));
+                    userFile.setHealthInsuranceCardNumber(resultSet.getString("healthInsuranceCardNumber"));
+                    userFile.setBloodType(resultSet.getString("bloodType"));
+                    userFile.setMedicalHistory(resultSet.getString("medicalHistory"));
+                    userFile.setHistoryOfDrugAllergies(resultSet.getString("historyOfDrugAllergies"));
+                    userFiles.add(userFile);
+                }
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-    } catch (SQLException e) {
-        e.printStackTrace();
+
+        return userFiles;
     }
 
-    return userFiles;
-}
-
- public boolean hasUserFile(int userID) {
+    public boolean hasUserFile(int userID) {
         String query = "SELECT COUNT(*) FROM UserFile WHERE userID = ?";
         try (Connection conn = contextDAO.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
             pstmt.setInt(1, userID);
@@ -188,8 +189,28 @@ public class UserFileDAO {
         }
         return false;
     }
-
-
-
     
+    public UserFile getUserFileByHealthInsuranceCardNumber(String healthInsuranceCardNumber) {
+        String sql = "SELECT * FROM UserFile WHERE healthInsuranceCardNumber = ?";
+        UserFile userFile = null;
+        try (Connection conn = contextDAO.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, healthInsuranceCardNumber);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    userFile = new UserFile(
+                            rs.getInt("userID"),
+                            rs.getString("healthInsuranceCardNumber"),
+                            rs.getString("bloodType"),
+                            rs.getString("medicalHistory"),
+                            rs.getString("historyOfDrugAllergies")
+                    );
+                    userFile.setUserFileID(rs.getInt("userFileID"));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return userFile;
+    }
+
 }

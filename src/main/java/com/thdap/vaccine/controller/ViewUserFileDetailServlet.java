@@ -4,12 +4,17 @@
  */
 package com.thdap.vaccine.controller;
 
+import com.thdap.vaccine.dao.InjectionInfoDAO;
 import com.thdap.vaccine.dao.UserDAO;
 import com.thdap.vaccine.dao.UserFileDAO;
+import com.thdap.vaccine.dao.VaccineDAO;
+import com.thdap.vaccine.model.InjectionInfo;
 import com.thdap.vaccine.model.User;
 import com.thdap.vaccine.model.UserFile;
+import com.thdap.vaccine.model.Vaccine;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -64,12 +69,18 @@ public class ViewUserFileDetailServlet extends HttpServlet {
         int userID = Integer.parseInt(request.getParameter("userID"));
         UserFileDAO userFileDAO = new UserFileDAO();
         UserDAO userDAO = new UserDAO();
+        InjectionInfoDAO injectionInfoDAO = new InjectionInfoDAO();
+        VaccineDAO vaccineDAO = new VaccineDAO();
 
         User user = userDAO.findUserByID(userID);
         UserFile userFile = userFileDAO.findUserFileByUserID(userID);
+        List<InjectionInfo> injectionInfos = injectionInfoDAO.getInjectionInfosByUserFileID(userFile.getUserFileID());
+        List<Vaccine> vaccines = vaccineDAO.getAllVaccines();
 
         request.setAttribute("user", user);
         request.setAttribute("userFile", userFile);
+        request.setAttribute("vaccines", vaccines);
+        request.setAttribute("injectionInfos", injectionInfos);
 
         request.getRequestDispatcher("userFileDetail.jsp").forward(request, response);
     }
