@@ -227,4 +227,18 @@ public class ConsultationScheduleDAO {
             System.out.println(schedule);
         }
     }
+    
+    public boolean updateConsultationScheduleStatus(ConsultationSchedule consultationSchedule) {
+        String query = "UPDATE ConsultationSchedule SET status = ? WHERE scheduleID = ?";
+        try (Connection conn = contextDAO.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setBoolean(1, consultationSchedule.isStatus());
+            pstmt.setInt(2, consultationSchedule.getScheduleID());
+            int rowsUpdated = pstmt.executeUpdate();
+            return rowsUpdated > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
 }

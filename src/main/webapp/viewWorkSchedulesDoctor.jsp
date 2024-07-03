@@ -15,7 +15,17 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="./assets/css/style.css"/>
         <link rel="stylesheet" href="./assets/css/calendar.css"/>
-
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            function confirmSubmission(form) {
+                var confirmation = confirm("Bạn có chắc chắn muốn xác nhận việc đã hoàn tất lịch khám với khách?");
+                if (confirmation) {
+                    return true; // Cho phép gửi form
+                } else {
+                    return false; // Ngăn chặn gửi form
+                }
+            }
+        </script>
     </head>
     <body>
         <jsp:include page="AdminHeader.jsp"/>
@@ -181,16 +191,25 @@
                                     const cell = document.querySelector(columnClass);
                                     if (cell) {
                                         schedules.forEach(schedule => {
-                                            const {fullName, startTime, endTime} = schedule;
+                                            const {fullName, startTime, endTime, scheduleID, status} = schedule;
                                             if (fullName !== 'Chưa có') {
+                                                const disableButton = schedule.status ? 'disabled' : '';
                                                 cell.innerHTML += `
-                                            <div class="row mb-3"style="background-color:rgb(52,152,219)">
+                                                <div class="row mb-3"style="background-color:rgb(52,152,219)">
                                                 <div class="col-md-6">
                                                     <h6 style="text-align: left; font-size: 20px;">Lịch:` + workType + `</h6>
                                                     <p style="text-align: left;">Khách: ` + fullName + `</p>
                                                     <p style="text-align: left;">Thời gian: ` + startTime + ` - ` + endTime + `</p>
                                                 </div>
-                                               <div class="col-md-6 mt-4"> <a class="btn btn-danger" href="#">Hoàn tất</a></div> 
+                                                <div class="col-md-6 mt-4">
+                                                    <form action="UpdateScheduleStatusServlet" method="post">
+                                                        <input type="hidden" id="scheduleID" name="scheduleID" value="`+scheduleID+`">
+                                                        <input type="hidden" id="workType" name="workType" value="`+workType+`">
+
+                                                        <!-- Button to trigger updateStatus function -->
+                                                        <button type="submit" class="btn btn-danger" `+disableButton+` onclick="return confirmSubmission(this)">Hoàn tất</button>
+                                                    </form>
+                                                </div> 
                                             </div>
                                                     `;
                                             } else if (fullName == 'Chưa có') {
@@ -237,8 +256,10 @@
                                         startTime = formatTime(userShift.startTime);
                                         endTime = formatTime(userShift.endTime);
                                     }
+                                    let scheduleID = injectionSchedule.scheduleID;
+                                    let status = injectionSchedule.status;
 
-                                    schedules.push({fullName, startTime, endTime});
+                                    schedules.push({fullName, startTime, endTime, scheduleID, status});
                                 }
                             });
 
@@ -262,14 +283,16 @@
                                         startTime = formatTime(userShift.startTime);
                                         endTime = formatTime(userShift.endTime);
                                     }
+                                    let scheduleID = consultationSchedule.scheduleID;
+                                    let status = consultationSchedule.status;
 
-                                    schedules.push({fullName, startTime, endTime});
+                                    schedules.push({fullName, startTime, endTime, scheduleID, status});
                                 }
                             });
 
                             console.log(schedules);
                             return schedules;
-                        }
+                        }                      
         </script>
 
 

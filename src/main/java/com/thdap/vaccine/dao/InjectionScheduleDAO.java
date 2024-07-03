@@ -190,4 +190,18 @@ public class InjectionScheduleDAO {
         }
         return schedules;
     }
+    
+    public boolean updateInjectionScheduleStatus(InjectionSchedule injectionSchedule) {
+        String query = "UPDATE InjectionSchedule SET status = ? WHERE scheduleID = ?";
+        try (Connection conn = contextDAO.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setBoolean(1, injectionSchedule.isStatus());
+            pstmt.setInt(2, injectionSchedule.getScheduleID());
+            int rowsUpdated = pstmt.executeUpdate();
+            return rowsUpdated > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
 }
