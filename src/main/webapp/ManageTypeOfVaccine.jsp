@@ -14,6 +14,7 @@
         <link rel="shortcut icon" type="image/png" href="../assets/images/logos/favicon.png" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
         <link rel="stylesheet" href="./assets/css/AdminIndex.min.css" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
         <script>
             $(document).ready(function () {
                 $('[data-toggle="tooltip"]').tooltip();
@@ -75,7 +76,7 @@
                                                            class="settings"
                                                            title="Sửa" data-toggle="tooltip"><i class="fas fa-edit" style="margin:0 7px;color:#299BE4;" ></i></a>
                                                         <a href="CRUDTypeOfVaccineServlet?action=delete&typeID=${listTypesOfVaccine.typeID}" 
-                                                           onclick="return confirm('Bạn có chắc chắn?')"  
+                                                           onclick="confirmDelete(event, this)"  
                                                            class="delete" title="Xóa" data-toggle="tooltip">
                                                             <i class="fas fa-trash" style="color: red"></i>
                                                         </a>
@@ -92,6 +93,31 @@
                 </div>
 
             </div>
+            <script>
+
+
+                function confirmDelete(event, element) {
+                    event.preventDefault(); // Ngăn chặn hành động mặc định của liên kết
+                    Swal.fire({
+                        title: 'Bạn có chắc chắn?',
+
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Vâng, xóa nó!'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            Swal.fire(
+                                    'Đã xóa loại vaccine thành công',
+                                    ).then(() => {
+                                window.location.href = element.href; // Điều hướng đến liên kết sau khi xác nhận
+                            });
+                        }
+                    });
+                }
+            </script>
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
             <script src="./assets/libs/jquery/dist/jquery.min.js"></script>
             <script src="./assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
             <script src="./assets/js/sidebarmenu.js"></script>

@@ -49,7 +49,7 @@
                     <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                     <span class="hide-menu">Quản lý lịch làm việc</span>
                 </li>
-                 <li class="sidebar-item">
+                <li class="sidebar-item">
                     <a class="sidebar-link" href="ViewWorkSchedulesServlet" aria-expanded="false">
                         <span>
                             <i class="ti ti-calendar"></i>
@@ -58,11 +58,27 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
+                    <a class="sidebar-link" href="ViewTableWorkSchedulesServlet" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-calendar"></i>
+                        </span>
+                        <span class="hide-menu">Sửa/Xóa lịch làm việc</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
                     <a class="sidebar-link" href="AddWorkScheduleServlet" aria-expanded="false">
                         <span>
                             <i class="ti ti-calendar"></i>
                         </span>
-                        <span class="hide-menu">Thêm lịch làm việc</span>
+                        <span class="hide-menu">Thêm lịch làm việc theo ngày</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="AddWeeklyWorkScheduleServlet" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-calendar"></i>
+                        </span>
+                        <span class="hide-menu">Thêm lịch làm việc theo tuần</span>
                     </a>
                 </li>
                  

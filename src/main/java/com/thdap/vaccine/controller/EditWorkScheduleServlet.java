@@ -170,7 +170,7 @@ public class EditWorkScheduleServlet extends HttpServlet {
             updateInjectionSchedules(workScheduleID, shiftID);
         }
 
-        response.sendRedirect("ViewWorkSchedulesServlet");
+        response.sendRedirect("ViewTableWorkSchedulesServlet");
     }
 
     private void updateConsultationSchedules(int workScheduleID, int shiftID) {
