@@ -149,4 +149,47 @@ public class UserFileDAO {
             return false;
         }
     }
+    
+   public List<UserFile> searchUserFilesByHealthInsuranceCard(String healthInsuranceCardNumber) {
+    List<UserFile> userFiles = new ArrayList<>();
+    String query = "SELECT * FROM UserFile WHERE healthInsuranceCardNumber = ?";
+
+    try (Connection conn = contextDAO.getConnection(); PreparedStatement statement = conn.prepareStatement(query)) {
+        statement.setString(1, healthInsuranceCardNumber);
+        try (ResultSet resultSet = statement.executeQuery()) {
+            while (resultSet.next()) {
+                UserFile userFile = new UserFile();
+                userFile.setUserFileID(resultSet.getInt("userFileID"));
+                userFile.setUserID(resultSet.getInt("userID"));
+                userFile.setHealthInsuranceCardNumber(resultSet.getString("healthInsuranceCardNumber"));
+                userFile.setBloodType(resultSet.getString("bloodType"));
+                userFile.setMedicalHistory(resultSet.getString("medicalHistory"));
+                userFile.setHistoryOfDrugAllergies(resultSet.getString("historyOfDrugAllergies"));
+                userFiles.add(userFile);
+            }
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return userFiles;
+}
+
+ public boolean hasUserFile(int userID) {
+        String query = "SELECT COUNT(*) FROM UserFile WHERE userID = ?";
+        try (Connection conn = contextDAO.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setInt(1, userID);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+
+
+    
 }

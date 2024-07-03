@@ -156,7 +156,66 @@ public class UserDAO {
         return success;
     }
     
+// Tìm kiếm người dùng theo tên
+    public List<User> searchUsersByName(String fullName) {
+        List<User> users = new ArrayList<>();
+        String query = "SELECT * FROM Users WHERE fullName LIKE ?";
 
+        try (Connection conn = contextDAO.getConnection(); PreparedStatement statement = conn.prepareStatement(query)) {
+            statement.setString(1, "%" + fullName + "%");
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    User user = extractUserFromResultSet(resultSet);
+                    users.add(user);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return users;
+    }
+
+  
+
+    // Tìm kiếm người dùng theo số điện thoại
+ public List<User> searchUsersByPhoneNumber(String phoneNumber) {
+    List<User> users = new ArrayList<>();
+    String query = "SELECT * FROM Users WHERE phoneNumber LIKE ?";
+
+    try (Connection conn = contextDAO.getConnection(); PreparedStatement statement = conn.prepareStatement(query)) {
+        statement.setString(1, "%" + phoneNumber + "%");
+        try (ResultSet resultSet = statement.executeQuery()) {
+            while (resultSet.next()) {
+                User user = extractUserFromResultSet(resultSet);
+                users.add(user);
+            }
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return users;
+}
+    
+  
+    // Helper method để extract thông tin từ ResultSet thành User object
+    private User extractUserFromResultSet(ResultSet resultSet) throws SQLException {
+        User user = new User();
+        user.setUserID(resultSet.getInt("userID"));
+        user.setFullName(resultSet.getString("fullName"));
+        user.setAccountID(resultSet.getInt("accountID"));
+        user.setImage(resultSet.getString("image"));
+        user.setEmail(resultSet.getString("email"));
+        user.setDoB(resultSet.getDate("doB"));
+        user.setPhoneNumber(resultSet.getString("phoneNumber"));
+        user.setAddress(resultSet.getString("address"));
+        user.setGender(resultSet.getString("gender"));
+        return user;
+    }
+    
+    
+    
     public static void main(String[] args) {
         UserDAO userDAO = new UserDAO();
         List<User> users = userDAO.getAllUsers();
