@@ -81,7 +81,7 @@ public class LoginServlet extends HttpServlet {
                     session.setAttribute("user", user);
                     response.sendRedirect("index.jsp");
                 } else {
-//                    Doctor doctor = doctorDao.getDoctorByAccountID(account.getAccountID());
+                    Doctor doctor2 = doctorDao.getDoctorByAccountID(account.getAccountID());
                     ObjectMapper objectMapper = new ObjectMapper();
                     objectMapper.registerModule(new JavaTimeModule());
 
@@ -90,8 +90,9 @@ public class LoginServlet extends HttpServlet {
 
                     String doctorI = objectMapper.writeValueAsString(doctor);
                     session.setAttribute("doctorI", doctorI);
-
-                    response.sendRedirect("index.jsp");  // đổi lại đường link.
+                    
+                    session.setAttribute("doctor", doctor2);
+                    response.sendRedirect("index.jsp");
                 }
             } else {
                 // Account is locked, set error message and forward to login page

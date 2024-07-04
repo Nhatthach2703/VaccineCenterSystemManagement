@@ -34,10 +34,16 @@ public class LoginGoogleServlet extends HttpServlet {
 
         Account account = googleLogin(googleAccount);
         if (account.isStatus()) {
-            User user = dao.getUserByAccountID(account.getAccountID());
-            session.setAttribute("account", account);
-            session.setAttribute("user", user);
-            response.sendRedirect("index.jsp");
+            String roleID = account.getRoleID();
+            if ("Admin".equals(roleID)  || "Doctor".equals(roleID)){
+                request.setAttribute("errorMessage", "Tài khoản nội bộ không được đăng nhập với Google!");
+                request.getRequestDispatcher("login.jsp").forward(request, response);
+            }else{
+                User user = dao.getUserByAccountID(account.getAccountID());
+                session.setAttribute("account", account);
+                session.setAttribute("user", user);
+                response.sendRedirect("index.jsp");
+            }   
         } else {
             request.setAttribute("errorMessage", "Tài khoản của bạn bị khóa vì một lý do nào đó!");
             request.getRequestDispatcher("login.jsp").forward(request, response);

@@ -34,14 +34,21 @@
                             <h2 class="ml-4">Danh sách Vaccine</h2>
                         </div>
                         <div class="col-sm-7">
-                            <div style="text-justify: auto;text-align: right"class="mr-4">
+                            <div style="text-justify: auto;text-align: right" class="mr-4">
         <form action="VaccineWarehouseServlet" method="post">
         <div>
-                <select id="workLocationId" name="workLocationId" onchange="this.form.submit()">
+            <c:set var="selectedWorkLocationId" value="${param.workLocationId}" />
+            <c:if test="${selectedWorkLocationId == null || selectedWorkLocationId.isEmpty()}">
+                <c:if test="${sessionScope.doctor != null}">
+                    <c:set var="selectedWorkLocationId" value="${sessionScope.doctor.workLocationID}" />
+                </c:if>
+            </c:if>
+
+            <select id="workLocationId" name="workLocationId" onchange="this.form.submit()">
                 <option value="">--   Cơ sở   --</option>
                 <c:forEach var="workLocation" items="${workLocations}">
                     <option value="${workLocation.workLocationID}"
-                            ${workLocation.workLocationID == param.workLocationId ? 'selected' : ''}>
+                            ${workLocation.workLocationID == selectedWorkLocationId ? 'selected' : ''}>
                         ${workLocation.name}
                     </option>
                 </c:forEach>
@@ -57,21 +64,19 @@
                 <th>Nguồn gốc</th>
                 <th>Loại</th>
                 <th>Số lượng</th>
-            
             </tr>
         </thead>
         <tbody>
             <c:forEach var="warehouse" items="${warehouses}">
                 <c:forEach var="vaccine" items="${vaccines}">
                     <c:if test="${warehouse.vaccineID eq vaccine.vaccineID}">
-                        <c:if test="${warehouse.workLocationID eq param.workLocationId}">
+                        <c:if test="${warehouse.workLocationID eq selectedWorkLocationId}">
                             <tr>
                                 <td>${warehouse.vaccineID}</td>
                                 <td>${vaccine.name}</td>
                                 <td>${vaccine.source}</td>
                                 <td>${vaccine.typeID}</td>
                                 <td>${warehouse.quantity}</td>
-                               
                             </tr>
                         </c:if>
                     </c:if>
