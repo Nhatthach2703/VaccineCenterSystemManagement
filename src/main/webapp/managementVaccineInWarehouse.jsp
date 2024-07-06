@@ -75,7 +75,13 @@
                                                         <tr>
                                                             <td>${vaccine.name}</td>
                                                             <td>${vaccine.source}</td>
-                                                            <td>${vaccine.typeID}</td>
+                                                            <td>
+                                                                <c:forEach var="typeOfVaccines" items="${typeOfVaccines}">
+                                                                    <c:if test="${typeOfVaccines.typeID == vaccine.typeID}">
+                                                                        ${typeOfVaccines.name}
+                                                                    </c:if>
+                                                                </c:forEach>
+                                                            </td>
                                                             <td>${warehouse.quantity}</td>
                                                             <td class="d-flex">
                                                                 <a href="EditVaccineInWarehouseServlet?warehouseID=${warehouse.warehouseID}"

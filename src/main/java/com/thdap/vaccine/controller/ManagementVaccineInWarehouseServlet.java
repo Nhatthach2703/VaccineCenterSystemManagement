@@ -4,9 +4,11 @@
  */
 package com.thdap.vaccine.controller;
 
+import com.thdap.vaccine.dao.TypeOfVaccineDAO;
 import com.thdap.vaccine.dao.VaccineDAO;
 import com.thdap.vaccine.dao.VaccineWarehouseDAO;
 import com.thdap.vaccine.dao.WorkLocationDAO;
+import com.thdap.vaccine.model.TypeOfVaccine;
 import com.thdap.vaccine.model.Vaccine;
 import com.thdap.vaccine.model.VaccineWarehouse;
 import com.thdap.vaccine.model.WorkLocation;
@@ -67,21 +69,24 @@ public class ManagementVaccineInWarehouseServlet extends HttpServlet {
         VaccineWarehouseDAO vaccineWarehouseDAO = new VaccineWarehouseDAO();
         VaccineDAO vaccineDAO = new VaccineDAO();
         WorkLocationDAO workLocationDAO = new WorkLocationDAO();
+        TypeOfVaccineDAO typeOfVaccineDAO = new TypeOfVaccineDAO();
+                
         String workLocationId = request.getParameter("workLocationId");
         
         List<VaccineWarehouse> warehouses = vaccineWarehouseDAO.getAll();
         List<Vaccine> vaccines = vaccineDAO.getAllVaccines();
         List<WorkLocation> workLocations = workLocationDAO.getAllWorkLocations();
+        List<TypeOfVaccine> typeOfVaccines = typeOfVaccineDAO.getAllTypesOfVaccine();
 
         request.setAttribute("warehouses", warehouses);
         request.setAttribute("vaccines", vaccines);
         request.setAttribute("workLocations", workLocations);
+        request.setAttribute("typeOfVaccines", typeOfVaccines);
         
         if (workLocationId == null || workLocationId.isEmpty()){
             response.sendRedirect("ManagementVaccineInWarehouseServlet?workLocationId=1");
         }else{
-
-        request.getRequestDispatcher("managementVaccineInWarehouse.jsp").forward(request, response);
+            request.getRequestDispatcher("managementVaccineInWarehouse.jsp").forward(request, response);
         }
     }
 
