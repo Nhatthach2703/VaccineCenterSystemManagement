@@ -3,10 +3,10 @@ public class VaccineWarehouse {
     private int warehouseID;
     private int vaccineID;
     private int workLocationID;
-    private long quantity;
+    private int quantity;
 
     // Constructor
-    public VaccineWarehouse(int warehouseID, int vaccineID, int workLocationID, long quantity) {
+    public VaccineWarehouse(int warehouseID, int vaccineID, int workLocationID, int quantity) {
         this.warehouseID = warehouseID;
         this.vaccineID = vaccineID;
         this.workLocationID = workLocationID;
@@ -38,11 +38,11 @@ public class VaccineWarehouse {
         this.workLocationID = workLocationID;
     }
 
-    public long getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(long quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 

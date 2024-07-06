@@ -294,25 +294,57 @@ public class VaccineDAO {
     }
 
     public List<Vaccine> searchVaccinesByOptions(String typeName, String source) {
-    List<Vaccine> vaccines = new ArrayList<>();
-    String query = "SELECT v.* FROM Vaccine v JOIN TypeOfVaccine t ON v.typeID = t.typeID WHERE 1=1";
-    if (typeName != null && !typeName.isEmpty()) {
-        query += " AND t.name LIKE ?";
-    }
-    if (source != null && !source.isEmpty()) {
-        query += " AND v.source LIKE ?";
-    }
-
-    try (Connection conn = contextDAO.getConnection(); PreparedStatement stmt = conn.prepareStatement(query)) {
-        int parameterIndex = 1;
+        List<Vaccine> vaccines = new ArrayList<>();
+        String query = "SELECT v.* FROM Vaccine v JOIN TypeOfVaccine t ON v.typeID = t.typeID WHERE 1=1";
         if (typeName != null && !typeName.isEmpty()) {
-            stmt.setString(parameterIndex++, "%" + typeName + "%");
+            query += " AND t.name LIKE ?";
         }
         if (source != null && !source.isEmpty()) {
-            stmt.setString(parameterIndex++, "%" + source + "%");
+            query += " AND v.source LIKE ?";
         }
 
-        try (ResultSet rs = stmt.executeQuery()) {
+        try (Connection conn = contextDAO.getConnection(); PreparedStatement stmt = conn.prepareStatement(query)) {
+            int parameterIndex = 1;
+            if (typeName != null && !typeName.isEmpty()) {
+                stmt.setString(parameterIndex++, "%" + typeName + "%");
+            }
+            if (source != null && !source.isEmpty()) {
+                stmt.setString(parameterIndex++, "%" + source + "%");
+            }
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    Vaccine vaccine = new Vaccine(
+                            rs.getInt("vaccineID"),
+                            rs.getString("name"),
+                            rs.getString("summary"),
+                            rs.getString("source"),
+                            rs.getInt("typeID"),
+                            rs.getString("image"),
+                            rs.getString("injectionRoute"),
+                            rs.getString("contraindicated"),
+                            rs.getString("usingNote"),
+                            rs.getString("drugInteractions"),
+                            rs.getString("unwantedEffects"),
+                            rs.getString("preserve"),
+                            rs.getString("objectOfUse"),
+                            rs.getString("injectionRegimen"),
+                            rs.getInt("price"),
+                            rs.getBoolean("haveToOrder")
+                    );
+                    vaccines.add(vaccine);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return vaccines;
+    }
+    
+    public List<Vaccine> getVaccineDontHaveToOrder() {
+        List<Vaccine> vaccines = new ArrayList<>();
+        String query = "SELECT * FROM Vaccine WHERE haveToOrder = 0";
+        try (Connection conn = contextDAO.getConnection(); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(query)) {
             while (rs.next()) {
                 Vaccine vaccine = new Vaccine(
                         rs.getInt("vaccineID"),
@@ -334,12 +366,12 @@ public class VaccineDAO {
                 );
                 vaccines.add(vaccine);
             }
+        } catch (SQLException e) {
+            System.out.println(e);
         }
-    } catch (SQLException e) {
-        System.out.println(e);
+        return vaccines;
     }
-    return vaccines;
-}
+
 
 //  public static void main(String[] args) {
 //        // Khởi tạo DAO
@@ -369,7 +401,6 @@ public class VaccineDAO {
 //        }
 //    }
 //}
-
     public static void main(String[] args) {
         VaccineDAO vaccineDAO = new VaccineDAO();
 
