@@ -11,12 +11,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet(name = "ListNewsServlet", urlPatterns = {"/listNews"})
 public class ListNewsServlet extends HttpServlet {
 
     private NewsDAO newsDao;
-    private DoctorDAO doctorDAO ;
+    private DoctorDAO doctorDAO;
 
     public ListNewsServlet() {
         this.newsDao = new NewsDAO();
@@ -27,10 +28,17 @@ public class ListNewsServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            List<Doctor> doctors = doctorDAO.getAllDoctors();
-            List<News> newsList = newsDao.getAllNews();
-            request.setAttribute("doctors", doctors);
+            HttpSession session = request.getSession();
+            Integer loggedInDoctorID = (Integer) session.getAttribute("doctorID");
 
+            if (loggedInDoctorID == null) {
+                throw new ServletException("Doctor ID not found in session.");
+            }
+
+            List<Doctor> doctors = doctorDAO.getAllDoctors();
+            List<News> newsList = newsDao.getNewsByDoctorID(loggedInDoctorID);
+
+            request.setAttribute("doctors", doctors);
             request.setAttribute("newsList", newsList);
             request.getRequestDispatcher("CRUDNews.jsp").forward(request, response);
         } catch (Exception e) {
@@ -38,9 +46,6 @@ public class ListNewsServlet extends HttpServlet {
         }
     }
 
-    
-    
-    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

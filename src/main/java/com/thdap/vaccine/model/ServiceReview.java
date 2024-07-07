@@ -8,19 +8,20 @@ public class ServiceReview {
     private String content;
     private int rate;
     private Date date;
+    private String type;
 
-    public ServiceReview(int reviewID, int userID, String content, int rate, Date date) {
+    public ServiceReview(int reviewID, int userID, String content, int rate, Date date, String type) {
         this.reviewID = reviewID;
         this.userID = userID;
         this.content = content;
         this.rate = rate;
         this.date = date;
+        this.type = type;
     }
 
     public ServiceReview() {
     }
 
-    
     // Getters and setters
     public int getReviewID() {
         return reviewID;
@@ -62,6 +63,14 @@ public class ServiceReview {
         this.date = date;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     @Override
     public String toString() {
         return "ServiceReview{" +
@@ -70,6 +79,7 @@ public class ServiceReview {
                 ", content='" + content + '\'' +
                 ", rate=" + rate +
                 ", date=" + date +
+                ", type='" + type + '\'' +
                 '}';
     }
 }
