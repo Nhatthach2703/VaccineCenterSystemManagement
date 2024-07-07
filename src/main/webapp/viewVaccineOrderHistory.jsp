@@ -112,7 +112,20 @@
                                     </c:forEach>
                                 </td>
                                 <td>${order.paymentStatus}</td>
-                                <td>${order.confirmStatus ? "Confirmed" : "Not Confirmed"}</td>
+                                <td>
+                                    <c:choose>
+                                        <c:when test="${order.confirmStatus == true}">
+                                            <div class="alert alert-success d-inline-block p-1" role="alert">
+                                                Confirmed
+                                            </div>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <div class="alert alert-danger d-inline-block p-1" role="alert">
+                                                Not Confirmed
+                                            </div>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </td>
                                 <td>${order.totalPrice}</td>
                             </tr>
                         </c:forEach>
