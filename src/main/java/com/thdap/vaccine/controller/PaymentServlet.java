@@ -124,7 +124,7 @@ public class PaymentServlet extends HttpServlet {
         int vaccineID = Integer.parseInt(request.getParameter("vaccineID"));
         int workLocationID = Integer.parseInt(request.getParameter("workLocationID")); 
         int userID = Integer.parseInt(request.getParameter("userID"));
-        long totalPrice = Long.parseLong(request.getParameter("totalPrice")) * 10; //tam thoi
+        long totalPrice = Long.parseLong(request.getParameter("totalPrice"));
         
         Date createDate = new Date(Calendar.getInstance().getTime().getTime());
         Date dateWantToGetVaccinated = Date.valueOf(request.getParameter("dateWantToGetVaccinated"));

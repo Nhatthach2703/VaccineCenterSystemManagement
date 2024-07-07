@@ -81,9 +81,35 @@
                     <img src="uploads/${vaccine.image}" class="card-img-top" alt="${vaccine.name}">
                 </div>
             </div>
-
+            
             <!-- Registration Form -->
+            <h2>Thông tin khách hàng</h2>
             <form action="PaymentServlet" method="post">
+                <div class="form-group">
+                    <label for="customerName">Họ và tên:</label>
+                    <input type="text" class="form-control" id="customerName" name="customerName" value="${sessionScope.user.fullName}" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="customerDoB">Ngày sinh:</label>
+                    <input type="date" class="form-control" id="customerDoB" name="customerDoB" value="${sessionScope.user.doB}" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="customerGender">Giới tính:</label>
+                    <input type="text" class="form-control" id="customerGender" name="customerGender" value="${sessionScope.user.gender}" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="customerPhoneNum">Số điện thoại:</label>
+                    <input type="text" class="form-control" id="customerPhoneNum" name="customerPhoneNum" value="${sessionScope.user.phoneNumber}" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="customerEmail">Email:</label>
+                    <input type="text" class="form-control" id="customerEmail" name="customerEmail" value="${sessionScope.user.email}" readonly>
+                </div>
+
+                <div class="form-group">
+                    <label for="customerAddress">Địa chỉ:</label>
+                    <input type="text" class="form-control" id="customerAddress" name="customerAddress" value="${sessionScope.user.address}" readonly>
+                </div>
                 <input type="hidden" name="vaccineID" value="${vaccine.vaccineID}">
                 <input type="hidden" name="totalPrice" value="${vaccine.price}">
                 <input type="hidden" name="userID" value="${sessionScope.user.userID}">
@@ -96,9 +122,8 @@
                     <select class="form-control" id="workLocationID" name="workLocationID" required>
                         <option value="">Chọn cơ sở</option>
                         <c:forEach var="location" items="${workLocations}">
-                            <option value="${location.workLocationID}" <c:if test="${workLocationID == location.workLocationID}">selected</c:if>>${location.name}</option>
+                            <option value="${location.workLocationID}" <c:if test="${workLocationID == location.workLocationID}">selected</c:if>>${location.name} - ${location.address}</option>
                         </c:forEach>
-                            
                     </select>
                 </div>
                 <div style="color: red; font-family: 'Tilt Neon', sans-serif;">${errorMessage}</div><br>

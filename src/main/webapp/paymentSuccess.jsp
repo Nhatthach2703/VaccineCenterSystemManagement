@@ -76,7 +76,7 @@
                         <a href="index.jsp" class="btn btn-primary mt-4">Return to Home Page</a>
                     </div>
                     <div class="col-md-6">
-                        <a href="" class="btn btn-danger mt-4">Going Order History</a>
+                        <a href="ViewVaccineOrderHistoryServlet?userID=${sessionScope.user.userID}" class="btn btn-danger mt-4">Going Order History</a>
                     </div>
                 </div>
             </div>
