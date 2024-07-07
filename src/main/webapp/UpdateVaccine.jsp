@@ -100,7 +100,7 @@
                                 </div>
                                 <div class="form-group" style="display: flex; align-items: center;">
                                     <img src="assets/img/gia.svg" style="width: 1rem; margin-right: 1rem;" />
-                                    <input placeholder="Giá" type="text" id="price" name="price" value="${vaccine.price}" required>
+                                    <input placeholder="Giá" type="number" id="price" name="price" value="${vaccine.price}" required>
                                 </div>
                                 <div class="form-group" style="display: flex; align-items: center;">
                                     <label class="checkbox-container">

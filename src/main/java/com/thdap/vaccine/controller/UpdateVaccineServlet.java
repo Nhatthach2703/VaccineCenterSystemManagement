@@ -179,7 +179,10 @@ public class UpdateVaccineServlet extends HttpServlet {
                 vaccine.setImage(existingImage);
             }
 //            vaccineDAO.updateVaccine(vaccine);
-            if (vaccineDAO.isVaccineExists(name)) {
+
+            Vaccine existingVaccine = vaccineDAO.getVaccineById(vaccineID);
+
+            if (existingVaccine != null && !existingVaccine.getName().equals(name) && vaccineDAO.isVaccineExists(name)) {
                 // Set the error message as a session attribute
                 request.getSession().setAttribute("errorMessage", "Tên loại vaccine đã tồn tại");
                 // Redirect to the form page

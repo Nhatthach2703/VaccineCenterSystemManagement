@@ -23,7 +23,7 @@ public class TypeOfVaccineServlet extends HttpServlet {
     private TypeOfVaccineDAO typeOfVaccineDAO = new TypeOfVaccineDAO();
 
     @Override
-      protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
@@ -31,15 +31,16 @@ public class TypeOfVaccineServlet extends HttpServlet {
         // Get list of types of vaccine
         List<TypeOfVaccine> typeOfVaccines = typeOfVaccineDAO.getAllTypesOfVaccine();
         request.setAttribute("typeOfVaccines", typeOfVaccines);
-        
+
         // Check for search parameters
         String searchValue = request.getParameter("searchValue");
         String typeName = request.getParameter("typeName");
         String source = request.getParameter("source");
         List<Vaccine> vaccines;
-       
+        List<Vaccine> vaccine_1;
+
         String typeIDParam = request.getParameter("typeID");
-       
+
         if ((typeName != null && !typeName.isEmpty()) || (source != null && !source.isEmpty())) {
             vaccines = vaccineDAO.searchVaccinesByOptions(typeName, source);
         } else if (searchValue != null && !searchValue.isEmpty()) {
@@ -50,10 +51,10 @@ public class TypeOfVaccineServlet extends HttpServlet {
         } else {
             vaccines = vaccineDAO.getAllVaccines();
         }
-
+        vaccine_1 = vaccineDAO.getAllVaccines();
         // Extract unique sources from the list of vaccines
         Set<String> uniqueSources = new LinkedHashSet<>();
-        for (Vaccine vaccine : vaccines) {
+        for (Vaccine vaccine : vaccine_1) {
             uniqueSources.add(vaccine.getSource());
         }
 
@@ -61,7 +62,6 @@ public class TypeOfVaccineServlet extends HttpServlet {
         request.setAttribute("uniqueSources", uniqueSources);
         request.getRequestDispatcher("TypeOfVaccine.jsp").forward(request, response);
     }
-
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)

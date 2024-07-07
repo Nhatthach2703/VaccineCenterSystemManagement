@@ -111,31 +111,36 @@ public class UpdateTypeOfVaccineServlet extends HttpServlet {
         }
 
         try {
-            if (typeOfVaccineDAO.isTypeOfVaccineExists(name)) {
+            int typeID = Integer.parseInt(typeIDStr);
+
+            // Get the existing type of vaccine from the database
+            TypeOfVaccine existingTypeOfVaccine = typeOfVaccineDAO.getTypeOfVaccineByID(typeID);
+
+            // If the name is changed and the new name already exists, show error message
+            if (existingTypeOfVaccine != null && !existingTypeOfVaccine.getName().equals(name) && typeOfVaccineDAO.isTypeOfVaccineExists(name)) {
                 request.getSession().setAttribute("errorMessage", "Tên vaccine đã tồn tại");
                 response.sendRedirect("UpdateTypeOfVaccineServlet?typeID=" + typeIDStr);
                 return;
             }
 
-            int typeID = Integer.parseInt(typeIDStr);
+            // Update the type of vaccine
             typeOfVaccineDAO.updateTypeOfVaccine(typeID, name);
-            request.getSession().setAttribute("successMessage", "Vaccine type updated successfully.");
+            request.getSession().setAttribute("successMessage", "Loại vaccine đã được cập nhật thành công.");
         } catch (NumberFormatException e) {
-            request.getSession().setAttribute("errorMessage", "Invalid TypeID format.");
+            request.getSession().setAttribute("errorMessage", "Định dạng TypeID không hợp lệ.");
             response.sendRedirect("UpdateTypeOfVaccineServlet?typeID=" + typeIDStr);
             return;
         } catch (SQLException ex) {
             Logger.getLogger(UpdateTypeOfVaccineServlet.class.getName()).log(Level.SEVERE, null, ex);
-            request.getSession().setAttribute("errorMessage", "Database error: " + ex.getMessage());
+            request.getSession().setAttribute("errorMessage", "Lỗi cơ sở dữ liệu: " + ex.getMessage());
             response.sendRedirect("UpdateTypeOfVaccineServlet?typeID=" + typeIDStr);
             return;
         } catch (Exception e) {
             Logger.getLogger(UpdateTypeOfVaccineServlet.class.getName()).log(Level.SEVERE, null, e);
-            request.getSession().setAttribute("errorMessage", "An error occurred while updating the vaccine type.");
+            request.getSession().setAttribute("errorMessage", "Đã xảy ra lỗi khi cập nhật loại vaccine.");
             response.sendRedirect("UpdateTypeOfVaccineServlet?typeID=" + typeIDStr);
             return;
         }
-
         response.sendRedirect("CRUDTypeOfVaccineServlet");
     }
 

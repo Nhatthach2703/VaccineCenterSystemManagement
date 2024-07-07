@@ -37,24 +37,23 @@
 
                                         <div class="form-group " style="display: flex">
                                             <img src="assets/img/phacdotiem.svg" style="width: 1rem; margin-right: 1rem;" />
-                                            <input placeholder="Tên vaccine" type="text" id="name" name="name" required>
+                                            <input placeholder="Tên vaccine" type="text" id="name" name="name" value="${param.name}" required>
                                         </div>
                                         <div class="form-group " style="display: flex">
                                             <img src="assets/img/Tom tat.svg" style="width: 1rem; margin-right: 1rem;" />
-                                            <input placeholder="Tóm tắt" type="text" id="summary" name="summary" required>
+                                            <input placeholder="Tóm tắt" type="text" id="summary" name="summary" value="${param.summary}" required>
                                         </div>
                                         <div class="form-group " style="display: flex">
                                             <img src="assets/img/nguon goc.svg" style="width: 1rem; margin-right: 1rem;" />
-                                            <input placeholder="Nguồn gốc" type="text" id="source" name="source" required>
+                                            <input placeholder="Nguồn gốc" type="text" id="source" name="source" value="${param.source}" required>
                                         </div>
 
                                         <img src="assets/img/Loai vaccin.svg" style="width: 1rem; margin-right: 1rem;"  />
 
                                         <select class="opttion_vaccine" id="typeID" name="typeID" required>
-                                            <!--<option>Loại vaccine</option>-->
                                             <option value="" disabled="" selected="">Loại vaccine</option>
                                             <c:forEach var="typeOfVaccine" items="${typeOfVaccines}">
-                                                <option value="${typeOfVaccine.typeID}">${typeOfVaccine.name}</option>
+                                                <option value="${typeOfVaccine.typeID}" ${param.typeID == typeOfVaccine.typeID ? 'selected' : ''}>${typeOfVaccine.name}</option>
                                             </c:forEach>
                                         </select>
                                         <!--                                </div>-->
@@ -62,72 +61,50 @@
 
                                         <div class="form-group " style="display: flex">
                                             <img src="assets/img/Hinhanh.svg" style="width: 1rem; margin-right: 1rem;" />
-                                            <input type="file" id="image" name="image" placeholder="Ảnh Vaccine" required>
+                                            <input type="file" id="image" name="image" placeholder="Ảnh Vaccine" value="${param.image}" required>
                                         </div>
                                         <div class="form-group " style="display: flex">
-                                            <img src="assets/img/Lo trinh.svg" style="width: 1rem; margin-right: 1rem;" />
-                                            <input placeholder="Đường tiêm" type="text" id="injectionRoute" name="injectionRoute"
+                                            <img src="assets/img/Lo trinh.svg" style="width: 1rem; margin-right: 1rem;"  />
+                                            <input placeholder="Đường tiêm" type="text" id="injectionRoute" name="injectionRoute" value="${param.injectionRoute}"
                                                    required>
                                         </div>
                                         <div class="form-group " style="display: flex">
                                             <img src="assets/img/tuongtacthuoc.svg" style="width: 1rem; margin-right: 1rem;" />
                                             <input placeholder="Chống chỉ định" type="text" id="contraindicated"
-                                                   name="contraindicated" required>
+                                                   name="contraindicated" value="${param.contraindicated}" required>
                                         </div>
                                         <div class="form-group " style="display: flex">
                                             <img src="assets/img/Tac dung phu.svg" style="width: 1rem; margin-right: 1rem;" />
-                                            <input placeholder="Thận trọng khi sử dụng" type="text" id="usingNote" name="usingNote"
+                                            <input placeholder="Thận trọng khi sử dụng" type="text" id="usingNote" name="usingNote" value="${param.usingNote}"
                                                    required>
                                         </div>
                                         <div class="form-group " style="display: flex">
                                             <img src="assets/img/tuongtac.svg" style="width: 1rem; margin-right: 1rem;" />
                                             <input placeholder="Tương tác thuốc" type="text" id="drugInteractions"
-                                                   name="drugInteractions" required>
+                                                   name="drugInteractions" value="${param.drugInteractions}" required>
                                         </div>
                                         <div class="form-group " style="display: flex">
                                             <img src="assets/img/tacdungphu.svg" style="width: 1rem; margin-right: 1rem;" />
                                             <input placeholder="Tác dụng phụ" type="text" id="unwantedEffects"
-                                                   name="unwantedEffects" required>
+                                                   name="unwantedEffects" value="${param.unwantedEffects}" required>
                                         </div>
                                         <div class="form-group " style="display: flex">
                                             <img src="assets/img/bao quan.svg" style="width: 1rem; margin-right: 1rem;" />
-                                            <input placeholder="Bảo quản" type="text" id="preserve" name="preserve" required>
+                                            <input placeholder="Bảo quản" type="text" id="preserve" name="preserve" value="${param.preserve}" required>
                                         </div>
                                         <div class="form-group " style="display: flex">
                                             <img src="assets/img/user.svg" style="width: 1rem; margin-right: 1rem;" />
-                                            <input placeholder="Đối tượng sử dụng" type="text" id="objectOfUse" name="objectOfUse"
+                                            <input placeholder="Đối tượng sử dụng" type="text" id="objectOfUse" name="objectOfUse" value="${param.objectOfUse}"
                                                    required>
                                         </div>
                                         <div class="form-group " style="display: flex">
                                             <img src="assets/img/phacdotiem.svg" style="width: 1rem; margin-right: 1rem;" />
-                                            <input placeholder="Phác đồ tiêm" type="text" id="injectionRegimen"
+                                            <input placeholder="Phác đồ tiêm" type="text" id="injectionRegimen" value="${param.injectionRegimen}"
                                                    name="injectionRegimen" required>
                                         </div>
-
-                                        <script>
-                                            function previewImage() {
-                                                const imageInput = document.getElementById('vaccine_image');
-                                                const imagePreview = document.getElementById('vaccine-preview');
-
-                                                if (imageInput.files && imageInput.files[0]) {
-                                                    const reader = new FileReader();
-                                                    reader.onload = function (e) {
-                                                        imagePreview.setAttribute('src', e.target.result);
-                                                        imagePreview.style.display = 'block';
-                                                        imagePreview.setAttribute('accept', 'image/*');
-                                                    };
-                                                    reader.readAsDataURL(imageInput.files[0]);
-                                                } else {
-                                                    imagePreview.style.display = 'none';
-                                                }
-                                            }
-
-                                            document.getElementById('vaccine_image').addEventListener('change', previewImage);
-                                        </script>
-
                                         <div class="form-group " style="display: flex">
                                             <img src="assets/img/gia.svg" style="width: 1rem; margin-right: 1rem;" />
-                                            <input placeholder="Giá" type="text" id="price" name="price" required>
+                                            <input placeholder="Giá" type="number" id="price" name="price" required>
                                         </div>
 
                                         <div class="form-group " style="display: flex; align-items: center;">
@@ -139,7 +116,7 @@
                                             </label>
                                             <div class="text" style="margin-left: 1.5rem;">Đặt mua Vaccine</div>
                                         </div>
-                                        <div style="color: red;font-family: 'Tilt Neon', sans-serif;font-size:20px; height: 15px">${errorMessage}</div><br>
+                                        <div style="color: red;font-family: 'Tilt Neon', sans-serif;font-size:15px; height: 15px">${errorMessage}</div><br>
                                         <div class="form-group">
 
                                             <button style="margin-right: 1rem" class="button_add">Thêm</button>
@@ -160,6 +137,40 @@
 
             </div>
         </div>
+        <script>
+            // JavaScript để giữ lại giá trị của các trường input sau khi load lại trang
+            document.addEventListener('DOMContentLoaded', function () {
+                const form = document.querySelector('.register-form'); // Chọn form bằng class
+                const inputs = form.querySelectorAll('input'); // Chọn tất cả các input trong form
+
+                inputs.forEach(input => {
+                    input.value = localStorage.getItem(input.id); // Lấy giá trị từ localStorage nếu có
+                    input.addEventListener('input', function () {
+                        localStorage.setItem(input.id, input.value); // Lưu giá trị vào localStorage khi có sự thay đổi
+                    });
+                });
+            });
+        </script>
+        <script>
+            function previewImage() {
+                const imageInput = document.getElementById('vaccine_image');
+                const imagePreview = document.getElementById('vaccine-preview');
+
+                if (imageInput.files && imageInput.files[0]) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        imagePreview.setAttribute('src', e.target.result);
+                        imagePreview.style.display = 'block';
+                        imagePreview.setAttribute('accept', 'image/*');
+                    };
+                    reader.readAsDataURL(imageInput.files[0]);
+                } else {
+                    imagePreview.style.display = 'none';
+                }
+            }
+
+            document.getElementById('vaccine_image').addEventListener('change', previewImage);
+        </script>
         <script src="./assets/libs/jquery/dist/jquery.min.js"></script>
         <script src="./assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
         <script src="./assets/js/sidebarmenu.js"></script>

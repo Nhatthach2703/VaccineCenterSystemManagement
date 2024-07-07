@@ -108,29 +108,29 @@ public class CRUDTypeOfVaccineServlet extends HttpServlet {
 
     }
 
-    private void insertTypeOfVaccine(HttpServletRequest request, HttpServletResponse response)
+   private void insertTypeOfVaccine(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException {
-        String name = request.getParameter("name");
+    String name = request.getParameter("name");
 
-        if (name == null || name.trim().isEmpty()) {
+    if (name == null || name.trim().isEmpty()) {
+        // Set the error message as a session attribute
+        request.getSession().setAttribute("errorMessage", "Vui lòng nhập thông tin");
+        // Redirect to the form page
+        response.sendRedirect("CRUDTypeOfVaccineServlet");
+    } else {
+        // Check if the name already exists
+        if (typeOfVaccineDAO.isTypeOfVaccineExists(name)) {
             // Set the error message as a session attribute
-            request.getSession().setAttribute("errorMessage", "Vui lòng nhập thông tin");
+            request.getSession().setAttribute("errorMessage", "Tên loại vaccine đã tồn tại");
             // Redirect to the form page
             response.sendRedirect("CRUDTypeOfVaccineServlet");
         } else {
-            // Check if the name already exists
-            if (typeOfVaccineDAO.isTypeOfVaccineExists(name)) {
-                // Set the error message as a session attribute
-                request.getSession().setAttribute("errorMessage", "Tên loại vaccine đã tồn tại");
-                // Redirect to the form page
-                response.sendRedirect("CRUDTypeOfVaccineServlet");
-            } else {
-                // Insert the new type of vaccine
-                typeOfVaccineDAO.addTypeOfVaccine(name);
-                response.sendRedirect("CRUDTypeOfVaccineServlet");
-            }
+            // Insert the new type of vaccine
+            typeOfVaccineDAO.addTypeOfVaccine(name);
+            response.sendRedirect("CRUDTypeOfVaccineServlet");
         }
     }
+}
 
     private void deleteTypeOfVaccine(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException {

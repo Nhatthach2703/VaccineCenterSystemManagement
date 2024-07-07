@@ -38,14 +38,13 @@
                                 <h5 class="card-title fw-semibold mb-4" style="font-size: 24px; ">Danh mục Vắc xin</h5>
                                 <div class="card-body">
                                     <h6 class="card-title fw-semibold mb-4">Tên các loại Vắc xin</h6>
-                                    <form action="CRUDTypeOfVaccineServlet" method="get">
+                                    <form action="CRUDTypeOfVaccineServlet" method="get"  >
                                         <div class="mb-3">
                                             <label for="exampleInputEmail1" class="form-label">Loại Vaccine</label>
                                             <input type="hidden" name="action" value="insert">
-                                            <input name="name" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"required>
-
-
-                                            <button type="submit" class="btn btn-primary pl-3 pr-3 mr-3" style="background-color: rgb(41,155,228); margin-top:24px ">Thêm</button>
+                                            <input name="name" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  required>
+                                             <div style="color: red;font-family: 'Tilt Neon', sans-serif;font-size:15px; height: 15px">${errorMessage}</div>
+                                            <button type="submit" class="btn btn-primary pl-3 pr-3 mr-3 mt-2" style="background-color: rgb(41,155,228); margin-top:24px ">Thêm</button>
                                         </div>
                                     </form>
                                 </div>
@@ -93,6 +92,7 @@
                 </div>
 
             </div>
+          
             <script>
 
 
