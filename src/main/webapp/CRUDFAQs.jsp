@@ -111,7 +111,7 @@
                                 <td>${faq.answer}</td>
 
                                 <td><img <img src="uploads/${faq.image}" alt="FAQ Image" width="100" height="80"/></td>
-                                git add .
+
 
 
                                 <td>

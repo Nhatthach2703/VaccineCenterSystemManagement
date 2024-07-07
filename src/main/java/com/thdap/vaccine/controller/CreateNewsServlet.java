@@ -2,16 +2,19 @@ package com.thdap.vaccine.controller;
 
 import com.thdap.vaccine.dao.NewsDAO;
 import com.thdap.vaccine.model.News;
+import com.thdap.vaccine.model.Doctor;  // Add this import
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.sql.Date;
+import java.time.LocalDate;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 @WebServlet("/create-news")
@@ -36,8 +39,10 @@ public class CreateNewsServlet extends HttpServlet {
 
         String title = request.getParameter("title");
         String content = request.getParameter("content");
-        int doctorID = Integer.parseInt(request.getParameter("doctorID"));
-        Date date = Date.valueOf(request.getParameter("date"));
+
+        HttpSession session = request.getSession();
+        int doctorID = ((Doctor) session.getAttribute("doctor")).getDoctorID();
+        Date date = Date.valueOf(LocalDate.now());
 
         Part filePart = request.getPart("image");
         String fileName = null;

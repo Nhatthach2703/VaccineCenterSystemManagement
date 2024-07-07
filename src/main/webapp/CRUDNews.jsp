@@ -5,16 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
-        <h1>Hello World!</h1>
-    </body>
-</html><%@ page import="com.thdap.vaccine.model.News" %>
+<%@ page import="com.thdap.vaccine.model.News" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
@@ -58,6 +49,8 @@
         </script>
     </head>
     <body>
+        <jsp:include page="header.jsp"/>
+
         <div class="container-xl mt-5" data-aos="fade-up">
             <div class="table-wrapper">
                 <div class="table-title pt-3 pb-3">
@@ -80,7 +73,7 @@
                             <th>Tiêu Đề</th>
                             <th>Ảnh</th>
                             <th>Nội Dung</th>
-                            <th>Bác Sĩ</th>
+
                             <th>Ngày</th>
                             <th>Thao tác</th>
                         </tr>
@@ -91,11 +84,7 @@
                                 <td>${news.title}</td>
                                 <td><img src="uploads/${news.image}" alt="News Image" width="100" height="80" /></td>
                                 <td>${news.content}</td>
-                                <td><c:forEach var="doctor" items="${doctors}">
-                                        <c:if test="${doctor.doctorID == news.doctorID}">
-                                            ${doctor.fullName}
-                                        </c:if>
-                                    </c:forEach></td>
+
                                 <td>${news.date}</td>
                                 <td>
                                     <a href="update-news?id=${news.newID}" class="settings" title="Edit" data-toggle="tooltip">

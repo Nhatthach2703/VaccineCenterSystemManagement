@@ -115,6 +115,31 @@ public class NewsDAO {
         e.printStackTrace();
     }
 }
+// haanh add vào 7/7
+    public List<News> getNewsByDoctorID(int doctorID) {
+    List<News> newsList = new ArrayList<>();
+    String sql = "SELECT * FROM News WHERE doctorID = ? ORDER BY date DESC";
+
+    try (Connection conn = contextDAO.getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
+        statement.setInt(1, doctorID);
+        try (ResultSet resultSet = statement.executeQuery()) {
+            while (resultSet.next()) {
+                News news = new News();
+                news.setNewID(resultSet.getInt("newID"));
+                news.setTitle(resultSet.getString("title"));
+                news.setImage(resultSet.getString("image"));
+                news.setContent(resultSet.getString("content"));
+                news.setDoctorID(resultSet.getInt("doctorID"));
+                news.setDate(resultSet.getDate("date"));
+                newsList.add(news);
+            }
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return newsList;
+}
 
 
 //    public static void main(String[] args) {
