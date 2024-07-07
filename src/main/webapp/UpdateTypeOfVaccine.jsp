@@ -20,6 +20,34 @@
 
         <link rel="stylesheet" href="assets/css/Admin_UpdateTypeOfVaccine.css"/>
     </head>
+    <style> 
+            
+
+            button {
+                padding: 10px 30px;
+                border: 0;
+                border-radius: 100px;
+                background-color: #2ba8fb;
+                color: #ffffff;
+                font-weight: Bold;
+                transition: all 0.5s;
+                -webkit-transition: all 0.5s;
+            }
+
+            button:hover {
+                background-color: #6fc5ff;
+                box-shadow: 0 0 20px #6fc5ff50;
+                transform: scale(1.1);
+            }
+
+            button:active {
+                background-color: #3d94cf;
+                transition: all 0.25s;
+                -webkit-transition: all 0.25s;
+                box-shadow: none;
+                transform: scale(0.98);
+            }
+        </style>
 
     <body>
         <!--  Body Wrapper -->
@@ -35,7 +63,7 @@
                         <div class="container">
                             <div class="signin-content infor_conetnt">
                                 <div class="signin-form infor_form">
-                                    <h2 class="title">Chỉnh Sửa Thông Tin Loại Vaccine</h2>
+                                    <h2 class="title" style="margin-top: 2rem">Chỉnh Sửa Thông Tin Loại Vaccine</h2>
                                     <form action="UpdateTypeOfVaccineServlet" method="post" class="register-form" id="login-form">
                                         <div class="form-group" style="display: flex">
                                             <img src="assets/img/Loai vaccin.svg" style="width: 1rem; margin-right: 1rem;" />
@@ -48,8 +76,8 @@
                                                    value="${typeOfVaccine.name}" required>
                                         </div>
                                         <div class="m-3" style="color: red;font-family: 'Tilt Neon', sans-serif;font-size:15px; height: 10px">${errorMessage}</div>
-                                        <button style="margin-right: 1rem" class="button_save">Sửa</button>
-                                        <button style="margin-right: 1rem" class="button_save"><a href="CRUDTypeOfVaccineServlet" style="color: white">Trở về</a></button>
+                                        <button style="margin-right: 1rem; margin-bottom: 1rem" >Sửa</button>
+                                        <button style="margin-right: 1rem; margin-bottom: 1rem" ><a href="CRUDTypeOfVaccineServlet" style="color: white">Trở về</a></button>
                                     </form>
                                 </div>
                             </div>

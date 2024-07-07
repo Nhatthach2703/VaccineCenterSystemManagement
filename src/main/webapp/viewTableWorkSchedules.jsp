@@ -45,7 +45,7 @@
                             <div class="table-title pt-3 pb-3">
                                 <div class="row">
                                     <div class="col-sm-5">
-                                        <h2 class="ml-4">Lịch làm việc</h2>
+                                        <h2 class="ml-4" style="color: white; margin-left: 2rem;">Lịch làm việc</h2>
                                     </div>
 <!--                                    <div class="col-sm-7">
                                         <div style="text-justify: auto;text-align: right"class="mr-4">
