@@ -29,7 +29,8 @@ public class ListNewsServlet extends HttpServlet {
             throws ServletException, IOException {
         try {
             HttpSession session = request.getSession();
-            Integer loggedInDoctorID = (Integer) session.getAttribute("doctorID");
+            Doctor doctor = (Doctor) session.getAttribute("doctor");
+            Integer loggedInDoctorID = doctor.getDoctorID();
 
             if (loggedInDoctorID == null) {
                 throw new ServletException("Doctor ID not found in session.");
