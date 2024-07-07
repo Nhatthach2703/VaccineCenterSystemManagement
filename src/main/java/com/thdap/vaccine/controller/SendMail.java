@@ -302,14 +302,14 @@ public class SendMail {
         msg.setSentDate(new Date());
 
         // Nội dung email với mã xác nhận
-        String emailContent = "<h3>Kính gửi Ông/Bà " + userName + ",</h3>"
-                + "<p>Trung tâm tiêm chủng THDAP xin thông báo đến Ông/Bà rằng đơn hàng của Ông/Bà đã được xác nhận như sau:</p>"
-                + "<p><strong>Người đặt hàng:</strong> " + userName + "</p>"
+        String emailContent = "<h3>Kính gửi quý khách " + userName + ",</h3>"
+                + "<p>Trung tâm tiêm chủng THDAP xin thông báo đến quý khách rằng đơn hàng của quý khách đã được xác nhận như sau:</p>"
+                + "<p><strong>Người đặt:</strong> " + userName + "</p>"
                 + "<p><strong>Sản phẩm:</strong> Vaccine " + vaccine.getName() + "</p>"
-                + "<p><strong>Dự kiến nhận hàng vào ngày:</strong> " + orderInfo.getDateWantToGetVaccinated() + "</p>"
-                + "<p><strong>Địa điểm nhận vaccine:</strong> " + workLocation.getName() + "</p>"
+                + "<p><strong>Ngày tiêm dự kiến:</strong> " + orderInfo.getDateWantToGetVaccinated() + "</p>"
+                + "<p><strong>Địa điểm tiêm:</strong> " + workLocation.getName() + " - " + workLocation.getAddress() +" </p>"
                 + "<p><strong>Đã thanh toán với tổng số tiền là:</strong> " + orderInfo.getTotalPrice() + " VNĐ</p>"
-                + "<p>Trân trọng thông báo và chúc Ông/Bà sức khỏe!</p>"
+                + "<p>Trân trọng thông báo và chúc quý khách sức khỏe!</p>"
                 + "<br>"
                 + "<p>Trân trọng,</p>"
                 + "<p>Trung tâm tiêm chủng THDAP</p>";
