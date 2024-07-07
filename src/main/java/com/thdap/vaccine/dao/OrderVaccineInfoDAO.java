@@ -142,4 +142,42 @@ public class OrderVaccineInfoDAO {
         }
         return orders;
     }
+    
+    public boolean updateConfirmStatusByID(int orderInfoID, boolean confirmStatus) {
+        String sql = "UPDATE OrderVaccineInfo SET confirmStatus = ? WHERE orderInfoID = ?";
+        try (Connection conn = contextDAO.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setBoolean(1, confirmStatus);
+            stmt.setInt(2, orderInfoID);
+            int rowsAffected = stmt.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+      public OrderVaccineInfo getOrderInfoByID(int orderInfoID) {
+        OrderVaccineInfo order = null;
+        String sql = "SELECT * FROM OrderVaccineInfo WHERE orderInfoID = ?";
+        try (Connection conn = contextDAO.getConnection(); 
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, orderInfoID);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                order = new OrderVaccineInfo(
+                        rs.getInt("orderInfoID"),
+                        rs.getInt("userID"),
+                        rs.getDate("createDate"),
+                        rs.getDate("dateWantToGetVaccinated"),
+                        rs.getInt("workLocationID"),
+                        rs.getInt("vaccineID"),
+                        rs.getBoolean("confirmStatus"),
+                        rs.getString("paymentStatus"),
+                        rs.getDouble("totalPrice")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return order;
+    }
 }
