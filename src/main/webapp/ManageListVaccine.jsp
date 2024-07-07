@@ -16,15 +16,32 @@
         <link rel="stylesheet" href="./assets/css/AdminIndex.min.css" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
         <style>
-            .table-title{
-                background-color: rgb(52,152,219);
-                border-radius: 8px 8px 0px 0px;
-            }
-            .btn-secondary{
-                background-color: white;
-                color: black;
+            
+
+            button {
+                padding: 10px 20px;
+                border: 0;
+                border-radius: 100px;
+                background-color: #2ba8fb;
+                color: #ffffff;
+                font-weight: Bold;
+                transition: all 0.5s;
+                -webkit-transition: all 0.5s;
             }
 
+            button:hover {
+                background-color: #6fc5ff;
+                box-shadow: 0 0 20px #6fc5ff50;
+                transform: scale(1.1);
+            }
+
+            button:active {
+                background-color: #3d94cf;
+                transition: all 0.25s;
+                -webkit-transition: all 0.25s;
+                box-shadow: none;
+                transform: scale(0.98);
+            }
         </style>
     </head>
 
@@ -42,12 +59,14 @@
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title fw-semibold mb-4" style="font-size: 24px; ">Danh sách Vắc xin</h5>
-                                <div class="col-sm-2 mb-3">
+                                <div class="col-sm-4 mb-3">
                                     <div style="text-justify: auto;text-align: left"class="mr-4">
 
-                                        <a href="CreateVaccineServlet" class="btn btn-secondary" <span>Thêm Vaccine</span></a>
-
+                                        <button onclick="location.href = 'CreateVaccineServlet'">
+                                            Thêm Vaccine
+                                        </button>
                                     </div>
+
                                 </div>
                                 <table class="table table-striped table-hover">
                                     <thead>
@@ -114,7 +133,7 @@
                 event.preventDefault(); // Ngăn chặn hành động mặc định của liên kết
                 Swal.fire({
                     title: 'Bạn có chắc chắn?',
-                    
+
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',

@@ -22,7 +22,34 @@
      <link rel="stylesheet" href="assets/css/Admin_CreateUpdateVaccine.css"/>F
 </head>
 
-<body>
+<style>
+            button {
+                padding: 10px 30px;
+                border: 0;
+                border-radius: 100px;
+                background-color: #2ba8fb;
+                color: #ffffff;
+                font-weight: Bold;
+                transition: all 0.5s;
+                -webkit-transition: all 0.5s;
+            }
+
+            button:hover {
+                background-color: #6fc5ff;
+                box-shadow: 0 0 20px #6fc5ff50;
+                transform: scale(1.1);
+            }
+
+            button:active {
+                background-color: #3d94cf;
+                transition: all 0.25s;
+                -webkit-transition: all 0.25s;
+                box-shadow: none;
+                transform: scale(0.98);
+            }
+        </style>
+
+<body style="background: #ffffff;">
   <!--  Body Wrapper -->
   <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
     data-sidebar-position="fixed" data-header-position="fixed">
@@ -34,7 +61,7 @@
           <div class="main"style="margin-top: 100px" data-aos="zoom-in">
             <!-- Sing in  Form -->
             <section class="sign-in" >
-                <div class="container1" >
+                <div class="container1" style="margin-bottom: 30px;">
                     <div class="signin-content input_content">
 
                         <div class="signin-form">
@@ -124,9 +151,9 @@
                                 <div style="color: red;font-family: 'Tilt Neon', sans-serif;font-size:20px; height: 30px">${error}</div><br>
                                 <div class="form-group">
 
-                                    <button style="margin-right: 1rem" class="button_add">Thêm</button>
+                                    <button style="margin-right: 1rem">Thêm</button>
 
-                                    <button class="button_add"><a href="AddDoctor" style="color: white">Trở về</a></button>
+                                    <button><a href="AddDoctor" style="color: white">Trở về</a></button>
 
                                 </div>
                             </form>

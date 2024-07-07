@@ -1,5 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<aside class="left-sidebar">
+<aside class="left-sidebar" style=" width: 300px;">
     <!-- Sidebar scroll-->
     <div>
         <div class="brand-logo d-flex align-items-center justify-content-between">
@@ -45,7 +45,7 @@
                         <span class="hide-menu">Vaccine</span>
                     </a>
                 </li>
-                 <li class="nav-small-cap">
+                <li class="nav-small-cap">
                     <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                     <span class="hide-menu">Quản lý lịch làm việc</span>
                 </li>
@@ -81,7 +81,7 @@
                         <span class="hide-menu">Thêm lịch làm việc theo tuần</span>
                     </a>
                 </li>
-                 
+
                 <li class="nav-small-cap">
                     <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                     <span class="hide-menu">Tài khoản</span>
@@ -102,29 +102,29 @@
                         <span class="hide-menu">Tạo tài khoản bác sĩ</span>
                     </a>
                 </li>
-                           
-                           
-                            <li class="nav-small-cap">
-                              <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-                              <span class="hide-menu">EXTRA</span>
-                            </li>
-                            <li class="sidebar-item">
-                              <a class="sidebar-link" href="./icon-tabler.html" aria-expanded="false">
-                                <span>
-                                  <i class="ti ti-mood-happy"></i>
-                                </span>
-                                <span class="hide-menu">Icons</span>
-                              </a>
-                            </li>
-                            <li class="sidebar-item mb-5">
-                              <a class="sidebar-link" href="./sample-page.html" aria-expanded="false">
-                                <span>
-                                  <i class="ti ti-aperture"></i>
-                                </span>
-                                <span class="hide-menu">Sample Page</span>
-                              </a>
-                            </li>
-                          </ul>
+
+
+                <!--                            <li class="nav-small-cap">
+                                              <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                                              <span class="hide-menu">EXTRA</span>
+                                            </li>
+                                            <li class="sidebar-item">
+                                              <a class="sidebar-link" href="./icon-tabler.html" aria-expanded="false">
+                                                <span>
+                                                  <i class="ti ti-mood-happy"></i>
+                                                </span>
+                                                <span class="hide-menu">Icons</span>
+                                              </a>
+                                            </li>
+                                            <li class="sidebar-item mb-5">
+                                              <a class="sidebar-link" href="./sample-page.html" aria-expanded="false">
+                                                <span>
+                                                  <i class="ti ti-aperture"></i>
+                                                </span>
+                                                <span class="hide-menu">Sample Page</span>
+                                              </a>
+                                            </li>-->
+            </ul>
 
         </nav>
         <!-- End Sidebar navigation -->
