@@ -79,7 +79,7 @@
                                         <img class="card-img-top" src="uploads/${vaccine.image}" alt="Vaccine Image" width="300" height="180"/>
                                         <h4 class="title" style="font-family: 'Tilt Neon', sans-serif">${vaccine.name}</h4>
                                         <p class="description">Nguồn gốc: ${vaccine.source}</p>
-                                        <p class="description">Price: ${vaccine.price} .000 đồng</p>
+                                        <p class="description">Price: ${vaccine.price} đồng</p>
 
                                     </div>
                                 </a>

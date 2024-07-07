@@ -90,7 +90,7 @@ public class TypeOfVaccineDAO {
             pstmt.setString(1, name);
             try (ResultSet resultSet = pstmt.executeQuery()) {
                 if (resultSet.next()) {
-                    return resultSet.getInt(1) > 0;
+                    return resultSet.getInt(1) == 1; // Check if exactly 1 record exists
                 }
             }
         }
@@ -112,6 +112,25 @@ public class TypeOfVaccineDAO {
         return name;
     }
 
+    public TypeOfVaccine getTypeOfVaccineByID(int typeID) {
+        TypeOfVaccine type = null;
+        String query = "SELECT * FROM TypeOfVaccine WHERE typeID = ?";
+        try (Connection conn = contextDAO.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setInt(1, typeID);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    type = new TypeOfVaccine(
+                            rs.getInt("typeID"),
+                            rs.getString("name")
+                    );
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return type;
+    }
+
     public static void main(String[] args) {
         TypeOfVaccineDAO typeDAO = new TypeOfVaccineDAO();
         List<TypeOfVaccine> types = typeDAO.getAllTypesOfVaccine();
@@ -120,6 +139,7 @@ public class TypeOfVaccineDAO {
         }
     }
 }
+
 //   public static void main(String[] args) {
 //        TypeOfVaccineDAO typeOfVaccineDAO = new TypeOfVaccineDAO();
 //

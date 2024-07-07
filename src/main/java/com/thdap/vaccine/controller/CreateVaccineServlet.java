@@ -188,7 +188,9 @@ public class CreateVaccineServlet extends HttpServlet {
                 // Redirect to the form page
                 response.sendRedirect("CreateVaccineServlet");
             } else {
-                vaccineDAO.addVaccine(name, summary, source, typeID, filename, injectionRoute, contraindicated, usingNote, drugInteractions, unwantedEffects, preserve, objectOfUse, injectionRegimen, price, haveToOrder);
+                vaccineDAO.addVaccine(name.trim(), summary.trim(), source.trim(), typeID, filename.trim(), injectionRoute.trim(),
+                    contraindicated.trim(), usingNote.trim(), drugInteractions.trim(), unwantedEffects.trim(),
+                    preserve.trim(), objectOfUse.trim(), injectionRegimen.trim(), price, haveToOrder);
                 response.sendRedirect("ListVaccineServlet");
             }
 //            response.sendRedirect("ListVaccineServlet");
