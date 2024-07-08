@@ -42,7 +42,7 @@
                     <span class="hide-menu">Hồ sơ bệnh nhân</span>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="listUsers" aria-expanded="false">
+                    <a class="sidebar-link" href="listUsers?searchTerm=&searchType=fullname" aria-expanded="false">
                         <span>
                             <i class="ti ti-article"></i>
                         </span>
@@ -88,7 +88,7 @@
                     <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                     <span class="hide-menu">Kho vaccine</span>
                 </li>
-                 <li class="sidebar-item ">
+                <li class="sidebar-item ">
                     <a class="sidebar-link" href="VaccineWarehouseServlet" aria-expanded="false">
                         <span>
                             <i class="ti ti-cards"></i>
@@ -98,26 +98,7 @@
                 </li>
 
 
-                                            <li class="nav-small-cap">
-                                              <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-                                              <span class="hide-menu">EXTRA</span>
-                                            </li>
-                                            <li class="sidebar-item">
-                                              <a class="sidebar-link" href="./icon-tabler.html" aria-expanded="false">
-                                                <span>
-                                                  <i class="ti ti-mood-happy"></i>
-                                                </span>
-                                                <span class="hide-menu">Icons</span>
-                                              </a>
-                                            </li>
-                                            <li class="sidebar-item mb-5">
-                                              <a class="sidebar-link" href="./sample-page.html" aria-expanded="false">
-                                                <span>
-                                                  <i class="ti ti-aperture"></i>
-                                                </span>
-                                                <span class="hide-menu">Sample Page</span>
-                                              </a>
-                                            </li>
+                
             </ul>
 
         </nav>
