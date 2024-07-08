@@ -102,7 +102,7 @@
                                     <input type="text" name="address" id="address" placeholder="Địa chỉ" />
                                 </div>
                                 <div class="option">
-                                    <label for="gender"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                    <label for="gender"></label>
                                     <select name="gender" id="gender" >
                                         <option value="" disabled selected>Giới tính</option>
                                         <option value="Nam">Nam</option>
@@ -113,7 +113,7 @@
                                 
                                 <div class="form-group">
                                     <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" />
-                                    <label for="agree-term" class="label-agree-term" style="font-family: 'Tilt Neon', sans-serif;"><span><span></span></span>Tôi đồng ý với các điều khoản <a href="#" class="term-service">dịch vụ</a></label>
+                                    <label for="agree-term" class="cbx" style="font-family: 'Tilt Neon';"><span><span></span></span>Tôi đồng ý với các điều khoản <a href="#" class="term-service">dịch vụ</a></label>
                                 </div>
                                 <div style="color: red;font-family: 'Tilt Neon', sans-serif;">${kq}</div><br>
                                 <div class="form-group form-button">
