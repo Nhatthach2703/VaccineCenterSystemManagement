@@ -11,6 +11,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +21,7 @@ import java.util.List;
  * @author Xuan Vinh
  */
 public class OrderVaccineInfoDAO {
+
     private ContextDAO contextDAO;
 
     public OrderVaccineInfoDAO() {
@@ -33,7 +36,7 @@ public class OrderVaccineInfoDAO {
                 OrderVaccineInfo order = new OrderVaccineInfo(
                         rs.getInt("orderInfoID"),
                         rs.getInt("userID"),
-                        rs.getDate("createDate"),
+                        rs.getTimestamp("createDate").toLocalDateTime(),
                         rs.getDate("dateWantToGetVaccinated"),
                         rs.getInt("workLocationID"),
                         rs.getInt("vaccineID"),
@@ -53,7 +56,7 @@ public class OrderVaccineInfoDAO {
         String sql = "INSERT INTO OrderVaccineInfo (userID, createDate, dateWantToGetVaccinated, workLocationID, vaccineID, confirmStatus, paymentStatus, totalPrice) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection conn = contextDAO.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, orderInfo.getUserID());
-            pstmt.setDate(2, new java.sql.Date(orderInfo.getCreateDate().getTime()));
+            pstmt.setTimestamp(2, Timestamp.valueOf(orderInfo.getCreateDate().withNano(0)));
             pstmt.setDate(3, new java.sql.Date(orderInfo.getDateWantToGetVaccinated().getTime()));
             pstmt.setInt(4, orderInfo.getWorkLocationID());
             pstmt.setInt(5, orderInfo.getVaccineID());
@@ -69,19 +72,19 @@ public class OrderVaccineInfoDAO {
         }
     }
 
-    public int getOrderInfoID(int userID, Date createDate, Date dateWantToGetVaccinated, int workLocationID, int vaccineID, double totalPrice) {
+    public int getOrderInfoID(int userID, LocalDateTime createDate, Date dateWantToGetVaccinated, int workLocationID, int vaccineID, double totalPrice) {
         int orderInfoID = -1;
         String sql = "SELECT orderInfoID FROM OrderVaccineInfo "
                 + "WHERE userID = ? AND createDate = ? AND dateWantToGetVaccinated = ? "
                 + "AND workLocationID = ? AND vaccineID = ? AND totalPrice = ?";
         try (Connection conn = contextDAO.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, userID);
-            stmt.setDate(2, new java.sql.Date(createDate.getTime()));
-            stmt.setDate(3, new java.sql.Date(dateWantToGetVaccinated.getTime()));
+            stmt.setTimestamp(2, Timestamp.valueOf(createDate.withNano(0))); // Convert LocalDateTime to Timestamp
+            stmt.setDate(3, dateWantToGetVaccinated);  // Date already, no need to convert
             stmt.setInt(4, workLocationID);
             stmt.setInt(5, vaccineID);
             stmt.setDouble(6, totalPrice);
-
+            
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 orderInfoID = rs.getInt("orderInfoID");
@@ -91,6 +94,9 @@ public class OrderVaccineInfoDAO {
         }
         return orderInfoID;
     }
+
+
+
 
     public boolean updatePaymentStatusByID(int orderInfoID, String paymentStatus) {
         String sql = "UPDATE OrderVaccineInfo SET paymentStatus = ? WHERE orderInfoID = ?";
@@ -104,7 +110,7 @@ public class OrderVaccineInfoDAO {
         }
         return false; // Return false if an exception occurred or no rows were updated
     }
-    
+
     public boolean deleteOrderByOrderInfoID(int orderInfoID) {
         String sql = "DELETE FROM OrderVaccineInfo WHERE orderInfoID = ?";
         try (Connection conn = contextDAO.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -116,7 +122,7 @@ public class OrderVaccineInfoDAO {
         }
         return false;
     }
-    
+
     public List<OrderVaccineInfo> getOrderHistoryByUserID(int userID) {
         List<OrderVaccineInfo> orders = new ArrayList<>();
         String sql = "SELECT * FROM OrderVaccineInfo WHERE userID = ?";
@@ -127,7 +133,7 @@ public class OrderVaccineInfoDAO {
                 OrderVaccineInfo order = new OrderVaccineInfo(
                         rs.getInt("orderInfoID"),
                         rs.getInt("userID"),
-                        rs.getDate("createDate"),
+                        rs.getTimestamp("createDate").toLocalDateTime(),
                         rs.getDate("dateWantToGetVaccinated"),
                         rs.getInt("workLocationID"),
                         rs.getInt("vaccineID"),
@@ -142,7 +148,7 @@ public class OrderVaccineInfoDAO {
         }
         return orders;
     }
-    
+
     public boolean updateConfirmStatusByID(int orderInfoID, boolean confirmStatus) {
         String sql = "UPDATE OrderVaccineInfo SET confirmStatus = ? WHERE orderInfoID = ?";
         try (Connection conn = contextDAO.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -155,18 +161,18 @@ public class OrderVaccineInfoDAO {
         }
         return false;
     }
-      public OrderVaccineInfo getOrderInfoByID(int orderInfoID) {
+
+    public OrderVaccineInfo getOrderInfoByID(int orderInfoID) {
         OrderVaccineInfo order = null;
         String sql = "SELECT * FROM OrderVaccineInfo WHERE orderInfoID = ?";
-        try (Connection conn = contextDAO.getConnection(); 
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (Connection conn = contextDAO.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, orderInfoID);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 order = new OrderVaccineInfo(
                         rs.getInt("orderInfoID"),
                         rs.getInt("userID"),
-                        rs.getDate("createDate"),
+                        rs.getTimestamp("createDate").toLocalDateTime(),
                         rs.getDate("dateWantToGetVaccinated"),
                         rs.getInt("workLocationID"),
                         rs.getInt("vaccineID"),
