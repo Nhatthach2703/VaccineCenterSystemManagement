@@ -26,8 +26,6 @@ import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Formatter;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import javax.servlet.ServletException;
@@ -39,6 +37,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import com.thdap.vaccine.dao.VaccineDAO;
 import com.thdap.vaccine.model.Vaccine;
+import java.time.LocalDate;
 
 /**
  *
@@ -115,6 +114,11 @@ public class PaymentServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
+//        String checkoutUrl = (String) session.getAttribute("checkoutUrl");
+//        if (checkoutUrl != null) {
+//            response.sendRedirect(checkoutUrl);
+//            return;
+//        }
         
         // Example values
         String paymentMethod = "VIETQR";
@@ -126,11 +130,12 @@ public class PaymentServlet extends HttpServlet {
         int userID = Integer.parseInt(request.getParameter("userID"));
         long totalPrice = Long.parseLong(request.getParameter("totalPrice"));
         
-        Date createDate = new Date(Calendar.getInstance().getTime().getTime());
+        LocalDateTime createDate = LocalDateTime.now();
+        LocalDate dateWantToGetVaccinatedCheck = LocalDate.parse(request.getParameter("dateWantToGetVaccinated"));
         Date dateWantToGetVaccinated = Date.valueOf(request.getParameter("dateWantToGetVaccinated"));
         
         // Kiểm tra nếu dateWantToGetVaccinated là quá khứ so với createDate
-        if (dateWantToGetVaccinated.before(createDate)) {
+        if (dateWantToGetVaccinatedCheck.isBefore(LocalDate.now())) {
             VaccineDAO vaccineDAO = new VaccineDAO();
             Vaccine vaccine = vaccineDAO.getVaccineById(vaccineID);
 
@@ -150,10 +155,11 @@ public class PaymentServlet extends HttpServlet {
 
         // Kiểm tra nếu dateWantToGetVaccinated cách ít nhất 15 ngày so với createDate
         Calendar calCreateDate = Calendar.getInstance();
-        calCreateDate.setTime(createDate);
+        Date createDateCheck = new Date(Calendar.getInstance().getTime().getTime());
+        calCreateDate.setTime(createDateCheck);
         calCreateDate.add(Calendar.DATE, 15); // Thêm 15 ngày vào createDate
         Date minDate = new Date(calCreateDate.getTime().getTime());
-
+        
         if (dateWantToGetVaccinated.before(minDate)) {
             VaccineDAO vaccineDAO = new VaccineDAO();
             Vaccine vaccine = vaccineDAO.getVaccineById(vaccineID);
@@ -186,9 +192,12 @@ public class PaymentServlet extends HttpServlet {
         // Thêm thông tin đăng ký vào cơ sở dữ liệu
         OrderVaccineInfoDAO orderInfoDAO = new OrderVaccineInfoDAO();
         boolean success = orderInfoDAO.insertOrderVaccineInfo(orderInfo);
-
+        
+        LocalDateTime orderDateTime = orderInfo.getCreateDate();
+        java.sql.Timestamp sqlTimestamp = java.sql.Timestamp.valueOf(orderDateTime);
+        
         // Phản hồi kết quả cho người dùng
-        int orderInfoID = orderInfoDAO.getOrderInfoID(userID, createDate, dateWantToGetVaccinated, workLocationID, vaccineID, totalPrice);
+        int orderInfoID = orderInfoDAO.getOrderInfoID(userID, orderDateTime, dateWantToGetVaccinated, workLocationID, vaccineID, totalPrice);
         session.setAttribute("orderInfoID", orderInfoID);
         
         // Get order details from session
@@ -217,16 +226,6 @@ public class PaymentServlet extends HttpServlet {
             response.sendRedirect("Error.jsp");
             return;
         }
-        String checkoutUrl = null;
-        try {
-            checkoutUrl = sendJsonToCreatePayment(orderCode, totalPriceStr, description, user, cancelUrl, returnUrl, signature)[0];
-        } catch (Exception ex) {
-            Logger.getLogger(PaymentServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        if (checkoutUrl != null) {
-            response.sendRedirect(checkoutUrl);
-            return;
-        }
 
         // Send JSON
         String[] result;
@@ -243,7 +242,6 @@ public class PaymentServlet extends HttpServlet {
             response.sendRedirect("Error.jsp");
             return;
         }
-
         // Save checkoutURL and paymentLinkId to session and redirect to checkoutUrl
         session.setAttribute("checkoutUrl", result[0]);
         Cookie checkoutUrlCookie = new Cookie("checkoutUrl", result[0]);

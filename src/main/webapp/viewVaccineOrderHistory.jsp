@@ -111,7 +111,19 @@
                                         </c:if>
                                     </c:forEach>
                                 </td>
-                                <td>${order.paymentStatus}</td>
+                                <td>
+                                    <c:choose>
+                                        <c:when test="${order.paymentStatus == 'PAID'}">
+                                            PAID
+                                        </c:when>
+                                        <c:when test="${order.paymentStatus == 'NOT PAID'}">
+                                            <a href="${sessionScope.checkoutUrl}" class="btn btn-primary" >Thanh toán</a>
+                                        </c:when>
+                                        <c:otherwise>
+                                            ${order.paymentStatus}
+                                        </c:otherwise>
+                                    </c:choose>
+                                </td>
                                 <td>
                                     <c:choose>
                                         <c:when test="${order.confirmStatus == true}">

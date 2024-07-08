@@ -5,6 +5,7 @@
 package com.thdap.vaccine.model;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
 
 /**
  *
@@ -13,7 +14,7 @@ import java.sql.Date;
 public class OrderVaccineInfo {
     private int orderInfoID;
     private int userID;
-    private Date createDate;
+    private LocalDateTime createDate;
     private Date dateWantToGetVaccinated;
     private int workLocationID;
     private int vaccineID;
@@ -24,7 +25,7 @@ public class OrderVaccineInfo {
     public OrderVaccineInfo() {
     }
 
-    public OrderVaccineInfo(int orderInfoID, int userID, Date createDate, Date dateWantToGetVaccinated, int workLocationID, int vaccineID, boolean confirmStatus, String paymentStatus, double totalPrice) {
+    public OrderVaccineInfo(int orderInfoID, int userID, LocalDateTime createDate, Date dateWantToGetVaccinated, int workLocationID, int vaccineID, boolean confirmStatus, String paymentStatus, double totalPrice) {
         this.orderInfoID = orderInfoID;
         this.userID = userID;
         this.createDate = createDate;
@@ -36,7 +37,7 @@ public class OrderVaccineInfo {
         this.totalPrice = totalPrice;
     }
 
-    public OrderVaccineInfo(int userID, Date createDate, Date dateWantToGetVaccinated, int workLocationID, int vaccineID, boolean confirmStatus, String paymentStatus, double totalPrice) {
+    public OrderVaccineInfo(int userID, LocalDateTime createDate, Date dateWantToGetVaccinated, int workLocationID, int vaccineID, boolean confirmStatus, String paymentStatus, double totalPrice) {
         this.userID = userID;
         this.createDate = createDate;
         this.dateWantToGetVaccinated = dateWantToGetVaccinated;
@@ -63,11 +64,11 @@ public class OrderVaccineInfo {
         this.userID = userID;
     }
 
-    public Date getCreateDate() {
+    public LocalDateTime getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(Date createDate) {
+    public void setCreateDate(LocalDateTime createDate) {
         this.createDate = createDate;
     }
 
