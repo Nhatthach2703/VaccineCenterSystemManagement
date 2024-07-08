@@ -13,6 +13,7 @@
         <title>THDAP</title>
         <link rel="shortcut icon" type="image/png" href="../assets/images/logos/favicon.png" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+        <link rel="stylesheet" href="./assets/css/style.css"/>
         <link rel="stylesheet" href="assets/css/AdminVaccine.css"/>
         <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">-->
         <link rel="stylesheet" href="./assets/css/AdminIndex.min.css" />
@@ -36,6 +37,7 @@
              data-sidebar-position="fixed" data-header-position="fixed">
             <!-- Sidebar Start -->
             <jsp:include page="AdminSideBar.jsp"/>
+            <jsp:include page="IndexHeader.jsp"/>
             <!--  Sidebar End -->
             <!--  Main wrapper -->
             <div class="body-wrapper">
@@ -44,8 +46,8 @@
                         <div class="table-wrapper">
                             <div class="table-title pt-3 pb-3">
                                 <div class="row">
-                                    <div class="col-sm-5">
-                                        <h2 class="ml-4" style="color: white; margin-left: 2rem;">Lịch làm việc</h2>
+                                    <div class="col-sm-5 mt-2">
+                                        <h2 class="ml-4" style=" font-family: 'Tilt Neon';font-weight: 700;color: white; margin-left: 2rem;">Lịch làm việc</h2>
                                     </div>
 <!--                                    <div class="col-sm-7">
                                         <div style="text-justify: auto;text-align: right"class="mr-4">
