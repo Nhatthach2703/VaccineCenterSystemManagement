@@ -15,8 +15,36 @@
  <link rel="stylesheet" href="./assets/css/AdminIndex.min.css" />
    <link rel="stylesheet" href="assets/css/Admin_CreateUpdateVaccine.css"/>
 </head>
+<style>
+            
 
-<body>
+            button {
+                padding: 10px 30px;
+                border: 0;
+                border-radius: 100px;
+                background-color: #2ba8fb;
+                color: #ffffff;
+                font-weight: Bold;
+                transition: all 0.5s;
+                -webkit-transition: all 0.5s;
+            }
+
+            button:hover {
+                background-color: #6fc5ff;
+                box-shadow: 0 0 20px #6fc5ff50;
+                transform: scale(1.1);
+            }
+
+            button:active {
+                background-color: #3d94cf;
+                transition: all 0.25s;
+                -webkit-transition: all 0.25s;
+                box-shadow: none;
+                transform: scale(0.98);
+            }
+        </style>
+
+        <body style="background-color: #fff">
   <!--  Body Wrapper -->
   <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
     data-sidebar-position="fixed" data-header-position="fixed">
@@ -28,7 +56,7 @@
           <div class="main" data-aos="zoom-in-left">
             <!-- Sign in Form -->
             <section class="sign-in" >
-                <div class="container1" >
+                <div class="container1" style="margin: 30px auto" >
                     <div class="signin-content input_content" >
                         <div class="signin-form">
                             <h2 class="form-title mb-4">Chỉnh Sửa Thông Tin Vaccine</h2>
@@ -111,9 +139,9 @@
                                 </div>
                                          <div style="color: red;font-family: 'Tilt Neon', sans-serif;font-size:15px; height: 10px">${errorMessage}</div>
                                 <div class="form-group" style=" margin-top: 2%">
-                                     <button style="margin-right: 1rem" class="button_add">Sửa</button>
+                                     <button style="margin-right: 1rem">Sửa</button>
 
-                                    <button class="button_add"><a href="ListVaccineServlet" style="color: white">Trở về</a></button>
+                                    <button><a href="ListVaccineServlet" style="color: white">Trở về</a></button>
                                     
                                 </div>
                             </form>

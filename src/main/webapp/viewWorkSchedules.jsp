@@ -8,6 +8,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>THDAP</title>
         <link rel="shortcut icon" type="image/png" href="../assets/images/logos/favicon.png" />
+        <link rel="stylesheet" href="./assets/css/style.css"/>
         <link rel="stylesheet" href="./assets/css/AdminIndex.min.css" />
         <link rel="stylesheet" href="./assets/css/calendar.css" />
 
@@ -17,6 +18,7 @@
              data-sidebar-position="fixed" data-header-position="fixed">
             <!-- Sidebar Start -->
             <jsp:include page="AdminSideBar.jsp"/>
+            <jsp:include page="IndexHeader.jsp"/>
             <!--  Sidebar End -->
             <!--  Main wrapper -->
             <div class="body-wrapper">

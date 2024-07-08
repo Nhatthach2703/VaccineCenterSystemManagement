@@ -375,6 +375,124 @@ public class SendMail {
         }
     }
 
+ 
+    
+    // New functions for sending review emails
+    public static void sendReviewConsultationEmail(String to, int userID) {
+        final String from = "hethongtrungtamtiemchungthdap@gmail.com";
+        final String password = "sdlrilkbzljylemz";
+
+        Properties props = new Properties();
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.port", "587");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+
+        Authenticator auth = new Authenticator() {
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(from, password);
+            }
+        };
+
+        // Phiên làm việc
+        Session session = Session.getInstance(props, auth);
+
+        // Tạo một tin nhắn
+        MimeMessage msg = new MimeMessage(session);
+
+        try {
+            // Kiểu nội dung
+            msg.addHeader("Content-type", "text/HTML; charset=UTF-8");
+
+            // Người gửi
+            msg.setFrom(from);
+
+            // Người nhận
+            msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to, false));
+
+            // Tiêu đề email
+            msg.setSubject("Cảm ơn quý khách đã sử dụng dịch vụ tư vấn tại THDAP!");
+
+            // Quy đinh ngày gửi
+            msg.setSentDate(new Date());
+
+            // Nội dung email
+            String emailContent = "<h3>Kính gửi quý khách hàng,</h3>" +
+                                  "<p>Trung tâm dịch vụ tiêm chủng THDAP xin gửi lời cảm ơn chân thành tới quý khách vì đã tin tưởng và sử dụng dịch vụ tư vấn của chúng tôi. Chúng tôi hy vọng rằng những thông tin và sự tư vấn từ đội ngũ của chúng tôi đã giúp quý khách có được những kiến thức bổ ích và an tâm hơn về sức khỏe.</p>" +
+                                  "<p>Để giúp chúng tôi cải thiện và nâng cao chất lượng dịch vụ, xin quý khách vui lòng dành chút thời gian để đánh giá về dịch vụ của chúng tôi theo đường link sau: <a href='http://localhost:8080/Vaccine/RateServiceServlet?userID=" + userID + "&type=Tư vấn'>link đánh giá dịch vụ tư vấn</a></p>" +
+                                  "<p>Chúng tôi rất mong được lắng nghe ý kiến đóng góp từ quý khách để phục vụ tốt hơn trong tương lai.</p>" +
+                                  "<p>Trân trọng,<br>THDAP</p>";
+            msg.setContent(emailContent, "text/html; charset=UTF-8");
+
+            // Gửi email
+            Transport.send(msg);
+            System.out.println("Gửi email mời đánh giá buổi tư vấn thành công");
+
+        } catch (Exception e) {
+            System.out.println("Gặp lỗi trong quá trình gửi email mời đánh giá buổi tư vấn");
+            e.printStackTrace();
+        }
+    }
+
+    public static void sendReviewInjectionEmail(String to, int userID) {
+        final String from = "hethongtrungtamtiemchungthdap@gmail.com";
+        final String password = "sdlrilkbzljylemz";
+
+        Properties props = new Properties();
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.port", "587");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+
+        Authenticator auth = new Authenticator() {
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(from, password);
+            }
+        };
+
+        // Phiên làm việc
+        Session session = Session.getInstance(props, auth);
+
+        // Tạo một tin nhắn
+        MimeMessage msg = new MimeMessage(session);
+
+        try {
+            // Kiểu nội dung
+            msg.addHeader("Content-type", "text/HTML; charset=UTF-8");
+
+            // Người gửi
+            msg.setFrom(from);
+
+            // Người nhận
+            msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to, false));
+
+            // Tiêu đề email
+            msg.setSubject("Cảm ơn quý khách đã sử dụng dịch vụ tiêm chủng tại THDAP!");
+
+            // Quy đinh ngày gửi
+            msg.setSentDate(new Date());
+
+            // Nội dung email
+            String emailContent = "<h3>Kính gửi quý khách hàng,</h3>" +
+                                  "<p>Trung tâm dịch vụ tiêm chủng THDAP xin gửi lời cảm ơn chân thành tới quý khách vì đã tin tưởng và sử dụng dịch vụ tiêm chủng của chúng tôi. Chúng tôi hy vọng rằng trải nghiệm của quý khách tại trung tâm đã mang lại sự hài lòng và an tâm.</p>" +
+                                  "<p>Để giúp chúng tôi ngày càng hoàn thiện hơn và mang đến chất lượng dịch vụ tốt nhất, xin quý khách vui lòng dành chút thời gian để đánh giá về dịch vụ của chúng tôi theo đường link sau: <a href='http://localhost:8080/Vaccine/RateServiceServlet?userID=" + userID + "&type=Tiêm'>link đánh giá dịch vụ tiêm</a></p>" +
+                                  "<p>Một lần nữa, chúng tôi xin chân thành cảm ơn và rất mong được tiếp tục phục vụ quý khách trong tương lai.</p>" +
+                                  "<p>Trân trọng,<br>THDAP</p>";
+            msg.setContent(emailContent, "text/html; charset=UTF-8");
+
+            // Gửi email
+            Transport.send(msg);
+            System.out.println("Gửi email mời đánh giá buổi tiêm thành công");
+
+        } catch (Exception e) {
+            System.out.println("Gặp lỗi trong quá trình gửi email mời đánh giá buổi tiêm");
+            e.printStackTrace();
+        }
+    }
+
+    
     public static void main(String[] args) {
         String to = "duyentttde170176@fpt.edu.vn";
         String code = generateRandomFourDigits();

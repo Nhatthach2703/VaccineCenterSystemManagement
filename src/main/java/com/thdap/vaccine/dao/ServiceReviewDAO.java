@@ -123,4 +123,31 @@ public class ServiceReviewDAO {
 
         return reviews;
     }
+    
+    public List<ServiceReview> getFiveStarReview() {
+    List<ServiceReview> reviews = new ArrayList<>();
+    String query = "SELECT * FROM ServiceReviews WHERE rate IN (4, 5) ORDER BY date DESC";
+    
+    try (Connection conn = contextDAO.getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(query);
+         ResultSet resultSet = pstmt.executeQuery()) {
+        
+        while (resultSet.next()) {
+            int reviewID = resultSet.getInt("reviewID");
+            int userID = resultSet.getInt("userID");
+            String content = resultSet.getString("content");
+            int rate = resultSet.getInt("rate");
+            Date date = resultSet.getDate("date");
+            String type = resultSet.getString("type");
+
+            ServiceReview review = new ServiceReview(reviewID, userID, content, rate, date, type);
+            reviews.add(review);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return reviews;
+}
+
+    
 }

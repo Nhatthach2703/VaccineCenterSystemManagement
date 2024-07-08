@@ -3,7 +3,7 @@
     <!-- Sidebar scroll-->
     <div>
         <div class="brand-logo d-flex align-items-center justify-content-between">
-            <a href="AdminIndex.jsp" class="text-nowrap logo-img">
+            <a href="AdminIndexServlet" class="text-nowrap logo-img">
                 <img src="./assets/images/logos/logo2.png" width="180" alt="" />
             </a>
             <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
@@ -18,7 +18,7 @@
                     <span class="hide-menu">Home</span>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="AdminIndex.jsp" aria-expanded="false">
+                    <a class="sidebar-link" href="AdminIndexServlet" aria-expanded="false">
                         <span>
                             <i class="ti ti-layout-dashboard"></i>
                         </span>
