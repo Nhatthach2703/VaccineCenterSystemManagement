@@ -39,20 +39,21 @@ inputs.forEach((input, index) => {
     });
 });
 
-function handleVerification(e) {
-    e.preventDefault(); // Ngăn chặn việc gửi form để kiểm tra
-
+function handleVerification() {
+    // Check if the verification process is successful (simulated here)
     const isVerificationSuccessful = true;
 
     if (isVerificationSuccessful) {
+        // Show the success message container
         const successMessageContainer = document.querySelector('.otp-card1');
-        successMessageContainer.style.pointerEvents = 'auto';
+        successMessageContainer.style.pointerEvents; // Make it visible
         successMessageContainer.classList.add('show-success');
 
+        // Optionally, hide the confirmation card
         const confirmationCard = document.querySelector('.otp-card');
-        confirmationCard.style.opacity = 0; // Ẩn thẻ
-        confirmationCard.style.pointerEvents = 'none'; // Vô hiệu hóa tương tác
+        confirmationCard.style.opacity = 0; // Hide the card
+        confirmationCard.style.pointerEvents = 'none'; // Disable interaction
     } else {
-        // Xử lý xác minh không thành công
+        // Handle unsuccessful verification (display error message, etc.)
     }
 }
