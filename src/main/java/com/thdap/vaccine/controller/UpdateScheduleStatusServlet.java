@@ -57,7 +57,7 @@ public class UpdateScheduleStatusServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet UpdateScheduleStatusServlet</title>");            
+            out.println("<title>Servlet UpdateScheduleStatusServlet</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet UpdateScheduleStatusServlet at " + request.getContextPath() + "</h1>");
@@ -98,7 +98,7 @@ public class UpdateScheduleStatusServlet extends HttpServlet {
         ConsultationScheduleDAO consultationScheduleDAO = new ConsultationScheduleDAO();
         int scheduleID = Integer.parseInt(request.getParameter("scheduleID"));
         String workType = request.getParameter("workType");
-        
+        UserDAO userDAO = new UserDAO();
         boolean success = false;
         String message = "";
 
@@ -108,15 +108,30 @@ public class UpdateScheduleStatusServlet extends HttpServlet {
                 if (injectionSchedule != null) {
                     injectionSchedule.setStatus(true);
                     success = injectionScheduleDAO.updateInjectionScheduleStatus(injectionSchedule);
+                    if (success) {
+                        User user = userDAO.findUserByID(injectionSchedule.getUserID());
+                        if (user != null) {
+                            SendMail.sendReviewInjectionEmail(user.getEmail(), user.getUserID());
+                            
+                        }
+                    }
                 }
             } else if ("Tư vấn".equalsIgnoreCase(workType)) {
                 ConsultationSchedule consultationSchedule = consultationScheduleDAO.getConsultationScheduleByID(scheduleID);
                 if (consultationSchedule != null) {
                     consultationSchedule.setStatus(true);
                     success = consultationScheduleDAO.updateConsultationScheduleStatus(consultationSchedule);
+                    if (success) {
+                     
+                        User user = userDAO.findUserByID(consultationSchedule.getUserID());
+                        if (user != null) {
+                            SendMail.sendReviewConsultationEmail(user.getEmail(), user.getUserID());
+                            
+                        }
+                    }
                 }
+           
             }
-
             if (success) {
                 message = "Cập nhật thành công!";
                 // Viết hàm gửi Email để đánh giá!
@@ -127,7 +142,7 @@ public class UpdateScheduleStatusServlet extends HttpServlet {
             message = "Có lỗi xảy ra trong quá trình xử lý: " + e.getMessage();
             success = false;
         }
-        
+
         WorkScheduleDAO workScheduleDAO = new WorkScheduleDAO();
         List<WorkSchedule> workSchedules = workScheduleDAO.getAllWorkSchedules();
         DoctorDAO doctorDAO = new DoctorDAO();
@@ -142,7 +157,7 @@ public class UpdateScheduleStatusServlet extends HttpServlet {
         List<UserShift> userShifts = userShiftDAO.getAllUserShifts();
         List<InjectionSchedule> injectionSchedules = injectionScheduleDAO.getAllInjectionSchedules();
         List<ConsultationSchedule> consultationSchedules = consultationScheduleDAO.getAllConsultationSchedules();
-        UserDAO userDAO = new UserDAO();
+        
         List<User> users = userDAO.getAllUsers();
 
         ObjectMapper objectMapper = new ObjectMapper();
@@ -174,7 +189,7 @@ public class UpdateScheduleStatusServlet extends HttpServlet {
 //        request.setAttribute("success", success);
 //        request.setAttribute("message", message);
         request.getRequestDispatcher("viewWorkSchedulesDoctor.jsp").forward(request, response);
-    
+
     }
 
     /**
