@@ -42,13 +42,13 @@
             <div class="container text-center mt-5">
                 <div class="row g-0 justify-content-center">
                     <div class="mt-5 mb-5 text-center">
-                        <h1><strong>Đánh giá dịch vụ</strong>></h1>
+                        <h1><strong>Đánh giá dịch vụ</strong></h1>
                     </div>
                     <div class="col-md-8" data-aos="fade-up" data-aos-delay="100">
                         <c:forEach var="review" items="${serviceReviews}">
                             <div class="row card-text rounded-4 mb-5 justify-content-center" style="border: 5px solid black; width: 100%;">
                                 <div class="card-image col-md-4 mb-5 mt-5">
-                                    
+
                                     <div class="mt-4">
                                         <c:forEach var="user" items="${users}">
                                             <c:if test="${user.userID == review.userID}">
@@ -59,7 +59,7 @@
                                                 </c:forEach>
                                             </c:if>
                                         </c:forEach>
-                                                        <p><strong>Loại:</strong> ${review.getType()}</p>
+                                        <p><strong>Loại:</strong> ${review.getType()}</p>
                                     </div>
                                 </div>
                                 <div class="col-md-8 mt-5">
@@ -76,7 +76,7 @@
                                         <input type="radio" id="star1-${review.reviewID}" name="rating-${review.reviewID}" value="1" ${review.rate == 1 ? 'checked' : ''} disabled>
                                         <label for="star1-${review.reviewID}"></label>
                                     </div>
-<p><strong>Nội dung</strong></p> <br>
+                                    <p><strong>Nội dung</strong></p> <br>
                                     <p>${review.content}</p>                                </div>
                             </div>
                         </c:forEach>
