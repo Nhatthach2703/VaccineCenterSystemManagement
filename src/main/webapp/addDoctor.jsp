@@ -17,6 +17,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>THDAP</title>
   <link rel="shortcut icon" type="image/png" href="../assets/images/logos/favicon.png" />
+  <link rel="stylesheet" href="./assets/css/style.css"/>
  <link rel="stylesheet" href="./assets/css/AdminIndex.min.css" />
    
      <link rel="stylesheet" href="assets/css/Admin_CreateUpdateVaccine.css"/>F
@@ -55,12 +56,13 @@
     data-sidebar-position="fixed" data-header-position="fixed">
     <!-- Sidebar Start -->
     <jsp:include page="AdminSideBar.jsp"/>
+    <jsp:include page="IndexHeader.jsp"/>
     <!--  Sidebar End -->
     <!--  Main wrapper -->
     <div class="body-wrapper">
-          <div class="main"style="margin-top: 100px" data-aos="zoom-in">
+          <div class="main" data-aos="zoom-in">
             <!-- Sing in  Form -->
-            <section class="sign-in" >
+            <section class="sign-in" style="padding-top: 30px ">
                 <div class="container1" style="margin-bottom: 30px;">
                     <div class="signin-content input_content">
 

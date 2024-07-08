@@ -14,20 +14,22 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>THDAP</title>
         <link rel="shortcut icon" type="image/png" href="../assets/images/logos/favicon.png" />
+        <link rel="stylesheet" href="./assets/css/style.css"/>
         <link rel="stylesheet" href="./assets/css/AdminIndex.min.css" />
         <link rel="stylesheet" href="./assets/css/AdminList.css">
     </head>
 
-    <body>
+    <body style="background-color:#fff ">
         <!--  Body Wrapper -->
         <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
              data-sidebar-position="fixed" data-header-position="fixed">
             <!-- Sidebar Start -->
             <jsp:include page="AdminSideBar.jsp"/>
+            <jsp:include page="IndexHeader.jsp"/>
             <!--  Sidebar End -->
             <!--  Main wrapper -->
             <div class="body-wrapper " ">
-                <div data-aos="fade-up" class="container-fluid" >
+                <div data-aos="fade-up" class="container-fluid" style="padding-top: 30px">
                     <div class="card">
                     <!-- User Accounts -->
                     <section class="sign-in">
