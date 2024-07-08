@@ -42,7 +42,7 @@ public class LoginGoogleServlet extends HttpServlet {
                 User user = dao.getUserByAccountID(account.getAccountID());
                 session.setAttribute("account", account);
                 session.setAttribute("user", user);
-                response.sendRedirect("index.jsp");
+                response.sendRedirect("homeIndex");
             }   
         } else {
             request.setAttribute("errorMessage", "Tài khoản của bạn bị khóa vì một lý do nào đó!");

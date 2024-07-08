@@ -214,23 +214,63 @@ public class UserDAO {
         return user;
     }
     
-    
-    
-    public static void main(String[] args) {
-        UserDAO userDAO = new UserDAO();
-        List<User> users = userDAO.getAllUsers();
-
-//        if (users.isEmpty()) {
-//            System.out.println("Không có người dùng nào trong cơ sở dữ liệu.");
-//        } else {
-//            System.out.println("Danh sách người dùng:");
-//            for (User user : users) {
-//                System.out.println(user);
-//            }
-//        }
-        userDAO.findUserByID(1);
-        System.out.println(userDAO.findUserByID(1));
+     public User getUserByUserFileID(int userFileID) {
+        String query = "SELECT * FROM Users WHERE userID = (SELECT userID FROM UserFile WHERE userFileID = ?)";
+        User user = null;
+        try (Connection conn = contextDAO.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setInt(1, userFileID);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    user = new User(
+                        rs.getInt("userID"),
+                        rs.getString("fullName"),
+                        rs.getInt("accountID"),
+                        rs.getString("image"),
+                        rs.getString("email"),
+                        rs.getDate("doB"),
+                        rs.getString("phoneNumber"),
+                        rs.getString("address"),
+                        rs.getString("gender")
+                    );
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return user;
     }
+      public static void main(String[] args) {
+        UserDAO userDAO = new UserDAO();
+        
+        // Kiểm tra phương thức getUserByUserFileID
+        int userFileID = 1; // Thay đổi ID này để kiểm tra với các giá trị khác nhau
+        User user = userDAO.getUserByUserFileID(userFileID);
+        
+        if (user != null) {
+            System.out.println("User found: " + user);
+        } else {
+            System.out.println("User not found with userFileID: " + userFileID);
+        }
+        
+        // Kiểm tra phương thức sendEmailReminders
+       
+    }
+    
+//    public static void main(String[] args) {
+//        UserDAO userDAO = new UserDAO();
+//        List<User> users = userDAO.getAllUsers();
+//
+////        if (users.isEmpty()) {
+////            System.out.println("Không có người dùng nào trong cơ sở dữ liệu.");
+////        } else {
+////            System.out.println("Danh sách người dùng:");
+////            for (User user : users) {
+////                System.out.println(user);
+////            }
+////        }
+//        userDAO.findUserByID(1);
+//        System.out.println(userDAO.findUserByID(1));
+//    }
     
     
 }

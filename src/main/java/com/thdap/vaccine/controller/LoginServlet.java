@@ -79,7 +79,7 @@ public class LoginServlet extends HttpServlet {
                 } else if ("User".equals(roleID)) {
                     User user = dao.getUserByAccountID(account.getAccountID());
                     session.setAttribute("user", user);
-                    response.sendRedirect("index.jsp");
+                    response.sendRedirect("homeIndex");
                 } else {
                     Doctor doctor2 = doctorDao.getDoctorByAccountID(account.getAccountID());
                     ObjectMapper objectMapper = new ObjectMapper();
@@ -92,7 +92,7 @@ public class LoginServlet extends HttpServlet {
                     session.setAttribute("doctorI", doctorI);
                     
                     session.setAttribute("doctor", doctor2);
-                    response.sendRedirect("index.jsp");
+                    response.sendRedirect("doctorIndexServlet");
                 }
             } else {
                 // Account is locked, set error message and forward to login page

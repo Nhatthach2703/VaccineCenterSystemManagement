@@ -78,16 +78,49 @@
         <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet" />
         <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet" />
         <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet" />
-        <link href="assets/css/style.css" rel="stylesheet" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
-        <link rel="stylesheet" href="assets/css/Admin_CreateUpdateVaccine.css"/>
+        
+         <link rel="stylesheet" href="./assets/css/AdminIndex.min.css" />
+       <style>
+            
+
+            button {
+                padding: 10px 30px;
+                border: 0;
+                border-radius: 100px;
+                background-color: #2ba8fb;
+                color: #ffffff;
+                font-weight: Bold;
+                transition: all 0.5s;
+                -webkit-transition: all 0.5s;
+            }
+
+            button:hover {
+                background-color: #6fc5ff;
+                box-shadow: 0 0 20px #6fc5ff50;
+                transform: scale(1.1);
+            }
+
+            button:active {
+                background-color: #3d94cf;
+                transition: all 0.25s;
+                -webkit-transition: all 0.25s;
+                box-shadow: none;
+                transform: scale(0.98);
+            }
+        </style>
     </head>
     <body>
-        
-        <h2>TẠO CÂU HỎI THƯỜNG GẶP</h2>
+        <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+             data-sidebar-position="fixed" data-header-position="fixed">
+            <!-- Sidebar Start -->
+            <jsp:include page="DoctorSideBar.jsp"/>
+            <!--  Sidebar End -->
+            <!--  Main wrapper -->
+            <div class="body-wrapper">
+                <jsp:include page="DoctorHeader.jsp"/>
+                <h2>TẠO CÂU HỎI THƯỜNG GẶP</h2>
         <div class="container">
             <div class="form-container" data-aos="fade-up">
-                
                 <form action="create-faq" method="post" enctype="multipart/form-data">
                     <label for="shortenedQuestion">Câu Hỏi:</label>
                     <input type="text" id="shortenedQuestion" name="shortenedQuestion" required>
@@ -101,13 +134,15 @@
                     <label for="image">Tải Ảnh Minh Họa:</label>
                     <input type="file" id="image" name="image" accept="image/*">
 
-                    <button type="submit">Tạo</button>
+                    <button class="mt-3">Tạo</button>
                 </form>
-                
+
             </div>
         </div>
+            </div>
+        </div>
+        
 
-        <jsp:include page="footer.jsp"/>
         <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
         <script src="assets/vendor/aos/aos.js"></script>
         <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -122,5 +157,11 @@
         <script>
             AOS.init();
         </script>
+        <script src="./assets/libs/jquery/dist/jquery.min.js"></script>
+        <script src="./assets/js/sidebarmenu.js"></script>
+        <script src="./assets/js/app.min.js"></script>
+        <script src="./assets/libs/apexcharts/dist/apexcharts.min.js"></script>
+        <script src="./assets/libs/simplebar/dist/simplebar.js"></script>
+        <script src="./assets/js/dashboard.js"></script>
     </body>
 </html>

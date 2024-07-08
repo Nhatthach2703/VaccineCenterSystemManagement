@@ -5,9 +5,11 @@
 package com.thdap.vaccine.controller;
 
 import com.thdap.vaccine.dao.InjectionInfoDAO;
+import com.thdap.vaccine.dao.NotificationsDAO;
 import com.thdap.vaccine.dao.UserFileDAO;
 import com.thdap.vaccine.dao.VaccineDAO;
 import com.thdap.vaccine.model.InjectionInfo;
+import com.thdap.vaccine.model.Notifications;
 import com.thdap.vaccine.model.UserFile;
 import com.thdap.vaccine.model.Vaccine;
 import java.io.IOException;
@@ -98,6 +100,7 @@ public class EditUserFileServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+     private NotificationsDAO notificationsDAO = new NotificationsDAO();
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -175,8 +178,8 @@ public class EditUserFileServlet extends HttpServlet {
 
                 InjectionInfo newInjectionInfo = new InjectionInfo(userFileID, sqlNewInjectionDate, newVaccineIDInt, newPatientStatus, sqlNewDateOfNextInjection);
                 boolean isAdded = injectionInfoDAO.addInjectionInfo(newInjectionInfo);
-
-                if (!isAdded) {
+                
+                if (!isAdded) {                                   
                     List<InjectionInfo> injectionInfos = injectionInfoDAO.getInjectionInfosByUserFileID(userFileID);
                     request.setAttribute("errorMessage", "Thêm thông tin tiêm chủng thất bại!");
                     request.setAttribute("userFile", userFile);
@@ -189,7 +192,15 @@ public class EditUserFileServlet extends HttpServlet {
                     
                     request.getRequestDispatcher("editUserFile.jsp").forward(request, response);
                     return;
+                }else{
+                    //Viết thêm add data vào bảng notification 
+                    int injectionInfoID = injectionInfoDAO.getInjectionID(userFileID, sqlNewInjectionDate, newVaccineIDInt, newPatientStatus, sqlNewDateOfNextInjection);
+
+                    // Add notification for the new injection
+                    Notifications notification = new Notifications(injectionInfoID, "New injection scheduled", false);
+                    notificationsDAO.addNotification(notification);
                 }
+                
             } catch (ParseException | NumberFormatException e) {
                 e.printStackTrace();
             }
