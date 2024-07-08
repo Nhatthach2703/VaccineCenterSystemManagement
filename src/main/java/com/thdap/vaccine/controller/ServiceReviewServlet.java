@@ -33,7 +33,7 @@ public class ServiceReviewServlet extends HttpServlet {
         List<Account> accounts = accountDAO.getAllAccounts();
         request.setAttribute("accounts", accounts);
         
-        List<ServiceReview> serviceReviews = serviceReviewDAO.getAllServiceReviews();
+        List<ServiceReview> serviceReviews = serviceReviewDAO.getFiveStarReview();
         request.setAttribute("serviceReviews", serviceReviews);
 
         try {
