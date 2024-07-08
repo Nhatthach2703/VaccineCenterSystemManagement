@@ -3,9 +3,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.thdap.vaccine.controller;
+
 import com.thdap.vaccine.model.OrderVaccineInfo;
 import com.thdap.vaccine.model.Vaccine;
 import com.thdap.vaccine.model.WorkLocation;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Date;
 import java.util.Iterator;
@@ -21,22 +24,24 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
+
 /**
  *
  * @author ADMIN
  */
 public class SendMail {
+
     public static String generateRandomFourDigits() {
-    Random random = new Random();
-    StringBuilder sb = new StringBuilder();
+        Random random = new Random();
+        StringBuilder sb = new StringBuilder();
 
-    for (int i = 0; i < 4; i++) {
-        int digit = random.nextInt(10); // Sinh ra một số nguyên ngẫu nhiên từ 0 đến 9
-        sb.append(digit); // Thêm số này vào StringBuilder
+        for (int i = 0; i < 4; i++) {
+            int digit = random.nextInt(10); // Sinh ra một số nguyên ngẫu nhiên từ 0 đến 9
+            sb.append(digit); // Thêm số này vào StringBuilder
+        }
+
+        return sb.toString(); // Chuyển đổi StringBuilder thành chuỗi và trả về
     }
-
-    return sb.toString(); // Chuyển đổi StringBuilder thành chuỗi và trả về
-}
 
     public static void sendVerificationEmail(String to, String code) {
         final String from = "hethongtrungtamtiemchungthdap@gmail.com";
@@ -78,9 +83,9 @@ public class SendMail {
             msg.setSentDate(new Date());
 
             // Nội dung email với mã xác nhận
-            String emailContent = "<h3>Xin chào!</h3>" +
-                                  "<p>Mã xác nhận của bạn là: <b>" + code + ".</b></p>" +
-                                  "<p>Vui lòng nhập mã này để hoàn tất đăng ký.</p>";
+            String emailContent = "<h3>Xin chào!</h3>"
+                    + "<p>Mã xác nhận của bạn là: <b>" + code + ".</b></p>"
+                    + "<p>Vui lòng nhập mã này để hoàn tất đăng ký.</p>";
             msg.setContent(emailContent, "text/html; charset=UTF-8");
 
             // Gửi email
@@ -92,9 +97,8 @@ public class SendMail {
             e.printStackTrace();
         }
     }
-    
-    
-      public static void sendCongratulationEmail(String to) {
+
+    public static void sendCongratulationEmail(String to) {
         final String from = "hethongtrungtamtiemchungthdap@gmail.com";
         final String password = "sdlrilkbzljylemz";
 
@@ -129,14 +133,14 @@ public class SendMail {
 
             // Tiêu đề email
 //            msg.setSubject("Code xác nhận");
-             msg.setSubject("Thông báo tạo tài khoản thành công");
+            msg.setSubject("Thông báo tạo tài khoản thành công");
             // Quy đinh ngày gửi
             msg.setSentDate(new Date());
 
             // Nội dung email với mã xác nhận
-            String emailContent = "<h3>Xin chào!</h3>" +
-                                  "<p>Chúc mừng bạn đã đăng kí tài khoản thành công.</p>" +
-                                  "<p>Hi vọng bạn sẽ có những trải nghiệm tốt khi sử dụng dịch vụ của hệ thống THDAP.</p>";
+            String emailContent = "<h3>Xin chào!</h3>"
+                    + "<p>Chúc mừng bạn đã đăng kí tài khoản thành công.</p>"
+                    + "<p>Hi vọng bạn sẽ có những trải nghiệm tốt khi sử dụng dịch vụ của hệ thống THDAP.</p>";
             msg.setContent(emailContent, "text/html; charset=UTF-8");
 
             // Gửi email
@@ -148,7 +152,7 @@ public class SendMail {
             e.printStackTrace();
         }
     }
-      
+
     public static void sendConsultationScheduleEmail(String userName, String to, Date date, LocalTime startTime, LocalTime endTime, String wName, String wAdress) {
         final String from = "hethongtrungtamtiemchungthdap@gmail.com";
         final String password = "sdlrilkbzljylemz";
@@ -188,7 +192,7 @@ public class SendMail {
             msg.setSentDate(new Date());
 
             // Nội dung email với mã xác nhận
-            String emailContent = "<h3>Xin chào "+ userName +"!</h3>"
+            String emailContent = "<h3>Xin chào " + userName + "!</h3>"
                     + "<p>Chúc mừng bạn đã đặt lịch tư vấn thành công!</p>"
                     + "<p>Bạn vui lòng đến " + wName + " vào lúc: " + startTime + " - " + endTime + ", ngày " + date + ", địa điểm: " + wAdress + " để buổi tư vấn cỏ thể diễn ra suông sẻ.</p>"
                     + "<p>Hi vọng bạn sẽ có những trải nghiệm tốt khi sử dụng dịch vụ của hệ thống THDAP.</p>"
@@ -205,7 +209,7 @@ public class SendMail {
             e.printStackTrace();
         }
     }
-    
+
     public static void sendInjectionScheduleEmail(String userName, String to, Date date, LocalTime startTime, LocalTime endTime, String wName, String wAdress) {
         final String from = "hethongtrungtamtiemchungthdap@gmail.com";
         final String password = "sdlrilkbzljylemz";
@@ -262,68 +266,114 @@ public class SendMail {
             e.printStackTrace();
         }
     }
- public static void sendOrderConfirmationEmail(String to, String userName, OrderVaccineInfo orderInfo, WorkLocation workLocation, Vaccine vaccine) {
-    final String from = "hethongtrungtamtiemchungthdap@gmail.com";
-    final String password = "sdlrilkbzljylemz"; // Remember to keep this secure
 
-    Properties props = new Properties();
-    props.put("mail.smtp.host", "smtp.gmail.com");
-    props.put("mail.smtp.port", "587");
-    props.put("mail.smtp.auth", "true");
-    props.put("mail.smtp.starttls.enable", "true");
+    public static void sendOrderConfirmationEmail(String to, String userName, OrderVaccineInfo orderInfo, WorkLocation workLocation, Vaccine vaccine) {
+        final String from = "hethongtrungtamtiemchungthdap@gmail.com";
+        final String password = "sdlrilkbzljylemz"; // Remember to keep this secure
 
-    Authenticator auth = new Authenticator() {
-        @Override
-        protected PasswordAuthentication getPasswordAuthentication() {
-            return new PasswordAuthentication(from, password);
+        Properties props = new Properties();
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.port", "587");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+
+        Authenticator auth = new Authenticator() {
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(from, password);
+            }
+        };
+
+        // Phiên làm việc
+        Session session = Session.getInstance(props, auth);
+
+        // Tạo một tin nhắn
+        MimeMessage msg = new MimeMessage(session);
+
+        try {
+            // Kiểu nội dung
+            msg.addHeader("Content-type", "text/HTML; charset=UTF-8");
+
+            // Người gửi
+            msg.setFrom(from);
+
+            // Người nhận
+            msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to, false));
+
+            // Tiêu đề email
+            msg.setSubject("Xác nhận Đơn hàng Tiêm chủng Vaccine", "UTF-8");
+
+            // Quy định ngày gửi
+            msg.setSentDate(new Date());
+
+            // Nội dung email với mã xác nhận
+            String emailContent = "<h3>Kính gửi quý khách " + userName + ",</h3>"
+                    + "<p>Trung tâm tiêm chủng THDAP xin thông báo đến quý khách rằng đơn hàng của quý khách đã được xác nhận như sau:</p>"
+                    + "<p><strong>Người đặt:</strong> " + userName + "</p>"
+                    + "<p><strong>Sản phẩm:</strong> Vaccine " + vaccine.getName() + "</p>"
+                    + "<p><strong>Ngày tiêm dự kiến:</strong> " + orderInfo.getDateWantToGetVaccinated() + "</p>"
+                    + "<p><strong>Địa điểm tiêm:</strong> " + workLocation.getName() + " - " + workLocation.getAddress() + " </p>"
+                    + "<p><strong>Đã thanh toán với tổng số tiền là:</strong> " + orderInfo.getTotalPrice() + " VNĐ</p>"
+                    + "<p>Trân trọng thông báo và chúc quý khách sức khỏe!</p>"
+                    + "<br>"
+                    + "<p>Trân trọng,</p>"
+                    + "<p>THDAP</p>";
+            msg.setContent(emailContent, "text/html; charset=UTF-8");
+
+            // Gửi email
+            Transport.send(msg);
+            System.out.println("Gửi email xác nhận đơn hàng thành công đến " + to);
+
+        } catch (Exception e) {
+            System.out.println("Gặp lỗi trong quá trình gửi email xác nhận đơn hàng");
+            e.printStackTrace();
         }
-    };
-
-    // Phiên làm việc
-    Session session = Session.getInstance(props, auth);
-
-    // Tạo một tin nhắn
-    MimeMessage msg = new MimeMessage(session);
-
-    try {
-        // Kiểu nội dung
-        msg.addHeader("Content-type", "text/HTML; charset=UTF-8");
-
-        // Người gửi
-        msg.setFrom(from);
-
-        // Người nhận
-        msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to, false));
-
-        // Tiêu đề email
-        msg.setSubject("Xác nhận Đơn hàng Tiêm chủng Vaccine", "UTF-8");
-
-        // Quy định ngày gửi
-        msg.setSentDate(new Date());
-
-        // Nội dung email với mã xác nhận
-        String emailContent = "<h3>Kính gửi quý khách " + userName + ",</h3>"
-                + "<p>Trung tâm tiêm chủng THDAP xin thông báo đến quý khách rằng đơn hàng của quý khách đã được xác nhận như sau:</p>"
-                + "<p><strong>Người đặt:</strong> " + userName + "</p>"
-                + "<p><strong>Sản phẩm:</strong> Vaccine " + vaccine.getName() + "</p>"
-                + "<p><strong>Ngày tiêm dự kiến:</strong> " + orderInfo.getDateWantToGetVaccinated() + "</p>"
-                + "<p><strong>Địa điểm tiêm:</strong> " + workLocation.getName() + " - " + workLocation.getAddress() +" </p>"
-                + "<p><strong>Đã thanh toán với tổng số tiền là:</strong> " + orderInfo.getTotalPrice() + " VNĐ</p>"
-                + "<p>Trân trọng thông báo và chúc quý khách sức khỏe!</p>"
-                + "<br>"
-                + "<p>Trân trọng,</p>"
-                + "<p>Trung tâm tiêm chủng THDAP</p>";
-        msg.setContent(emailContent, "text/html; charset=UTF-8");
-
-        // Gửi email
-        Transport.send(msg);
-        System.out.println("Gửi email xác nhận đơn hàng thành công đến " + to);
-
-    } catch (Exception e) {
-        System.out.println("Gặp lỗi trong quá trình gửi email xác nhận đơn hàng");
-        e.printStackTrace();
     }
-}
+
+    public static void sendInjectionScheduleReminder(String to, String username, LocalDate dateOfNextInjection) {
+        final String from = "hethongtrungtamtiemchungthdap@gmail.com";
+        final String password = "sdlrilkbzljylemz";
+
+        Properties props = new Properties();
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.port", "587");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+
+        Authenticator auth = new Authenticator() {
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(from, password);
+            }
+        };
+
+        Session session = Session.getInstance(props, auth);
+
+        try {
+            MimeMessage msg = new MimeMessage(session);
+            msg.addHeader("Content-type", "text/HTML; charset=UTF-8");
+            msg.setFrom(new InternetAddress(from));
+            msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to, false));
+            msg.setSubject("Thông báo nhắc nhở lịch tiêm vaccine");
+
+            String formattedDate = dateOfNextInjection.toString();
+
+            String emailContent = "<h3>Kính gửi quý khách" + username + "</h3>"
+                    + "<p>Thông báo nhắc nhở về lịch hẹn tiêm vaccine của bạn.</p>"
+                    + "<p>Lịch hẹn tiêm của bạn là vào ngày " + formattedDate + ".</p>"
+                    + "<p>Đề nghị bạn sắp xếp thời gian và đến đúng giờ.</p>"
+                    + "<p>Trân trọng,</p>"
+                    + "<p>THDAP</p>";
+
+            msg.setContent(emailContent, "text/html; charset=UTF-8");
+            Transport.send(msg);
+            System.out.println("Gửi email thành công");
+
+        } catch (Exception e) {
+            System.out.println("Gặp lỗi trong quá trình gửi email");
+            e.printStackTrace();
+        }
+    }
 
  
     
@@ -444,9 +494,11 @@ public class SendMail {
 
     
     public static void main(String[] args) {
-        String to = "hethongtrungtamtiemchungthdap@gmail.com";
+        String to = "duyentttde170176@fpt.edu.vn";
         String code = generateRandomFourDigits();
         sendVerificationEmail(to, code);
         sendCongratulationEmail(to);
+      
     }
+
 }

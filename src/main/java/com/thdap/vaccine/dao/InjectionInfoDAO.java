@@ -6,9 +6,14 @@ package com.thdap.vaccine.dao;
 
 import com.thdap.vaccine.model.InjectionInfo;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +22,7 @@ import java.util.List;
  * @author Xuan Vinh
  */
 public class InjectionInfoDAO {
+
     private ContextDAO contextDAO;
 
     public InjectionInfoDAO() {
@@ -43,7 +49,7 @@ public class InjectionInfoDAO {
         }
         return injectionInfos;
     }
-    
+
     public List<InjectionInfo> getInjectionInfosByUserFileID(int userFileID) {
         String sql = "SELECT * FROM InjectionInfo WHERE userFileID = ?";
         List<InjectionInfo> injectionInfos = new ArrayList<>();
@@ -95,4 +101,66 @@ public class InjectionInfoDAO {
         }
         return false;
     }
+
+    public InjectionInfo getInjectionInfoById(int injectionInfoID) {
+        String query = "SELECT * FROM InjectionInfo WHERE injectionInfoID = ?";
+        InjectionInfo injectionInfo = null;
+        try (Connection conn = contextDAO.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setInt(1, injectionInfoID);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    Date injectionDate = rs.getDate("injectionDate");
+                    Date dateOfNextInjection = rs.getDate("dateOfNextInjection");
+
+                    injectionInfo = new InjectionInfo(
+                            rs.getInt("userFileID"),
+                            injectionDate,
+                            rs.getInt("vaccineID"),
+                            rs.getString("patientStatus"),
+                            dateOfNextInjection
+                    );
+                    injectionInfo.setInjectionInfoID(rs.getInt("injectionInfoID"));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return injectionInfo;
+    }
+
+//    private LocalDate convertToLocalDate(Date sqlDate) {
+//        return sqlDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();//
+//    }
+
+    public int getInjectionID(int userFileID, Date injectionDate, int vaccineID, String patientStatus, Date dateOfNextInjection) {
+        int injectionID = -1;
+        String query = "SELECT injectionInfoID FROM InjectionInfo WHERE userFileID = ? AND injectionDate = ? AND vaccineID = ? AND patientStatus = ?";
+
+        if (dateOfNextInjection != null) {
+            query += " AND dateOfNextInjection = ?";
+        } else {
+            query += " AND dateOfNextInjection IS NULL";
+        }
+
+        try (Connection conn = contextDAO.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setInt(1, userFileID);
+            pstmt.setDate(2, new java.sql.Date(injectionDate.getTime()));
+            pstmt.setInt(3, vaccineID);
+            pstmt.setString(4, patientStatus);
+
+            if (dateOfNextInjection != null) {
+                pstmt.setDate(5, new java.sql.Date(dateOfNextInjection.getTime()));
+            }
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    injectionID = rs.getInt("injectionInfoID");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return injectionID;
+    }
+
 }

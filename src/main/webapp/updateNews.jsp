@@ -47,21 +47,32 @@
                 box-sizing: border-box;
             }
             button {
-                padding-top: 10px;
-                padding: 10px;
-                color: white;
-                background: rgb(43, 166, 220);
-                border: none;
-                border-radius: 20px;
-                cursor: pointer;
-                transition: background-color 0.3s ease;
+                padding: 10px 30px;
+                border: 0;
+                border-radius: 100px;
+                background-color: #2ba8fb;
+                color: #ffffff;
+                font-weight: Bold;
+                transition: all 0.5s;
+                -webkit-transition: all 0.5s;
             }
+
             button:hover {
-                background-color: #0056b3;
+                background-color: #6fc5ff;
+                box-shadow: 0 0 20px #6fc5ff50;
+                transform: scale(1.1);
+            }
+
+            button:active {
+                background-color: #3d94cf;
+                transition: all 0.25s;
+                -webkit-transition: all 0.25s;
+                box-shadow: none;
+                transform: scale(0.98);
             }
         </style>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Cập Nhật Tin Tức</title>
+        <title>THDAP</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link href="assets/img/favicon.png" rel="icon" />
@@ -76,39 +87,50 @@
         <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet" />
         <link href="assets/css/style.css" rel="stylesheet" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
-        <link rel="stylesheet" href="assets/css/Admin_CreateUpdateVaccine.css"/>
+        <link rel="stylesheet" href="./assets/css/AdminIndex.min.css" />
+
     </head>
     <body>
+        <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+             data-sidebar-position="fixed" data-header-position="fixed">
+            <!-- Sidebar Start -->
+            <jsp:include page="DoctorSideBar.jsp"/>
+            <!--  Sidebar End -->
+            <!--  Main wrapper -->
+            <div class="body-wrapper">
+                <jsp:include page="DoctorHeader.jsp"/>
+                <h2>CẬP NHẬT TIN TỨC</h2>
+
+                <div class="container1">
+                    <div class="form-container" data-aos="fade-up">
+                        <form action="update-news" method="post" enctype="multipart/form-data">
+                            <input type="hidden" name="id" value="${news.newID}">
+
+                            <label for="title">Tiêu Đề:</label>
+                            <input type="text" id="title" name="title" value="${news.title}" required>
+
+                            <label for="content">Nội Dung:</label>
+                            <textarea id="content" name="content" rows="6" required>${news.content}</textarea>
+                            <input type="hidden" id="doctorID" name="doctorID" value="${news.doctorID}">
+
+                            <label for="date">Ngày:</label>
+                            <input type="date" id="date" name="date" value="${news.date}" readonly>
 
 
-        <h2>CẬP NHẬT TIN TỨC</h2>
+                            <label for="image">Tải Ảnh Minh Họa:</label>
+                            <input type="file" id="image" name="image" accept="image/*">
+                            <img src="uploads/${news.image}" alt="Current News Image" width="100" height="80"></br>
 
-        <div class="container1">
-            <div class="form-container" data-aos="fade-up">
-                <form action="update-news" method="post" enctype="multipart/form-data">
-                    <input type="hidden" name="id" value="${news.newID}">
-
-                    <label for="title">Tiêu Đề:</label>
-                    <input type="text" id="title" name="title" value="${news.title}" required>
-
-                    <label for="content">Nội Dung:</label>
-                    <textarea id="content" name="content" rows="6" required>${news.content}</textarea>
-                    <input type="hidden" id="doctorID" name="doctorID" value="${news.doctorID}">
-                   
-                    <label for="date">Ngày:</label>
-                    <input type="date" id="date" name="date" value="${news.date}" readonly>
-
-
-                    <label for="image">Tải Ảnh Minh Họa:</label>
-                    <input type="file" id="image" name="image" accept="image/*">
-                    <img src="uploads/${news.image}" alt="Current News Image" width="100" height="80">
-
-                    <button type="submit">Cập Nhật</button>
-                </form>
+                            <button  style=" border-radius: 100px;">Cập Nhật</button>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <jsp:include page="footer.jsp"/>
+
+
+
 
         <script src="//cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>        <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
         <script src="assets/vendor/aos/aos.js"></script>

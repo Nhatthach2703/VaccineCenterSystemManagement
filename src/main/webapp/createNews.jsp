@@ -53,17 +53,28 @@
                 box-sizing: border-box;
             }
             button {
-                padding-top: 10px;
-                padding: 10px;
-                color: white;
-                background: rgb(43, 166, 220);
-                border: none;
-                border-radius: 20px;
-                cursor: pointer;
-                transition: background-color 0.3s ease;
+                padding: 10px 30px;
+                border: 0;
+                border-radius: 100px;
+                background-color: #2ba8fb;
+                color: #ffffff;
+                font-weight: Bold;
+                transition: all 0.5s;
+                -webkit-transition: all 0.5s;
             }
+
             button:hover {
-                background-color: #0056b3;
+                background-color: #6fc5ff;
+                box-shadow: 0 0 20px #6fc5ff50;
+                transform: scale(1.1);
+            }
+
+            button:active {
+                background-color: #3d94cf;
+                transition: all 0.25s;
+                -webkit-transition: all 0.25s;
+                box-shadow: none;
+                transform: scale(0.98);
             }
         </style>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -82,12 +93,23 @@
         <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet" />
         <link href="assets/css/style.css" rel="stylesheet" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
-        <link rel="stylesheet" href="assets/css/Admin_CreateUpdateVaccine.css"/>
+<!--        <link rel="stylesheet" href="assets/css/Admin_CreateUpdateVaccine.css"/>-->
+        <link rel="shortcut icon" type="image/png" href="../assets/images/logos/favicon.png" />
+        <link rel="stylesheet" href="./assets/css/AdminIndex.min.css" />
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
     <body>
-        
 
-        <h2>TẠO TIN TỨC</h2>
+        <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+             data-sidebar-position="fixed" data-header-position="fixed">
+            <!-- Sidebar Start -->
+            <jsp:include page="DoctorSideBar.jsp"/>
+            <!--  Sidebar End -->
+            <!--  Main wrapper -->
+            <div class="body-wrapper">
+                <jsp:include page="DoctorHeader.jsp"/>
+                <h2>TẠO TIN TỨC</h2>
 
         <div class="container1">
             <div class="form-container" data-aos="fade-up">
@@ -101,14 +123,17 @@
                     <label for="image">Tải Ảnh Minh Họa:</label>
                     <input type="file" id="image" name="image" accept="image/*">
 
-                    <button type="submit">Tạo</button>
+                    <button style=" border-radius: 100px;" class="mt-3">Tạo</button>
                 </form>
             </div>
         </div>
 
-        <jsp:include page="footer.jsp"/>
+            </div>
+        </div>
+        
+   
 
-<script src="//cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>        <script src="assets/vendor/aos/aos.js"></script>
+        <script src="//cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>        <script src="assets/vendor/aos/aos.js"></script>
         <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
         <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>

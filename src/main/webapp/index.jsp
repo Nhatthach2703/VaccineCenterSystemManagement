@@ -58,14 +58,14 @@
             <!-- ======= Clients Section ======= -->
             <section id="clients" class="clients clients">
                 <div class="container">
-                    <div class="row">
+                    <div class="row" data-aos="zoom-in">
                         <div class="col-lg-2 col-md-4 col-6">
                             <img
                                 src="assets/img/clients/unicef.png"
                                 class="img-fluid"
                                 style="width: 37%"
                                 alt=""
-                                data-aos="zoom-in"
+                                
                                 />
                         </div>
 
@@ -75,8 +75,7 @@
                                 class="img-fluid"
                                 alt=""
                                 style="width: 40%"
-                                data-aos="zoom-in"
-                                data-aos-delay="100"
+                                
                                 />
                         </div>
 
@@ -86,8 +85,7 @@
                                 class="img-fluid"
                                 alt=""
                                 style="width: 60%"
-                                data-aos="zoom-in"
-                                data-aos-delay="200"
+                                
                                 />
                         </div>
 
@@ -97,8 +95,7 @@
                                 class="img-fluid"
                                 style="width: 80%"
                                 alt=""
-                                data-aos="zoom-in"
-                                data-aos-delay="300"
+                                
                                 />
                         </div>
 
@@ -108,8 +105,7 @@
                                 class="img-fluid"
                                 alt=""
                                 style="width: 40%"
-                                data-aos="zoom-in"
-                                data-aos-delay="400"
+                               
                                 />
                         </div>
 
@@ -119,8 +115,7 @@
                                 class="img-fluid mb-2"
                                 alt=""
                                 style="width: 60%"
-                                data-aos="zoom-in"
-                                data-aos-delay="500"
+                                
                                 />
                         </div>
                     </div>

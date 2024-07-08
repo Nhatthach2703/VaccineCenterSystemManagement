@@ -1,94 +1,101 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
-
 package com.thdap.vaccine.controller;
 
+import com.thdap.vaccine.dao.InjectionInfoDAO;
+import com.thdap.vaccine.dao.NotificationsDAO;
 import com.thdap.vaccine.dao.TypeOfVaccineDAO;
+import com.thdap.vaccine.dao.UserDAO;
 import com.thdap.vaccine.dao.VaccineDAO;
+import com.thdap.vaccine.model.InjectionInfo;
+import com.thdap.vaccine.model.Notifications;
 import com.thdap.vaccine.model.TypeOfVaccine;
+import com.thdap.vaccine.model.User;
 import com.thdap.vaccine.model.Vaccine;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Properties;
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author ADMIN
- */
-@WebServlet(name="homeIndex", urlPatterns={"/homeIndex"})
+@WebServlet(name = "homeIndex", urlPatterns = {"/homeIndex"})
 public class homeIndex extends HttpServlet {
-   
-    /** 
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+
+    private static final long serialVersionUID = 1L;
+    private VaccineDAO vaccineDao = new VaccineDAO();
+    private TypeOfVaccineDAO typeOfVaccineDAO = new TypeOfVaccineDAO();
+    private NotificationsDAO notificationsDAO = new NotificationsDAO();
+    private InjectionInfoDAO injectionInfoDAO = new InjectionInfoDAO();
+    private UserDAO userDAO = new UserDAO();
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet homeIndex</title>");  
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet homeIndex at " + request.getContextPath () + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    } 
+            throws ServletException, IOException {
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /** 
-     * Handles the HTTP <code>GET</code> method.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    VaccineDAO vaccineDao =new VaccineDAO();
-    TypeOfVaccineDAO typeOfVaccineDAO = new TypeOfVaccineDAO();
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-       List<Vaccine> vaccines = vaccineDao.getAllVaccines();
-       List<TypeOfVaccine> typeOfVaccines = typeOfVaccineDAO.getAllTypesOfVaccine();
-        request.setAttribute("vaccine", vaccines);
-        request.setAttribute("typeOfVaccines", typeOfVaccines);
-        request.getRequestDispatcher("index.jsp").forward(request, response);
-    } 
-
-    /** 
-     * Handles the HTTP <code>POST</code> method.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        processRequest(request, response);
     }
 
-    /** 
-     * Returns a short description of the servlet.
-     * @return a String containing servlet description
-     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        List<Vaccine> vaccines = vaccineDao.getAllVaccines();
+        List<TypeOfVaccine> typeOfVaccines = typeOfVaccineDAO.getAllTypesOfVaccine();
+        request.setAttribute("vaccine", vaccines);
+        request.setAttribute("typeOfVaccines", typeOfVaccines);
+        sendEmailReminders();
+
+        request.getRequestDispatcher("index.jsp").forward(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+    }
+
+    public void sendEmailReminders() {
+        List<Notifications> notifications = notificationsDAO.getPendingNotifications();
+
+        for (Notifications notification : notifications) {
+            int injectionInfoID = notification.getInjectionInfoID();
+            InjectionInfo injectionInfo = injectionInfoDAO.getInjectionInfoById(injectionInfoID);
+            if (injectionInfo != null) {
+                LocalDate dateOfNextInjection = injectionInfo.getDateOfNextInjection().toLocalDate();// biến cái ni về lcalDate
+                LocalTime currentTime = LocalTime.now();
+                LocalTime startHour = LocalTime.of(9, 0); // Giờ bắt đầu (ví dụ 8:00)
+                LocalTime endHour = LocalTime.of(23, 0);  // Giờ kết thúc (ví dụ 17:00)
+                if (isOneDayBefore(dateOfNextInjection) && !notification.isStatus() && currentTime.isAfter(startHour) && currentTime.isBefore(endHour)) { // thêm đk trong khung giờ và đã đc gửi chưa
+                    User user = userDAO.getUserByUserFileID(injectionInfo.getUserFileID());
+                    if (user != null) {
+                        String email = user.getEmail();
+                        String username = user.getFullName(); 
+                        SendMail.sendInjectionScheduleReminder(email,username, dateOfNextInjection);
+                        notification.setStatus(true); // Cập nhật trạng thái thành 1 (đã gửi)
+                        notificationsDAO.updateNotificationStatus(notification);
+                    }
+                }
+            }
+        }
+    }
+
+    private boolean isOneDayBefore(LocalDate dateOfNextInjection) {
+        LocalDate tomorrow = LocalDate.now().plusDays(1);
+        return tomorrow.equals(dateOfNextInjection);
+    }
+
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
-
+    }
 }
