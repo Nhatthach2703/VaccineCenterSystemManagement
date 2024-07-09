@@ -1,5 +1,97 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="4.0" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd">
+    <filter>
+        <filter-name>AdminFilter</filter-name>
+        <filter-class>com.thdap.vaccine.filter.AdminFilter</filter-class>
+    </filter>
+    <filter>
+        <filter-name>DoctorFilter</filter-name>
+        <filter-class>com.thdap.vaccine.filter.DoctorFilter</filter-class>
+    </filter>
+    <filter>
+        <filter-name>UserFilter</filter-name>
+        <filter-class>com.thdap.vaccine.filter.UserFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>UserFilter</filter-name>
+        <url-pattern>/BookConsultationServlet</url-pattern>
+        <url-pattern>/BookInjectionServlet</url-pattern>
+        <url-pattern>/CancelPaymentServlet</url-pattern>
+        <url-pattern>/ChangePasswordServlet</url-pattern>
+        <url-pattern>/ChangeUserAvatarServlet</url-pattern>
+        <url-pattern>/ChooseVaccineServlet</url-pattern>
+        <url-pattern>/ConfirmCodeServlet</url-pattern>
+        <url-pattern>/ConsultationScheduleServlet</url-pattern>
+        <url-pattern>/doctorInfo</url-pattern>
+        <url-pattern>/injectionRegimens</url-pattern>
+        <url-pattern>/InjectionScheduleServlet</url-pattern>
+        <url-pattern>/NewPassServlet</url-pattern>
+        <url-pattern>/newsSevlet</url-pattern>
+        <url-pattern>/PaymentServlet</url-pattern>
+        <url-pattern>/PricelistVaccineServlet</url-pattern>
+        <url-pattern>/RateServiceServlet</url-pattern>
+        <url-pattern>/ReturnPaymentServlet</url-pattern>
+        <url-pattern>/ServiceReviewServlet</url-pattern>
+        <url-pattern>/TypeOfVaccineServlet</url-pattern>
+        <url-pattern>/UserUpdateServlet</url-pattern>
+        <url-pattern>/ViewConsultationSchedulesServlet</url-pattern>
+        <url-pattern>/ViewFaQsSevlet</url-pattern>
+        <url-pattern>/ViewInjectionSchedulesServlet</url-pattern>
+        <url-pattern>/workLocationServlet</url-pattern>
+        
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>DoctorFilter</filter-name>
+        <url-pattern>/doctorIndexServlet</url-pattern>
+        <url-pattern>/AddUserFileServlet</url-pattern>
+        <url-pattern>/AddVaccineToWarehouseServlet</url-pattern>
+        <url-pattern>/create-faq</url-pattern>
+        <url-pattern>/create-news</url-pattern>
+        <url-pattern>/delete-faq</url-pattern>
+        <url-pattern>/delete-news</url-pattern>
+        <url-pattern>/DeleteUserFileServlet</url-pattern>
+        <url-pattern>/EditUserFileServlet</url-pattern>
+        <url-pattern>/FaQsSevlet</url-pattern>
+        <url-pattern>/GetAllVaccinesForAddInjeectionInfoServlet</url-pattern>
+        <url-pattern>/listNews</url-pattern>
+        <url-pattern>/listUsers</url-pattern>  <!--search benh nhan-->
+        <url-pattern>/update-faq</url-pattern>
+        <url-pattern>/update-news</url-pattern>
+        <url-pattern>/UpdateScheduleStatusServlet</url-pattern>
+        <url-pattern>/VaccineWarehouseServlet</url-pattern>
+        <url-pattern>/viewnewsevlet</url-pattern>
+        <url-pattern>/ViewUserFileDetailServlet</url-pattern>
+        <url-pattern>/ViewUserFilesServlet</url-pattern>
+        <url-pattern>/ViewVaccineOrderHistoryServlet</url-pattern>
+        <url-pattern>/listFAQs</url-pattern>
+        <url-pattern>/viewWorkSchedulesDoctorServlet</url-pattern>
+        
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>AdminFilter</filter-name>
+        <url-pattern>/AdminIndexServlet</url-pattern>
+        <url-pattern>/AddDoctor</url-pattern>
+        <url-pattern>/AddWeeklyWorkScheduleServlet</url-pattern>
+        <url-pattern>/AddWorkScheduleServlet</url-pattern>
+        <url-pattern>/CRUDTypeOfVaccineServlet</url-pattern>
+        <url-pattern>/CreateVaccineServlet</url-pattern>
+        <url-pattern>/DeleteVaccineInWarehouseServlet</url-pattern>
+        <url-pattern>/DeleteVaccineServlet</url-pattern>
+        <url-pattern>/DeleteWorkScheduleServlet</url-pattern>
+        <url-pattern>/EditVaccineInWarehouseServlet</url-pattern>
+        <url-pattern>/EditWorkScheduleServlet</url-pattern>
+        <url-pattern>/ListAccountServlet</url-pattern>
+        <url-pattern>/listOrderInfo</url-pattern>
+        <url-pattern>/ListServiceReviewServlet</url-pattern>
+        <url-pattern>/ListVaccineServlet</url-pattern>
+        <url-pattern>/LockAndUnlockAccountServlet</url-pattern>
+        <url-pattern>/ManagementVaccineInWarehouseServlet</url-pattern>
+        <url-pattern>/UpdateTypeOfVaccineServlet</url-pattern>
+        <url-pattern>/UpdateVaccineServlet</url-pattern>
+        <url-pattern>/ViewTableWorkSchedulesServlet</url-pattern>
+        <url-pattern>/ViewWorkSchedulesServlet</url-pattern>
+        
+    </filter-mapping>
     <servlet>
         <servlet-name>LogoutServlet</servlet-name>
         <servlet-class>com.thdap.vaccine.controller.LogoutServlet</servlet-class>
