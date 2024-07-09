@@ -9,7 +9,7 @@
              justify-content: end;">
 
             <li class="nav-item dropdown" style="list-style: none; width: auto">
-                <a href="AdminIndexServlet" class="getstarted scrollto dropdown-toggle" data-toggle="dropdown">Hello ${sessionScope.doctor.fullName} <b class="caret"></b></a> 
+                <a href="" class="getstarted scrollto dropdown-toggle" data-toggle="dropdown">Hello ${sessionScope.doctor.fullName} <b class="caret"></b></a> 
                 <ul class="dropdown-menu">
                     <li><a href="logout">Đăng xuất</a></li>
                 </ul>
