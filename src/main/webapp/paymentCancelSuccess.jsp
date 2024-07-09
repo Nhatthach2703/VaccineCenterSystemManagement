@@ -68,10 +68,10 @@
         <jsp:include page="banner.jsp"/>
         <div class="container-xl mt-5 text-center" data-aos="fade-up">
             <div class="cancel-message">
-                <h1><span><i class='fa fa-check-circle' style="color: rgba(4, 117, 4, 0.858)"></i></span> Transaction Canceled</h1>
-                <p>You have successfully canceled your transaction.</p>    
+                <h1><span><i class='fa fa-check-circle' style="color: rgba(4, 117, 4, 0.858)"></i></span> Hủy giao dịch thành công!</h1>
+                <p>Bạn đã hủy giao dịch thành công.</p>    
                 <p>If you have any questions, please contact our support team.</p>
-                <a href="index.jsp" class="btn btn-primary mt-4">Return to Home Page</a>
+                <a href="homeIndex" class="btn btn-primary mt-4">Trang chủ</a>
             </div>
         </div>
         <jsp:include page="footer.jsp"/>

@@ -68,15 +68,15 @@
         <jsp:include page="banner.jsp"/>
         <div class="container-xl mt-5 " data-aos="fade-up">
             <div class="success-message text-center">
-                <h1><span><i class='bx bxs-check-circle' style="color: rgba(4, 117, 4, 0.858)"></i></span>Transaction Successful!</h1>
-                <p>Thank you for your transaction.</p>    
-                <p>You can view your bill in the <strong>Order History</strong>.</p>
+                <h1><span><i class='bx bxs-check-circle' style="color: rgba(4, 117, 4, 0.858)"></i></span>Giao  dịch thành công!</h1>
+                <p>Cảm ơn vì đã chọn dịch vụ của chúng tôi.</p>    
+                <p>Bạn có thể xem lại lịch sử mua vaccine của mình.</p>
                 <div class="row">
                     <div class="col-md-6">
-                        <a href="index.jsp" class="btn btn-primary mt-4">Return to Home Page</a>
+                        <a href="homeIndex" class="btn btn-primary mt-4">Trang chủ</a>
                     </div>
                     <div class="col-md-6">
-                        <a href="ViewVaccineOrderHistoryServlet?userID=${sessionScope.user.userID}" class="btn btn-danger mt-4">Going Order History</a>
+                        <a href="ViewVaccineOrderHistoryServlet?userID=${sessionScope.user.userID}" class="btn btn-danger mt-4">Lịch sử mua vaccine</a>
                     </div>
                 </div>
             </div>
