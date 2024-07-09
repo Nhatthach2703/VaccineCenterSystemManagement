@@ -64,7 +64,7 @@
                 </li>
              
                 <li><a href="ServiceReviewServlet">Xem đánh giá</a></li>
-                <li><a href="#">Drop Down 4</a></li>
+                <li><a href="workLocationServlet">Tìm địa chỉ trung tâm</a></li>
               </ul>
             </li>
             <li><a class="nav-link scrollto" href="#contact">Liên lạc</a></li>

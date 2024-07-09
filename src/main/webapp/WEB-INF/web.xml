@@ -38,7 +38,8 @@
         <!--<url-pattern>/FaQsSevlet</url-pattern>-->
         <url-pattern>/ViewInjectionSchedulesServlet</url-pattern>
         <!--<url-pattern>/workLocationServlet</url-pattern>-->
-        
+        <!--<url-pattern>/ViewFaQsSevlet</url-pattern>-->
+        <!--<url-pattern>/viewnewsevlet</url-pattern>-->
     </filter-mapping>
     <filter-mapping>
         <filter-name>DoctorFilter</filter-name>
@@ -51,15 +52,13 @@
         <url-pattern>/delete-news</url-pattern>
         <url-pattern>/DeleteUserFileServlet</url-pattern>
         <url-pattern>/EditUserFileServlet</url-pattern>
-        <url-pattern>/ViewFaQsSevlet</url-pattern>
         <url-pattern>/GetAllVaccinesForAddInjeectionInfoServlet</url-pattern>
         <url-pattern>/listNews</url-pattern>
         <url-pattern>/listUsers</url-pattern>  <!--search benh nhan-->
         <url-pattern>/update-faq</url-pattern>
         <url-pattern>/update-news</url-pattern>
         <url-pattern>/UpdateScheduleStatusServlet</url-pattern>
-        <url-pattern>/VaccineWarehouseServlet</url-pattern>
-        <url-pattern>/viewnewsevlet</url-pattern>
+        <url-pattern>/VaccineWarehouseServlet</url-pattern>  
         <url-pattern>/ViewUserFileDetailServlet</url-pattern>
         <url-pattern>/ViewUserFilesServlet</url-pattern>
         <url-pattern>/ViewVaccineOrderHistoryServlet</url-pattern>
