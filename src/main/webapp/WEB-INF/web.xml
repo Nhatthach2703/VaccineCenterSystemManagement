@@ -40,6 +40,7 @@
         <!--<url-pattern>/workLocationServlet</url-pattern>-->
         <!--<url-pattern>/ViewFaQsSevlet</url-pattern>-->
         <!--<url-pattern>/viewnewsevlet</url-pattern>-->
+        <url-pattern>/ViewVaccineOrderHistoryServlet</url-pattern>
     </filter-mapping>
     <filter-mapping>
         <filter-name>DoctorFilter</filter-name>
@@ -61,7 +62,6 @@
         <url-pattern>/VaccineWarehouseServlet</url-pattern>  
         <url-pattern>/ViewUserFileDetailServlet</url-pattern>
         <url-pattern>/ViewUserFilesServlet</url-pattern>
-        <url-pattern>/ViewVaccineOrderHistoryServlet</url-pattern>
         <url-pattern>/listFAQs</url-pattern>
         <url-pattern>/viewWorkSchedulesDoctorServlet</url-pattern>
         
