@@ -52,7 +52,7 @@
                         <div class="table-title pt-3 pb-3">
                             <div class="row">
                                 <div class="col-sm-5">
-                                    <h2 class="ml-4">Câu Hỏi Thường Gặp</h2>
+                                    <h2 class="ml-4" style=" font-family: 'Tilt Neon';font-weight: 700;color: white; margin-left: 2rem;">Câu Hỏi Thường Gặp</h2>
                                 </div>
                                 <div class="col-sm-7">
                                     <div style="text-justify: auto;text-align: right"class="mr-4">
