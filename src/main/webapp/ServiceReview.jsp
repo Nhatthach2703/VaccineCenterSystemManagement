@@ -77,7 +77,8 @@
                                         <label for="star1-${review.reviewID}"></label>
                                     </div>
                                     <p><strong>Nội dung</strong></p> <br>
-                                    <p>${review.content}</p>                                </div>
+                                    <p>${review.content}</p>                               
+                                </div>
                             </div>
                         </c:forEach>
                     </div>

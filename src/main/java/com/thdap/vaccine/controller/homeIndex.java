@@ -1,15 +1,24 @@
 package com.thdap.vaccine.controller;
 
+import com.thdap.vaccine.dao.AccountDAO;
+import com.thdap.vaccine.dao.DoctorDAO;
 import com.thdap.vaccine.dao.InjectionInfoDAO;
+import com.thdap.vaccine.dao.NewsDAO;
 import com.thdap.vaccine.dao.NotificationsDAO;
+import com.thdap.vaccine.dao.ServiceReviewDAO;
 import com.thdap.vaccine.dao.TypeOfVaccineDAO;
 import com.thdap.vaccine.dao.UserDAO;
 import com.thdap.vaccine.dao.VaccineDAO;
+import com.thdap.vaccine.dao.WorkLocationDAO;
+import com.thdap.vaccine.model.Account;
+import com.thdap.vaccine.model.Doctor;
 import com.thdap.vaccine.model.InjectionInfo;
 import com.thdap.vaccine.model.Notifications;
+import com.thdap.vaccine.model.ServiceReview;
 import com.thdap.vaccine.model.TypeOfVaccine;
 import com.thdap.vaccine.model.User;
 import com.thdap.vaccine.model.Vaccine;
+import com.thdap.vaccine.model.WorkLocation;
 import java.io.IOException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
@@ -53,6 +62,25 @@ public class homeIndex extends HttpServlet {
         List<TypeOfVaccine> typeOfVaccines = typeOfVaccineDAO.getAllTypesOfVaccine();
         request.setAttribute("vaccine", vaccines);
         request.setAttribute("typeOfVaccines", typeOfVaccines);
+        DoctorDAO doctorDAO = new DoctorDAO();
+        WorkLocationDAO workLocationDAO = new WorkLocationDAO();
+        List<Doctor> doctors = doctorDAO.getAllDoctors();
+        List<WorkLocation> workLocations = workLocationDAO.getAllWorkLocations();
+        request.setAttribute("workLocations", workLocations);
+        request.setAttribute("doctors", doctors);
+        NewsDAO newsDAO = new NewsDAO();
+        List<com.thdap.vaccine.model.News> newsList = newsDAO.getAllNews();
+        // set data to jsp
+        request.setAttribute("listNews", newsList);
+        ServiceReviewDAO serviceReviewDAO = new ServiceReviewDAO();
+        UserDAO userDAO = new UserDAO();
+        AccountDAO accountDAO = new AccountDAO();
+        List<User> users = userDAO.getAllUsers();
+        request.setAttribute("users", users);
+        List<Account> accounts = accountDAO.getAllAccounts();
+        request.setAttribute("accounts", accounts);
+        List<ServiceReview> serviceReviews = serviceReviewDAO.getFiveStarReview();
+        request.setAttribute("serviceReviews", serviceReviews);
         sendEmailReminders();
 
         request.getRequestDispatcher("index.jsp").forward(request, response);
@@ -79,8 +107,8 @@ public class homeIndex extends HttpServlet {
                     User user = userDAO.getUserByUserFileID(injectionInfo.getUserFileID());
                     if (user != null) {
                         String email = user.getEmail();
-                        String username = user.getFullName(); 
-                        SendMail.sendInjectionScheduleReminder(email,username, dateOfNextInjection);
+                        String username = user.getFullName();
+                        SendMail.sendInjectionScheduleReminder(email, username, dateOfNextInjection);
                         notification.setStatus(true); // Cập nhật trạng thái thành 1 (đã gửi)
                         notificationsDAO.updateNotificationStatus(notification);
                     }
