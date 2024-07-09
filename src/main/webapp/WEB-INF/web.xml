@@ -25,7 +25,7 @@
         <!--<url-pattern>/doctorInfo</url-pattern>-->
         <!--<url-pattern>/injectionRegimens</url-pattern>-->
         <!--<url-pattern>/InjectionScheduleServlet</url-pattern>-->
-        <url-pattern>/NewPassServlet</url-pattern>
+        <!--<url-pattern>/NewPassServlet</url-pattern>-->
         <!--<url-pattern>/newsSevlet</url-pattern>-->
         <url-pattern>/PaymentServlet</url-pattern>
         <!--<url-pattern>/PricelistVaccineServlet</url-pattern>-->
