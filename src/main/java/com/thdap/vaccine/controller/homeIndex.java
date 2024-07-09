@@ -101,8 +101,8 @@ public class homeIndex extends HttpServlet {
             if (injectionInfo != null) {
                 LocalDate dateOfNextInjection = injectionInfo.getDateOfNextInjection().toLocalDate();// biến cái ni về lcalDate
                 LocalTime currentTime = LocalTime.now();
-                LocalTime startHour = LocalTime.of(9, 0); // Giờ bắt đầu (ví dụ 8:00)
-                LocalTime endHour = LocalTime.of(23, 0);  // Giờ kết thúc (ví dụ 17:00)
+                LocalTime startHour = LocalTime.of(9, 0); 
+                LocalTime endHour = LocalTime.of(23, 0);  
                 if (isOneDayBefore(dateOfNextInjection) && !notification.isStatus() && currentTime.isAfter(startHour) && currentTime.isBefore(endHour)) { // thêm đk trong khung giờ và đã đc gửi chưa
                     User user = userDAO.getUserByUserFileID(injectionInfo.getUserFileID());
                     if (user != null) {

@@ -50,6 +50,10 @@
                 color: rgb(54, 153, 219);
                 border-radius: 8px;
             }
+            th{
+                background-color: rgb(54, 153, 219);
+                
+            }
         </style>
     </head>
     <body>
@@ -58,17 +62,18 @@
              data-sidebar-position="fixed" data-header-position="fixed">
             <!-- Sidebar Start -->
             <jsp:include page="AdminSideBar.jsp"/>
-            <jsp:include page="IndexHeader.jsp"/>
+            
             <!--  Sidebar End -->
             <!--  Main wrapper -->
             <div class="body-wrapper">
+                <jsp:include page="IndexHeader.jsp"/>
                 <div data-aos="fade-up" class="container-fluid">
                     <div class="container-fluid">
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title fw-semibold mb-4" style="font-size: 24px; ">Danh sách Vắc xin trong kho</h5>
                                 <div class="col-sm-4 mb-3 d-flex">
-                                    <a href="AddVaccineToWarehouseServlet" class="btn btn-secondary" <span>Thêm Vaccine vào kho</span></a>
+                                   
                                     <form action="ManagementVaccineInWarehouseServlet" method="get" class=" mx-3">
                                         <div>
                                             <select id="workLocationId" name="workLocationId" onchange="this.form.submit()" class="form-select">
@@ -83,7 +88,7 @@
                                         </div>
                                     </form>
                                 </div>
-                                <table class="table table-striped table-hover">
+                                <table class="table-striped">
                                     <thead>
                                         <tr>
                                             <th>Vaccine</th>

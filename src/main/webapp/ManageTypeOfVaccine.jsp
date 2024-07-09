@@ -59,10 +59,10 @@
             <!--  Sidebar End -->
             <!--  Main wrapper -->
             <div class="body-wrapper">
-                
+
                 <jsp:include page="IndexHeader.jsp"/>
 
-                
+
                 <div data-aos="fade-up" class="container-fluid">
                     <div class="container-fluid">
                         <div class="card">
