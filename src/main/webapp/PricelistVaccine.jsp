@@ -58,9 +58,9 @@
                             data-aos="fade-left"
                             data-aos-delay="200"
                             >
-                            <img
-                                src="./assets/img/flat-hand-drawn-coronavirus-vaccine-illustration.png"
-                                class="img-fluid animated"
+                            <img style="height: 90%"
+                                src="./assets/img/gia_vaccine.png"
+                                class="img-fluid animated mt-4"
                                 alt=""
                                 />
                         </div>

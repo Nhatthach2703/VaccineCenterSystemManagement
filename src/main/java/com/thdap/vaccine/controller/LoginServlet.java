@@ -75,7 +75,7 @@ public class LoginServlet extends HttpServlet {
                 if ("Admin".equals(roleID)) {
                     Admin admin = adminDao.getAdminByAccountID(account.getAccountID());
                     session.setAttribute("admin", admin);
-                    response.sendRedirect("AdminIndex.jsp");  // đổi lại đường link.
+                    response.sendRedirect("AdminIndexServlet");
                 } else if ("User".equals(roleID)) {
                     User user = dao.getUserByAccountID(account.getAccountID());
                     session.setAttribute("user", user);

@@ -9,6 +9,7 @@ package com.thdap.vaccine.controller;
 import com.thdap.vaccine.dao.AccountDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import javax.servlet.ServletException;
@@ -81,8 +82,8 @@ public class SignUpServlet extends HttpServlet {
         String fullName = request.getParameter("fullName");
         String username = request.getParameter("userName");
         String email = request.getParameter("email");
-        String doBString = request.getParameter("doB");
-        LocalDate dob = null;
+//        String doBString = request.getParameter("doB");
+//        LocalDate dob = null;
 //        try {
 //            dob = LocalDate.parse(doBString);
 //        } catch (DateTimeParseException e) {
@@ -91,7 +92,7 @@ public class SignUpServlet extends HttpServlet {
 //            request.getRequestDispatcher("SignUp.jsp").forward(request, response);
 //            return;
 //        }
-//        LocalDate dob = LocalDate.parse(request.getParameter("doB"));
+        Date dob = Date.valueOf(request.getParameter("doB"));
         String phoneNumber = request.getParameter("phoneNumber");
         String gender = request.getParameter("gender");
         String address = request.getParameter("address");
@@ -153,7 +154,7 @@ public class SignUpServlet extends HttpServlet {
         }
     }
 
-    private void setRequestAttributes(HttpServletRequest request, String fullName, String username, String email, LocalDate dob, String phoneNumber, String gender, String address, String password, String rePass) {
+    private void setRequestAttributes(HttpServletRequest request, String fullName, String username, String email, Date dob, String phoneNumber, String gender, String address, String password, String rePass) {
         request.setAttribute("fullName", fullName);
         request.setAttribute("userName", username);
         request.setAttribute("email", email);

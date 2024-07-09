@@ -2,6 +2,7 @@ package com.thdap.vaccine.dao;
 
 import com.thdap.vaccine.model.InjectionRegimen;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -23,7 +24,6 @@ public class InjectionRegimenDAO {
         try (Connection conn = contextDAO.getConnection(); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(query)) {
             while (rs.next()) {
                 InjectionRegimen injectionRegimen = new InjectionRegimen(
-                        rs.getInt("objectID"),
                         rs.getInt("injectionRegimenID"),
                         rs.getString("object"),
                         rs.getString("diseasePreventionVaccine"),
@@ -37,26 +37,28 @@ public class InjectionRegimenDAO {
         }
         return injectionRegimens;
     }
-    
-    
-    public Map<String, List<InjectionRegimen>> getInjectionRegimensByObject() {
+
+public Map<String, List<InjectionRegimen>> getInjectionRegimensByObject(String object) {
     Map<String, List<InjectionRegimen>> regimensMap = new HashMap<>();
-    String query = "SELECT * FROM InjectionRegimen ORDER BY object";
-    try (Connection conn = contextDAO.getConnection(); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(query)) {
-        while (rs.next()) {
-            InjectionRegimen injectionRegimen = new InjectionRegimen(
-                    rs.getInt("objectID"),
-                    rs.getInt("injectionRegimenID"),
-                    rs.getString("object"),
-                    rs.getString("diseasePreventionVaccine"),
-                    rs.getString("ageMilestone"),
-                    rs.getString("content")
-            );
-            String object = injectionRegimen.getObject();
-            if (!regimensMap.containsKey(object)) {
-                regimensMap.put(object, new ArrayList<>());
+    String query = "SELECT * FROM InjectionRegimen WHERE object = ?";
+    try (Connection conn = contextDAO.getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(query)) {
+        pstmt.setString(1, object);
+        try (ResultSet rs = pstmt.executeQuery()) {
+            while (rs.next()) {
+                InjectionRegimen injectionRegimen = new InjectionRegimen(
+                        rs.getInt("injectionRegimenID"),
+                        rs.getString("object"),
+                        rs.getString("diseasePreventionVaccine"),
+                        rs.getString("ageMilestone"),
+                        rs.getString("content")
+                );
+                String regimenObject = injectionRegimen.getObject();
+                if (!regimensMap.containsKey(regimenObject)) {
+                    regimensMap.put(regimenObject, new ArrayList<>());
+                }
+                regimensMap.get(regimenObject).add(injectionRegimen);
             }
-            regimensMap.get(object).add(injectionRegimen);
         }
     } catch (SQLException e) {
         System.out.println(e);
@@ -64,8 +66,6 @@ public class InjectionRegimenDAO {
     return regimensMap;
 }
 
-
-    
     public static void main(String[] args) {
         InjectionRegimenDAO injectionRegimenDAO = new InjectionRegimenDAO();
         List<InjectionRegimen> injectionRegimens = injectionRegimenDAO.getAllInjectionRegimens();
