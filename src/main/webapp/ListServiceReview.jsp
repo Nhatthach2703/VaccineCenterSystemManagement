@@ -80,7 +80,7 @@
                                 </div>
                                 <div class="col-md-8 mt-5">
                                     <H5><strong>Đánh giá trải nghiệm</strong></H5>
-                                    <div class="rating <input type="radio" id="star5-${review.reviewID}" name="rating-${review.reviewID}" value="5" ${review.rate == 5 ? 'checked' : ''} disabled>
+                                    <div class="rating" <input type="radio" id="star5-${review.reviewID}" name="rating-${review.reviewID}" value="5" ${review.rate == 5 ? 'checked' : ''} disabled>
                                         <input type="radio" id="star5-${review.reviewID}" name="rating-${review.reviewID}" value="5" ${review.rate == 5 ? 'checked' : ''} disabled>
                                         <label for="star5-${review.reviewID}"></label>
                                         <input type="radio" id="star4-${review.reviewID}" name="rating-${review.reviewID}" value="4" ${review.rate == 4 ? 'checked' : ''} disabled>
