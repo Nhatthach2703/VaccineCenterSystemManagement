@@ -1,7 +1,6 @@
 package com.thdap.vaccine.model;
 
 public class InjectionRegimen {
-    private int objectID;
     private int injectionRegimenID;
     private String object;
     private String diseasePreventionVaccine;
@@ -12,8 +11,7 @@ public class InjectionRegimen {
     public InjectionRegimen() {
     }
 
-    public InjectionRegimen(int objectID, int injectionRegimenID, String object, String diseasePreventionVaccine, String ageMilestone, String content) {
-        this.objectID = objectID;
+    public InjectionRegimen(int injectionRegimenID, String object, String diseasePreventionVaccine, String ageMilestone, String content) {
         this.injectionRegimenID = injectionRegimenID;
         this.object = object;
         this.diseasePreventionVaccine = diseasePreventionVaccine;
@@ -22,14 +20,6 @@ public class InjectionRegimen {
     }
 
     // Getters and Setters
-    public int getObjectID() {
-        return objectID;
-    }
-
-    public void setObjectID(int objectID) {
-        this.objectID = objectID;
-    }
-
     public int getInjectionRegimenID() {
         return injectionRegimenID;
     }
@@ -73,8 +63,7 @@ public class InjectionRegimen {
     @Override
     public String toString() {
         return "InjectionRegimen{" +
-                "objectID=" + objectID +
-                ", injectionRegimenID=" + injectionRegimenID +
+                "injectionRegimenID=" + injectionRegimenID +
                 ", object='" + object + '\'' +
                 ", diseasePreventionVaccine='" + diseasePreventionVaccine + '\'' +
                 ", ageMilestone='" + ageMilestone + '\'' +

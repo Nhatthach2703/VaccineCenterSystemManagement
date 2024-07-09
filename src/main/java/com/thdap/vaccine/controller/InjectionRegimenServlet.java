@@ -66,12 +66,15 @@ public class InjectionRegimenServlet extends HttpServlet {
      */
       @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Map<String, List<InjectionRegimen>> regimensMap = injectionRegimenDAO.getInjectionRegimensByObject();
+        String object = request.getParameter("object");
+        if (object == null || object.isEmpty()) {
+            object = "default"; // handle case where no object is provided, if applicable
+        }
+        Map<String, List<InjectionRegimen>> regimensMap = injectionRegimenDAO.getInjectionRegimensByObject(object);
         request.setAttribute("regimensMap", regimensMap);
         RequestDispatcher dispatcher = request.getRequestDispatcher("injectionRegimens.jsp");
         dispatcher.forward(request, response);
     }
-
     /**
      * Handles the HTTP <code>POST</code> method.
      *
