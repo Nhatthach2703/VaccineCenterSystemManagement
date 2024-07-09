@@ -70,11 +70,11 @@
                             <div class="social-login">
                                 <span class="social-label">Đăng Nhập với</span>
                                 <ul class="socials">
-                                    <li><a href="#"><i class="display-flex-center zmdi zmdi-facebook"></i></a></li>
-                                    <li><a href="#"><i class="display-flex-center zmdi zmdi-twitter"></i></a></li>
-                                    <li><a href="https://accounts.google.com/o/oauth2/auth?scope=email profile openid&redirect_uri=http://localhost:8080/Vaccine/login-gg&response_type=code&client_id=338550021-l55c8354k1dtc9v340min1489e6vjmu2.apps.googleusercontent.com&approval_prompt=force">
+                                    <li>
+                                        <a href="https://accounts.google.com/o/oauth2/auth?scope=email profile openid&redirect_uri=http://localhost:8080/Vaccine/login-gg&response_type=code&client_id=338550021-l55c8354k1dtc9v340min1489e6vjmu2.apps.googleusercontent.com&approval_prompt=force">
                                             <i class="display-flex-center zmdi zmdi-google"></i>
-                                        </a></li>
+                                        </a>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
