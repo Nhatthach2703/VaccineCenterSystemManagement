@@ -17,6 +17,32 @@
         <link rel="stylesheet" href="./assets/css/AdminIndex.min.css" />
         <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">-->
         <link rel="stylesheet" href="assets/css/Admin_CreateUpdateVaccine.css"/>
+        <style>
+          button {
+                padding: 10px 30px;
+                border: 0;
+                border-radius: 100px;
+                background-color: #2ba8fb;
+                color: #ffffff;
+                font-weight: Bold;
+                transition: all 0.5s;
+                -webkit-transition: all 0.5s;
+            }
+
+            button:hover {
+                background-color: #6fc5ff;
+                box-shadow: 0 0 20px #6fc5ff50;
+                transform: scale(1.1);
+            }
+
+            button:active {
+                background-color: #3d94cf;
+                transition: all 0.25s;
+                -webkit-transition: all 0.25s;
+                box-shadow: none;
+                transform: scale(0.98);
+            }
+        </style>
     </head>
 
     <body>
@@ -64,7 +90,7 @@
                                             <!-- Các trường dữ liệu khác cần chỉnh sửa -->
                                             <div style="color: red; font-family: 'Tilt Neon', sans-serif;">${errorMessage}</div><br>
                                             <div class="form-group">
-                                                <button style="margin-right: 1rem" class="button_add">Lưu chỉnh sửa</button>
+                                                <button>Lưu chỉnh sửa</button>
                                             </div>
                                         </form>
 
