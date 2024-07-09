@@ -46,7 +46,6 @@
         <filter-name>DoctorFilter</filter-name>
         <url-pattern>/doctorIndexServlet</url-pattern>
         <url-pattern>/AddUserFileServlet</url-pattern>
-        <url-pattern>/AddVaccineToWarehouseServlet</url-pattern>
         <url-pattern>/create-faq</url-pattern>
         <url-pattern>/create-news</url-pattern>
         <url-pattern>/delete-faq</url-pattern>
@@ -68,6 +67,7 @@
     </filter-mapping>
     <filter-mapping>
         <filter-name>AdminFilter</filter-name>
+        <url-pattern>/AddVaccineToWarehouseServlet</url-pattern>
         <url-pattern>/AdminIndexServlet</url-pattern>
         <url-pattern>/AddDoctor</url-pattern>
         <url-pattern>/AddWeeklyWorkScheduleServlet</url-pattern>

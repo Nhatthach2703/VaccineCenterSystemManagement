@@ -52,10 +52,11 @@
              data-sidebar-position="fixed" data-header-position="fixed">
             <!-- Sidebar Start -->
             <jsp:include page="AdminSideBar.jsp"/>
-            <jsp:include page="IndexHeader.jsp"/>
+            
             <!--  Sidebar End -->
             <!--  Main wrapper -->
             <div class="body-wrapper">
+                <jsp:include page="IndexHeader.jsp"/>
                 <div data-aos="fade-up" class="container-fluid">
                     <div class="container-fluid">
                         <div class="card">
