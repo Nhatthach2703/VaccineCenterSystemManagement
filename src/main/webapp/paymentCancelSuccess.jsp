@@ -60,15 +60,72 @@
                 background-color: white;
                 color: black;
             }
+            .card-mes {
+                background-color: #fefefe; /* Màu nền nhạt */
+                border: 1px solid #fafafa; /* Viền nhẹ */
+                border-radius: 10px; /* Bo góc */
+                box-shadow: 0 3px 20px #d4e9f7; /* Đổ bóng nhẹ */
+                padding: 40px; /* Khoảng đệm bên trong */
+                margin: 20px auto; /* Căn giữa */
+                max-width: 600px; /* Độ rộng tối đa */
+                text-align: center; /* Căn giữa văn bản */
+            }
+
+            .card-mes h1 {
+                font-size: 2em; /* Kích thước chữ lớn */
+                color: #3498db; /* Màu xanh lá cây để chỉ thành công */
+                margin-bottom: 20px; /* Khoảng cách dưới */
+            }
+
+            .card-mes p {
+                font-family: 'Tilt Neon';
+                font-size: 1.2em; /* Kích thước chữ trung bình */
+                color: #333; /* Màu chữ xám đậm */
+                margin-bottom: 15px; /* Khoảng cách dưới */
+            }
+
+            .card-mes .btn {
+                font-family: 'Tilt Neon';
+                padding: 10px 20px; /* Khoảng đệm nút */
+                margin: 10px 5px; /* Khoảng cách giữa các nút */
+                border-radius: 5px; /* Bo góc nút */
+                text-decoration: none; /* Loại bỏ gạch chân */
+            }
+
+            .card-mes .btn-primary {
+                background-color: #3498db; /* Màu nền xanh dương */
+                border: none; /* Loại bỏ viền */
+                color: white; /* Màu chữ trắng */
+            }
+            .card-mes .btn-primary:hover {
+                background-color: #5cace2;
+                
+                transform: scale(1.0);
+            }
+
+            .card-mes .btn-danger {
+                font-family: 'Tilt Neon';
+                background-color: #e74c3c; /* Màu nền đỏ */
+                border: none; /* Loại bỏ viền */
+                color: white; /* Màu chữ trắng */
+                
+                
+            }
+            .card-mes .btn-danger:hover{
+                background-color: #eb6f63;
+                
+                transform: scale(1.0);
+                
+                
+            }
 
         </style>
     </head>
     <body>
         <jsp:include page="header.jsp"/>
-        <jsp:include page="banner.jsp"/>
-        <div class="container-xl mt-5 text-center" data-aos="fade-up">
-            <div class="cancel-message">
-                <h1><span><i class='fa fa-check-circle' style="color: rgba(4, 117, 4, 0.858)"></i></span> Hủy giao dịch thành công!</h1>
+        <div class="container" data-aos="fade-up" style="margin: 285px auto">
+            <div class="card-mes cancel-message">
+                <h1><span><i class='fa fa-check-circle' style="color: rgba(4, 117, 4, 0.858); margin-right: 5px;"></i></span> Hủy giao dịch thành công!</h1>
                 <p>Bạn đã hủy giao dịch thành công.</p>    
                 <p>Nếu có bất kỳ câu hỏi nào hãy liên hệ bộ phận chăm sóc khách hàng của chúng tôi.</p>
                 <a href="homeIndex" class="btn btn-primary mt-4">Trang chủ</a>
