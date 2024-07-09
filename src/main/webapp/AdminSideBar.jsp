@@ -110,6 +110,38 @@
                         <span class="hide-menu">Tạo tài khoản bác sĩ</span>
                     </a>
                 </li>
+                <li class="nav-small-cap">
+                    <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                    <span class="hide-menu">Quản lí đơn hàng</span>
+                </li>
+                <li class="sidebar-item ">
+                    <a class="sidebar-link" href="ManagementVaccineInWarehouseServlet" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-cards"></i>
+                        </span>
+                        <span class="hide-menu">Danh sách đơn hàng</span>
+                    </a>
+                </li>
+                <li class="nav-small-cap">
+                    <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                    <span class="hide-menu">Quản lí kho vaccine</span>
+                </li>
+                <li class="sidebar-item ">
+                    <a class="sidebar-link" href="ManagementVaccineInWarehouseServlet" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-creative-commons-nd"></i>
+                        </span>
+                        <span class="hide-menu">Kho vaccine</span>
+                    </a>
+                </li>
+                <li class="sidebar-item ">
+                    <a class="sidebar-link" href="AddVaccineToWarehouseServlet" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-creative-commons-nd"></i>
+                        </span>
+                        <span class="hide-menu">Thêm vaccine vào kho</span>
+                    </a>
+                </li>
 
 
                 <!--                            <li class="nav-small-cap">

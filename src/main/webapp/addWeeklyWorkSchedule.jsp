@@ -16,6 +16,7 @@
         <link rel="stylesheet" href="./assets/css/AdminIndex.min.css" />
         <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">-->
         <link rel="stylesheet" href="assets/css/Admin_CreateUpdateVaccine.css"/>
+        <link rel="stylesheet" href="./assets/css/style.css"/>
     </head>
     
     <style> 
@@ -53,12 +54,13 @@
              data-sidebar-position="fixed" data-header-position="fixed">
             <!-- Sidebar Start -->
             <jsp:include page="AdminSideBar.jsp"/>
-            
+           
             <!--  Sidebar End -->
             <!--  Main wrapper -->
             <div class="body-wrapper">
+                 <jsp:include page="IndexHeader.jsp"/>
                 <div data-aos="fade-up" class="container-fluid">
-                    <div class="main"style="margin-top: 100px" data-aos="zoom-in">
+                    <div class="main" data-aos="zoom-in">
                         <section class="sign-in" >
                             <div class="container1" >
                                 <div class="signin-content input_content">

@@ -37,12 +37,13 @@
              data-sidebar-position="fixed" data-header-position="fixed">
             <!-- Sidebar Start -->
             <jsp:include page="AdminSideBar.jsp"/>
-            <jsp:include page="IndexHeader.jsp"/>
+            
             <!--  Sidebar End -->
             <!--  Main wrapper -->
             <div class="body-wrapper">
+                <jsp:include page="IndexHeader.jsp"/>
                 <div data-aos="fade-up" class="container-fluid">
-                    <div class="container-xl mt-5 " data-aos="fade-up">
+                    <div class="container-xl" data-aos="fade-up">
                         <div class="table-wrapper">
                             <div class="table-title pt-3 pb-3">
                                 <div class="row">
