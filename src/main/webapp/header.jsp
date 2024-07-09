@@ -76,7 +76,7 @@
             <c:if test="${sessionScope.account != null}">
               <li class="dropdown">
                 <a
-                  href="index.jsp"
+                  href="homeIndex"
                   class="getstarted scrollto dropdown-toggle"
                   data-toggle="dropdown"
                 >

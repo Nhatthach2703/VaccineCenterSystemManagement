@@ -34,7 +34,7 @@
             <script>
                 function goToHomePage() {
                     // Chuyển hướng đến trang JSP khác
-                    window.location.href = 'index.jsp';
+                    window.location.href = 'homeIndex';
                 }
             </script>
         </div>
