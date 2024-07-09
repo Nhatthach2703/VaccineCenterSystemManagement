@@ -66,7 +66,30 @@
     </head>
     <body>
         <jsp:include page="header.jsp"/>
-        <jsp:include page="banner.jsp"/>
+        <section id="hero" class="d-flex align-items-center">
+                <div class="container">
+                    <div class="row">
+                        <div
+                            class="col-lg-6 pt-5 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-center"
+                            >
+                            <h1 data-aos="fade-up">THDAP Hệ Thống Trung Tâm tiêm chủng</h1>
+
+                            
+                        </div>
+                        <div
+                            class="col-lg-6 order-1 order-lg-2 hero-img"
+                            data-aos="fade-left"
+                            data-aos-delay="200"
+                            >
+                            <img style="height: 90%"
+                                src="./assets/img/gia_vaccine.png"
+                                class="img-fluid animated mt-4"
+                                alt=""
+                                />
+                        </div>
+                    </div>
+                </div>
+            </section>
         <div class="container-xl mt-5 " data-aos="fade-up">
             <div class="row">
                 <c:forEach var="vaccine" items="${vaccines}">

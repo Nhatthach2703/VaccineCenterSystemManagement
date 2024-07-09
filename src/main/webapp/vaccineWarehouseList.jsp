@@ -40,6 +40,7 @@
                 padding: 1.5%;
                 margin-left: 60%;
             }
+            
         </style>
 
     </head>
