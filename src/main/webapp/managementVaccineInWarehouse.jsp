@@ -13,6 +13,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>THDAP</title>
         <link rel="shortcut icon" type="image/png" href="../assets/images/logos/favicon.png" />
+        <link rel="stylesheet" href="./assets/css/style.css"/>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
         <link rel="stylesheet" href="./assets/css/AdminIndex.min.css" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
@@ -24,6 +25,30 @@
             .btn-secondary{
                 background-color: white;
                 color: black;
+                transition: ease-in-out 0.25s;
+            }
+            .btn-secondary:hover{
+                border: none;
+                background-color: #6fc5ff;
+                box-shadow: 0 0 20px #6fc5ff50;
+                transform: scale(1.0);
+            }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                background-color: rgb(52,152,219);
+                border-radius: 8px 8px 0px 0px;
+            }
+            th, td {
+                padding: 10px;
+                text-align: left;
+                border-bottom: 1px solid #ddd;
+                background-color: white;
+                color: black;
+            }
+            .form-select {
+                color: rgb(54, 153, 219);
+                border-radius: 8px;
             }
         </style>
     </head>
@@ -33,6 +58,7 @@
              data-sidebar-position="fixed" data-header-position="fixed">
             <!-- Sidebar Start -->
             <jsp:include page="AdminSideBar.jsp"/>
+            <jsp:include page="IndexHeader.jsp"/>
             <!--  Sidebar End -->
             <!--  Main wrapper -->
             <div class="body-wrapper">
@@ -45,8 +71,8 @@
                                     <a href="AddVaccineToWarehouseServlet" class="btn btn-secondary" <span>Thêm Vaccine vào kho</span></a>
                                     <form action="ManagementVaccineInWarehouseServlet" method="get" class=" mx-3">
                                         <div>
-                                            <select id="workLocationId" name="workLocationId" onchange="this.form.submit()">
-                                                <option value="">Cơ sở</option>
+                                            <select id="workLocationId" name="workLocationId" onchange="this.form.submit()" class="form-select">
+                                                <option value="">--   Cơ sở   --</option>
                                                 <c:forEach var="workLocation" items="${workLocations}">
                                                     <option value="${workLocation.workLocationID}"
                                                             ${workLocation.workLocationID == param.workLocationId ? 'selected' : ''}>
