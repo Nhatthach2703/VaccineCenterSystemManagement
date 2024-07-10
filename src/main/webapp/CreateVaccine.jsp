@@ -63,15 +63,15 @@
 
                                         <div class="form-group " style="display: flex">
                                             <img src="assets/img/phacdotiem.svg" style="width: 1rem; margin-right: 1rem;" />
-                                            <input placeholder="Tên vaccine" type="text" id="name" name="name" value="${param.name}" required>
+                                            <input placeholder="Tên vaccine" type="text" id="name" name="name" value="" required>
                                         </div>
                                         <div class="form-group " style="display: flex">
                                             <img src="assets/img/Tom tat.svg" style="width: 1rem; margin-right: 1rem;" />
-                                            <input placeholder="Tóm tắt" type="text" id="summary" name="summary" value="${param.summary}" required>
+                                            <input placeholder="Tóm tắt" type="text" id="summary" name="summary" value="" required>
                                         </div>
                                         <div class="form-group " style="display: flex">
                                             <img src="assets/img/nguon goc.svg" style="width: 1rem; margin-right: 1rem;" />
-                                            <input placeholder="Nguồn gốc" type="text" id="source" name="source" value="${param.source}" required>
+                                            <input placeholder="Nguồn gốc" type="text" id="source" name="source" value="" required>
                                         </div>
 
                                         <img src="assets/img/Loai vaccin.svg" style="width: 1rem; margin-right: 1rem;"  />
@@ -163,7 +163,7 @@
 
             </div>
         </div>
-        <script>
+<!--        <script>
             // JavaScript để giữ lại giá trị của các trường input sau khi load lại trang
             document.addEventListener('DOMContentLoaded', function () {
                 const form = document.querySelector('.register-form'); // Chọn form bằng class
@@ -176,7 +176,7 @@
                     });
                 });
             });
-        </script>
+        </script>-->
         <script>
             function previewImage() {
                 const imageInput = document.getElementById('vaccine_image');

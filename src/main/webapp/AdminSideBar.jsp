@@ -29,14 +29,7 @@
                     <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                     <span class="hide-menu">Quản lí Vaccine</span>
                 </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="ManagementVaccineInWarehouseServlet" aria-expanded="false">
-                        <span>
-                            <i class="ti ti-article"></i>
-                        </span>
-                        <span class="hide-menu">Danh sách Vaccine</span>
-                    </a>
-                </li>
+                
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="CRUDTypeOfVaccineServlet" aria-expanded="false">
                         <span>
