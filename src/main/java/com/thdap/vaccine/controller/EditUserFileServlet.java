@@ -196,9 +196,11 @@ public class EditUserFileServlet extends HttpServlet {
                     //Viết thêm add data vào bảng notification 
                     int injectionInfoID = injectionInfoDAO.getInjectionID(userFileID, sqlNewInjectionDate, newVaccineIDInt, newPatientStatus, sqlNewDateOfNextInjection);
 
-                    // Add notification for the new injection
-                    Notifications notification = new Notifications(injectionInfoID, "New injection scheduled", false);
-                    notificationsDAO.addNotification(notification);
+                    if(newDateOfNextInjection != null){
+                        // Add notification for the new injection
+                        Notifications notification = new Notifications(injectionInfoID, "New injection scheduled", false);
+                        notificationsDAO.addNotification(notification);
+                    }
                 }
                 
             } catch (ParseException | NumberFormatException e) {

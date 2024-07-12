@@ -29,7 +29,7 @@
         <!--<url-pattern>/newsSevlet</url-pattern>-->
         <url-pattern>/PaymentServlet</url-pattern>
         <!--<url-pattern>/PricelistVaccineServlet</url-pattern>-->
-        <url-pattern>/RateServiceServlet</url-pattern>
+        <!--<url-pattern>/RateServiceServlet</url-pattern>-->
         <url-pattern>/ReturnPaymentServlet</url-pattern>
         <!--<url-pattern>/ServiceReviewServlet</url-pattern>-->
         <!--<url-pattern>/TypeOfVaccineServlet</url-pattern>-->
