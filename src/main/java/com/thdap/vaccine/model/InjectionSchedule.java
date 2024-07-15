@@ -14,22 +14,31 @@ public class InjectionSchedule {
     private int workScheduleID;
     private int userShiftID;
     private boolean status;
+    private int vaccineID;
 
     public InjectionSchedule() {
-    }
-
-    public InjectionSchedule(int scheduleID, int userID, int workScheduleID, int userShiftID, boolean status) {
-        this.scheduleID = scheduleID;
-        this.userID = userID;
-        this.workScheduleID = workScheduleID;
-        this.userShiftID = userShiftID;
-        this.status = status;
     }
 
     public InjectionSchedule(int workScheduleID, int userShiftID, boolean status) {
         this.workScheduleID = workScheduleID;
         this.userShiftID = userShiftID;
         this.status = status;
+    }
+
+    public InjectionSchedule(int scheduleID, int userID, int workScheduleID, int userShiftID, boolean status, int vaccineID) {
+        this.scheduleID = scheduleID;
+        this.userID = userID;
+        this.workScheduleID = workScheduleID;
+        this.userShiftID = userShiftID;
+        this.status = status;
+        this.vaccineID = vaccineID;
+    }
+
+    public InjectionSchedule(int workScheduleID, int userShiftID, boolean status, int vaccineID) {
+        this.workScheduleID = workScheduleID;
+        this.userShiftID = userShiftID;
+        this.status = status;
+        this.vaccineID = vaccineID;
     }
     
 
@@ -73,10 +82,17 @@ public class InjectionSchedule {
         this.status = status;
     }
 
+    public int getVaccineID() {
+        return vaccineID;
+    }
+
+    public void setVaccineID(int vaccineID) {
+        this.vaccineID = vaccineID;
+    }
+
     @Override
     public String toString() {
-        return "InjectionSchedule{" + "scheduleID=" + scheduleID + ", userID=" + userID + ", workScheduleID=" + workScheduleID + ", userShiftID=" + userShiftID + ", status=" + status + '}';
+        return "InjectionSchedule{" + "scheduleID=" + scheduleID + ", userID=" + userID + ", workScheduleID=" + workScheduleID + ", userShiftID=" + userShiftID + ", status=" + status + ", vaccineID=" + vaccineID + '}';
     }
-    
     
 }

@@ -33,7 +33,8 @@ public class InjectionScheduleDAO {
                         rs.getInt("userID"),
                         rs.getInt("WorkScheduleID"),
                         rs.getInt("UserShiftID"),
-                        rs.getBoolean("status")
+                        rs.getBoolean("status"),
+                        rs.getInt("vaccineID")
                 ));
             }
         } catch (SQLException e) {
@@ -78,7 +79,8 @@ public class InjectionScheduleDAO {
                             rs.getInt("userID"),
                             rs.getInt("WorkScheduleID"),
                             rs.getInt("UserShiftID"),
-                            rs.getBoolean("status")
+                            rs.getBoolean("status"),
+                            rs.getInt("vaccineID")
                     ));
                 }
             }
@@ -100,7 +102,8 @@ public class InjectionScheduleDAO {
                             rs.getInt("userID"),
                             rs.getInt("WorkScheduleID"),
                             rs.getInt("UserShiftID"),
-                            rs.getBoolean("status")
+                            rs.getBoolean("status"),
+                            rs.getInt("vaccineID")
                     ));
                 }
             }
@@ -123,7 +126,8 @@ public class InjectionScheduleDAO {
                             rs.getInt("userID"),
                             rs.getInt("WorkScheduleID"),
                             rs.getInt("UserShiftID"),
-                            rs.getBoolean("status")
+                            rs.getBoolean("status"),
+                            rs.getInt("vaccineID")
                     ));
                 }
             }
@@ -145,7 +149,8 @@ public class InjectionScheduleDAO {
                             rs.getInt("userID"),
                             rs.getInt("WorkScheduleID"),
                             rs.getInt("UserShiftID"),
-                            rs.getBoolean("status")
+                            rs.getBoolean("status"),
+                            rs.getInt("vaccineID")
                     );
                 }
             }
@@ -181,7 +186,8 @@ public class InjectionScheduleDAO {
                             rs.getInt("userID"),
                             rs.getInt("WorkScheduleID"),
                             rs.getInt("UserShiftID"),
-                            rs.getBoolean("status")
+                            rs.getBoolean("status"),
+                            rs.getInt("vaccineID")
                     ));
                 }
             }
