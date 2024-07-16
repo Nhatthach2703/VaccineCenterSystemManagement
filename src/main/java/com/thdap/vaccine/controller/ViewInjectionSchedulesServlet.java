@@ -8,12 +8,14 @@ import com.thdap.vaccine.dao.DoctorDAO;
 import com.thdap.vaccine.dao.InjectionScheduleDAO;
 import com.thdap.vaccine.dao.RoomDAO;
 import com.thdap.vaccine.dao.UserShiftDAO;
+import com.thdap.vaccine.dao.VaccineDAO;
 import com.thdap.vaccine.dao.WorkLocationDAO;
 import com.thdap.vaccine.dao.WorkScheduleDAO;
 import com.thdap.vaccine.model.Doctor;
 import com.thdap.vaccine.model.InjectionSchedule;
 import com.thdap.vaccine.model.Room;
 import com.thdap.vaccine.model.UserShift;
+import com.thdap.vaccine.model.Vaccine;
 import com.thdap.vaccine.model.WorkLocation;
 import com.thdap.vaccine.model.WorkSchedule;
 import java.io.IOException;
@@ -86,6 +88,8 @@ public class ViewInjectionSchedulesServlet extends HttpServlet {
         List<Doctor> doctors = doctorDAO.getAllDoctors();
         InjectionScheduleDAO injectionScheduleDAO = new InjectionScheduleDAO();
         List<InjectionSchedule> injectionSchedules = injectionScheduleDAO.getInjectionSchedulesByUserID(userID);
+        VaccineDAO vaccineDAO = new VaccineDAO();
+        List<Vaccine> vaccines = vaccineDAO.getAllVaccines();
 
         // Sort injectionSchedules theo ngày giảm dần
         Collections.sort(injectionSchedules, new Comparator<InjectionSchedule>() {
@@ -106,6 +110,7 @@ public class ViewInjectionSchedulesServlet extends HttpServlet {
         request.setAttribute("rooms", rooms);
         request.setAttribute("doctors", doctors);
         request.setAttribute("injectionSchedules", injectionSchedules);
+        request.setAttribute("vaccines", vaccines);
         request.getRequestDispatcher("viewInjectionSchedules.jsp").forward(request, response);
     }
 

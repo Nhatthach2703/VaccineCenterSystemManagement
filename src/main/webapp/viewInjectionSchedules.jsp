@@ -89,6 +89,7 @@
                             <th>Phòng</th>
                             <th>Cơ sở</th>
                             <th>Bác sĩ</th>
+                            <th>Vaccine</th>
                             <th>Tình trạng</th>
                         </tr>
                     </thead>
@@ -142,6 +143,13 @@
                                 </c:forEach>
                             </c:if>
                         </c:forEach>
+                        </td>
+                        <td>
+                            <c:forEach items="${vaccines}" var="vaccine">
+                                <c:if test="${injectionSchedule.vaccineID == vaccine.vaccineID}">
+                                    ${vaccine.name}
+                                </c:if>
+                            </c:forEach>
                         </td>
                         <td>
                         <c:choose>
