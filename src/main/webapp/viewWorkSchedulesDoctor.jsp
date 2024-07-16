@@ -18,7 +18,7 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-        <link rel="stylesheet" href="./assets/css/calendar.css"/>
+
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script>
             function confirmSubmission(form) {
@@ -30,6 +30,57 @@
             }
             }
         </script>
+         <style>
+            .schedule-table {
+                width: 100%;
+                overflow-x: auto; /* Cho phép cuộn ngang khi bảng quá rộng */
+            }
+
+            .schedule-table table {
+                width: 100%;
+                table-layout: fixed; /* Đảm bảo các cột có chiều rộng cố định */
+                border-collapse: collapse; /* Gộp đường viền của các ô */
+            }
+
+            .schedule-table table .time {
+                padding: 8px;
+                color: #fff;
+                font-size: 12px;
+                font-weight: 600;
+                background-color: rgb(54, 153, 219);
+                white-space: nowrap; /* Ngăn nội dung bị ngắt dòng */
+            }
+
+            .schedule-table table tbody td {
+                padding: 8px;
+                text-align: center;
+                vertical-align: middle;
+                border: 1px solid #e2edf8;
+                font-weight: 500;
+                font-size: 12px;
+            }
+            body{
+                font-family: "Josefin Sans", sans-serif;
+            }
+
+            .schedule-table table thead th {
+                padding: 10px;
+                color: #fff;
+                text-align: center;
+                font-size: 12px;
+                font-weight: 600;
+                background-color: rgb(54, 153, 219);
+            }
+
+            @media (max-width: 768px) {
+                .schedule-table table .time,
+                .schedule-table table tbody td,
+                .schedule-table table thead th {
+                    font-size: 10px;
+                    padding: 6px;
+                }
+            }
+        </style>
     </head>
 
 
@@ -42,7 +93,7 @@
             <!--  Sidebar End -->
             <!--  Main wrapper -->
             <div class="body-wrapper">
-                 <jsp:include page="DoctorHeader.jsp"/>
+                <jsp:include page="DoctorHeader.jsp"/>
                 <div class="container-fluid calendar">
                     <div class="schedule-table">
                         <div class="d-flex justify-content-around mb-3">
@@ -54,7 +105,7 @@
                             </select>
                         </div>
                         <div id="date-range" class="mb-3"></div>
-                        <table class="table bg-white" >
+<!--                        <table class="table bg-white" >
 
                             <thead>
                                 <tr class="time">
@@ -97,6 +148,43 @@
                                 <tr class="time_tr week">
                                     <td>Chủ nhật, <span id="sunday" class="sunday-date"></span></td>
                                     <td class="sunday-slot slot"></td>
+                                    <td class="sunday-slot-afternoon slot"></td>
+                                </tr>
+                            </tbody>
+                        </table>-->
+                        <table class="table bg-white">
+                            <thead>
+                                <tr class="time week ">
+                                    <th>Thời gian</th>
+                                    <th>Thứ hai<br><span id="monday" class="monday-date"></span></th>
+                                    <th>Thứ ba<br><span class="tuesday-date"></span></th>
+                                    <th>Thứ tư<br><span class="wednesday-date"></span></th>
+                                    <th>Thứ năm<br><span class="thursday-date"></span></th>
+                                    <th>Thứ sáu <br><span class="friday-date"></span></th>
+                                    <th>Thứ bảy <br><span class="saturday-date"></span></th>
+                                    <th>Chủ nhật<br><span id="sunday" class="sunday-date"></span></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="time_tr week">
+                                    <td class="time">7h-11h30</td>
+                                    <td class="monday-slot slot"></td>
+                                    <td class="tuesday-slot slot"></td>
+                                    <td class="wednesday-slot slot"></td>
+                                    <td class="thursday-slot slot"></td>
+                                    <td class="friday-slot slot"></td>
+                                    <td class="saturday-slot slot"></td>
+                                    <td class="sunday-slot slot"></td>
+
+                                </tr>
+                                <tr class="time_tr week">
+                                    <td class="time">1h-5h</td>
+                                    <td class="monday-slot-afternoon slot"></td>
+                                    <td class="tuesday-slot-afternoon slot"></td>
+                                    <td class="wednesday-slot-afternoon slot"></td>
+                                    <td class="thursday-slot-afternoon slot"></td>
+                                    <td class="friday-slot-afternoon slot"></td>
+                                    <td class="saturday-slot-afternoon slot"></td>
                                     <td class="sunday-slot-afternoon slot"></td>
                                 </tr>
                             </tbody>
@@ -200,9 +288,9 @@
                                 cell.innerHTML += `
                                                 <div class="row mb-3"style="background-color:rgb(52,152,219)">
                                                 <div class="col-md-6">
-                                                    <h6 style="text-align: left; font-size: 20px;">Lịch:` + workType + `</h6>
-                                                    <p style="text-align: left;">Khách: ` + fullName + `</p>
-                                                    <p style="text-align: left;">Thời gian: ` + startTime + ` - ` + endTime + `</p>
+                                                    <h6 style="text-align: left; font-size: 15px;font-family: 'Josefin Sans', sans-serif;">Lịch:` + workType + `</h6>
+                                                    <p style="text-align: left;font-family: 'Josefin Sans', sans-serif;">Khách: ` + fullName + `</p>
+                                                    <p style="text-align: left;font-family: 'Josefin Sans', sans-serif;">Thời gian: ` + startTime + ` - ` + endTime + `</p>
                                                 </div>
                                                 <div class="col-md-6 mt-4">
                                                     <form action="UpdateScheduleStatusServlet" method="post">
@@ -218,9 +306,9 @@
                                             } else if (fullName == 'Chưa có') {
                                                 cell.innerHTML += `
                                                 <div >
-                                                    <h6 style="text-align: left; font-size: 20px;">Lịch:` + workType + `</h6>
-                                                    <h6 style="text-align: left; font-size: 15px;">Khách:` + fullName + `</h6>
-                                                    <p style="text-align: left;">Thời gian: ` + startTime + ` - ` + endTime + `</p>
+                                                    <h6 style="text-align: left; font-size: 15px;font-family: 'Josefin Sans', sans-serif;">Lịch:` + workType + `</h6>
+                                                    <h6 style="text-align: left; font-size: 10px;font-family: 'Josefin Sans', sans-serif;">Khách:` + fullName + `</h6>
+                                                    <p style="text-align: left;font-size: 10px;font-family: 'Josefin Sans', sans-serif;">Thời gian: ` + startTime + ` - ` + endTime + `</p>
 
                                                 </div>
                                                        `;
