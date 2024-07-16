@@ -6,11 +6,13 @@ package com.thdap.vaccine.controller;
 
 import com.thdap.vaccine.dao.InjectionScheduleDAO;
 import com.thdap.vaccine.dao.UserShiftDAO;
+import com.thdap.vaccine.dao.VaccineDAO;
 import com.thdap.vaccine.dao.WorkLocationDAO;
 import com.thdap.vaccine.dao.WorkScheduleDAO;
 import com.thdap.vaccine.model.InjectionSchedule;
 import com.thdap.vaccine.model.User;
 import com.thdap.vaccine.model.UserShift;
+import com.thdap.vaccine.model.Vaccine;
 import com.thdap.vaccine.model.WorkLocation;
 import com.thdap.vaccine.model.WorkSchedule;
 import java.io.IOException;
@@ -83,11 +85,13 @@ public class BookInjectionServlet extends HttpServlet {
 //        processRequest(request, response);
         int injectionScheduleID = Integer.parseInt(request.getParameter("injectionScheduleID"));
         int userID = Integer.parseInt(request.getParameter("userID"));
+        int vaccineID = Integer.parseInt(request.getParameter("vaccineID"));
 
         InjectionScheduleDAO injectionScheduleDAO = new InjectionScheduleDAO();
         InjectionSchedule schedule = new InjectionSchedule();
         schedule.setScheduleID(injectionScheduleID);
         schedule.setUserID(userID);
+        schedule.setVaccineID(vaccineID);
 
         boolean isBooked = injectionScheduleDAO.bookInjection(schedule);
 
@@ -103,7 +107,9 @@ public class BookInjectionServlet extends HttpServlet {
             userShift = userShiftDAO.getUserShiftByUserShiftID(injectionSchedule.getUserShiftID());
             WorkLocationDAO workLocationDAO = new WorkLocationDAO();
             WorkLocation workLocation = (WorkLocation) workLocationDAO.getWorkLocationById(workSchedule.getWorkLocationID());
-            SendMail.sendInjectionScheduleEmail(user.getFullName(), user.getEmail(), workSchedule.getDate(), userShift.getStartTime(), userShift.getEndTime(), workLocation.getName(), workLocation.getAddress());
+            VaccineDAO vaccineDAO = new VaccineDAO();
+            Vaccine vaccine = vaccineDAO.getVaccineById(vaccineID);
+            SendMail.sendInjectionScheduleEmail(user.getFullName(), user.getEmail(), workSchedule.getDate(), userShift.getStartTime(), userShift.getEndTime(), workLocation.getName(), workLocation.getAddress(), vaccine.getName());
 
             request.getRequestDispatcher("success.jsp").forward(request, response);
         } else {
