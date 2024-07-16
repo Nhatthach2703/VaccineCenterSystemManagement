@@ -274,43 +274,44 @@
                                             </c:when>
                                             <c:otherwise>
                                                 <!-- User is logged in -->
-                                                <!--                                                <form action="BookInjectionServlet" method="post">
-                                                                                                    <input type="hidden" name="injectionScheduleID" value="${injectionSchedule.scheduleID}">
-                                                                                                    <input type="hidden" name="userID" value="${sessionScope.user.userID}">
-                                                                                                    
-                                                                                                    <button type="submit" class="btn btn-success" onclick="return confirmBooking(this)">Đặt lịch</button>
-                                                                                                   
-                                                                                                </form>-->
+<!--                                                <form action="BookInjectionServlet" method="post">
+                                                    <input type="hidden" name="injectionScheduleID" value="${injectionSchedule.scheduleID}">
+                                                    <input type="hidden" name="userID" value="${sessionScope.user.userID}">
+
+                                                    <button type="submit" class="btn btn-success" onclick="return confirmBooking(this)">Đặt lịch</button>
+
+                                                </form>-->
                                                 <div class="nenmodal" id="nenmodal-1">
                                                     <div class="nenmodal2"></div>
                                                     <div class="ndmodal">
                                                         <div class="closemodal"><button onclick="momodal()">×</button></div>
-                                                        <div class="titlemodal">Chọn loại vaccine</div>
-
-                                                        <div class="row" style="text-align: left; max-height: 400px; overflow-y: auto;">
-                                                            <c:forEach var="vaccines" items="${vaccines}">
-                                                                <div class="col-md-6 card" style="padding: 13px; width: 45%;margin-left: 20px;margin-bottom: 20px" onclick="selectCard(this)">
-                                                                    <input type="radio" name="selectedCard" class="card-radio" style="display: none;">
-                                                                    <span class="custom-checkbox"></span>
-                                                                    <p>Vaccine: ${vaccines.name}</p>
-                                                                    <p>Nguồn gốc: ${vaccines.source}</p>
-                                                                    <c:forEach var="typeOfVaccines" items="${typeOfVaccines}">
-                                                                        <c:if test="${vaccines.typeID == typeOfVaccines.typeID}">
-                                                                            <p>Loại vaccine: ${typeOfVaccines.name}</p>
-                                                                        </c:if>
-                                                                    </c:forEach>
-                                                                </div>
-                                                            </c:forEach>
-                                                        </div>
-
                                                         <form action="BookInjectionServlet" method="post">
-                                                            <input type="hidden" name="injectionScheduleID" value="${injectionSchedule.scheduleID}">
+                                                            <div class="titlemodal">Chọn loại vaccine</div>
+
+                                                            <div class="row" style="text-align: left; max-height: 400px; overflow-y: auto;" >
+                                                                <c:forEach var="vaccines" items="${vaccines}">
+                                                                    <div class="col-md-6 card" style="padding: 13px; width: 45%;margin-left: 20px;margin-bottom: 20px" onclick="selectCard(this, ${vaccines.vaccineID})">
+                                                                        <input type="radio" name="selectedCard" class="card-radio" style="display: none;" value="${vaccines.vaccineID}" required="">
+                                                                        <span class="custom-checkbox"></span>
+                                                                        <p>Vaccine: ${vaccines.name}</p>
+                                                                        <p>Nguồn gốc: ${vaccines.source}</p>
+                                                                        <c:forEach var="typeOfVaccines" items="${typeOfVaccines}">
+                                                                            <c:if test="${vaccines.typeID == typeOfVaccines.typeID}">
+                                                                                <p>Loại vaccine: ${typeOfVaccines.name}</p>
+                                                                            </c:if>
+                                                                        </c:forEach>
+                                                                    </div>
+                                                                </c:forEach>
+                                                            </div>
+
+                                                            <input type="hidden" name="vaccineID" id="vaccineID" value="">
+                                                            <input type="hidden" name="injectionScheduleID" value="">
                                                             <input type="hidden" name="userID" value="${sessionScope.user.userID}">
                                                             <button type="submit" class="btn btn-success" onclick="return confirmBooking(this)">Đặt lịch</button>
                                                         </form>
                                                     </div>
                                                 </div>
-                                                <button type="" class="btn btn-success" onclick="momodal()">Đặt lịch</button>
+                                                <button type="" class="btn btn-success" onclick="momodal(${injectionSchedule.scheduleID})">Đặt lịch</button>
 
                                             </c:otherwise>
                                         </c:choose>
@@ -341,8 +342,8 @@
         <script src="assets/js/main.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
         <script>
-                                                    function selectCard(selectedElement) {
-                                                        // Bỏ chọn tất cả các thẻ khác
+                                                    function selectCard(selectedElement, vaccineID) {
+                                                        // Bỏ chọn tất cả các thẻ khác                                                
                                                         const allCards = document.querySelectorAll('.card');
                                                         allCards.forEach(card => {
                                                             const radio = card.querySelector('.card-radio');
@@ -354,11 +355,15 @@
                                                         const radio = selectedElement.querySelector('.card-radio');
                                                         radio.checked = true;
                                                         selectedElement.classList.add('selected');
+
+                                                        // Set the value of the hidden input field
+                                                        document.getElementById("vaccineID").value = vaccineID;
                                                     }
         </script>
         <script>
-            function momodal() {
+            function momodal(scheduleID) {
                 document.getElementById("nenmodal-1").classList.toggle("active");
+                document.querySelector('input[name="injectionScheduleID"]').value = scheduleID;
             }
         </script>
         <script>
@@ -387,14 +392,16 @@
                 const room = row.querySelector('.room-name').textContent.trim();
                 const doctor = row.querySelector('.doctor-name').textContent.trim();
                 const location = row.querySelector('.work-location').textContent.trim();
+                
+                const vaccineName = row.querySelector('.card.selected p:first-of-type').textContent.trim().replace('Vaccine: ', '');
 //                console.log("Giờ: " + time);
 //                console.log("Ngày: " + date);
 //                console.log("Phòng: " + room);
 //                console.log("Bác sĩ: " + doctor);
 //                console.log("Cơ sở: " + location);
-                const confirmationMessage = `Bạn có chắc chắn muốn đặt lịch tiêm phòng vào:\n\nGiờ: ` + time + `\nNgày: ` + date + `\nPhòng: ` + room + `\nBác sĩ: ` + doctor + `\nCơ sở: ` + location;
+                const confirmationMessage = `Bạn có chắc chắn muốn đặt lịch tiêm phòng vào:\n\nGiờ: ` + time + `\nNgày: ` + date + `\nPhòng: ` + room + `\nBác sĩ: ` + doctor + `\nCơ sở: ` + location + `\nLoại vaccine: ` + vaccineName;
                 return confirm(confirmationMessage);
             }
-        </script>
+        </script>z
     </body>
 </html>

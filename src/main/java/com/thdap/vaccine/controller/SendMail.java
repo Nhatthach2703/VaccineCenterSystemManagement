@@ -194,7 +194,7 @@ public class SendMail {
             // Nội dung email với mã xác nhận
             String emailContent = "<h3>Xin chào " + userName + "!</h3>"
                     + "<p>Chúc mừng bạn đã đặt lịch tư vấn thành công!</p>"
-                    + "<p>Bạn vui lòng đến " + wName + " vào lúc: " + startTime + " - " + endTime + ", ngày " + date + ", địa điểm: " + wAdress + " để buổi tư vấn cỏ thể diễn ra suông sẻ.</p>"
+                    + "<p>Bạn vui lòng đến " + wName + " vào lúc: " + startTime + " - " + endTime + ", ngày " + date + ", địa điểm: " + wAdress + " để buổi tư vấn cỏ thể diễn ra suôn sẻ.</p>"
                     + "<p>Hi vọng bạn sẽ có những trải nghiệm tốt khi sử dụng dịch vụ của hệ thống THDAP.</p>"
                     + "<p>Một lần nữa xin cảm ơn bạn đã tin tưởng chọn dịch vụ của chúng tôi.</p>"
                     + "<p>Chúc bạn một ngày tốt lành!</p>";
@@ -210,7 +210,7 @@ public class SendMail {
         }
     }
 
-    public static void sendInjectionScheduleEmail(String userName, String to, Date date, LocalTime startTime, LocalTime endTime, String wName, String wAdress) {
+    public static void sendInjectionScheduleEmail(String userName, String to, Date date, LocalTime startTime, LocalTime endTime, String wName, String wAdress, String vaccine) {
         final String from = "hethongtrungtamtiemchungthdap@gmail.com";
         final String password = "sdlrilkbzljylemz";
 
@@ -251,7 +251,8 @@ public class SendMail {
             // Nội dung email với mã xác nhận
             String emailContent = "<h3>Xin chào " + userName + "!</h3>"
                     + "<p>Chúc mừng bạn đã đặt lịch tiêm thành công!</p>"
-                    + "<p>Bạn vui lòng đến " + wName + " vào lúc: " + startTime + " - " + endTime + ", ngày " + date + ", địa điểm: " + wAdress + " để việc khám sáng lọc trước tiêm, tiêm và quan sát hậu tiêm chủng thể diễn ra suông sẻ.</p>"
+                    + "<p>Loại vaccine bạn chọn là: " + vaccine + ".</p>"
+                    + "<p>Bạn vui lòng đến " + wName + " vào lúc: " + startTime + " - " + endTime + ", ngày " + date + ", địa điểm: " + wAdress + " để việc khám sáng lọc trước tiêm, tiêm và quan sát hậu tiêm chủng thể diễn ra suôn sẻ.</p>"
                     + "<p>Hi vọng bạn sẽ có những trải nghiệm tốt khi sử dụng dịch vụ của hệ thống THDAP.</p>"
                     + "<p>Một lần nữa xin cảm ơn bạn đã tin tưởng chọn dịch vụ của chúng tôi.</p>"
                     + "<p>Chúc bạn một ngày tốt lành!</p>";

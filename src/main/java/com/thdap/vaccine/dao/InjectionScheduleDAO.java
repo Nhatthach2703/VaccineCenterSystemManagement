@@ -161,10 +161,11 @@ public class InjectionScheduleDAO {
     }
 
     public boolean bookInjection(InjectionSchedule schedule) {
-        String query = "UPDATE InjectionSchedule SET userID = ? WHERE scheduleID = ?";
+        String query = "UPDATE InjectionSchedule SET userID = ?, vaccineID = ? WHERE scheduleID = ?";
         try (Connection conn = contextDAO.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
             pstmt.setInt(1, schedule.getUserID());
-            pstmt.setInt(2, schedule.getScheduleID());
+            pstmt.setInt(2, schedule.getVaccineID());
+            pstmt.setInt(3, schedule.getScheduleID());
 
             int rowsUpdated = pstmt.executeUpdate();
             return rowsUpdated > 0;

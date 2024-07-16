@@ -110,11 +110,11 @@ public class InjectionScheduleServlet extends HttpServlet {
         ////////////////////////////////////////////////////////////
         VaccineDAO vaccineDAO = new VaccineDAO();
         TypeOfVaccineDAO typeOfVaccineDAO =new TypeOfVaccineDAO();
-        List<Vaccine> vaccinesList = vaccineDAO.getAllVaccines();
+        List<Vaccine> vaccinesList = vaccineDAO.getVaccineDontHaveToOrder();
         List<TypeOfVaccine> typeOfVaccinesList = typeOfVaccineDAO.getAllTypesOfVaccine();
           ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
-         String vaccines = objectMapper.writeValueAsString(vaccinesList);
+        String vaccines = objectMapper.writeValueAsString(vaccinesList);
         String typeOfVaccine = objectMapper.writeValueAsString(typeOfVaccinesList);
         ///////////////////////////////////////////////////////////
         try {
