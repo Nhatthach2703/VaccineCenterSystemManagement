@@ -30,7 +30,7 @@
             }
             }
         </script>
-         <style>
+        <style>
             .schedule-table {
                 width: 100%;
                 overflow-x: auto; /* Cho phép cuộn ngang khi bảng quá rộng */
@@ -60,7 +60,7 @@
                 font-size: 12px;
             }
             body{
-                font-family: "Josefin Sans", sans-serif;
+                font-family: "Tilt Neon", sans-serif;
             }
 
             .schedule-table table thead th {
@@ -105,53 +105,53 @@
                             </select>
                         </div>
                         <div id="date-range" class="mb-3"></div>
-<!--                        <table class="table bg-white" >
-
-                            <thead>
-                                <tr class="time">
-                                    <th>Ngày</th>
-                                    <th class="">7h-11h30</th>
-                                    <th class="">1h-5h</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr class="time_tr week">
-                                    <td>Thứ hai,<span id="monday" class="monday-date"></span></td>
-                                    <td class="monday-slot slot"></td>
-                                    <td class="monday-slot-afternoon slot"></td>
-                                </tr>
-                                <tr class="time_tr week">
-                                    <td>Thứ ba,<span class="tuesday-date"></span></td>
-                                    <td class="tuesday-slot slot"></td>
-                                    <td class="tuesday-slot-afternoon slot"></td>
-                                </tr>
-                                <tr class="time_tr week">
-                                    <td>Thứ tư,<span class="wednesday-date"></span></td>
-                                    <td class="wednesday-slot slot"></td>
-                                    <td class="wednesday-slot-afternoon slot"></td>
-                                </tr>
-                                <tr class="time_tr week">
-                                    <td>Thứ năm,<span class="thursday-date"></span></td>
-                                    <td class="thursday-slot slot"></td>
-                                    <td class="thursday-slot-afternoon slot"></td>
-                                </tr>
-                                <tr class="time_tr week">
-                                    <td>Thứ sáu, <span class="friday-date"></span></td>
-                                    <td class="friday-slot slot"></td>
-                                    <td class="friday-slot-afternoon slot"></td>
-                                </tr>
-                                <tr class="time_tr week">
-                                    <td>Thứ bảy, <span class="saturday-date"></span></td>
-                                    <td class="saturday-slot slot"></td>
-                                    <td class="saturday-slot-afternoon slot"></td>
-                                </tr>
-                                <tr class="time_tr week">
-                                    <td>Chủ nhật, <span id="sunday" class="sunday-date"></span></td>
-                                    <td class="sunday-slot slot"></td>
-                                    <td class="sunday-slot-afternoon slot"></td>
-                                </tr>
-                            </tbody>
-                        </table>-->
+                        <!--                        <table class="table bg-white" >
+                        
+                                                    <thead>
+                                                        <tr class="time">
+                                                            <th>Ngày</th>
+                                                            <th class="">7h-11h30</th>
+                                                            <th class="">1h-5h</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr class="time_tr week">
+                                                            <td>Thứ hai,<span id="monday" class="monday-date"></span></td>
+                                                            <td class="monday-slot slot"></td>
+                                                            <td class="monday-slot-afternoon slot"></td>
+                                                        </tr>
+                                                        <tr class="time_tr week">
+                                                            <td>Thứ ba,<span class="tuesday-date"></span></td>
+                                                            <td class="tuesday-slot slot"></td>
+                                                            <td class="tuesday-slot-afternoon slot"></td>
+                                                        </tr>
+                                                        <tr class="time_tr week">
+                                                            <td>Thứ tư,<span class="wednesday-date"></span></td>
+                                                            <td class="wednesday-slot slot"></td>
+                                                            <td class="wednesday-slot-afternoon slot"></td>
+                                                        </tr>
+                                                        <tr class="time_tr week">
+                                                            <td>Thứ năm,<span class="thursday-date"></span></td>
+                                                            <td class="thursday-slot slot"></td>
+                                                            <td class="thursday-slot-afternoon slot"></td>
+                                                        </tr>
+                                                        <tr class="time_tr week">
+                                                            <td>Thứ sáu, <span class="friday-date"></span></td>
+                                                            <td class="friday-slot slot"></td>
+                                                            <td class="friday-slot-afternoon slot"></td>
+                                                        </tr>
+                                                        <tr class="time_tr week">
+                                                            <td>Thứ bảy, <span class="saturday-date"></span></td>
+                                                            <td class="saturday-slot slot"></td>
+                                                            <td class="saturday-slot-afternoon slot"></td>
+                                                        </tr>
+                                                        <tr class="time_tr week">
+                                                            <td>Chủ nhật, <span id="sunday" class="sunday-date"></span></td>
+                                                            <td class="sunday-slot slot"></td>
+                                                            <td class="sunday-slot-afternoon slot"></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>-->
                         <table class="table bg-white">
                             <thead>
                                 <tr class="time week ">
@@ -286,30 +286,41 @@
                                 if (fullName !== 'Chưa có') {
                                 const disableButton = schedule.status ? 'disabled' : '';
                                 cell.innerHTML += `
-                                                <div class="row mb-3"style="background-color:rgb(52,152,219)">
-                                                <div class="col-md-6">
-                                                    <h6 style="text-align: left; font-size: 15px;font-family: 'Josefin Sans', sans-serif;">Lịch:` + workType + `</h6>
-                                                    <p style="text-align: left;font-family: 'Josefin Sans', sans-serif;">Khách: ` + fullName + `</p>
-                                                    <p style="text-align: left;font-family: 'Josefin Sans', sans-serif;">Thời gian: ` + startTime + ` - ` + endTime + `</p>
+                                                <div style="background-color:rgb(52,152,219); border: 1px solid #ddd; padding: 10px; margin: 10px 0px; border-radius: 5px; justify-content: space-between; align-items: center;">
+                                                    <div style="flex: 1;">
+                                                        <h6 style=" font-size: 15px; font-family: 'Tilt Neon', sans-serif; font-weight: bold; color: #fafbff; margin: 0;">
+                                                            Lịch: ` + workType + `
+                                                        </h6>
+                                                        <p style=" font-family: 'Tilt Neon', sans-serif; color: #fafbff; margin: 5px 0; font-weight: 700;"> 
+                                                            Khách: `+ fullName+` 
+                                                        </p>
+                                                    
+                                                        <p style="font-family: 'Tilt Neon', sans-serif; color: #fafbff; margin: 5px 0;font-weight: 700;">
+                                                            Thời gian: ` + startTime + `
+                                                        </p>
+                                                    
+                                                    </div>
+                                                    <div >
+                                                        <form action="UpdateScheduleStatusServlet" method="post" style="margin: 0;">
+                                                            <input type="hidden" id="scheduleID" name="scheduleID" value="` + scheduleID + `">
+                                                            <input type="hidden" id="workType" name="workType" value="` + workType + `">
+                                                            <button type="submit" class="btn btn-danger" `+disableButton+` style="padding: 5px 10px;" onclick="return confirmSubmission(this)">Hoàn tất</button>
+                                                        </form>
+                                                    </div> 
                                                 </div>
-                                                <div class="col-md-6 mt-4">
-                                                    <form action="UpdateScheduleStatusServlet" method="post">
-                                                        <input type="hidden" id="scheduleID" name="scheduleID" value="` + scheduleID + `">
-                                                        <input type="hidden" id="workType" name="workType" value="` + workType + `">
-
-                                                        <!-- Button to trigger updateStatus function -->
-                                                        <button type="submit" class="btn btn-danger" `+disableButton+` onclick="return confirmSubmission(this)">Hoàn tất</button>
-                                                    </form>
-                                                </div> 
-                                            </div>
                                                     `;
                                             } else if (fullName == 'Chưa có') {
                                                 cell.innerHTML += `
-                                                <div >
-                                                    <h6 style="text-align: left; font-size: 15px;font-family: 'Josefin Sans', sans-serif;">Lịch:` + workType + `</h6>
-                                                    <h6 style="text-align: left; font-size: 10px;font-family: 'Josefin Sans', sans-serif;">Khách:` + fullName + `</h6>
-                                                    <p style="text-align: left;font-size: 10px;font-family: 'Josefin Sans', sans-serif;">Thời gian: ` + startTime + ` - ` + endTime + `</p>
-
+                                                <div style="background-color: #f0f0f0; border: 1px solid #ddd; padding: 10px; margin-bottom: 10px; border-radius: 5px;">
+                                                    <h6 style="font-size: 15px; font-family: 'Tilt Neon', sans-serif; margin: 0; font-weight: bold; color: #333;">
+                                                        Lịch: ` + workType + `
+                                                    </h6>
+                                                    <h6 style="font-size: 12px; font-family: 'Tilt Neon', sans-serif; margin: 5px 0 0; color: #666;">
+                                                        Khách: ` + fullName + `
+                                                    </h6>
+                                                    <p style="font-size: 12px; font-family: 'Tilt Neon', sans-serif; margin: 5px 0 0; color: #999;">
+                                                        Thời gian: ` + startTime + ` 
+                                                    </p>
                                                 </div>
                                                        `;
                                             }
