@@ -10,7 +10,61 @@
         <link rel="shortcut icon" type="image/png" href="../assets/images/logos/favicon.png" />
         <link rel="stylesheet" href="./assets/css/style.css"/>
         <link rel="stylesheet" href="./assets/css/AdminIndex.min.css" />
-        <link rel="stylesheet" href="./assets/css/calendar.css" />
+
+        <style>
+            .schedule-table {
+                width: 100%;
+              
+            }
+
+            .schedule-table table {
+                width: 100%;
+                table-layout: fixed; /* Đảm bảo các cột có chiều rộng cố định */
+                border-collapse: collapse; /* Gộp đường viền của các ô */
+            }
+
+            .schedule-table table .time {
+                padding: 8px;
+                color: #fff;
+                font-size: 12px;
+                font-weight: 600;
+                background-color: rgb(54, 153, 219);
+                white-space: nowrap; /* Ngăn nội dung bị ngắt dòng */
+            }
+
+            .schedule-table table tbody td {
+                padding: 8px;
+                text-align: center;
+                vertical-align: middle;
+                border: 1px solid #e2edf8;
+                font-weight: 500;
+                font-size: 12px;
+            }
+
+            .schedule-table table thead th {
+                padding: 10px;
+                color: #fff;
+                text-align: center;
+                font-size: 12px;
+                font-weight: 600;
+                background-color: rgb(54, 153, 219);
+            }
+            body{
+                font-family: "Josefin Sans", sans-serif;
+            }
+            
+
+
+            @media (max-width: 768px) {
+                .schedule-table table .time,
+                .schedule-table table tbody td,
+                .schedule-table table thead th {
+                    font-size: 10px;
+                    padding: 6px;
+                }
+            }
+        </style>
+
 
     </head>
     <body>
@@ -18,12 +72,12 @@
              data-sidebar-position="fixed" data-header-position="fixed">
             <!-- Sidebar Start -->
             <jsp:include page="AdminSideBar.jsp"/>
-            
+
             <!--  Sidebar End -->
             <!--  Main wrapper -->
-            <div class="body-wrapper">
+            <div class="body-wrapper ">
                 <jsp:include page="IndexHeader.jsp"/>
-                <div class="container-fluid calender" >
+                <div class="container-fluid calender mt-5" >
                     <div class="schedule-table">
                         <div class="d-flex justify-content-around mb-3" >
                             <select id="year" name="year" onchange="updateWeeks()"class="form-select">
@@ -40,49 +94,86 @@
                             </select>
                         </div>
                         <div id="date-range" class="mb-3"></div>
-                        <table class="table bg-white" >
-                      
+                        <!--                        <table class="table bg-white" >
+                        
+                                                    <thead>
+                                                        <tr class="time">
+                                                            <th>Ngày</th>
+                                                            <th class="">7h-11h30</th>
+                                                            <th class="">1h-5h</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr class="time_tr week">
+                                                            <td>Thứ hai,<span id="monday" class="monday-date"></span></td>
+                                                            <td class="monday-slot slot"></td>
+                                                            <td class="monday-slot-afternoon slot"></td>
+                                                        </tr>
+                                                        <tr class="time_tr week">
+                                                            <td>Thứ ba,<span class="tuesday-date"></span></td>
+                                                            <td class="tuesday-slot slot"></td>
+                                                            <td class="tuesday-slot-afternoon slot"></td>
+                                                        </tr>
+                                                        <tr class="time_tr week">
+                                                            <td>Thứ tư,<span class="wednesday-date"></span></td>
+                                                            <td class="wednesday-slot slot"></td>
+                                                            <td class="wednesday-slot-afternoon slot"></td>
+                                                        </tr>
+                                                        <tr class="time_tr week">
+                                                            <td>Thứ năm,<span class="thursday-date"></span></td>
+                                                            <td class="thursday-slot slot"></td>
+                                                            <td class="thursday-slot-afternoon slot"></td>
+                                                        </tr>
+                                                        <tr class="time_tr week">
+                                                            <td>Thứ sáu, <span class="friday-date"></span></td>
+                                                            <td class="friday-slot slot"></td>
+                                                            <td class="friday-slot-afternoon slot"></td>
+                                                        </tr>
+                                                        <tr class="time_tr week">
+                                                            <td>Thứ bảy, <span class="saturday-date"></span></td>
+                                                            <td class="saturday-slot slot"></td>
+                                                            <td class="saturday-slot-afternoon slot"></td>
+                                                        </tr>
+                                                        <tr class="time_tr week">
+                                                            <td>Chủ nhật, <span id="sunday" class="sunday-date"></span></td>
+                                                            <td class="sunday-slot slot"></td>
+                                                            <td class="sunday-slot-afternoon slot"></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>-->
+                        <table class="table bg-white">
                             <thead>
-                                <tr class="time">
-                                    <th>Ngày</th>
-                                    <th class="">7h-11h30</th>
-                                    <th class="">1h-5h</th>
+                                <tr class="time week">
+                                    <th>Thời gian</th>
+                                    <th>Thứ hai<br><span id="monday" class="monday-date"></span></th>
+                                    <th>Thứ ba<br><span class="tuesday-date"></span></th>
+                                    <th>Thứ tư<br><span class="wednesday-date"></span></th>
+                                    <th>Thứ năm<br><span class="thursday-date"></span></th>
+                                    <th>Thứ sáu <br><span class="friday-date"></span></th>
+                                    <th>Thứ bảy <br><span class="saturday-date"></span></th>
+                                    <th>Chủ nhật<br><span id="sunday" class="sunday-date"></span></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="time_tr week">
-                                    <td>Thứ hai,<span id="monday" class="monday-date"></span></td>
+                                <tr class="time_tr" style="height:200px">
+                                    <td>7h-11h30</td>
                                     <td class="monday-slot slot"></td>
-                                    <td class="monday-slot-afternoon slot"></td>
-                                </tr>
-                                <tr class="time_tr week">
-                                   <td>Thứ ba,<span class="tuesday-date"></span></td>
                                     <td class="tuesday-slot slot"></td>
-                                    <td class="tuesday-slot-afternoon slot"></td>
-                                </tr>
-                                <tr class="time_tr week">
-                                    <td>Thứ tư,<span class="wednesday-date"></span></td>
                                     <td class="wednesday-slot slot"></td>
-                                    <td class="wednesday-slot-afternoon slot"></td>
-                                </tr>
-                                <tr class="time_tr week">
-                                    <td>Thứ năm,<span class="thursday-date"></span></td>
                                     <td class="thursday-slot slot"></td>
-                                    <td class="thursday-slot-afternoon slot"></td>
-                                </tr>
-                                <tr class="time_tr week">
-                                     <td>Thứ sáu, <span class="friday-date"></span></td>
                                     <td class="friday-slot slot"></td>
-                                    <td class="friday-slot-afternoon slot"></td>
-                                </tr>
-                                <tr class="time_tr week">
-                                    <td>Thứ bảy, <span class="saturday-date"></span></td>
                                     <td class="saturday-slot slot"></td>
-                                    <td class="saturday-slot-afternoon slot"></td>
-                                </tr>
-                                <tr class="time_tr week">
-                                    <td>Chủ nhật, <span id="sunday" class="sunday-date"></span></td>
                                     <td class="sunday-slot slot"></td>
+
+                                </tr>
+                                <tr class="time_tr" style="height:200px">
+                                    <td>1h-5h</td>
+                                    <td class="monday-slot-afternoon slot"></td>
+                                    <td class="tuesday-slot-afternoon slot"></td>
+                                    <td class="wednesday-slot-afternoon slot"></td>
+                                    <td class="thursday-slot-afternoon slot"></td>
+                                    <td class="friday-slot-afternoon slot"></td>
+                                    <td class="saturday-slot-afternoon slot"></td>
                                     <td class="sunday-slot-afternoon slot"></td>
                                 </tr>
                             </tbody>
@@ -96,7 +187,7 @@
         </div>
 
 
-        <script src="./assets/js/calendar.js"></script>
+        <<script src="./assets/js/calendar.js"></script>
         <script>
                                 var doctors = '${doctor}';
                                 var rooms = '${room}';
@@ -207,13 +298,13 @@
                                             const cell = document.querySelector(columnClass);
                                             if (cell && doctorSelect === '0') {
                                                 cell.innerHTML += `
-                                    <h6 style=" text-align: left; font-size:15px">Bác sĩ: ` + doctorName + `</h6>                  
+                                    <h6 style=" text-align: left; font-size:12px">Bác sĩ: ` + doctorName + `</h6>                  
                 `;
                                             } else if (cell && doctorID.toString() === doctorSelect) {
                                                 cell.innerHTML += `
-                                            <div class="" style="text-align:left; font-size:15px">
+                                            <div class="" style="text-align: left; font-size: 12px; word-wrap: break-word;">
                                                 <p>Phòng: ` + roomName + `</p>
-                                                <p>Bác sĩ: ` + workLocationName + `</p>
+                                                <p>Địa điểm: ` + workLocationName + `</p>
                                                 <p>Công việc :` + workType + `</p>
                                             </div>
                                    

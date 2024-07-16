@@ -4,16 +4,22 @@
  */
 package com.thdap.vaccine.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.thdap.vaccine.dao.DoctorDAO;
 import com.thdap.vaccine.dao.InjectionScheduleDAO;
 import com.thdap.vaccine.dao.RoomDAO;
+import com.thdap.vaccine.dao.TypeOfVaccineDAO;
 import com.thdap.vaccine.dao.UserShiftDAO;
+import com.thdap.vaccine.dao.VaccineDAO;
 import com.thdap.vaccine.dao.WorkLocationDAO;
 import com.thdap.vaccine.dao.WorkScheduleDAO;
 import com.thdap.vaccine.model.Doctor;
 import com.thdap.vaccine.model.InjectionSchedule;
 import com.thdap.vaccine.model.Room;
+import com.thdap.vaccine.model.TypeOfVaccine;
 import com.thdap.vaccine.model.UserShift;
+import com.thdap.vaccine.model.Vaccine;
 import com.thdap.vaccine.model.WorkLocation;
 import com.thdap.vaccine.model.WorkSchedule;
 import java.io.IOException;
@@ -101,7 +107,16 @@ public class InjectionScheduleServlet extends HttpServlet {
         List<WorkLocation> workLocations = workLocationDAO.getAllWorkLocations();
         InjectionScheduleDAO injectionScheduleDAO = new InjectionScheduleDAO();
         List<InjectionSchedule> injectionSchedules = null;
-
+        ////////////////////////////////////////////////////////////
+        VaccineDAO vaccineDAO = new VaccineDAO();
+        TypeOfVaccineDAO typeOfVaccineDAO =new TypeOfVaccineDAO();
+        List<Vaccine> vaccinesList = vaccineDAO.getAllVaccines();
+        List<TypeOfVaccine> typeOfVaccinesList = typeOfVaccineDAO.getAllTypesOfVaccine();
+          ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
+         String vaccines = objectMapper.writeValueAsString(vaccinesList);
+        String typeOfVaccine = objectMapper.writeValueAsString(typeOfVaccinesList);
+        ///////////////////////////////////////////////////////////
         try {
             if (filterDate != null && !filterDate.isEmpty() && filterWorkLocation != null && !filterWorkLocation.isEmpty()) {
                 injectionSchedules = injectionScheduleDAO.getInjectionSchedulesByDateAndLocation(filterDate, filterWorkLocation);
@@ -131,6 +146,13 @@ public class InjectionScheduleServlet extends HttpServlet {
             request.setAttribute("rooms", rooms);
             request.setAttribute("doctors", doctors);
             request.setAttribute("workLocations", workLocations);
+            ///////////////////////////////////////////////////////
+            
+            request.setAttribute("vaccines", vaccinesList);
+            request.setAttribute("typeOfVaccines", typeOfVaccinesList);
+            request.setAttribute("vaccinesList", vaccines);
+            request.setAttribute("typeOfVaccinesList", typeOfVaccine);
+            ////////////////////////////////////////////////////////
             request.getRequestDispatcher("addInjectionSchedule.jsp").forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();
