@@ -13,6 +13,7 @@ import java.util.List;
  * DAO for handling operations related to Notifications.
  */
 public class NotificationsDAO {
+
     private ContextDAO contextDAO;
 
     public NotificationsDAO() {
@@ -59,7 +60,7 @@ public class NotificationsDAO {
         return notification;
     }
 
-      public List<Notifications> getPendingNotifications() {
+    public List<Notifications> getPendingNotifications() {
         List<Notifications> notifications = new ArrayList<>();
         String query = "SELECT * FROM Notifications WHERE status = 0";
         try (Connection conn = contextDAO.getConnection(); PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -88,13 +89,25 @@ public class NotificationsDAO {
             System.out.println(e);
         }
     }
-    
-        public boolean addNotification(Notifications notification) {
+
+    public boolean addNotification(Notifications notification) {
         String query = "INSERT INTO Notifications (injectionInfoID, message, status) VALUES (?, ?, ?)";
         try (Connection conn = contextDAO.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
             pstmt.setInt(1, notification.getInjectionInfoID());
             pstmt.setString(2, notification.getMessage());
             pstmt.setBoolean(3, notification.isStatus());
+            int rowsAffected = pstmt.executeUpdate();
+            return rowsAffected > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    public boolean deleteNotificationByInjectionInfoID(int injectionInfoID) {
+        String query = "DELETE FROM Notifications WHERE injectionInfoID = ?";
+        try (Connection conn = contextDAO.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setInt(1, injectionInfoID);
             int rowsAffected = pstmt.executeUpdate();
             return rowsAffected > 0;
         } catch (Exception e) {

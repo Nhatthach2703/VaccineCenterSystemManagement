@@ -5,9 +5,12 @@
 package com.thdap.vaccine.controller;
 
 import com.thdap.vaccine.dao.InjectionInfoDAO;
+import com.thdap.vaccine.dao.NotificationsDAO;
 import com.thdap.vaccine.dao.UserFileDAO;
+import com.thdap.vaccine.model.InjectionInfo;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -77,17 +80,29 @@ public class DeleteUserFileServlet extends HttpServlet {
         String userIDParam = request.getParameter("userID");
         UserFileDAO userFileDAO = new UserFileDAO();
         InjectionInfoDAO injectionInfoDAO = new InjectionInfoDAO();
-
+        NotificationsDAO notificationsDAO = new NotificationsDAO();
+        
         if (userFileIDParam != null && !userFileIDParam.isEmpty() && userIDParam != null && !userIDParam.isEmpty()) {
             try {
                 int userFileID = Integer.parseInt(userFileIDParam);
                 int userID = Integer.parseInt(userIDParam);
+                
+                List<InjectionInfo> injectionInfos = injectionInfoDAO.getInjectionInfosByUserFileID(userFileID);
+
+                boolean allNotificationsDeleted = true;
+
+                for (InjectionInfo injectionInfo : injectionInfos) {
+                    boolean notificationDeleted = notificationsDAO.deleteNotificationByInjectionInfoID(injectionInfo.getInjectionInfoID());
+                    if (!notificationDeleted) {
+                        allNotificationsDeleted = false;
+                    }
+                }
 
                 boolean injectionInfoDeleted = injectionInfoDAO.deleteInjectionInfoByUserFileID(userFileID);
 
                 boolean userFileDeleted = userFileDAO.deleteUserFile(userFileID);
 
-                if (userFileDeleted && injectionInfoDeleted) {
+                if (userFileDeleted && injectionInfoDeleted && allNotificationsDeleted) {
 //                    request.setAttribute("errorMessage", "Hồ sơ bệnh án và các thông tin liên quan đã được xóa thành công.");
                 } else {
 //                    request.setAttribute("errorMessage", "Xóa hồ sơ bệnh án thất bại. Vui lòng thử lại.");
