@@ -18,19 +18,7 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-        <style>
-            .user-card {
-                border: 1px solid #ddd;
-                padding: 15px;
-                margin: 15px;
-                border-radius: 8px;
-                background-color: #f9f9f9;
-                text-align: center;
-                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            }
-            .user-info {
-                margin-bottom: 15px;
-            }
+         <style>
             .btn {
                 padding: 5px 10px;
                 border-radius: 5px;
@@ -62,6 +50,33 @@
                 text-align: center;
                 margin-bottom: 30px;
                 font-family: 'Roboto', sans-serif;
+            }
+            table {
+                width: 100%;
+                margin-bottom: 30px;
+                border-collapse: collapse;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+            th, td {
+                padding: 15px;
+                border: 1px solid #ddd;
+                text-align: left;
+            }
+            thead {
+                background-color: #3498DB;
+                color: white;
+            }
+            tbody tr:nth-child(even) {
+                background-color: #f9f9f9;
+            }
+            tbody tr:hover {
+                background-color: #f1f1f1;
+            }
+            th {
+                text-align: center;
+            }
+            td {
+                vertical-align: middle;
             }
         </style>
     </head>
@@ -103,25 +118,35 @@
                     </c:if>
 
                     <c:if test="${not empty users}">
-                        <div class="row justify-content-center">
-                            <c:forEach var="user" items="${users}">
-                                <div class="col-md-3 user-card">
-                                    <div class="user-info">
-                                        <strong>Tên:</strong> ${user.fullName}<br>
-                                        <strong>SĐT:</strong> ${user.phoneNumber}<br>
-                                        <strong>Địa chỉ:</strong> ${user.address}
-                                    </div>
-                                    <c:choose>
-                                        <c:when test="${userFileDAO.hasUserFile(user.userID)}">
-                                            <a href="ViewUserFileDetailServlet?userID=${user.userID}" class="btn btn-primary">Xem hồ sơ bệnh nhân</a>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <a href="AddUserFileServlet?userID=${user.userID}" class="btn btn-success">Tạo hồ sơ bệnh nhân</a>
-                                        </c:otherwise>
-                                    </c:choose>
-                                </div>
-                            </c:forEach>
-                        </div>
+                          <table>
+                            <thead>
+                                <tr>
+                                    <th>Họ và tên</th>
+                                    <th>SĐT</th>
+                                    <th>Địa chỉ</th>
+                                    <th>Hành động</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <c:forEach var="user" items="${users}">
+                                    <tr>
+                                        <td>${user.fullName}</td>
+                                        <td>${user.phoneNumber}</td>
+                                        <td>${user.address}</td>
+                                        <td>
+                                            <c:choose>
+                                                <c:when test="${userFileDAO.hasUserFile(user.userID)}">
+                                                    <a href="ViewUserFileDetailServlet?userID=${user.userID}" class="btn btn-primary">Xem hồ sơ bệnh nhân</a>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <a href="AddUserFileServlet?userID=${user.userID}" class="btn btn-success">Tạo hồ sơ bệnh nhân</a>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
+                            </tbody>
+                        </table>
                     </c:if>
 
                 </div>

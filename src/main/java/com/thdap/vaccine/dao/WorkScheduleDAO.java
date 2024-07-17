@@ -20,6 +20,7 @@ import java.util.List;
  */
 public class WorkScheduleDAO {
     private ContextDAO contextDAO;
+    
 
     public WorkScheduleDAO() {
         contextDAO = new ContextDAO();
@@ -228,6 +229,51 @@ public class WorkScheduleDAO {
         }
         return false;
     }
+    
+    public int getTotalVaccinationsByWorkLocationAndDateRange(int workLocationID, Date startDate, Date endDate) {
+    String sql = "SELECT COUNT(*) AS totalVaccinations FROM WorkSchedule "
+               + "WHERE WorkLocationID = ? AND Date BETWEEN ? AND ? AND workType = N'Tiêm'";
+    int totalVaccinations = 0;
+
+    try (Connection conn = contextDAO.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        pstmt.setInt(1, workLocationID);
+        pstmt.setDate(2, startDate);
+        pstmt.setDate(3, endDate);
+
+        try (ResultSet rs = pstmt.executeQuery()) {
+            if (rs.next()) {
+                totalVaccinations = rs.getInt("totalVaccinations");
+            }
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return totalVaccinations;
+}
+
+    public int getTotalConsultationsByWorkLocationAndDateRange(int workLocationID, Date startDate, Date endDate) {
+    String sql = "SELECT COUNT(*) AS totalConsultations FROM WorkSchedule "
+               + "WHERE WorkLocationID = ? AND Date BETWEEN ? AND ? AND workType = N'Tư vấn'";
+    int totalConsultations = 0;
+
+    try (Connection conn = contextDAO.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        pstmt.setInt(1, workLocationID);
+        pstmt.setDate(2, startDate);
+        pstmt.setDate(3, endDate);
+
+        try (ResultSet rs = pstmt.executeQuery()) {
+            if (rs.next()) {
+                totalConsultations = rs.getInt("totalConsultations");
+            }
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return totalConsultations;
+}
+
     
     public static void main(String[] args) {
         WorkScheduleDAO workScheduleDAO = new WorkScheduleDAO();
