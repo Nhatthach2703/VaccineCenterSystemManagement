@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -186,4 +187,45 @@ public class OrderVaccineInfoDAO {
         }
         return order;
     }
+    public double getTotalPriceByWorkLocationAndDateRange(int workLocationID, LocalDate startDate, LocalDate endDate) {
+    double totalPrice = 0.0;
+    String query = "SELECT SUM(totalPrice) AS total FROM OrderVaccineInfo WHERE workLocationID = ? AND createDate BETWEEN ? AND ?";
+    try (Connection conn = contextDAO.getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(query)) {
+        pstmt.setInt(1, workLocationID);
+        pstmt.setDate(2, Date.valueOf(startDate));
+        pstmt.setDate(3, Date.valueOf(endDate));
+        try (ResultSet rs = pstmt.executeQuery()) {
+            if (rs.next()) {
+                totalPrice = rs.getDouble("total");
+            }
+        }
+    } catch (SQLException e) {
+        System.out.println(e);
+    }
+    return totalPrice;
 }
+
+    
+public int countConfirmedOrdersByWorkLocationAndDateRange(int workLocationID, LocalDate startDate, LocalDate endDate) {
+    int count = 0;
+    String query = "SELECT COUNT(*) AS orderCount FROM OrderVaccineInfo WHERE workLocationID = ? AND confirmStatus = 1 AND createDate BETWEEN ? AND ?";
+    try (Connection conn = contextDAO.getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(query)) {
+        pstmt.setInt(1, workLocationID);
+        pstmt.setDate(2, Date.valueOf(startDate));
+        pstmt.setDate(3, Date.valueOf(endDate));
+        try (ResultSet rs = pstmt.executeQuery()) {
+            if (rs.next()) {
+                count = rs.getInt("orderCount");
+            }
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return count;
+}
+
+}
+    
+

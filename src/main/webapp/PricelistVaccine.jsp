@@ -38,7 +38,7 @@
 
         <!-- Template Main CSS File -->
         <link href="assets/css/style.css" rel="stylesheet" />
-
+        
     </head>
     <body>
         <div class="container-fluid">
@@ -70,23 +70,25 @@
 
             <div class="container mt-5" data-aos="fade-up" data-aos-delay="800">
 
-                <div class="row row-cols-1 row-cols-md-3 g-5">
-                    <c:forEach var="vaccine" items="${vaccine}">
-                        <div class="col mb-4 ">
-                            <div class="card h-100 p-3 rounded-4" style="width: 25rem;border-width: 2px;border-color: black">
-                                <a href="VaccineDetailsServlet?vaccineID=${vaccine.vaccineID}">
-                                    <div class="card-body icon-box"  data-aos-delay="100" style="color: black">
-                                        <img class="card-img-top" src="uploads/${vaccine.image}" alt="Vaccine Image" width="300" height="180"/>
-                                        <h4 class="title" style="font-family: 'Tilt Neon', sans-serif">${vaccine.name}</h4>
-                                        <p class="description">Nguồn gốc: ${vaccine.source}</p>
-                                        <p class="description">Price: ${vaccine.price} đồng</p>
-
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </c:forEach>
-                </div>
+                 <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            
+                            <th>Vaccine</th>
+                            <th>Nguồn gốc</th>
+                            <th>Giá</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <c:forEach var="vaccine" items="${vaccine}">
+                            <tr>
+                                <td><a href="VaccineDetailsServlet?vaccineID=${vaccine.vaccineID}">${vaccine.name}</a></td>
+                                <td>${vaccine.source}</td>
+                                <td>${vaccine.price} đồng</td>
+                            </tr>
+                        </c:forEach>
+                    </tbody>
+                </table>
             </div>
 
 
