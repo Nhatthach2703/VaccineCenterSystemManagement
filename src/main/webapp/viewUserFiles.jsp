@@ -84,7 +84,7 @@
                             <th>Họ và tên</th>
                             <th>Thẻ bảo hiểm y tế</th>
                             <th>Số điện thoại</th>
-                            <th>địa chỉ</th>
+                            <th>Địa chỉ</th>
                         </tr>
                     </thead>
                     <tbody>

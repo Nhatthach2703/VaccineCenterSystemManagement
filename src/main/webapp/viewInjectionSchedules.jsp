@@ -72,7 +72,7 @@
                 <div class="table-title pt-3 pb-3">
                     <div class="row">
                         <div class="col-sm-5">
-                            <h2 class="ml-4">Lịch sử tiêm phòng</h2>
+                            <h2 class="ml-4" style="margin-left: 30px;margin-bottom: 0; color: #fff; font-weight: 700">Lịch sử tiêm phòng</h2>
                         </div>
                         <div class="col-sm-7">
                             <div style="text-justify: auto;text-align: right"class="mr-4">
