@@ -10,7 +10,7 @@
 
         <!-- Font Icon -->
         <link rel="stylesheet" href="./assets/fonts/material-icon/css/material-design-iconic-font.min.css">
-
+         <link rel="shortcut icon" type="image/png" href="./assets/images/logos/favicon.png" />
         <!-- Main css -->
         <link rel="stylesheet" href="./assets/css/loginstyles.css">
     </head>

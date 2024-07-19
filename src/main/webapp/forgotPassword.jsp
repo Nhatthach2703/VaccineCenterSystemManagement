@@ -9,6 +9,7 @@
     <title></title>
 
     <!-- Font Icon -->
+     <link rel="shortcut icon" type="image/png" href="./assets/images/logos/favicon.png" />
     <link rel="stylesheet" href="./assets/fonts/material-icon/css/material-design-iconic-font.min.css">
     <link rel="stylesheet" href="./assets/fonts/material-icon/css/material-design-iconic-font.min.css">
         <!-- AOS CSS -->

@@ -11,7 +11,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>THDAP</title>
-        <link rel="shortcut icon" type="image/png" href="../assets/images/logos/favicon.png" />
+        <link rel="shortcut icon" type="image/png" href="./assets/images/logos/favicon.png" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
         <link rel="stylesheet" href="./assets/css/style.css"/>
         <link rel="stylesheet" href="assets/css/AdminVaccine.css"/>
@@ -28,6 +28,15 @@
                 color: black;
             }
 
+            .custom-select,
+            .custom-input {
+                background-color: white;
+                border: 1px solid #ced4da;
+                border-radius: 0.25rem;
+                color: #495057;
+                padding: 0.375rem 0.75rem;
+                margin-right: 10px;
+            }
         </style>
     </head>
 
@@ -37,7 +46,7 @@
              data-sidebar-position="fixed" data-header-position="fixed">
             <!-- Sidebar Start -->
             <jsp:include page="AdminSideBar.jsp"/>
-            
+
             <!--  Sidebar End -->
             <!--  Main wrapper -->
             <div class="body-wrapper">
@@ -52,8 +61,8 @@
                                     </div>
                                     <div class="col-sm-7">
                                         <form class="d-flex justify-content-around" action="ViewTableWorkSchedulesServlet" method="get" class="form-inline" style="text-align: right; margin-right: 2rem;">
-                                            <select name="doctorID" class="form-control mr-2">
-                                                <option value="">Chọn bác sĩ</option>
+                                            <select name="doctorID" class="form-control mr-2 custom-select">
+                                                <option value="" >Chọn bác sĩ</option>
                                                 <c:forEach var="doctor" items="${doctors}">
                                                     <option value="${doctor.doctorID}" 
                                                             <c:if test="${doctor.doctorID == param.doctorID}">selected</c:if>>
@@ -61,8 +70,8 @@
                                                     </option>
                                                 </c:forEach>
                                             </select>
-                                            <input type="date" name="date" class="form-control mr-2" value="${param.date}">
-                                            <button type="submit" class="btn btn-secondary">Lọc</button>
+                                            <input type="date" name="date" class="form-control mr-2 custom-input" value="${param.date}">
+                                            <button type="submit" class="btn btn-secondary ">Lọc</button>
                                         </form>
                                     </div>
                                 </div>
@@ -119,7 +128,7 @@
                                                    class="settings" title="Sửa" 
                                                    data-toggle="tooltip"><i class="fas fa-edit" style="margin:0 7px;color:#299BE4;" ></i></a>
                                                 <a href="DeleteWorkScheduleServlet?workScheduleID=${workSchedule.workScheduleID}" 
-                                                    onclick="confirmDelete(event, this)" class="delete" title="Xóa" 
+                                                   onclick="confirmDelete(event, this)" class="delete" title="Xóa" 
                                                    data-toggle="tooltip"><i class="fas fa-trash" style="color: red"></i>
 
                                             </td>

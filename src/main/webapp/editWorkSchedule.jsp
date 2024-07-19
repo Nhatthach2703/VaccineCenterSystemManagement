@@ -11,7 +11,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>THDAP</title>
-        <link rel="shortcut icon" type="image/png" href="../assets/images/logos/favicon.png" />
+        <link rel="shortcut icon" type="image/png" href="./assets/images/logos/favicon.png" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
         <link rel="stylesheet" href="./assets/css/AdminIndex.min.css" />
         <link rel="stylesheet" href="./assets/css/style.css"/>
@@ -110,7 +110,7 @@
                                                 <div style="color: red; font-family: 'Tilt Neon', sans-serif;">${errorMessage}</div><br>
                                             <div class="form-group">
                                                 <button style="margin-right: 1rem" class="button_add" type="submit">sửa</button>
-                                                <button class="button_add"><a href="ViewTableWorkSchedulesServlet" style="color: white">Trở về</a></button>
+                                               
                                             </div>
                                         </form>
                                     </div>
