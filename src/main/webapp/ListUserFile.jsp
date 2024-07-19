@@ -18,7 +18,7 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-         <style>
+        <style>
             .btn {
                 padding: 5px 10px;
                 border-radius: 5px;
@@ -78,6 +78,12 @@
             td {
                 vertical-align: middle;
             }
+            .action-cell {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100%;
+            }
         </style>
     </head>
 
@@ -91,7 +97,7 @@
             <!--  Sidebar End -->
             <!--  Main wrapper -->
             <div class="body-wrapper">
-                 <jsp:include page="DoctorHeader.jsp"/>
+                <jsp:include page="DoctorHeader.jsp"/>
                 <div class="container-xl">
                     <h1>Danh sách bệnh nhân</h1>
                     <form action="listUsers" method="get" class="form-inline">
@@ -108,7 +114,7 @@
                         </div>
 
 
-                        <button type="submit" class="btn btn-primary mb-2">Search</button>
+                        <button type="submit" class="btn btn-primary mb-2">Tìm kiếm</button>
                     </form>
 
                     <br>
@@ -118,7 +124,7 @@
                     </c:if>
 
                     <c:if test="${not empty users}">
-                          <table>
+                        <table>
                             <thead>
                                 <tr>
                                     <th>Họ và tên</th>
@@ -129,14 +135,14 @@
                             </thead>
                             <tbody>
                                 <c:forEach var="user" items="${users}">
-                                    <tr>
+                                    <tr >
                                         <td>${user.fullName}</td>
                                         <td>${user.phoneNumber}</td>
                                         <td>${user.address}</td>
-                                        <td>
+                                        <td class="action-cell">
                                             <c:choose>
                                                 <c:when test="${userFileDAO.hasUserFile(user.userID)}">
-                                                    <a href="ViewUserFileDetailServlet?userID=${user.userID}" class="btn btn-primary">Xem hồ sơ bệnh nhân</a>
+                                                    <a href="ViewUserFileDetailServlet?userID=${user.userID}" class="btn btn-primary ">Xem hồ sơ bệnh nhân</a>
                                                 </c:when>
                                                 <c:otherwise>
                                                     <a href="AddUserFileServlet?userID=${user.userID}" class="btn btn-success">Tạo hồ sơ bệnh nhân</a>
