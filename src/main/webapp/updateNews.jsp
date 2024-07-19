@@ -75,8 +75,7 @@
         <title>THDAP</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link href="assets/img/favicon.png" rel="icon" />
-        <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon" />
+         <link rel="shortcut icon" type="image/png" href="./assets/images/logos/favicon.png" />
         <link href="https://fonts.googleapis.com/css2?family=Tilt+Neon&display=swap" rel="stylesheet" />
         <link href="assets/vendor/aos/aos.css" rel="stylesheet" />
         <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />

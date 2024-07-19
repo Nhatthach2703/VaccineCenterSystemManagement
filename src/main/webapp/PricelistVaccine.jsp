@@ -15,8 +15,7 @@
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
             />
         <!-- Favicons -->
-        <link href="assets/img/favicon.png" rel="icon" />
-        <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon" />
+        <link rel="shortcut icon" type="image/png" href="./assets/images/logos/favicon.png" />
 
         <!-- Google Fonts -->
         <link
@@ -38,7 +37,15 @@
 
         <!-- Template Main CSS File -->
         <link href="assets/css/style.css" rel="stylesheet" />
-        
+        <style>
+            .custom-table thead th {
+                background-color: rgb(51, 152, 219);
+                color: white;
+                padding: 20px;
+
+            }
+
+        </style>
     </head>
     <body>
         <div class="container-fluid">
@@ -51,7 +58,7 @@
                             >
                             <h1 data-aos="fade-up">THDAP Hệ Thống Trung Tâm tiêm chủng</h1>
 
-                            
+
                         </div>
                         <div
                             class="col-lg-6 order-1 order-lg-2 hero-img"
@@ -59,10 +66,10 @@
                             data-aos-delay="200"
                             >
                             <img style="height: 90%"
-                                src="./assets/img/gia_vaccine.png"
-                                class="img-fluid animated mt-4"
-                                alt=""
-                                />
+                                 src="./assets/img/gia_vaccine.png"
+                                 class="img-fluid animated mt-4"
+                                 alt=""
+                                 />
                         </div>
                     </div>
                 </div>
@@ -70,10 +77,9 @@
 
             <div class="container mt-5" data-aos="fade-up" data-aos-delay="800">
 
-                 <table class="table table-striped">
-                    <thead>
+                <table class="table table-striped custom-table">
+                    <thead >
                         <tr>
-                            
                             <th>Vaccine</th>
                             <th>Nguồn gốc</th>
                             <th>Giá</th>

@@ -13,12 +13,13 @@
         <!--        <link rel="stylesheet" href="./assets/fonts/material-icon/css/material-design-iconic-font.min.css">-->
 
         <!-- Main css -->
+         <link rel="shortcut icon" type="image/png" href="./assets/images/logos/favicon.png" />
         <link rel="stylesheet" href="./assets/fonts/material-icon/css/material-design-iconic-font.min.css">
         <!-- AOS CSS -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
         <link href="./assets/css/loginstyles.css" rel="stylesheet" />
         <link rel="stylesheet" href="./assets/css/profile.css" />
-        
+       
         <link rel="stylesheet" href="./assets/fonts/material-icon/css/material-design-iconic-font.min.css">
          <style>
             .signup-form h2,.signup-form input{

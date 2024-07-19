@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
         <title>ConfirmCode</title>
-
+        <link rel="shortcut icon" type="image/png" href="./assets/images/logos/favicon.png" />
         <!-- Font Icon -->
         <link
             rel="stylesheet"
@@ -62,9 +62,9 @@
             </button>
         </div>
         <!-- JS -->
-         <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
         <script>
-            AOS.init();
+                    AOS.init();
         </script>
         <script src="assets/js/confirm.js"></script>  </body>
     <!-- This templates was made by Colorlib (https://colorlib.com) -->

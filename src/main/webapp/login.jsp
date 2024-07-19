@@ -16,6 +16,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <!-- Font Icon -->
         <link rel="stylesheet" href="./assets/fonts/material-icon/css/material-design-iconic-font.min.css">
+         <link rel="shortcut icon" type="image/png" href="./assets/images/logos/favicon.png" />
         <!-- AOS CSS -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
         <!-- Main CSS -->

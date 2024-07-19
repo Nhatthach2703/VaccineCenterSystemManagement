@@ -15,8 +15,7 @@ Vinh --%> <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
     <!-- Favicons -->
-    <link href="assets/img/favicon.png" rel="icon" />
-    <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon" />
+   <link rel="shortcut icon" type="image/png" href="./assets/images/logos/favicon.png" />
 
     <!-- Google Fonts -->
     <link

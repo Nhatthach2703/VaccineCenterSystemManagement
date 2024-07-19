@@ -16,6 +16,7 @@
         <link rel="stylesheet" href="./assets/css/style.css"/>
         <link rel="stylesheet" href="./assets/css/AdminIndex.min.css" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">   
+           <link rel="shortcut icon" type="image/png" href="./assets/images/logos/favicon.png" />
         <style>
             
 
