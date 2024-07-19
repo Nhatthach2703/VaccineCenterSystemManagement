@@ -30,7 +30,19 @@
               <a class="nav-link scrollto" href="doctorInfo">Thông tin chuyên gia</a>
             </li>
             <li><a class="nav-link scrollto" href="#pricing">Quy trình</a></li>
-            <li><a class="nav-link scrollto" href="injectionRegimens">Phác đồ</a></li>
+            <li class="dropdown">
+                <a href="#"
+                   ><span>Phác đồ</span>
+                    <i class="bi bi-chevron-down"></i
+                    ></a>
+                <ul>
+
+                    <li><a href="injectionRegimens?object=Trẻ em">Cho trẻ em</a></li>
+                    <li><a href="injectionRegimens?object=Trẻ sơ sinh">Cho trẻ sơ sinh</a></li>
+                    <li><a href="injectionRegimens?object=Người lớn">Cho người lớn</a></li>
+                    <!--<li><a href="#">Deep Drop Down 5</a></li>-->
+                </ul>
+            </li>
             <li class="dropdown">
                 <a href="#"
                    ><span>Đặt lịch</span> <i class="bi bi-chevron-down"></i
@@ -38,8 +50,8 @@
                 <ul>
                     <li><a href="ConsultationScheduleServlet">Đặt lịch tư vấn</a></li>
                     <li><a href="InjectionScheduleServlet">Đặt lịch tiêm</a></li>
-                    <li><a href="#">Drop Down 3</a></li>
-                    <li><a href="#">Drop Down 4</a></li>
+<!--                    <li><a href="#">Drop Down 3</a></li>
+                    <li><a href="#">Drop Down 4</a></li>-->
                 </ul>
             </li>
             <li class="dropdown">
@@ -49,7 +61,7 @@
               <ul>
                 <li><a href="FaQsSevlet">Câu hỏi thường gặp</a></li>
                 <li><a href="newsSevlet">Tin tức</a></li>
-                <li class="dropdown">
+<!--                <li class="dropdown">
                   <a href="#"
                     ><span>Deep Drop Down</span>
                     <i class="bi bi-chevron-right"></i
@@ -61,7 +73,7 @@
                     <li><a href="#">Deep Drop Down 4</a></li>
                     <li><a href="#">Deep Drop Down 5</a></li>
                   </ul>
-                </li>
+                </li>-->
              
                 <li><a href="ServiceReviewServlet">Xem đánh giá</a></li>
                 <li><a href="workLocationServlet">Tìm địa chỉ trung tâm</a></li>
