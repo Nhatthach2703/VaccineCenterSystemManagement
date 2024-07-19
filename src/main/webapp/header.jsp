@@ -24,7 +24,7 @@
                         <li><a style="font-family: 'Tilt Neon'" href="TypeOfVaccineServlet">Danh sách vaccine</a></li>
                         <li><a style="font-family: 'Tilt Neon'" href="PricelistVaccineServlet">Bảng giá</a></li>
                         <li><a style="font-family: 'Tilt Neon'" href="ChooseVaccineServlet">Đặt mua Vaccine</a></li>
-                        <li><a style="font-family: 'Tilt Neon'" href="#">Drop Down 4</a></li>
+                        <!--<li><a style="font-family: 'Tilt Neon'" href="#">Drop Down 4</a></li>-->
                     </ul>
                 </li>
                 <li>
@@ -32,6 +32,19 @@
                 </li>
                 <li><a class="nav-link scrollto" style="font-family: 'Tilt Neon'" href="#pricing">Quy trình</a></li>
                 <li><a class="nav-link scrollto" style="font-family: 'Tilt Neon'" href="injectionRegimens">Phác đồ</a></li>
+                <li class="dropdown">
+                    <a href="#"
+                       ><span style="font-family: 'Tilt Neon'">Phác đồ tiêm chủng</span>
+                        <i class="bi bi-chevron-down"></i
+                        ></a>
+                    <ul style="font-family: 'Tilt Neon'">
+
+                        <li><a style="font-family: 'Tilt Neon'" href="injectionRegimens?object=Trẻ em">Cho trẻ em</a></li>
+                        <li><a style="font-family: 'Tilt Neon'" href="injectionRegimens?object=Trẻ sơ sinh">Cho trẻ sơ sinh</a></li>
+                        <li><a style="font-family: 'Tilt Neon'" href="injectionRegimens?object=Người lớn">Cho người lớn</a></li>
+                        <li><a style="font-family: 'Tilt Neon'" href="#">Deep Drop Down 5</a></li>
+                    </ul>
+                </li>
                 <li class="dropdown" style="font-family: 'Tilt Neon'">
                     <a href="#"
                        ><span style="font-family: 'Tilt Neon'">Đặt lịch</span> <i class="bi bi-chevron-down"></i
@@ -50,19 +63,7 @@
                     <ul>
                         <li><a style="font-family: 'Tilt Neon'" href="FaQsSevlet">Câu hỏi thường gặp</a></li>
                         <li><a style="font-family: 'Tilt Neon'" href="newsSevlet">Tin tức</a></li>
-                        <li class="dropdown">
-                            <a href="#"
-                               ><span style="font-family: 'Tilt Neon'">Deep Drop Down</span>
-                                <i class="bi bi-chevron-right"></i
-                                ></a>
-                            <ul style="font-family: 'Tilt Neon'">
-
-                                <li><a style="font-family: 'Tilt Neon'" href="#">Deep Drop Down 2</a></li>
-                                <li><a style="font-family: 'Tilt Neon'" href="#">Deep Drop Down 3</a></li>
-                                <li><a style="font-family: 'Tilt Neon'" href="#">Deep Drop Down 4</a></li>
-                                <li><a style="font-family: 'Tilt Neon'" href="#">Deep Drop Down 5</a></li>
-                            </ul>
-                        </li>
+                        
 
                         <li><a style="font-family: 'Tilt Neon'" href="ServiceReviewServlet">Xem đánh giá</a></li>
                         <li><a style="font-family: 'Tilt Neon'" href="workLocationServlet">Tìm địa chỉ trung tâm</a></li>
