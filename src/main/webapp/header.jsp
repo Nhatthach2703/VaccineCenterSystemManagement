@@ -30,8 +30,8 @@
                 <li>
                     <a class="nav-link scrollto" style="font-family: 'Tilt Neon'" href="doctorInfo">Thông tin chuyên gia</a>
                 </li>
-                <li><a class="nav-link scrollto" style="font-family: 'Tilt Neon'" href="#pricing">Quy trình</a></li>
-                <li><a class="nav-link scrollto" style="font-family: 'Tilt Neon'" href="injectionRegimens">Phác đồ</a></li>
+<!--                <li><a class="nav-link scrollto" style="font-family: 'Tilt Neon'" href="#pricing">Quy trình</a></li>
+                <li><a class="nav-link scrollto" style="font-family: 'Tilt Neon'" href="injectionRegimens">Phác đồ</a></li>-->
                 <li class="dropdown">
                     <a href="#"
                        ><span style="font-family: 'Tilt Neon'">Phác đồ tiêm chủng</span>
@@ -42,7 +42,7 @@
                         <li><a style="font-family: 'Tilt Neon'" href="injectionRegimens?object=Trẻ em">Cho trẻ em</a></li>
                         <li><a style="font-family: 'Tilt Neon'" href="injectionRegimens?object=Trẻ sơ sinh">Cho trẻ sơ sinh</a></li>
                         <li><a style="font-family: 'Tilt Neon'" href="injectionRegimens?object=Người lớn">Cho người lớn</a></li>
-                        <li><a style="font-family: 'Tilt Neon'" href="#">Deep Drop Down 5</a></li>
+                       
                     </ul>
                 </li>
                 <li class="dropdown" style="font-family: 'Tilt Neon'">
@@ -52,8 +52,7 @@
                     <ul>
                         <li><a style="font-family: 'Tilt Neon'" href="ConsultationScheduleServlet">Đặt lịch tư vấn</a></li>
                         <li><a style="font-family: 'Tilt Neon'" href="InjectionScheduleServlet">Đặt lịch tiêm</a></li>
-                        <li><a style="font-family: 'Tilt Neon'" href="#">Drop Down 3</a></li>
-                        <li><a style="font-family: 'Tilt Neon'" href="#">Drop Down 4</a></li>
+                       
                     </ul>
                 </li>
                 <li style="font-family: 'Tilt Neon'" class="dropdown">
@@ -69,7 +68,7 @@
                         <li><a style="font-family: 'Tilt Neon'" href="workLocationServlet">Tìm địa chỉ trung tâm</a></li>
                     </ul>
                 </li>
-                <li><a class="nav-link scrollto" style="font-family: 'Tilt Neon'" href="#contact">Liên lạc</a></li>
+               
                     <c:if test="${sessionScope.account == null}">
                     <li>
                         <a class="getstarted scrollto"  style="font-family: 'Tilt Neon'"href="login.jsp">Đăng nhập</a>

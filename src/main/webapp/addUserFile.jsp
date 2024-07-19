@@ -105,7 +105,7 @@
                                     <input type="text" class="form-control" id="historyOfDrugAllergies" name="historyOfDrugAllergies" value="${historyOfDrugAllergies}" >
                                 </div>
                                 <div style="color: red; font-family: 'Tilt Neon', sans-serif;">${errorMessage}</div><br>
-                                <button type="submit" class="btn btn-primary button">Submit</button>
+                                <button type="submit" class="btn btn-primary button">Thêm</button>
                                 <a href="listUsers?searchTerm=&searchType=fullname" class="btn btn-secondary button" style="background-color: white; color:black; border:solid black 1px">Trở về</a>
                             </form>
                         </div>
