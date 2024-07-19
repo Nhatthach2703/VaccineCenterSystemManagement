@@ -50,12 +50,21 @@
                                     <div class="col-sm-5 mt-2">
                                         <h2 class="ml-4" style=" font-family: 'Tilt Neon';font-weight: 700;color: white; margin-left: 2rem;">Lịch làm việc</h2>
                                     </div>
-<!--                                    <div class="col-sm-7">
-                                        <div style="text-justify: auto;text-align: right"class="mr-4">
-                                            <a href="AddWorkScheduleServlet" class="btn btn-secondary" <span>Thêm lịch làm việc</span></a>
-                                            <a href="AddWeeklyWorkScheduleServlet" class="btn btn-secondary" <span>Thêm lịch làm việc theo tuần</span></a>
-                                        </div>
-                                    </div>-->
+                                    <div class="col-sm-7">
+                                        <form class="d-flex justify-content-around" action="ViewTableWorkSchedulesServlet" method="get" class="form-inline" style="text-align: right; margin-right: 2rem;">
+                                            <select name="doctorID" class="form-control mr-2">
+                                                <option value="">Chọn bác sĩ</option>
+                                                <c:forEach var="doctor" items="${doctors}">
+                                                    <option value="${doctor.doctorID}" 
+                                                            <c:if test="${doctor.doctorID == param.doctorID}">selected</c:if>>
+                                                        ${doctor.fullName}
+                                                    </option>
+                                                </c:forEach>
+                                            </select>
+                                            <input type="date" name="date" class="form-control mr-2" value="${param.date}">
+                                            <button type="submit" class="btn btn-secondary">Lọc</button>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                             <table class="table table-striped table-hover">
@@ -124,7 +133,6 @@
 
             </div>
             <script>
-
 
                 function confirmDelete(event, element) {
                     event.preventDefault(); // Ngăn chặn hành động mặc định của liên kết

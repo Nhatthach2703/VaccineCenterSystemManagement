@@ -19,13 +19,13 @@ import java.util.List;
  * @author Xuan Vinh
  */
 public class WorkScheduleDAO {
+
     private ContextDAO contextDAO;
-    
 
     public WorkScheduleDAO() {
         contextDAO = new ContextDAO();
     }
-    
+
     public List<WorkSchedule> getAllWorkSchedules() {
         List<WorkSchedule> schedules = new ArrayList<>();
         String query = "SELECT * FROM WorkSchedule";
@@ -46,7 +46,7 @@ public class WorkScheduleDAO {
         }
         return schedules;
     }
-    
+
     public int getWorkScheduleID(int roomID, int shiftID, int doctorID, int workLocationID, Date date, String workType) {
         String sql = "SELECT workScheduleID FROM WorkSchedule WHERE roomID = ? AND shiftID = ? AND doctorID = ? AND workLocationID = ? AND date = ? AND workType = ?";
         int workScheduleID = 0;
@@ -70,7 +70,7 @@ public class WorkScheduleDAO {
 
         return workScheduleID;
     }
-    
+
     public void addWorkSchedule(WorkSchedule workSchedule) {
         String query = "INSERT INTO WorkSchedule (RoomID, ShiftID, DoctorID, WorkLocationID, Date, workType) VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection conn = contextDAO.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
@@ -85,7 +85,7 @@ public class WorkScheduleDAO {
             e.printStackTrace();
         }
     }
-    
+
     public void deleteInjectionSchedulesByWorkScheduleID(int workScheduleID) {
         try (Connection connection = contextDAO.getConnection()) {
             String sql = "DELETE FROM InjectionSchedule WHERE workScheduleID = ?";
@@ -124,7 +124,7 @@ public class WorkScheduleDAO {
             e.printStackTrace();
         }
     }
-    
+
     public void updateWorkSchedule(WorkSchedule workSchedule) {
         String query = "UPDATE WorkSchedule SET RoomID = ?, ShiftID = ?, DoctorID = ?, WorkLocationID = ?, Date = ?, workType = ? WHERE WorkScheduleID = ?";
         try (Connection conn = contextDAO.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
@@ -140,8 +140,7 @@ public class WorkScheduleDAO {
             e.printStackTrace();
         }
     }
-    
-    
+
     public WorkSchedule getWorkScheduleByID(int id) {
         String query = "SELECT * FROM WorkSchedule WHERE WorkScheduleID = ?";
         try (Connection conn = contextDAO.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
@@ -164,7 +163,7 @@ public class WorkScheduleDAO {
         }
         return null;
     }
-    
+
     public boolean workScheduleExists(int roomID, int shiftID, int doctorID, Date date, String workType) {
         String sql = "SELECT COUNT(*) AS count FROM WorkSchedule WHERE RoomID = ? AND ShiftID = ? AND DoctorID = ? AND Date = ? AND workType = ?";
         int count = 0;
@@ -187,7 +186,7 @@ public class WorkScheduleDAO {
 
         return count > 0;
     }
-    
+
     public boolean isDoctorAssignedToAnotherRoom(int doctorID, int shiftID, Date date) {
         boolean isAssigned = false;
         String query = "SELECT COUNT(*) FROM WorkSchedule "
@@ -211,6 +210,7 @@ public class WorkScheduleDAO {
 
         return isAssigned;
     }
+
     public boolean isRoomOccupiedByAnotherDoctor(int roomID, int shiftID, Date date) {
         try (Connection connection = contextDAO.getConnection()) {
             String sql = "SELECT COUNT(*) FROM WorkSchedule WHERE roomID = ? AND shiftID = ? AND date = ?";
@@ -229,51 +229,129 @@ public class WorkScheduleDAO {
         }
         return false;
     }
-    
+
     public int getTotalVaccinationsByWorkLocationAndDateRange(int workLocationID, Date startDate, Date endDate) {
-    String sql = "SELECT COUNT(*) AS totalVaccinations FROM WorkSchedule "
-               + "WHERE WorkLocationID = ? AND Date BETWEEN ? AND ? AND workType = N'Tiêm'";
-    int totalVaccinations = 0;
+        String sql = "SELECT COUNT(*) AS totalVaccinations FROM WorkSchedule "
+                + "WHERE WorkLocationID = ? AND Date BETWEEN ? AND ? AND workType = N'Tiêm'";
+        int totalVaccinations = 0;
 
-    try (Connection conn = contextDAO.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
-        pstmt.setInt(1, workLocationID);
-        pstmt.setDate(2, startDate);
-        pstmt.setDate(3, endDate);
+        try (Connection conn = contextDAO.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, workLocationID);
+            pstmt.setDate(2, startDate);
+            pstmt.setDate(3, endDate);
 
-        try (ResultSet rs = pstmt.executeQuery()) {
-            if (rs.next()) {
-                totalVaccinations = rs.getInt("totalVaccinations");
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    totalVaccinations = rs.getInt("totalVaccinations");
+                }
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-    } catch (SQLException e) {
-        e.printStackTrace();
-    }
 
-    return totalVaccinations;
-}
+        return totalVaccinations;
+    }
 
     public int getTotalConsultationsByWorkLocationAndDateRange(int workLocationID, Date startDate, Date endDate) {
-    String sql = "SELECT COUNT(*) AS totalConsultations FROM WorkSchedule "
-               + "WHERE WorkLocationID = ? AND Date BETWEEN ? AND ? AND workType = N'Tư vấn'";
-    int totalConsultations = 0;
+        String sql = "SELECT COUNT(*) AS totalConsultations FROM WorkSchedule "
+                + "WHERE WorkLocationID = ? AND Date BETWEEN ? AND ? AND workType = N'Tư vấn'";
+        int totalConsultations = 0;
 
-    try (Connection conn = contextDAO.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
-        pstmt.setInt(1, workLocationID);
-        pstmt.setDate(2, startDate);
-        pstmt.setDate(3, endDate);
+        try (Connection conn = contextDAO.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, workLocationID);
+            pstmt.setDate(2, startDate);
+            pstmt.setDate(3, endDate);
 
-        try (ResultSet rs = pstmt.executeQuery()) {
-            if (rs.next()) {
-                totalConsultations = rs.getInt("totalConsultations");
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    totalConsultations = rs.getInt("totalConsultations");
+                }
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-    } catch (SQLException e) {
-        e.printStackTrace();
+
+        return totalConsultations;
     }
+    
+    public List<WorkSchedule> getWorkSchedulesByDoctor(int doctorID) {
+        List<WorkSchedule> schedules = new ArrayList<>();
+        String query = "SELECT * FROM WorkSchedule WHERE DoctorID = ?";
 
-    return totalConsultations;
-}
+        try (Connection conn = contextDAO.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setInt(1, doctorID);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    schedules.add(new WorkSchedule(
+                            rs.getInt("WorkScheduleID"),
+                            rs.getInt("RoomID"),
+                            rs.getInt("ShiftID"),
+                            rs.getInt("DoctorID"),
+                            rs.getInt("WorkLocationID"),
+                            rs.getDate("Date"),
+                            rs.getString("workType")
+                    ));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
+        return schedules;
+    }
+    
+    public List<WorkSchedule> getWorkSchedulesByDate(String date) {
+        List<WorkSchedule> schedules = new ArrayList<>();
+        String query = "SELECT * FROM WorkSchedule WHERE Date = ?";
+
+        try (Connection conn = contextDAO.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setDate(1, Date.valueOf(date)); // Convert string to SQL Date
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    schedules.add(new WorkSchedule(
+                            rs.getInt("WorkScheduleID"),
+                            rs.getInt("RoomID"),
+                            rs.getInt("ShiftID"),
+                            rs.getInt("DoctorID"),
+                            rs.getInt("WorkLocationID"),
+                            rs.getDate("Date"),
+                            rs.getString("workType")
+                    ));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return schedules;
+    }
+    
+    public List<WorkSchedule> getWorkSchedulesByDoctorAndDate(int doctorID, String date) {
+        List<WorkSchedule> schedules = new ArrayList<>();
+        String query = "SELECT * FROM WorkSchedule WHERE DoctorID = ? AND Date = ?";
+
+        try (Connection conn = contextDAO.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setInt(1, doctorID);
+            pstmt.setDate(2, Date.valueOf(date)); // Convert string to SQL Date
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    schedules.add(new WorkSchedule(
+                            rs.getInt("WorkScheduleID"),
+                            rs.getInt("RoomID"),
+                            rs.getInt("ShiftID"),
+                            rs.getInt("DoctorID"),
+                            rs.getInt("WorkLocationID"),
+                            rs.getDate("Date"),
+                            rs.getString("workType")
+                    ));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return schedules;
+    }
     
     public static void main(String[] args) {
         WorkScheduleDAO workScheduleDAO = new WorkScheduleDAO();

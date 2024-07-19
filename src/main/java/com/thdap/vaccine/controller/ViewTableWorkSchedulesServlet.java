@@ -15,6 +15,7 @@ import com.thdap.vaccine.model.Shift;
 import com.thdap.vaccine.model.WorkLocation;
 import com.thdap.vaccine.model.WorkSchedule;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -54,7 +55,7 @@ public class ViewTableWorkSchedulesServlet extends HttpServlet {
 //            out.println("</body>");
 //            out.println("</html>");
 //        }
-        
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -69,9 +70,22 @@ public class ViewTableWorkSchedulesServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        processRequest(request, response);
+        String doctorID = request.getParameter("doctorID");
+        String date = request.getParameter("date");
+
         WorkScheduleDAO workScheduleDAO = new WorkScheduleDAO();
-        List<WorkSchedule> workSchedules = workScheduleDAO.getAllWorkSchedules();
+        List<WorkSchedule> workSchedules;
+
+        if (doctorID != null && !doctorID.isEmpty() && date != null && !date.isEmpty()) {
+            workSchedules = workScheduleDAO.getWorkSchedulesByDoctorAndDate(Integer.parseInt(doctorID), date);
+        } else if (doctorID != null && !doctorID.isEmpty()) {
+            workSchedules = workScheduleDAO.getWorkSchedulesByDoctor(Integer.parseInt(doctorID));
+        } else if (date != null && !date.isEmpty()) {
+            workSchedules = workScheduleDAO.getWorkSchedulesByDate(date);
+        } else {
+            workSchedules = workScheduleDAO.getAllWorkSchedules();
+        }
+
         DoctorDAO doctorDAO = new DoctorDAO();
         List<Doctor> doctors = doctorDAO.getAllDoctors();
         RoomDAO roomDAO = new RoomDAO();
@@ -80,12 +94,13 @@ public class ViewTableWorkSchedulesServlet extends HttpServlet {
         List<Shift> shifts = shiftDAO.getAllShifts();
         WorkLocationDAO workLocationDAO = new WorkLocationDAO();
         List<WorkLocation> workLocations = workLocationDAO.getAllWorkLocations();
-        request.setAttribute("workSchedules", workSchedules);//
+
+        request.setAttribute("workSchedules", workSchedules);
         request.setAttribute("doctors", doctors);
         request.setAttribute("rooms", rooms);
         request.setAttribute("shifts", shifts);
         request.setAttribute("workLocations", workLocations);
-        
+
         RequestDispatcher dispatcher = request.getRequestDispatcher("viewTableWorkSchedules.jsp");
         dispatcher.forward(request, response);
     }
