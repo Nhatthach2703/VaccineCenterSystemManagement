@@ -24,6 +24,7 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Properties;
@@ -65,9 +66,16 @@ public class homeIndex extends HttpServlet {
         DoctorDAO doctorDAO = new DoctorDAO();
         WorkLocationDAO workLocationDAO = new WorkLocationDAO();
         List<Doctor> doctors = doctorDAO.getAllDoctors();
+        List<Doctor> filteredDoctors = new ArrayList<>();
+
+        for (Doctor doctor : doctors) {
+            if ("Giám đốc".equalsIgnoreCase(doctor.getJobTitle()) || "Phó giám đốc".equalsIgnoreCase(doctor.getJobTitle())) {
+                filteredDoctors.add(doctor);
+            }
+        }
         List<WorkLocation> workLocations = workLocationDAO.getAllWorkLocations();
         request.setAttribute("workLocations", workLocations);
-        request.setAttribute("doctors", doctors);
+        request.setAttribute("doctors", filteredDoctors);
         NewsDAO newsDAO = new NewsDAO();
         List<com.thdap.vaccine.model.News> newsList = newsDAO.getAllNews();
         // set data to jsp
@@ -101,8 +109,8 @@ public class homeIndex extends HttpServlet {
             if (injectionInfo != null) {
                 LocalDate dateOfNextInjection = injectionInfo.getDateOfNextInjection().toLocalDate();// biến cái ni về lcalDate
                 LocalTime currentTime = LocalTime.now();
-                LocalTime startHour = LocalTime.of(9, 0); 
-                LocalTime endHour = LocalTime.of(23, 0);  
+                LocalTime startHour = LocalTime.of(9, 0);
+                LocalTime endHour = LocalTime.of(23, 0);
                 if (isOneDayBefore(dateOfNextInjection) && !notification.isStatus() && currentTime.isAfter(startHour) && currentTime.isBefore(endHour)) { // thêm đk trong khung giờ và đã đc gửi chưa
                     User user = userDAO.getUserByUserFileID(injectionInfo.getUserFileID());
                     if (user != null) {
