@@ -181,7 +181,7 @@
                         <div class="swiper-wrapper">
                             <c:forEach var="vaccines" items="${vaccine}">
 
-                                <div class="card h-100 p-3 swiper-slide"style="width: 25rem;border-width: 2px;border-color: black">
+                                <div class="card h-100 p-3 swiper-slide"style="width: 25rem;border-width: 2px;border-color: black ;">
 
                                     <a href="VaccineDetailsServlet?vaccineID=${vaccines.vaccineID}">
 
@@ -191,10 +191,10 @@
                                             <img class="card-img-top" src="uploads/${vaccines.image}" alt="Vaccine Image" width="50" height="200"/>
 
                                         </div>
-                                        <div class="card-content mt-2">
+                                            <div class="card-content mt-2" style="">
                                             <h4 class="title" style="font-family: 'Tilt Neon', sans-serif;font-weight: bold">${vaccines.name}</h4>               
                                             <p class="description">Nguồn gốc: ${vaccines.source}</p>
-                                            <p class="description text-justify text-dark" style="text-align: left">${fn:substring(vaccines.summary, 0, 200)}<span>...</span></p>
+                                            <!--<p class="description text-justify text-dark" style="text-align: left">${fn:substring(vaccines.summary, 0, 100)}<span>...</span></p>-->
                                         </div>
                                     </a>
 
