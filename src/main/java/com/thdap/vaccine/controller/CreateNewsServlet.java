@@ -71,6 +71,6 @@ public class CreateNewsServlet extends HttpServlet {
         NewsDAO newsDAO = new NewsDAO();
         newsDAO.addNews(news);
 
-        response.sendRedirect("successNews.jsp");
+        response.sendRedirect("listNews");
     }
 }

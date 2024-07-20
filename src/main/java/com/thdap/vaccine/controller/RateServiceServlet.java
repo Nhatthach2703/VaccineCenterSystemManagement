@@ -92,51 +92,62 @@ public class RateServiceServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      *
      */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
-        response.setCharacterEncoding("UTF-8");
-        String userIDStr = request.getParameter("userID");
-        String content = request.getParameter("content");
-        String ratingStr = request.getParameter("rating");
-        String type = request.getParameter("type");
+   @Override
+protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    request.setCharacterEncoding("UTF-8");
+    response.setCharacterEncoding("UTF-8");
+    String userIDStr = request.getParameter("userID");
+    String content = request.getParameter("content");
+    String ratingStr = request.getParameter("rating");
+    String type = request.getParameter("type");
 
-        // Log the received parameters
-        System.out.println("userID: " + userIDStr);
-        System.out.println("content: " + content);
-        System.out.println("rating: " + ratingStr);
-        System.out.println("type: " + type);
+    // Log the received parameters
+    System.out.println("userID: " + userIDStr);
+    System.out.println("content: " + content);
+    System.out.println("rating: " + ratingStr);
+    System.out.println("type: " + type);
 
-        if (userIDStr == null || userIDStr.isEmpty() || content == null || content.isEmpty()
-                || ratingStr == null || ratingStr.isEmpty() || type == null || type.isEmpty()) {
-            request.setAttribute("errorMessage", "Vui lòng nhập đầy đủ thông tin đánh giá.");
+    if (userIDStr == null || userIDStr.isEmpty() || content == null || content.isEmpty()
+            || ratingStr == null || ratingStr.isEmpty() || type == null || type.isEmpty()) {
+        request.setAttribute("errorMessage", "Vui lòng nhập đầy đủ thông tin đánh giá.");
+        request.getRequestDispatcher("RateService.jsp").forward(request, response);
+        return;
+    }
+
+    try {
+        int userID = Integer.parseInt(userIDStr);
+        int rating = Integer.parseInt(ratingStr);
+        Date date = new Date(); // Assuming you want the current date
+
+        // Log before checking existing review
+        System.out.println("Checking existing review: userID=" + userID + ", date=" + date + ", type=" + type);
+
+        // Check if review already exists
+        if (serviceReviewDAO.reviewExists(userID, date, type)) {
+            request.setAttribute("errorMessage", "Bạn đã đánh giá dịch vụ, vui lòng không đánh giá lại.");
             request.getRequestDispatcher("RateService.jsp").forward(request, response);
             return;
         }
 
-        try {
-            int userID = Integer.parseInt(userIDStr);
-            int rating = Integer.parseInt(ratingStr);
-            Date date = new Date(); // Assuming you want the current date
+        // Log before inserting
+        System.out.println("Inserting review: userID=" + userID + ", content=" + content + ", rating=" + rating + ", date=" + date + ", type=" + type);
 
-            // Log before inserting
-            System.out.println("Inserting review: userID=" + userID + ", content=" + content + ", rating=" + rating + ", date=" + date + ", type=" + type);
+        // Insert the review into the database
+        serviceReviewDAO.insertServiceReview(userID, content, rating, date, type);
 
-            // Insert the review into the database
-            serviceReviewDAO.insertServiceReview(userID, content, rating, date, type);
-
-            // Redirect to success page
-            response.sendRedirect("success.jsp");
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-            request.setAttribute("errorMessage", "Có lỗi xảy ra khi thêm đánh giá. Vui lòng thử lại.");
-            request.getRequestDispatcher("RateService.jsp").forward(request, response);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            request.setAttribute("errorMessage", "Có lỗi xảy ra khi thêm đánh giá. Vui lòng thử lại.");
-            request.getRequestDispatcher("RateService.jsp").forward(request, response);
-        }
+        // Redirect to success page
+        response.sendRedirect("index.jsp");
+    } catch (NumberFormatException e) {
+        e.printStackTrace();
+        request.setAttribute("errorMessage", "Có lỗi xảy ra khi thêm đánh giá. Vui lòng thử lại.");
+        request.getRequestDispatcher("RateService.jsp").forward(request, response);
+    } catch (SQLException e) {
+        e.printStackTrace();
+        request.setAttribute("errorMessage", "Có lỗi xảy ra khi thêm đánh giá. Vui lòng thử lại.");
+        request.getRequestDispatcher("RateService.jsp").forward(request, response);
     }
+}
+
 
     /**
      * Returns a short description of the servlet.

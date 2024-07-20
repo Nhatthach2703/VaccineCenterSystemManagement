@@ -152,7 +152,7 @@ public class AddDoctorServlet extends HttpServlet {
                 accountDAO.addAccount(roleID, username, password, email);
                 int accountID = accountDAO.getAccountID(username);
                 doctorDAO.addDoctor(fullName, accountID, filename, email, doB, phoneNumber, address, gender, workLocationID, degreeType, yearsOfExperience, jobTitle);
-                response.sendRedirect("success.jsp");
+                response.sendRedirect("ListAccountServlet");
             } catch (SQLException e) {
                 e.printStackTrace();
                 request.setAttribute("errorMessage", "Thêm bác sĩ bị lỗi: " + e.getMessage());

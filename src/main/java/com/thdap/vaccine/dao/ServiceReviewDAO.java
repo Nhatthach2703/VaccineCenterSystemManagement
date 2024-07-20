@@ -18,23 +18,41 @@ public class ServiceReviewDAO {
         contextDAO = new ContextDAO(); // Assuming ContextDAO manages database connection
     }
 
-    // Method to insert a new service review
-   public void insertServiceReview(int userID, String content, int rate, java.util.Date date, String type) throws SQLException {
-    String query = "INSERT INTO ServiceReviews (userID, content, rate, date, type) VALUES (?, ?, ?, ?, ?)";
-    try (Connection conn = contextDAO.getConnection();
-         PreparedStatement pstmt = conn.prepareStatement(query)) {
-        pstmt.setInt(1, userID);
-        pstmt.setString(2, content);
-        pstmt.setInt(3, rate);
-        pstmt.setDate(4, new java.sql.Date(date.getTime())); // Convert java.util.Date to java.sql.Date
-        pstmt.setString(5, type);
+  // Method to insert a new service review
+    public void insertServiceReview(int userID, String content, int rate, java.util.Date date, String type) throws SQLException {
+        String query = "INSERT INTO ServiceReviews (userID, content, rate, date, type) VALUES (?, ?, ?, ?, ?)";
+        try (Connection conn = contextDAO.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setInt(1, userID);
+            pstmt.setString(2, content);
+            pstmt.setInt(3, rate);
+            pstmt.setDate(4, new java.sql.Date(date.getTime())); // Convert java.util.Date to java.sql.Date
+            pstmt.setString(5, type);
 
-        // Log before executing update
-        System.out.println("Executing query: " + pstmt);
+            // Log before executing update
+            System.out.println("Executing query: " + pstmt);
 
-        pstmt.executeUpdate();
+            pstmt.executeUpdate();
+        }
     }
-}
+
+    // Method to check for existing reviews
+    public boolean reviewExists(int userID, java.util.Date date, String type) throws SQLException {
+        String query = "SELECT COUNT(*) FROM ServiceReviews WHERE userID = ? AND date = ? AND type = ?";
+        try (Connection conn = contextDAO.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setInt(1, userID);
+            pstmt.setDate(2, new java.sql.Date(date.getTime()));
+            pstmt.setString(3, type);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1) > 0;
+                }
+            }
+        }
+        return false;
+    }
 
 
     // Method to retrieve all reviews from the ServiceReviews table
