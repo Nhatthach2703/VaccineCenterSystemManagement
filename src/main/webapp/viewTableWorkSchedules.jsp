@@ -23,7 +23,6 @@
             border-radius: 8px 8px 0px 0px;
             padding: 10px;
         }
-
         .btn-secondary {
             background-color: white;
             color: black;
@@ -72,6 +71,43 @@
             cursor: not-allowed;
             pointer-events: none;
         }
+      .custom-select,
+            .custom-input,
+            .custom-select option {
+                background-color: white;
+                border: 1px solid #ced4da;
+                border-radius: 0.25rem;
+                color: #495057;
+                padding: 0.375rem 0.75rem;
+                margin-right: 10px;
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                appearance: none;
+            }
+
+            .custom-select:focus,
+            .custom-input:focus,
+            .custom-select option:checked {
+                background-color: white;
+                border-color: #80bdff;
+                outline: 0;
+                box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+            }
+            .btn-secondary {
+                background-color: white;
+                color: black;
+                border: 1px solid #ced4da;
+            }
+
+            .btn-secondary:hover,
+            .btn-secondary:focus,
+            .btn-secondary:active {
+                background-color: white;
+                color: black;
+                border-color: #ced4da;
+                box-shadow: none;
+                outline: 0;
+            }
     </style>
 </head>
 
@@ -94,20 +130,22 @@
                                 <div class="col-sm-5 mt-2">
                                     <h2 class="ml-4" style="font-family: 'Tilt Neon';font-weight: 700;color: white; margin-left: 2rem;">Lịch làm việc</h2>
                                 </div>
-                                <div class="col-sm-7">
-                                    <form class="d-flex justify-content-around" action="ViewTableWorkSchedulesServlet" method="get" style="text-align: right; margin-right: 2rem;">
-                                        <select name="doctorID" class="form-control mr-2 custom-select">
-                                            <option value="">Chọn bác sĩ</option>
-                                            <c:forEach var="doctor" items="${doctors}">
-                                                <option value="${doctor.doctorID}" <c:if test="${doctor.doctorID == param.doctorID}">selected</c:if>>
-                                                    ${doctor.fullName}
-                                                </option>
-                                            </c:forEach>
-                                        </select>
-                                        <input type="date" name="date" class="form-control mr-2 custom-input" value="${param.date}">
-                                        <button type="submit" class="btn btn-secondary">Lọc</button>
-                                    </form>
-                                </div>
+                               <div class="col-sm-7">
+                                        <form class="d-flex justify-content-around" action="ViewTableWorkSchedulesServlet" method="get" class="form-inline" style="text-align: right; margin-right: 2rem;">
+                                            <select name="doctorID" class="form-control mr-2 custom-select">
+                                                <option value="" >Chọn bác sĩ</option>
+                                                <c:forEach var="doctor" items="${doctors}">
+                                                    <option value="${doctor.doctorID}" 
+                                                            <c:if test="${doctor.doctorID == param.doctorID}">selected</c:if>>
+                                                        ${doctor.fullName}
+                                                    </option>
+                                                </c:forEach>
+                                            </select>
+                                            <input type="date" name="date" class="form-control mr-2 custom-input" value="${param.date}">
+                                            <button type="submit" class="btn btn-secondary ">Lọc</button>
+                                        </form>
+
+                                    </div>
                             </div>
                         </div>
                         <table class="table table-striped table-hover">
