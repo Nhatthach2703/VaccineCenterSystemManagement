@@ -90,7 +90,7 @@
                             <tr>
                                 <td><a href="VaccineDetailsServlet?vaccineID=${vaccine.vaccineID}">${vaccine.name}</a></td>
                                 <td>${vaccine.source}</td>
-                                <td>${vaccine.price} đồng</td>
+                                <td>${vaccine.price} VND</td>
                             </tr>
                         </c:forEach>
                     </tbody>
