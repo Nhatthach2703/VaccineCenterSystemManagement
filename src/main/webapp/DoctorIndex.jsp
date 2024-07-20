@@ -1,3 +1,5 @@
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.Calendar"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <!doctype html>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -49,7 +51,27 @@
             <div class="card w-100">
               <div class="card-body">
                 <div class="d-sm-flex d-block align-items-center justify-content-between mb-9">
-                    <img src="assets/img/z5446367370898_a14bcad66d84989db91ad7079d275553.jpg" alt="alt" style="width: 100%"/>
+                    <form action="doctorIndexServlet" method="get" class="p-4">
+                                <h1>Lựa chọn khoản thời gian</h1>
+                                <%
+                                    Calendar calendar = Calendar.getInstance();
+                                    // Set to the first day of the week (Sunday in US locale)
+                                    calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+                                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                                    String startDate = dateFormat.format(calendar.getTime());
+                                    
+                                    // Set to the last day of the week (Saturday in US locale)
+                                    calendar.add(Calendar.DAY_OF_WEEK, 6);
+                                    String endDate = dateFormat.format(calendar.getTime());
+                                %>
+                                <label for="startDate">Ngày bắt đầu:</label>
+                                <input style="margin: 0 20px; padding: 5px 10px" type="date" id="startDate" name="startDate" value="<%= request.getAttribute("startDate") != null ? request.getAttribute("startDate") : startDate %>">
+                                <label for="endDate">Ngày kết thúc:</label>
+                                <input style="margin: 0 20px; padding: 5px 10px" type="date" id="endDate" name="endDate" value="<%= request.getAttribute("endDate") != null ? request.getAttribute("endDate") : endDate %>">
+                                <input type="submit" value="Lọc" class="btn btn-primary m-3">
+                            </form>
+    
+   
                 </div>
                 <div id="chart"></div>
               </div>
@@ -70,7 +92,7 @@
                             class="me-1 rounded-circle bg-light-success round-20 d-flex align-items-center justify-content-center">
 <!--                            <i class="ti ti-arrow-up-left text-success"></i>-->
                           </span>
-                          <p class="text-dark me-1 fs-3 mb-0">null khách</p>
+                          <p class="text-dark me-1 fs-3 mb-0">${totalVaccinations}</p>
                           <p class="fs-3 mb-0"></p>
                         </div>
                         <div class="d-flex align-items-center">
@@ -95,32 +117,38 @@
               </div>
               <div class="col-lg-12">
                 <!-- Monthly Earnings -->
-                <div class="card">
-                  <div class="card-body">
-                    <div class="row alig n-items-start">
+                <div class="card overflow-hidden">
+                  <div class="card-body p-4">
+                    <h5 class="card-title mb-9 fw-semibold">Số khách tư vấn</h5>
+                    <div class="row align-items-center">
                       <div class="col-8">
-                        <h5 class="card-title mb-9 fw-semibold"> số khách tư vấn </h5>
-                        <h4 class="fw-semibold mb-3">Cơ sở-tư vấn</h4>
-                        <div class="d-flex align-items-center pb-1">
+                        <h4 class="fw-semibold mb-3">Cơ sở - tiêm</h4>
+                        <div class="d-flex align-items-center mb-3">
                           <span
-                            class="me-2 rounded-circle bg-light-danger round-20 d-flex align-items-center justify-content-center">
-<!--                            <i class="ti ti-arrow-down-right text-danger"></i>-->
+                            class="me-1 rounded-circle bg-light-success round-20 d-flex align-items-center justify-content-center">
+<!--                            <i class="ti ti-arrow-up-left text-success"></i>-->
                           </span>
-<!--                          <p class="text-dark me-1 fs-3 mb-0">+9%</p>
-                          <p class="fs-3 mb-0">last year</p>-->
+                          <p class="text-dark me-1 fs-3 mb-0">${totalConsultations}</p>
+                          <p class="fs-3 mb-0"></p>
                         </div>
-                      </div>
-<!--                      <div class="col-4">
-                        <div class="d-flex justify-content-end">
-                          <div
-                            class="text-white bg-secondary rounded-circle p-6 d-flex align-items-center justify-content-center">
-                            <i class="ti ti-currency-dollar fs-6"></i>
+                        <div class="d-flex align-items-center">
+                          <div class="me-4">
+                            <span class="round-8 bg-primary rounded-circle me-2 d-inline-block"></span>
+                            <span class="fs-2"></span>
+                          </div>
+                          <div>
+                            <span class="round-8 bg-light-primary rounded-circle me-2 d-inline-block"></span>
+                            <span class="fs-2"></span>
                           </div>
                         </div>
-                      </div>-->
+                      </div>
+                      <div class="col-4">
+                        <div class="d-flex justify-content-center">
+                          <div id="breakup"></div>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                  <div id="earning"></div>
                 </div>
               </div>
             </div>
