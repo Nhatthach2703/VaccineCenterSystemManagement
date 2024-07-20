@@ -105,7 +105,8 @@ public class BookConsultationServlet extends HttpServlet {
             WorkLocation workLocation = (WorkLocation) workLocationDAO.getWorkLocationById(workSchedule.getWorkLocationID());
             SendMail.sendConsultationScheduleEmail(user.getFullName(),user.getEmail(), workSchedule.getDate(), userShift.getStartTime(), userShift.getEndTime(), workLocation.getName(), workLocation.getAddress());
             
-            request.getRequestDispatcher("success.jsp").forward(request, response);
+//            request.getRequestDispatcher("success.jsp").forward(request, response);
+            response.sendRedirect("ConsultationScheduleServlet");
         }else{
             request.setAttribute("errorMessage", "Đặt lịch tư vấn thất bại");
             request.getRequestDispatcher("addConsultationSchedule.jsp").forward(request, response);

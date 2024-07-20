@@ -398,8 +398,33 @@
 //                console.log("Phòng: " + room);
 //                console.log("Bác sĩ: " + doctor);
 //                console.log("Cơ sở: " + location);
-                const confirmationMessage = `Bạn có chắc chắn muốn đặt lịch tiêm phòng vào:\n\nGiờ: ` + time + `\nNgày: ` + date + `\nPhòng: ` + room + `\nBác sĩ: ` + doctor + `\nCơ sở: ` + location + `\nLoại vaccine: ` + vaccineName;
-                return confirm(confirmationMessage);
+                const confirmationMessage = 
+                    '<div style="text-align: center;">' +
+                    'Bạn có chắc chắn muốn đặt lịch tiêm vào:<br>' +
+                    '<strong>Giờ:</strong> ' + time + '<br>' +
+                    '<strong>Ngày:</strong> ' + date + '<br>' +
+                    '<strong>Phòng:</strong> ' + room + ' - ' + location + '<br>' +
+                    '<strong>Bác sĩ:</strong> ' + doctor + '<br>' +
+                    '<strong>Vaccine:</strong> ' + vaccineName +
+                    '</div>';
+
+                Swal.fire({
+                    title: 'Xác nhận đặt lịch',
+                    html: confirmationMessage,
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Đặt lịch',
+                    cancelButtonText: 'Hủy'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        const form = button.closest('form');
+                        form.submit();
+                    }
+                });
+
+                return false;
             }
         </script>z
     </body>

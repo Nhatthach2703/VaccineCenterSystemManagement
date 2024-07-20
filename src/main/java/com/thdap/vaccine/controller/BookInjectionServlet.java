@@ -111,7 +111,8 @@ public class BookInjectionServlet extends HttpServlet {
             Vaccine vaccine = vaccineDAO.getVaccineById(vaccineID);
             SendMail.sendInjectionScheduleEmail(user.getFullName(), user.getEmail(), workSchedule.getDate(), userShift.getStartTime(), userShift.getEndTime(), workLocation.getName(), workLocation.getAddress(), vaccine.getName());
 
-            request.getRequestDispatcher("success.jsp").forward(request, response);
+//            request.getRequestDispatcher("success.jsp").forward(request, response);
+            response.sendRedirect("InjectionScheduleServlet");
         } else {
             request.setAttribute("errorMessage", "Đặt lịch tiêm phòng thất bại");
             request.getRequestDispatcher("addInjectionSchedule.jsp").forward(request, response);
