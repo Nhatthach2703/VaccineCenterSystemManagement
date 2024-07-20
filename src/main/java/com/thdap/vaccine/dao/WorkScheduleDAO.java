@@ -231,8 +231,14 @@ public class WorkScheduleDAO {
     }
 
     public int getTotalVaccinationsByWorkLocationAndDateRange(int workLocationID, Date startDate, Date endDate) {
-        String sql = "SELECT COUNT(*) AS totalVaccinations FROM WorkSchedule "
-                + "WHERE WorkLocationID = ? AND Date BETWEEN ? AND ? AND workType = N'Tiêm'";
+        String sql = "SELECT COUNT(*) AS totalVaccinations "
+                + "FROM WorkSchedule w "
+                + "JOIN InjectionSchedule i ON w.WorkScheduleID = i.workScheduleID "
+                + "WHERE w.WorkLocationID = ? "
+                + "AND w.Date BETWEEN ? AND ? "
+                + "AND w.workType = N'Tiêm' "
+                + "AND i.userID IS NOT NULL "
+                + "AND i.status = 1";
         int totalVaccinations = 0;
 
         try (Connection conn = contextDAO.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -253,8 +259,14 @@ public class WorkScheduleDAO {
     }
 
     public int getTotalConsultationsByWorkLocationAndDateRange(int workLocationID, Date startDate, Date endDate) {
-        String sql = "SELECT COUNT(*) AS totalConsultations FROM WorkSchedule "
-                + "WHERE WorkLocationID = ? AND Date BETWEEN ? AND ? AND workType = N'Tư vấn'";
+        String sql = "SELECT COUNT(*) AS totalConsultations "
+                + "FROM WorkSchedule w "
+                + "JOIN ConsultationSchedule c ON w.WorkScheduleID = c.WorkScheduleID "
+                + "WHERE w.workLocationID = ? "
+                + "AND w.Date BETWEEN ? AND ? "
+                + "AND w.workType = N'Tư vấn' "
+                + "AND c.userID IS NOT NULL "
+                + "AND c.status = 1";
         int totalConsultations = 0;
 
         try (Connection conn = contextDAO.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -273,7 +285,7 @@ public class WorkScheduleDAO {
 
         return totalConsultations;
     }
-    
+
     public List<WorkSchedule> getWorkSchedulesByDoctor(int doctorID) {
         List<WorkSchedule> schedules = new ArrayList<>();
         String query = "SELECT * FROM WorkSchedule WHERE DoctorID = ?";
@@ -299,7 +311,7 @@ public class WorkScheduleDAO {
 
         return schedules;
     }
-    
+
     public List<WorkSchedule> getWorkSchedulesByDate(String date) {
         List<WorkSchedule> schedules = new ArrayList<>();
         String query = "SELECT * FROM WorkSchedule WHERE Date = ?";
@@ -325,7 +337,7 @@ public class WorkScheduleDAO {
 
         return schedules;
     }
-    
+
     public List<WorkSchedule> getWorkSchedulesByDoctorAndDate(int doctorID, String date) {
         List<WorkSchedule> schedules = new ArrayList<>();
         String query = "SELECT * FROM WorkSchedule WHERE DoctorID = ? AND Date = ?";
@@ -352,7 +364,63 @@ public class WorkScheduleDAO {
 
         return schedules;
     }
-    
+
+    public int getTotalVaccinationsByDoctorAndDateRangeForDoctor(int doctorID, Date startDate, Date endDate) {
+        String sql = "SELECT COUNT(*) AS totalVaccinations "
+                + "FROM WorkSchedule w "
+                + "JOIN InjectionSchedule i ON w.WorkScheduleID = i.workScheduleID "
+                + "WHERE w.DoctorID = ? "
+                + "AND w.Date BETWEEN ? AND ? "
+                + "AND w.workType = N'Tiêm' "
+                + "AND i.userID IS NOT NULL "
+                + "AND i.status = 1";
+        int totalVaccinations = 0;
+
+        try (Connection conn = contextDAO.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, doctorID);
+            pstmt.setDate(2, startDate);
+            pstmt.setDate(3, endDate);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    totalVaccinations = rs.getInt("totalVaccinations");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return totalVaccinations;
+    }
+
+    public int getTotalConsultationsByDoctorAndDateRangeForDoctor(int doctorID, Date startDate, Date endDate) {
+        String sql = "SELECT COUNT(*) AS totalConsultations "
+                + "FROM WorkSchedule w "
+                + "JOIN ConsultationSchedule c ON w.WorkScheduleID = c.WorkScheduleID "
+                + "WHERE w.DoctorID = ? "
+                + "AND w.Date BETWEEN ? AND ? "
+                + "AND w.workType = N'Tư vấn' "
+                + "AND c.userID IS NOT NULL "
+                + "AND c.status = 1";
+        int totalConsultations = 0;
+
+        try (Connection conn = contextDAO.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, doctorID);
+            pstmt.setDate(2, startDate);
+            pstmt.setDate(3, endDate);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    totalConsultations = rs.getInt("totalConsultations");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return totalConsultations;
+    }
+
     public static void main(String[] args) {
         WorkScheduleDAO workScheduleDAO = new WorkScheduleDAO();
 
