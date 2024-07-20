@@ -29,13 +29,41 @@
             }
 
             .custom-select,
-            .custom-input {
+            .custom-input,
+            .custom-select option {
                 background-color: white;
                 border: 1px solid #ced4da;
                 border-radius: 0.25rem;
                 color: #495057;
                 padding: 0.375rem 0.75rem;
                 margin-right: 10px;
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                appearance: none;
+            }
+
+            .custom-select:focus,
+            .custom-input:focus,
+            .custom-select option:checked {
+                background-color: white;
+                border-color: #80bdff;
+                outline: 0;
+                box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+            }
+            .btn-secondary {
+                background-color: white;
+                color: black;
+                border: 1px solid #ced4da;
+            }
+
+            .btn-secondary:hover,
+            .btn-secondary:focus,
+            .btn-secondary:active {
+                background-color: white;
+                color: black;
+                border-color: #ced4da;
+                box-shadow: none;
+                outline: 0;
             }
         </style>
     </head>
@@ -73,6 +101,7 @@
                                             <input type="date" name="date" class="form-control mr-2 custom-input" value="${param.date}">
                                             <button type="submit" class="btn btn-secondary ">Lọc</button>
                                         </form>
+
                                     </div>
                                 </div>
                             </div>
