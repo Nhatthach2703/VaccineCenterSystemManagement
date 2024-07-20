@@ -36,19 +36,25 @@
                     <div class="row">
                         <div class="col-lg-8">
                             <div class="card">
-                                <form action="AdminIndexServlet" method="post" class="p-4">
-                                    <h1>Lựa chọn khoản thời gian</h1>
-                                    <%
-                                        Calendar calendar = Calendar.getInstance();
-                                        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                                        String today = dateFormat.format(calendar.getTime());
-                                    %>
-                                    <label for="startDate">Ngày bắt đầu:</label>
-                                    <input style="margin: 0 20px;padding: 5px 10px" type="date" id="startDate" name="startDate" value="<%= request.getAttribute("startDate") != null ? request.getAttribute("startDate") : today%>">
-                                    <label for="endDate">Ngày kết thúc:</label>
-                                    <input style="margin: 0 20px;padding: 5px 10px" type="date" id="endDate" name="endDate" value="<%= request.getAttribute("endDate") != null ? request.getAttribute("endDate") : today%>">
-                                    <input type="submit" value="Lọc" class="btn btn-primary m-3">
-                                </form>
+                               <form action="AdminIndexServlet" method="post" class="p-4">
+                                <h1>Lựa chọn khoản thời gian</h1>
+                                <%
+                                    Calendar calendar = Calendar.getInstance();
+                                    // Set to the first day of the week (Sunday in US locale)
+                                    calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+                                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                                    String startDate = dateFormat.format(calendar.getTime());
+                                    
+                                    // Set to the last day of the week (Saturday in US locale)
+                                    calendar.add(Calendar.DAY_OF_WEEK, 6);
+                                    String endDate = dateFormat.format(calendar.getTime());
+                                %>
+                                <label for="startDate">Ngày bắt đầu:</label>
+                                <input style="margin: 0 20px; padding: 5px 10px" type="date" id="startDate" name="startDate" value="<%= request.getAttribute("startDate") != null ? request.getAttribute("startDate") : startDate %>">
+                                <label for="endDate">Ngày kết thúc:</label>
+                                <input style="margin: 0 20px; padding: 5px 10px" type="date" id="endDate" name="endDate" value="<%= request.getAttribute("endDate") != null ? request.getAttribute("endDate") : endDate %>">
+                                <input type="submit" value="Lọc" class="btn btn-primary m-3">
+                            </form>
                             </div>
                         </div>
 
