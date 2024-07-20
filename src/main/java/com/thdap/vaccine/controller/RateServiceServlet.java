@@ -126,7 +126,7 @@ public class RateServiceServlet extends HttpServlet {
             serviceReviewDAO.insertServiceReview(userID, content, rating, date, type);
 
             // Redirect to success page
-            response.sendRedirect("success.jsp");
+            response.sendRedirect("index.jsp");
         } catch (NumberFormatException e) {
             e.printStackTrace();
             request.setAttribute("errorMessage", "Có lỗi xảy ra khi thêm đánh giá. Vui lòng thử lại.");

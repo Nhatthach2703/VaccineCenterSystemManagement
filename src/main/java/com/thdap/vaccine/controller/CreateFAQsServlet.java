@@ -70,6 +70,6 @@ public class CreateFAQsServlet extends HttpServlet {
         faqDAO.addFAQ(newFAQ);
 
         // Redirect or forward to a success page
-        response.sendRedirect("successFAQs.jsp");
+        response.sendRedirect("listFAQs");
     }
 }
