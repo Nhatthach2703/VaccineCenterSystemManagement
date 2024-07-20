@@ -43,7 +43,7 @@
         <div class="container row" style="margin-top: 8%;margin-left: 11%" data-aos="zoom-in">
             <h1 class="text-center mb-5">Chi tiết câu hỏi</h1>
             <div class="col-md-6">
-                <h2 class="mb-3">${faqs.shortenedQuestion}</h2>
+                <h2 class="mb-5">${faqs.shortenedQuestion}</h2>
                 <p style="font-size: 16px;"><strong>Câu Trả lời của chuyên gia: </strong>${faqs.answer}</p>
 
             </div >

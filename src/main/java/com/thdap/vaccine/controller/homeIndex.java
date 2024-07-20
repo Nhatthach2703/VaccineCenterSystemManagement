@@ -78,7 +78,14 @@ public class homeIndex extends HttpServlet {
         request.setAttribute("doctors", filteredDoctors);
         NewsDAO newsDAO = new NewsDAO();
         List<com.thdap.vaccine.model.News> newsList = newsDAO.getAllNews();
-        // set data to jsp
+        int maxNews = 4; // Giới hạn số lượng mục
+
+// Kiểm tra nếu danh sách có ít hơn hoặc bằng 4 mục
+        if (newsList.size() > maxNews) {
+            newsList = newsList.subList(0, maxNews);
+        }
+
+// Đặt dữ liệu vào thuộc tính yêu cầu để chuyển tới JSP
         request.setAttribute("listNews", newsList);
         ServiceReviewDAO serviceReviewDAO = new ServiceReviewDAO();
         UserDAO userDAO = new UserDAO();
