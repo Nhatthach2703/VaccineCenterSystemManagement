@@ -178,7 +178,7 @@
                     document.getElementById('map-frame').src = mapUrl;
                 }
                 document.addEventListener("DOMContentLoaded", function () {
-                    const defaultMapUrl = "${defaultLocation.map}";
+                    const defaultMapUrl = "${workLocations[0].map}";
                     document.getElementById('map-frame').src = defaultMapUrl;
                 });
             </script>
