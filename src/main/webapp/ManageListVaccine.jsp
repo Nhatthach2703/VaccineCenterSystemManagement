@@ -62,7 +62,7 @@
                     <div class="container-fluid">
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title fw-semibold mb-4" style="font-size: 24px; ">Danh sách Vắc xin</h5>
+                                <h5 class="card-title fw-semibold mb-4" style="font-size: 24px; ">Danh sách Vaccine</h5>
                                 <div class="col-sm-4 mb-3">
                                     <div style="text-justify: auto;text-align: left"class="mr-4">
 

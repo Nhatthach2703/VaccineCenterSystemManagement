@@ -1,6 +1,7 @@
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Calendar"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!doctype html>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <html lang="en">
@@ -12,6 +13,12 @@
         <link rel="shortcut icon" type="image/png" href="./assets/images/logos/favicon.png" />
         <link rel="stylesheet" href="./assets/css/style.css"/>
         <link rel="stylesheet" href="./assets/css/AdminIndex.min.css" />
+        <style>
+            h1, h2{
+                font-weight: 700;
+            } 
+            
+        </style>
     </head>
 
     <body>
@@ -48,43 +55,104 @@
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
-                            <div class="card">
-                                <div class="col-lg-8 mt-3" style="margin-left: 30px">
                                     <h2>Số tiền kiếm được của từng cơ sở</h2>
                                     <div class="row g-3 " >
-                                        <div class="col-lg-6 ">
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <h5 class="card-title fw-semibold">Cơ sở 1</h5>
-                                                    <p class="card-text"><%= request.getAttribute("totalPrice1")%> VND</p>
-                                                    <!-- Additional content -->
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6 ">
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <h5 class="card-title fw-semibold">Cơ sở 2</h5>
-                                                    <p class="card-text"><%= request.getAttribute("totalPrice2")%> VND</p>
-                                                    <!-- Additional content -->
-                                                </div>
+                                        <div class="col-lg-6">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <!-- Cơ sở 1 -->
+                                                <h5 class="card-title fw-semibold">Cơ sở 1</h5>
+                                                <c:choose>
+                                                    <c:when test="${totalPrice1 != null && totalPrice1 > 1000000}">
+                                                        <span class="badge bg-success rounded-3 fw-semibold">
+                                                            <fmt:formatNumber value="${totalPrice1}" type="number"
+                                                                groupingUsed="true" /> VND
+                                                        </span>
+                                                    </c:when>
+                                                    <c:when test="${totalPrice1 != null && totalPrice1 > 500000}">
+                                                        <span class="badge bg-secondary rounded-3 fw-semibold">
+                                                            <fmt:formatNumber value="${totalPrice1}" type="number"
+                                                                groupingUsed="true" /> VND
+                                                        </span>
+                                                    </c:when>
+                                                    <c:when test="${totalPrice1 != null && totalPrice1 > 100000}">
+                                                        <span class="badge bg-primary rounded-3 fw-semibold">
+                                                            <fmt:formatNumber value="${totalPrice1}" type="number"
+                                                                groupingUsed="true" /> VND
+                                                        </span>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <span class="badge bg-danger rounded-3 fw-semibold">
+                                                            <fmt:formatNumber value="${totalPrice1}" type="number"
+                                                                groupingUsed="true" /> VND
+                                                        </span>
+                                                    </c:otherwise>
+                                                </c:choose>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>    
+                                        <!-- Cơ sở 2 -->
+                                    <div class="col-lg-6">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h5 class="card-title fw-semibold">Cơ sở 2</h5>
+                                                <c:choose>
+                                                    <c:when test="${totalPrice2 != null && totalPrice2 > 500000}">
+                                                        <span class="badge bg-success rounded-3 fw-semibold">
+                                                            <fmt:formatNumber value="${totalPrice2}" type="number"
+                                                                groupingUsed="true" /> VND
+                                                        </span>
+                                                    </c:when>
+                                                    <c:when test="${totalPrice2 != null && totalPrice2 > 200000}">
+                                                        <span class="badge bg-secondary rounded-3 fw-semibold">
+                                                            <fmt:formatNumber value="${totalPrice2}" type="number"
+                                                                groupingUsed="true" /> VND
+                                                        </span>
+                                                    </c:when>
+                                                    <c:when test="${totalPrice2 != null && totalPrice2 > 100000}">
+                                                        <span class="badge bg-primary rounded-3 fw-semibold">
+                                                            <fmt:formatNumber value="${totalPrice2}" type="number"
+                                                                groupingUsed="true" /> VND
+                                                        </span>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <span class="badge bg-danger rounded-3 fw-semibold">
+                                                            <fmt:formatNumber value="${totalPrice2}" type="number"
+                                                                groupingUsed="true" /> VND
+                                                        </span>
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                
                         </div> 
                     </div>
 
                     <!-- Additional rows -->
                     <div class="row">
-                        <h2>Số khách tiêm</h2>
+                        <div >
+                            <h2>Số khách tiêm</h2>
+                        </div>
                         <div class="col-lg-6">
                             <div class="card">
                                 <div class="card-body">
                                     <h5 class="card-title fw-semibold">Cơ sở 1 - Tiêm</h5>
-                                    <p class="card-text"><%= request.getAttribute("totalVaccinations1")%> khách</p>
-                                    <!-- Additional content -->
+                                    <c:choose>
+                                        <c:when test="${totalVaccinations1 != null && totalVaccinations1 > 50}">
+                                            <span class="badge bg-success rounded-3 fw-semibold">${totalVaccinations1} khách</span>
+                                        </c:when>
+                                        <c:when test="${totalVaccinations1 != null && totalVaccinations1 > 20}">
+                                            <span class="badge bg-secondary rounded-3 fw-semibold">${totalVaccinations1} khách</span>
+                                        </c:when>
+                                        <c:when test="${totalVaccinations1 != null && totalVaccinations1 > 10}">
+                                            <span class="badge bg-primary rounded-3 fw-semibold">${totalVaccinations1} khách</span>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <span class="badge bg-danger rounded-3 fw-semibold">${totalVaccinations1} khách</span>
+                                        </c:otherwise>
+                                    </c:choose>
                                 </div>
                             </div>
                         </div>
@@ -92,8 +160,20 @@
                             <div class="card">
                                 <div class="card-body">
                                     <h5 class="card-title fw-semibold">Cơ sở 2 - Tiêm</h5>
-                                    <p class="card-text"><%= request.getAttribute("totalVaccinations2")%> khách</p>
-                                    <!-- Additional content -->
+                                    <c:choose>
+                                        <c:when test="${totalVaccinations2 != null && totalVaccinations2 > 50}">
+                                            <span class="badge bg-success rounded-3 fw-semibold">${totalVaccinations2} khách</span>
+                                        </c:when>
+                                        <c:when test="${totalVaccinations2 != null && totalVaccinations2 > 20}">
+                                            <span class="badge bg-secondary rounded-3 fw-semibold">${totalVaccinations2} khách</span>
+                                        </c:when>
+                                        <c:when test="${totalVaccinations2 != null && totalVaccinations2 > 10}">
+                                            <span class="badge bg-primary rounded-3 fw-semibold">${totalVaccinations2} khách</span>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <span class="badge bg-danger rounded-3 fw-semibold">${totalVaccinations2} khách</span>
+                                        </c:otherwise>
+                                    </c:choose>
                                 </div>
                             </div>
                         </div>
@@ -105,8 +185,20 @@
                             <div class="card">
                                 <div class="card-body">
                                     <h5 class="card-title fw-semibold">Cơ sở 1 - Tư Vấn</h5>
-                                    <p class="card-text"><%= request.getAttribute("totalConsultations1")%> khách</p>
-                                    <!-- Additional content -->
+                                    <c:choose>
+                                        <c:when test="${totalConsultations1 != null && totalConsultations1 > 50}">
+                                            <span class="badge bg-success rounded-3 fw-semibold">${totalConsultations1} khách</span>
+                                        </c:when>
+                                        <c:when test="${totalConsultations1 != null && totalConsultations1 > 20}">
+                                            <span class="badge bg-secondary rounded-3 fw-semibold">${totalConsultations1} khách</span>
+                                        </c:when>
+                                        <c:when test="${totalConsultations1 != null && totalConsultations1 > 10}">
+                                            <span class="badge bg-primary rounded-3 fw-semibold">${totalConsultations1} khách</span>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <span class="badge bg-danger rounded-3 fw-semibold">${totalConsultations1} khách</span>
+                                        </c:otherwise>
+                                    </c:choose>
                                 </div>
                             </div>
                         </div>
@@ -114,8 +206,20 @@
                             <div class="card">
                                 <div class="card-body">
                                     <h5 class="card-title fw-semibold">Cơ sở 2 - Tư vấn</h5>
-                                    <p class="card-text"><%= request.getAttribute("totalConsultations2")%> khách</p>
-                                    <!-- Additional content -->
+                                    <c:choose>
+                                        <c:when test="${totalConsultations2 != null && totalConsultations2 > 50}">
+                                            <span class="badge bg-success rounded-3 fw-semibold">${totalConsultations2} khách</span>
+                                        </c:when>
+                                        <c:when test="${totalConsultations2 != null && totalConsultations2 > 20}">
+                                            <span class="badge bg-secondary rounded-3 fw-semibold">${totalConsultations2} khách</span>
+                                        </c:when>
+                                        <c:when test="${totalConsultations2 != null && totalConsultations2 > 10}">
+                                            <span class="badge bg-primary rounded-3 fw-semibold">${totalConsultations2} khách</span>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <span class="badge bg-danger rounded-3 fw-semibold">${totalConsultations2} khách</span>
+                                        </c:otherwise>
+                                    </c:choose>
                                 </div>
                             </div>
                         </div>
@@ -126,8 +230,20 @@
                             <div class="card">
                                 <div class="card-body">
                                     <h5 class="card-title fw-semibold">Cơ sở 1 - đơn hàng</h5>
-                                    <p class="card-text"><%= request.getAttribute("confirmedOrders1")%> đơn</p>
-                                    <!-- Additional content -->
+                                    <c:choose>
+                                        <c:when test="${confirmedOrders1 != null && confirmedOrders1 > 50}">
+                                            <span class="badge bg-success rounded-3 fw-semibold">${confirmedOrders1} đơn</span>
+                                        </c:when>
+                                        <c:when test="${confirmedOrders1 != null && confirmedOrders1 > 20}">
+                                            <span class="badge bg-secondary rounded-3 fw-semibold">${confirmedOrders1} đơn</span>
+                                        </c:when>
+                                        <c:when test="${confirmedOrders1 != null && confirmedOrders1 > 10}">
+                                            <span class="badge bg-primary rounded-3 fw-semibold">${confirmedOrders1} đơn</span>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <span class="badge bg-danger rounded-3 fw-semibold">${confirmedOrders1} đơn</span>
+                                        </c:otherwise>
+                                    </c:choose>
                                 </div>
                             </div>
                         </div>
@@ -135,8 +251,20 @@
                             <div class="card">
                                 <div class="card-body">
                                     <h5 class="card-title fw-semibold">Cơ sở 2 - đơn hàng</h5>
-                                    <p class="card-text"><%= request.getAttribute("confirmedOrders2")%> đơn</p>
-                                    <!-- Additional content -->
+                                    <c:choose>
+                                        <c:when test="${confirmedOrders2 != null && confirmedOrders2 > 50}">
+                                            <span class="badge bg-success rounded-3 fw-semibold">${confirmedOrders2} đơn</span>
+                                        </c:when>
+                                        <c:when test="${confirmedOrders2 != null && confirmedOrders2 > 20}">
+                                            <span class="badge bg-secondary rounded-3 fw-semibold">${confirmedOrders2} đơn</span>
+                                        </c:when>
+                                        <c:when test="${confirmedOrders2 != null && confirmedOrders2 > 10}">
+                                            <span class="badge bg-primary rounded-3 fw-semibold">${confirmedOrders2} đơn</span>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <span class="badge bg-danger rounded-3 fw-semibold">${confirmedOrders2} đơn</span>
+                                        </c:otherwise>
+                                    </c:choose>
                                 </div>
                             </div>
                         </div>

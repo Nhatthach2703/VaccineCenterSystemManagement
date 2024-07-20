@@ -68,9 +68,9 @@
                     <div class="container-fluid">
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title fw-semibold mb-4" style="font-size: 24px; ">Danh mục Vắc xin</h5>
+                                <h5 class="card-title fw-semibold mb-4" style="font-size: 24px; ">Danh mục Vaccine</h5>
                                 <div class="card-body">
-                                    <h6 class="card-title fw-semibold mb-4">Tên các loại Vắc xin</h6>
+                                    <h6 class="card-title fw-semibold mb-4">Tên các loại Vaccine</h6>
                                     <form action="CRUDTypeOfVaccineServlet" method="get"  >
                                         <div class="mb-3">
                                             <label for="exampleInputEmail1" class="form-label">Loại Vaccine</label>
@@ -82,7 +82,7 @@
                                     </form>
                                 </div>
                                 <div class="card-body">
-                                    <h6 class="card-title fw-semibold mb-4">Các loại Vắc xin hiện có</h6>
+                                    <h6 class="card-title fw-semibold mb-4">Các loại Vaccine hiện có</h6>
 
                                     <table class="table table-striped table-hover">
                                         <thead>
