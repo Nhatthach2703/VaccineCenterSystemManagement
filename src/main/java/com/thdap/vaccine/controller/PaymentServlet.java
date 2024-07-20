@@ -223,7 +223,7 @@ public class PaymentServlet extends HttpServlet {
             signature = calculateHMAC(data, checksumKey);
         } catch (NoSuchAlgorithmException | InvalidKeyException e) {
             e.printStackTrace();
-            response.sendRedirect("Error.jsp");
+            response.sendRedirect("error.jsp");
             return;
         }
 
@@ -233,13 +233,13 @@ public class PaymentServlet extends HttpServlet {
             result = sendJsonToCreatePayment(orderCode, totalPriceStr, description, user, cancelUrl, returnUrl, signature);
         } catch (Exception ex) {
             ex.printStackTrace();
-            response.sendRedirect("Error.jsp");
+            response.sendRedirect("error.jsp");
             return;
         }
 
         // Response fail
         if (result == null) {
-            response.sendRedirect("Error.jsp");
+            response.sendRedirect("error.jsp");
             return;
         }
         // Save checkoutURL and paymentLinkId to session and redirect to checkoutUrl
