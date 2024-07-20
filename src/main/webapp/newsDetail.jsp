@@ -36,23 +36,34 @@
         <!-- Template Main CSS File -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
         <link href="assets/css/style.css" rel="stylesheet" />
-        <<link rel="stylesheet" href="assets/css/New.css"/>
+        <!--        <<link rel="stylesheet" href="assets/css/New.css"/>-->
+        <style>
+            body{background-color: white;}
+        </style>
     </head>
     <body>
         <jsp:include page="header.jsp"/>
         <div class="container" style="margin-top: 100px" data-aos="zoom-in">
-            <h1>${news.title}</h1>
-            <p style="font-size: 20px">
-                <c:forEach var="doctor" items="${doctors}">
-                    <c:if test="${doctor.doctorID == news.doctorID}">
-                        Người Đăng: ${doctor.fullName}
-                    </c:if>
-                </c:forEach>
-            </p>
-            <p>Date: ${news.date}</p>
-            <img src="uploads/${news.image}" alt="${news.title}" style="width: 100%; height: auto; object-fit: contain; margin-bottom: 1rem;">
-            <p style="font-size: 16px;">${news.content}</p>
-            
+            <div class="row mb-4">
+                 <div class="col-md-6">
+                    <img src="uploads/${news.image}" alt="${news.title}" style="width: 100%; height: auto; object-fit: contain; margin-bottom: 1rem;">
+                </div>
+                <div class="col-md-6">
+                    <h1 class="mb-3">${news.title}</h1>
+                    <p style="font-size: 20px">
+                        <c:forEach var="doctor" items="${doctors}">
+                            <c:if test="${doctor.doctorID == news.doctorID}">
+                                Người Đăng: ${doctor.fullName}
+                            </c:if>
+                        </c:forEach>
+                    </p>
+                    <p>Date: ${news.date}</p>
+                    <p style="font-size: 16px;">${news.content}</p>
+                </div>
+               
+            </div>
+
+
         </div>
         <jsp:include page="footer.jsp"/>
         <script src="assets/js/main.js"></script>
