@@ -71,7 +71,7 @@
                     <div class="container-fluid">
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title fw-semibold mb-4" style="font-size: 24px; ">Danh sách Vắc xin trong kho</h5>
+                                <h5 class="card-title fw-semibold mb-4" style="font-size: 24px; ">Danh sách Vaccine trong kho</h5>
                                 <div class="col-sm-4 mb-3 d-flex">
                                    
                                     <form action="ManagementVaccineInWarehouseServlet" method="get" class=" mx-3">
