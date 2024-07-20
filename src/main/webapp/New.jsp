@@ -20,7 +20,7 @@
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
             />
         <!-- Favicons -->
-          <link rel="shortcut icon" type="image/png" href="./assets/images/logos/favicon.png" />
+        <link rel="shortcut icon" type="image/png" href="./assets/images/logos/favicon.png" />
 
         <!-- Google Fonts -->
         <link
@@ -43,72 +43,73 @@
         <!-- Template Main CSS File -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
         <link href="assets/css/style.css" rel="stylesheet" />
-        <<link rel="stylesheet" href="assets/css/New.css"/>
+        <style>
+            body{
+                background-color: white;
+            }
+        </style>
     </head>
     <body>
         <jsp:include page="header.jsp"/>
         <div class="main"style="margin-top: 100px" data-aos="zoom-in">
             <!-- Sing in  Form -->
-            <section class="sign-in">
-                <div class="container1">
-                    <div class="signin-content input_content">
 
-                        <div class="signin-form">
-                            <h1 style="font-weight: 700; font-family:Tilt Neon; padding-top: 3rem ; " class="form-title text-center">Tin Tức</h1>
+            <div class="container">
 
-                            <div class="row row-cols-1 row-cols-md-3 g-4 p-3">
-                                <c:forEach items="${listNews}" var="o">
-                                    <div class="col">
-                                        <div class="card h-100" style="boder-radius: 1rem">
-                                            <img src="uploads/${o.image}"  style="width: 470px; height: 250px; object-fit: cover;
-                                                 width: 100%" class="card-img-top" alt="${o.title}">  
-                                            <div class="card-body">
-                                                <h5 class="card-title">${o.title}</h5>  
-                                                <button  class="button"  style="position: relative;
-                                                         overflow: hidden;
-                                                         height: 2rem;
-                                                         padding: 0 1.5rem;
-                                                         border-radius: 1rem;
-                                                         background: #3d3a4e;
-                                                         background-size: 400%;
-                                                         color: #fff;
-                                                         border: none;
-                                                         cursor: pointer;" >
-                                                    <a href="viewnewsevlet?idnew=${o.newID}"><span class="button-content"  style="position: relative; color: #fff;
-                                                             z-index: 1;" >Xem tin </span></a>
-                                                    <style>
-                                                        .button:hover::before {
-                                                            transform: scaleX(1);
-                                                        }
+                <h1 style="font-weight: 700; font-family:Tilt Neon; padding-top: 3rem ; " class="form-title text-center">Tin Tức</h1>
 
-                                                        .button::before {
-                                                            content: "";
-                                                            position: absolute;
-                                                            top: 0;
-                                                            left: 0;
-                                                            transform: scaleX(0);
-                                                            transform-origin: 0 50%;
-                                                            width: 100%;
-                                                            height: inherit;
-                                                            border-radius: inherit;
-                                                            background: linear-gradient(90deg, rgba(99,249,255,1) 0%, rgba(52,152,219,1) 33%);
-                                                            transition: all 0.475s;
-                                                        }
-                                                    </style>   
-                                                </button>
-                                            </div>
-                                            <div class="card-footer">
-                                                <small class="card-text">Ngày đăng: ${o.date}</small>
-                                            </div>
+                <div class="row row-cols-1 row-cols-md-3 g-4 p-3">
+                    <c:forEach items="${listNews}" var="o">
+                        <div class="col">
+                            <div class="card h-100" style="boder-radius: 1rem">
+                                <img src="uploads/${o.image}"  style="width: 470px; height: 250px; object-fit: cover;
+                                     width: 100%" class="card-img-top" alt="${o.title}">  
+                                <div class="card-body">
+                                    <h5 class="card-title">${o.title}</h5>  
+                                    <button  class="button"  style="position: relative;
+                                             overflow: hidden;
+                                             height: 2rem;
+                                             padding: 0 1.5rem;
+                                             border-radius: 1rem;
+                                             background: #3d3a4e;
+                                             background-size: 400%;
+                                             color: #fff;
+                                             border: none;
+                                             cursor: pointer;" >
+                                        <a href="viewnewsevlet?idnew=${o.newID}"><span class="button-content"  style="position: relative; color: #fff;
+                                                                                       z-index: 1;" >Xem tin </span></a>
+                                        <style>
+                                            .button:hover::before {
+                                                transform: scaleX(1);
+                                            }
 
-                                        </div>
-                                    </div>
-                                </c:forEach>
+                                            .button::before {
+                                                content: "";
+                                                position: absolute;
+                                                top: 0;
+                                                left: 0;
+                                                transform: scaleX(0);
+                                                transform-origin: 0 50%;
+                                                width: 100%;
+                                                height: inherit;
+                                                border-radius: inherit;
+                                                background: linear-gradient(90deg, rgba(99,249,255,1) 0%, rgba(52,152,219,1) 33%);
+                                                transition: all 0.475s;
+                                            }
+                                        </style>   
+                                    </button>
+                                </div>
+                                <div class="card-footer">
+                                    <small class="card-text">Ngày đăng: ${o.date}</small>
+                                </div>
+
                             </div>
                         </div>
-                    </div>
+                    </c:forEach>
                 </div>
-            </section>
+
+            </div>
+
 
         </div>
 

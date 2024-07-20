@@ -13,7 +13,7 @@
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
             />
         <!-- Favicons -->
-           <link rel="shortcut icon" type="image/png" href="./assets/images/logos/favicon.png" />
+        <link rel="shortcut icon" type="image/png" href="./assets/images/logos/favicon.png" />
 
         <!-- Google Fonts -->
         <link
@@ -36,17 +36,23 @@
         <!-- Template Main CSS File -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
         <link href="assets/css/style.css" rel="stylesheet" />
-        <<link rel="stylesheet" href="assets/css/New.css"/>
+<!--        <<link rel="stylesheet" href="assets/css/New.css"/>-->
     </head>
     <body>
         <jsp:include page="header.jsp"/>
-        <div class="container" style="margin-top: 100px" data-aos="zoom-in">
-            <h1>${faqs.shortenedQuestion}</h1>
-            
-          
-            <img src="uploads/${faqs.image}" alt="${faqs.shortenedQuestion}" 
-                 style="width: 100%; height: auto; object-fit: contain; margin-bottom: 1rem;">
-            <p style="font-size: 16px;">${faqs.answer}</p>
+        <div class="container row" style="margin-top: 8%;margin-left: 11%" data-aos="zoom-in">
+            <h1 class="text-center mb-5">Chi tiết câu hỏi</h1>
+            <div class="col-md-6">
+                <h2 class="mb-5">${faqs.shortenedQuestion}</h2>
+                <p style="font-size: 16px;"><strong>Câu Trả lời của chuyên gia: </strong>${faqs.answer}</p>
+
+            </div >
+            <div class="col-md-6">
+                <img src="uploads/${faqs.image}" alt="${faqs.shortenedQuestion}" 
+                     style="width: 100%; height: auto; object-fit: contain; margin-bottom: 26%">
+            </div>
+
+
         </div>
         <jsp:include page="footer.jsp"/>
         <script src="assets/js/main.js"></script>

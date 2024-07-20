@@ -46,7 +46,11 @@
         <link href="assets/css/style.css" rel="stylesheet" />
         <link rel="stylesheet" href="./assets/css/worklocation.css"/>
         <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-
+        <style>
+            a{
+                text-decoration: none;
+            }
+        </style>
     </head>
     <body>
         <jsp:include page="header.jsp"/>
