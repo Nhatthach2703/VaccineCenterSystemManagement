@@ -34,7 +34,7 @@
                 <div class="container-fluid">
                     <!-- Row 1 -->
                     <div class="row">
-                        <div class="col-lg-8">
+                        <div class="col-lg-8 ">
                             <div class="card">
                                <form action="AdminIndexServlet" method="post" class="p-4">
                                 <h1>Lựa chọn khoản thời gian</h1>
