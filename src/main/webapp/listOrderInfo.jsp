@@ -12,6 +12,7 @@
         <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">-->
         <link rel="stylesheet" href="./assets/css/AdminIndex.min.css" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
         <style>
             .table-title {
                 background-color: rgb(52,152,219);
@@ -112,8 +113,8 @@
                                                     </c:if>
                                                 </c:forEach>
                                             </td>
-                                            <td>${order.createDate}</td>
-                                            <td>${order.dateWantToGetVaccinated}</td>
+                                            <td><script>document.write(moment('${order.createDate}').format('DD/MM/YYYY'))</script></td>
+                                            <td><script>document.write(moment('${order.dateWantToGetVaccinated}').format('DD/MM/YYYY'))</script></td>
                                             <td>
                                                 <c:forEach items="${workLocations}" var="location">
                                                     <c:if test="${order.workLocationID == location.workLocationID}">

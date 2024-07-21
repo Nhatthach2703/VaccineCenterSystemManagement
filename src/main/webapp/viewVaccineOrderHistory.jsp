@@ -6,6 +6,11 @@
 
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.Date"%>
+<%
+    SimpleDateFormat sdf = new SimpleDateFormat("HH:mm dd/MM/yyyy");
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -50,6 +55,9 @@
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+    </head>
+    <body>
         <style>
             .table-title{
                 background-color: rgb(52,152,219);
@@ -86,16 +94,16 @@
                             <th>Ngày muốn tiêm</th>
                             <th>Cơ sở</th>
                             <th>Vaccine</th>
-                            <th>Payment status</th>
-                            <th>Confirm status</th>
-                            <th>Price</th>
+                            <th>Tình trạng thanh toán</th>
+                            <th>Tình trạng xác nhận</th>
+                            <th>Giá</th>
                         </tr>
                     </thead>
                     <tbody>
                         <c:forEach var="order" items="${orderHistory}">
                             <tr>
-                                <td>${order.createDate}</td>
-                                <td>${order.dateWantToGetVaccinated}</td>
+                                <td><script>document.write(moment('${order.createDate}').format('DD/MM/YYYY'))</script></td>
+                                <td><script>document.write(moment('${order.dateWantToGetVaccinated}').format('DD/MM/YYYY'))</script></td>
                                 <td>
                                     <c:forEach var="location" items="${workLocations}">
                                         <c:if test="${location.workLocationID == order.workLocationID}">
@@ -146,6 +154,7 @@
         </div>
         <jsp:include page="footer.jsp"/>
 
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
         <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
         <script src="assets/vendor/aos/aos.js"></script>
         <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

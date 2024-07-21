@@ -75,7 +75,7 @@
                             <h5 class="card-title">${vaccine.name}</h5>
                             <p class="card-text">${vaccine.summary}</p>
                             <p class="card-text"><small class="text-muted">Nguồn gốc: ${vaccine.source}</small></p>
-                            <p class="card-text"><strong>${vaccine.price} VND</strong></p>
+                            <p class="card-text"><strong id="price-${vaccine.vaccineID}">${vaccine.price} VND</strong></p>
                             <img src="uploads/${vaccine.image}" class="card-img-top" alt="${vaccine.name}">
                         </div>
                     </div>
@@ -162,6 +162,18 @@
                     }
                 });
             }
+            
+            // Hàm định dạng số tiền với dấu phẩy
+            function formatCurrency() {
+                document.querySelectorAll('[id^="price-"]').forEach(function(el) {
+                    var priceText = el.textContent.replace(' VND', '');
+                    var formattedPrice = Number(priceText).toLocaleString('vi-VN');
+                    el.textContent = formattedPrice + ' VND';
+                });
+            }
+
+            // Gọi hàm định dạng khi trang tải xong
+            window.onload = formatCurrency;
         </script>
         <!-- Template Main JS File -->
         <script src="assets/js/main.js"></script>
