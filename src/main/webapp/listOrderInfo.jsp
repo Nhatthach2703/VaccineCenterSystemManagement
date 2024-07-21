@@ -129,8 +129,23 @@
                                                     </c:if>
                                                 </c:forEach>
                                             </td>
-                                            <td>${order.totalPrice}</td>
-                                            <td>${order.paymentStatus}</td>
+                                            <td><p id="price-${order.totalPrice}">${order.totalPrice} VND</p></td>
+                                            
+                                            <td>
+                                                <c:choose>
+                                                    <c:when test="${order.paymentStatus == 'PAID'}">
+                                                        <div class="alert alert-success d-inline-block p-0" role="alert">
+                                                            Đã thanh toán
+                                                        </div>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <div class="alert alert-danger d-inline-block p-0" role="alert">
+                                                            Chưa thanh toán
+                                                        </div>
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </td>
+                                            
                                             <td>
                                                 <c:if test="${order.confirmStatus}">
                                                     Đã xác nhận
@@ -211,6 +226,18 @@
                     }
                 });
             }
+            
+            // Hàm định dạng số tiền với dấu phẩy
+            function formatCurrency() {
+                document.querySelectorAll('[id^="price-"]').forEach(function(el) {
+                    var priceText = el.textContent.replace(' VND', '');
+                    var formattedPrice = Number(priceText).toLocaleString('vi-VN');
+                    el.textContent = formattedPrice + ' VND';
+                });
+            }
+
+            // Gọi hàm định dạng khi trang tải xong
+            window.onload = formatCurrency;
         </script>
     </body>
 </html>
