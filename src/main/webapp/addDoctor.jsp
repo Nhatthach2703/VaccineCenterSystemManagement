@@ -97,7 +97,7 @@
 
                                         <div class="form-group " style="display: flex">
                                             <img src="assets/img/Tac dung phu.svg" style="width: 1rem; margin-right: 1rem;"/>
-                                            <input placeholder="Ngày sinh" type="date" id="doB" name="doB" required>
+                                            <input placeholder="Ngày sinh" type="date" id="doB" name="doB" max="2003-12-31" required>
                                         </div>
 
                                         <div class="form-group " style="display: flex">
@@ -147,7 +147,7 @@
 
                                         <div class="form-group " style="display: flex">
                                             <img src="assets/img/gia.svg" style="width: 1rem; margin-right: 1rem;"/>
-                                            <input placeholder="Năm Kinh Nghiệm" type="number" id="#" name="yearsOfExperience" required>
+                                            <input placeholder="Năm Kinh Nghiệm" type="number" id="#" name="yearsOfExperience" min="0" required>
                                         </div>
                                         <div style="color: red;font-family: 'Tilt Neon', sans-serif;font-size:20px; height: 30px">${error}</div><br>
                                         <div class="form-group">
