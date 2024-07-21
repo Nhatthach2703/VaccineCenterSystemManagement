@@ -54,6 +54,39 @@
                 background-color: white;
                 color: black;
             }
+            .pagination {
+                display: flex;
+                justify-content: center;
+                margin: 20px 0;
+            }
+
+            .pagination a {
+                color: #007bff;
+                padding: 8px 16px;
+                text-decoration: none;
+                border: 1px solid #ddd;
+                margin: 0 4px;
+                border-radius: 4px;
+                font-size: 16px;
+            }
+
+            .pagination a.active {
+                background-color: #007bff;
+                color: white;
+                border: 1px solid #007bff;
+            }
+
+            .pagination a:hover {
+                background-color: #0056b3;
+                color: white;
+                border: 1px solid #0056b3;
+            }
+
+            .pagination a.disabled {
+                color: #6c757d;
+                cursor: not-allowed;
+                pointer-events: none;
+            }
         </style>
     </head>
     <body>
@@ -68,7 +101,7 @@
                         </div>
                         <div class="col-sm-7">
                             <div style="text-justify: auto;text-align: right"class="mr-4">
-                                <a href="ConsultationScheduleServlet" class="btn btn-secondary" <span>Đặt lịch tư vấn</span></a>
+                                <a href="ConsultationScheduleServlet" class="btn btn-secondary"><span>Đặt lịch tư vấn</span></a>
                             </div>
                         </div>
                     </div>
@@ -84,7 +117,7 @@
                             <th>Tình trạng</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="consultationScheduleTableBody">
                         <c:forEach var="consultationSchedule" items="${consultationSchedules}">
                             <tr>
                                 <td class="schedule-date">
@@ -153,6 +186,7 @@
                         </c:forEach>
                     </tbody>
                 </table>
+                <div id="pagination" class="pagination"></div>
             </div>
         </div>
         <jsp:include page="footer.jsp"/>
@@ -167,5 +201,60 @@
 
         <!-- Template Main JS File -->
         <script src="assets/js/main.js"></script>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                var rowsPerPage = 10; // Số lượng hàng trên mỗi trang
+                var rows = document.querySelectorAll('#consultationScheduleTableBody tr');
+                var rowsCount = rows.length;
+                var pageCount = Math.ceil(rowsCount / rowsPerPage);
+                var pagination = document.getElementById('pagination');
+
+                // Tạo các nút phân trang
+                for (var i = 1; i <= pageCount; i++) {
+                    var link = document.createElement('a');
+                    link.href = "#";
+                    link.innerHTML = i;
+                    link.classList.add('page-number');
+                    if (i === 1) link.classList.add('active'); // Đánh dấu trang đầu tiên
+                    pagination.appendChild(link);
+                }
+
+                pagination.addEventListener('click', function (e) {
+                    if (e.target.tagName === 'A') {
+                        e.preventDefault();
+
+                        var pageNum = parseInt(e.target.innerHTML);
+                        var start = (pageNum - 1) * rowsPerPage;
+                        var end = start + rowsPerPage;
+
+                        // Ẩn tất cả các hàng
+                        rows.forEach(function (row) {
+                            row.style.display = 'none';
+                        });
+
+                        // Hiển thị hàng cho trang hiện tại
+                        for (var i = start; i < end; i++) {
+                            if (rows[i]) {
+                                rows[i].style.display = '';
+                            }
+                        }
+
+                        // Cập nhật liên kết phân trang
+                        document.querySelectorAll('a.page-number').forEach(function (link) {
+                            link.classList.remove('active');
+                        });
+                        e.target.classList.add('active');
+                    }
+                });
+
+                // Hiển thị hàng của trang đầu tiên
+                for (var i = 0; i < rowsPerPage; i++) {
+                    if (rows[i]) {
+                        rows[i].style.display = '';
+                    }
+                }
+            });
+        </script>
     </body>
 </html>

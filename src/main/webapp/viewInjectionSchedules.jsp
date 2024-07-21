@@ -60,8 +60,40 @@
                 background-color: white;
                 color: black;
             }
+            .pagination {
+                display: flex;
+                justify-content: center;
+                margin: 20px 0;
+            }
+
+            .pagination a {
+                color: #007bff;
+                padding: 8px 16px;
+                text-decoration: none;
+                border: 1px solid #ddd;
+                margin: 0 4px;
+                border-radius: 4px;
+                font-size: 16px;
+            }
+
+            .pagination a.active {
+                background-color: #007bff;
+                color: white;
+                border: 1px solid #007bff;
+            }
+
+            .pagination a:hover {
+                background-color: #0056b3;
+                color: white;
+                border: 1px solid #0056b3;
+            }
+
+            .pagination a.disabled {
+                color: #6c757d;
+                cursor: not-allowed;
+                pointer-events: none;
+            }
         </style>
-        <link href="assets/css/style.css" rel="stylesheet" />
     </head>
     <body>
         <jsp:include page="header.jsp"/>
@@ -92,82 +124,83 @@
                             <th>Tình trạng</th>
                         </tr>
                     </thead>
-                    <tbody>
-                    <c:forEach var="injectionSchedule" items="${injectionSchedules}">
-                        <tr>
-                            <td class="schedule-date">
-                        <c:forEach var="workSchedule" items="${workSchedules}">
-                            <c:if test="${workSchedule.workScheduleID == injectionSchedule.workScheduleID}">
-                                ${workSchedule.date}
-                            </c:if>
-                        </c:forEach>
-                        </td>
-                        <td class="start-end-time">
-                        <c:forEach var="userShift" items="${userShifts}">
-                            <c:if test="${userShift.userShiftID == injectionSchedule.userShiftID}">
-                                ${userShift.startTime} - ${userShift.endTime}
-                            </c:if>
-                        </c:forEach>
-                        </td>
+                    <tbody id="injectionScheduleTableBody">
+                        <c:forEach var="injectionSchedule" items="${injectionSchedules}">
+                            <tr>
+                                <td class="schedule-date">
+                                    <c:forEach var="workSchedule" items="${workSchedules}">
+                                        <c:if test="${workSchedule.workScheduleID == injectionSchedule.workScheduleID}">
+                                            ${workSchedule.date}
+                                        </c:if>
+                                    </c:forEach>
+                                </td>
+                                <td class="start-end-time">
+                                    <c:forEach var="userShift" items="${userShifts}">
+                                        <c:if test="${userShift.userShiftID == injectionSchedule.userShiftID}">
+                                            ${userShift.startTime} - ${userShift.endTime}
+                                        </c:if>
+                                    </c:forEach>
+                                </td>
 
-                        <td class="room-name">
-                        <c:forEach var="workSchedule" items="${workSchedules}">
-                            <c:if test="${workSchedule.workScheduleID == injectionSchedule.workScheduleID}">
-                                <c:forEach var="room" items="${rooms}">
-                                    <c:if test="${room.roomID == workSchedule.roomID}">
-                                        ${room.roomName}
-                                    </c:if>
-                                </c:forEach>
-                            </c:if>
+                                <td class="room-name">
+                                    <c:forEach var="workSchedule" items="${workSchedules}">
+                                        <c:if test="${workSchedule.workScheduleID == injectionSchedule.workScheduleID}">
+                                            <c:forEach var="room" items="${rooms}">
+                                                <c:if test="${room.roomID == workSchedule.roomID}">
+                                                    ${room.roomName}
+                                                </c:if>
+                                            </c:forEach>
+                                        </c:if>
+                                    </c:forEach>
+                                </td>                           
+                                <td class="work-location">
+                                    <c:forEach var="workSchedule" items="${workSchedules}">
+                                        <c:if test="${workSchedule.workScheduleID == injectionSchedule.workScheduleID}">
+                                            <c:forEach var="location" items="${workLocations}">
+                                                <c:if test="${location.workLocationID == workSchedule.workLocationID}">
+                                                    ${location.name}
+                                                </c:if>
+                                            </c:forEach>
+                                        </c:if>
+                                    </c:forEach>
+                                </td>
+                                <td class="doctor-name">
+                                    <c:forEach var="workSchedule" items="${workSchedules}">
+                                        <c:if test="${workSchedule.workScheduleID == injectionSchedule.workScheduleID}">
+                                            <c:forEach var="doctor" items="${doctors}">
+                                                <c:if test="${doctor.doctorID == workSchedule.doctorID}">
+                                                    ${doctor.fullName}
+                                                </c:if>
+                                            </c:forEach>
+                                        </c:if>
+                                    </c:forEach>
+                                </td>
+                                <td>
+                                    <c:forEach items="${vaccines}" var="vaccine">
+                                        <c:if test="${injectionSchedule.vaccineID == vaccine.vaccineID}">
+                                            ${vaccine.name}
+                                        </c:if>
+                                    </c:forEach>
+                                </td>
+                                <td>
+                                    <c:choose>
+                                        <c:when test="${injectionSchedule.status == true}">
+                                            <div class="alert alert-success d-inline-block p-1" role="alert">
+                                                Đã Hoàn Thành
+                                            </div>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <div class="alert alert-danger d-inline-block p-1" role="alert">
+                                                Chưa Hoàn Thành
+                                            </div>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </td>
+                            </tr>
                         </c:forEach>
-                        </td>                           
-                        <td class="work-location">
-                        <c:forEach var="workSchedule" items="${workSchedules}">
-                            <c:if test="${workSchedule.workScheduleID == injectionSchedule.workScheduleID}">
-                                <c:forEach var="location" items="${workLocations}">
-                                    <c:if test="${location.workLocationID == workSchedule.workLocationID}">
-                                        ${location.name}
-                                    </c:if>
-                                </c:forEach>
-                            </c:if>
-                        </c:forEach>
-                        </td>
-                        <td class="doctor-name">
-                        <c:forEach var="workSchedule" items="${workSchedules}">
-                            <c:if test="${workSchedule.workScheduleID == injectionSchedule.workScheduleID}">
-                                <c:forEach var="doctor" items="${doctors}">
-                                    <c:if test="${doctor.doctorID == workSchedule.doctorID}">
-                                        ${doctor.fullName}
-                                    </c:if>
-                                </c:forEach>
-                            </c:if>
-                        </c:forEach>
-                        </td>
-                        <td>
-                            <c:forEach items="${vaccines}" var="vaccine">
-                                <c:if test="${injectionSchedule.vaccineID == vaccine.vaccineID}">
-                                    ${vaccine.name}
-                                </c:if>
-                            </c:forEach>
-                        </td>
-                        <td>
-                        <c:choose>
-                            <c:when test="${injectionSchedule.status == true}">
-                                <div class="alert alert-success d-inline-block p-1" role="alert">
-                                    Đã Hoàn Thành
-                                </div>
-                            </c:when>
-                            <c:otherwise>
-                                <div class="alert alert-danger d-inline-block p-1" role="alert">
-                                    Chưa Hoàn Thành
-                                </div>
-                            </c:otherwise>
-                        </c:choose>
-                        </td>
-                        </tr>
-                    </c:forEach>
                     </tbody>
                 </table>
+                <div id="pagination" class="pagination"></div>
             </div>
         </div>
         <jsp:include page="footer.jsp"/>
@@ -182,5 +215,53 @@
 
         <!-- Template Main JS File -->
         <script src="assets/js/main.js"></script>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                var rowsPerPage = 10;
+                var rows = document.querySelectorAll("#injectionScheduleTableBody tr");
+                var rowsCount = rows.length;
+                var pageCount = Math.ceil(rowsCount / rowsPerPage);
+                var pagination = document.getElementById('pagination');
+
+                function displayPage(page) {
+                    for (var i = 0; i < rowsCount; i++) {
+                        rows[i].style.display = 'none';
+                    }
+                    var start = (page - 1) * rowsPerPage;
+                    var end = start + rowsPerPage;
+                    for (var i = start; i < end && i < rowsCount; i++) {
+                        rows[i].style.display = '';
+                    }
+                }
+
+                function createPagination() {
+                    pagination.innerHTML = '';
+                    for (var i = 1; i <= pageCount; i++) {
+                        var pageLink = document.createElement('a');
+                        pageLink.href = "#";
+                        pageLink.innerHTML = i;
+                        pageLink.classList.add('page-number');
+                        pageLink.addEventListener('click', function(e) {
+                            e.preventDefault();
+                            var page = parseInt(e.target.innerHTML);
+                            displayPage(page);
+                            var activePage = document.querySelector('.pagination a.active');
+                            if (activePage) {
+                                activePage.classList.remove('active');
+                            }
+                            e.target.classList.add('active');
+                        });
+                        pagination.appendChild(pageLink);
+                    }
+                    if (pagination.children.length > 0) {
+                        pagination.children[0].classList.add('active');
+                    }
+                }
+
+                displayPage(1);
+                createPagination();
+            });
+        </script>
     </body>
 </html>
