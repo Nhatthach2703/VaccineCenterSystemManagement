@@ -32,21 +32,10 @@
                             <div class="d-sm-flex d-block align-items-center justify-content-between mb-9">
                                 <form action="doctorIndexServlet" method="get" class="p-4">
                                     <h2>Lựa chọn khoản thời gian</h2>
-                                    <%
-                                        Calendar calendar = Calendar.getInstance();
-                                        // Set to the first day of the week (Sunday in US locale)
-                                        calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-                                        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                                        String startDate = dateFormat.format(calendar.getTime());
-
-                                        // Set to the last day of the week (Saturday in US locale)
-                                        calendar.add(Calendar.DAY_OF_WEEK, 6);
-                                        String endDate = dateFormat.format(calendar.getTime());
-                                    %>
                                     <label for="startDate">Ngày bắt đầu:</label>
-                                    <input style="margin: 0 20px; padding: 5px 10px" type="date" id="startDate" name="startDate" value="<%= request.getAttribute("startDate") != null ? request.getAttribute("startDate") : startDate%>">
+                                    <input style="margin: 0 20px; padding: 5px 10px" type="date" id="startDate" name="startDate" value="${startDate}">
                                     <label for="endDate">Ngày kết thúc:</label>
-                                    <input style="margin: 0 20px; padding: 5px 10px" type="date" id="endDate" name="endDate" value="<%= request.getAttribute("endDate") != null ? request.getAttribute("endDate") : endDate%>">
+                                    <input style="margin: 0 20px; padding: 5px 10px" type="date" id="endDate" name="endDate" value="${endDate}">
                                     <input type="submit" value="Lọc" class="btn btn-primary m-3">
                                 </form>
                             </div>

@@ -4,13 +4,13 @@
  */
 package com.thdap.vaccine.controller;
 
-
 import com.thdap.vaccine.dao.DoctorDAO;
 import com.thdap.vaccine.dao.WorkScheduleDAO;
 import com.thdap.vaccine.model.Doctor;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
+import java.util.Calendar;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -71,41 +71,49 @@ public class doctorIndexServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        try {
-            HttpSession session = request.getSession();
-            Doctor doctor = (Doctor) session.getAttribute("doctor");
-            Integer loggedInDoctorID = doctor.getDoctorID();
+protected void doGet(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+    try {
+        HttpSession session = request.getSession();
+        Doctor doctor = (Doctor) session.getAttribute("doctor");
+        Integer loggedInDoctorID = doctor.getDoctorID();
 
-            if (loggedInDoctorID == null) {
-                throw new ServletException("Doctor ID not found in session.");
-            }
+        if (loggedInDoctorID == null) {
+            throw new ServletException("Doctor ID not found in session.");
+        }
 
-            List<Doctor> doctors = doctorDAO.getAllDoctors();
+        List<Doctor> doctors = doctorDAO.getAllDoctors();
 
         String startDateStr = request.getParameter("startDate");
         String endDateStr = request.getParameter("endDate");
 
-        if (startDateStr != null && endDateStr != null) {
-            Date startDate = Date.valueOf(startDateStr);
-            Date endDate = Date.valueOf(endDateStr);
+        if (startDateStr == null || endDateStr == null) {
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+            Date startDate = new Date(calendar.getTimeInMillis());
+            startDateStr = startDate.toString();
 
-            int totalVaccinations = workScheduleDAO.getTotalVaccinationsByDoctorAndDateRangeForDoctor(loggedInDoctorID, startDate, endDate);
-            int totalConsultations = workScheduleDAO.getTotalConsultationsByDoctorAndDateRangeForDoctor(loggedInDoctorID, startDate, endDate);
-            System.out.println("totalConsultations: "+totalConsultations);
-            request.setAttribute("totalVaccinations", totalVaccinations);
-            request.setAttribute("totalConsultations", totalConsultations);
-            request.setAttribute("startDate", startDateStr);
-            request.setAttribute("endDate", endDateStr);
+            calendar.add(Calendar.DAY_OF_WEEK, 6);
+            Date endDate = new Date(calendar.getTimeInMillis());
+            endDateStr = endDate.toString();
         }
+
+        Date startDate = Date.valueOf(startDateStr);
+        Date endDate = Date.valueOf(endDateStr);
+
+        int totalVaccinations = workScheduleDAO.getTotalVaccinationsByDoctorAndDateRangeForDoctor(loggedInDoctorID, startDate, endDate);
+        int totalConsultations = workScheduleDAO.getTotalConsultationsByDoctorAndDateRangeForDoctor(loggedInDoctorID, startDate, endDate);
+
+        request.setAttribute("totalVaccinations", totalVaccinations);
+        request.setAttribute("totalConsultations", totalConsultations);
+        request.setAttribute("startDate", startDateStr);
+        request.setAttribute("endDate", endDateStr);
 
         request.getRequestDispatcher("DoctorIndex.jsp").forward(request, response);
     } catch (Exception e) {
-            throw new ServletException("...", e);
-        }
-        }
-
+        throw new ServletException("Error processing request", e);
+    }
+}
     /**
      * Handles the HTTP <code>POST</code> method.
      *

@@ -59,6 +59,40 @@ public class AdminIndexServlet extends HttpServlet {
         }
     }
 
+     private void processData(HttpServletRequest request, LocalDate startDate, LocalDate endDate) {
+        // Call method to get total prices for each work location within the date range
+        double totalPrice1 = orderVaccineInfoDAO.getTotalPriceByWorkLocationAndDateRange(1, startDate, endDate);
+        double totalPrice2 = orderVaccineInfoDAO.getTotalPriceByWorkLocationAndDateRange(2, startDate, endDate);
+
+        int totalVaccinations1 = workScheduleDAO.getTotalVaccinationsByWorkLocationAndDateRange(1,
+                Date.valueOf(startDate), Date.valueOf(endDate));
+        int totalVaccinations2 = workScheduleDAO.getTotalVaccinationsByWorkLocationAndDateRange(2,
+                Date.valueOf(startDate), Date.valueOf(endDate));
+
+        int totalConsultations1 = workScheduleDAO.getTotalConsultationsByWorkLocationAndDateRange(1,
+                Date.valueOf(startDate), Date.valueOf(endDate));
+        int totalConsultations2 = workScheduleDAO.getTotalConsultationsByWorkLocationAndDateRange(2,
+                Date.valueOf(startDate), Date.valueOf(endDate));
+
+        int confirmedOrders1 = orderVaccineInfoDAO.countConfirmedOrdersByWorkLocationAndDateRange(1, startDate, endDate);
+        int confirmedOrders2 = orderVaccineInfoDAO.countConfirmedOrdersByWorkLocationAndDateRange(2, startDate, endDate);
+
+        // Store results in request attributes to forward to JSP
+        request.setAttribute("totalPrice1", totalPrice1);
+        request.setAttribute("totalPrice2", totalPrice2);
+
+        request.setAttribute("totalVaccinations1", totalVaccinations1);
+        request.setAttribute("totalVaccinations2", totalVaccinations2);
+        request.setAttribute("totalConsultations1", totalConsultations1);
+        request.setAttribute("totalConsultations2", totalConsultations2);
+
+        request.setAttribute("confirmedOrders1", confirmedOrders1);
+        request.setAttribute("confirmedOrders2", confirmedOrders2);
+
+        request.setAttribute("startDate", startDate);
+        request.setAttribute("endDate", endDate);
+    }
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -71,6 +105,12 @@ public class AdminIndexServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        // Set default date range
+        LocalDate endDate = LocalDate.now();
+        LocalDate startDate = endDate.minusWeeks(1);
+
+        processData(request, startDate, endDate);
+
         request.getRequestDispatcher("AdminIndex.jsp").forward(request, response);
     }
 
@@ -91,39 +131,7 @@ public class AdminIndexServlet extends HttpServlet {
         LocalDate startDate = LocalDate.parse(startDateStr);
         LocalDate endDate = LocalDate.parse(endDateStr);
 
-        // Assuming workLocationIDs are known
-       
-        // Call method to get total prices for each work location within the date range
-        double totalPrice1 = orderVaccineInfoDAO.getTotalPriceByWorkLocationAndDateRange(1, startDate, endDate);
-        double totalPrice2 = orderVaccineInfoDAO.getTotalPriceByWorkLocationAndDateRange(2, startDate, endDate);
-
-        int totalVaccinations1 = workScheduleDAO.getTotalVaccinationsByWorkLocationAndDateRange(1,
-                Date.valueOf(startDate), Date.valueOf(endDate));
-        int totalVaccinations2 = workScheduleDAO.getTotalVaccinationsByWorkLocationAndDateRange(2,
-                Date.valueOf(startDate), Date.valueOf(endDate));
-
-        int totalConsultations1 = workScheduleDAO.getTotalConsultationsByWorkLocationAndDateRange(1,
-                Date.valueOf(startDate), Date.valueOf(endDate));
-        int totalConsultations2 = workScheduleDAO.getTotalConsultationsByWorkLocationAndDateRange(2,
-                Date.valueOf(startDate), Date.valueOf(endDate));
-
-        int confirmedOrders1 = orderVaccineInfoDAO.countConfirmedOrdersByWorkLocationAndDateRange(1, startDate, endDate );
-        int confirmedOrders2 = orderVaccineInfoDAO.countConfirmedOrdersByWorkLocationAndDateRange(2, startDate, endDate);
-
-        // Store results in request attributes to forward to JSP
-        request.setAttribute("totalPrice1", totalPrice1);
-        request.setAttribute("totalPrice2", totalPrice2);
-
-        request.setAttribute("totalVaccinations1", totalVaccinations1);
-        request.setAttribute("totalVaccinations2", totalVaccinations2);
-        request.setAttribute("totalConsultations1", totalConsultations1);
-        request.setAttribute("totalConsultations2", totalConsultations2);
-
-        request.setAttribute("confirmedOrders1", confirmedOrders1);
-        request.setAttribute("confirmedOrders2", confirmedOrders2);
-
-        request.setAttribute("startDate", startDate);
-        request.setAttribute("endDate", endDate);
+        processData(request, startDate, endDate);
 
         request.getRequestDispatcher("AdminIndex.jsp").forward(request, response);
     }
