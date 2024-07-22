@@ -2,21 +2,21 @@
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!doctype html>
 <html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>THDAP</title>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>THDAP</title>
 
-    <!-- Font Icon -->
-     <link rel="shortcut icon" type="image/png" href="./assets/images/logos/favicon.png" />
-    <link rel="stylesheet" href="./assets/fonts/material-icon/css/material-design-iconic-font.min.css">
-    <link rel="stylesheet" href="./assets/fonts/material-icon/css/material-design-iconic-font.min.css">
+        <!-- Font Icon -->
+        <link rel="shortcut icon" type="image/png" href="./assets/images/logos/favicon.png" />
+        <link rel="stylesheet" href="./assets/fonts/material-icon/css/material-design-iconic-font.min.css">
+        <link rel="stylesheet" href="./assets/fonts/material-icon/css/material-design-iconic-font.min.css">
         <!-- AOS CSS -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
-    <!-- Main css -->
-    <link rel="stylesheet" href="./assets/css/loginstyles.css">
-    <style>
+        <!-- Main css -->
+        <link rel="stylesheet" href="./assets/css/loginstyles.css">
+        <style>
             .signup-form h2,.signup-form input{
                 font-family: "Tilt Neon", sans-serif;
             }
@@ -51,41 +51,41 @@
                 pointer-events: none;
             }
 
-    </style>
-</head>
-<body oncontextmenu='return false' class='snippet-body'>
-	<div class="container">
-		<div class="signin-content" data-aos="fade-up">
-			<div class="signin-image">
-                            <figure><img src="assets/img/loginlogout/signin-image.jpg" alt="sing up image"></figure>
-                            </div>
-				
-				<form class="signin-form" style="margin:65px;" action="ForgotPassServlet" method="POST">
-					<div class="card-body">
-                                            <h2 class="form-title">Đặt lại mật khẩu</h2>
+        </style>
+    </head>
+    <body oncontextmenu='return false' class='snippet-body'>
+        <div class="container">
+            <div class="signin-content" data-aos="fade-up">
+                <div class="signin-image">
+                    <figure><img src="assets/img/loginlogout/signin-image.jpg" alt="sing up image"></figure>
+                </div>
+
+                <form class="signin-form" style="margin:65px;" action="ForgotPassServlet" method="POST">
+                    <div class="card-body">
+                        <h2 class="form-title">Đặt lại mật khẩu</h2>
                         <h6 style="font-size: 12px;">Nhập email của bạn để đặt lại mật khẩu</h6>
-						<div class="form-group">
-							<label for="your_name"><i class="zmdi zmdi-email"></i></label> <input
-							 type="text" name="email" id="email-for-pass" required="" placeholder="Email">
-						</div>
-					</div>
-                                        <div style="color: red">${message}</div><br>
-					<div class="form-group form-button">
-						<button class="form-submit" type="submit">Gửi</button>
-						
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
-         <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-        <script>
-            AOS.init();
-        </script>
-	<script type='text/javascript'
-		src='https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js'></script>
-	<script type='text/javascript' src=''></script>
-	<script type='text/javascript' src=''></script>
-	<script type='text/Javascript'></script>
+                        <div class="form-group">
+                            <label for="your_name"><i class="zmdi zmdi-email"></i></label> <input
+                                type="email" name="email" id="email-for-pass" required="" placeholder="Email">
+                        </div>
+                    </div>
+                    <div style="color: red">${message}</div><br>
+                    <div class="form-group form-button">
+                        <button class="form-submit" type="submit">Gửi</button>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+    <script type='text/javascript'
+    src='https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js'></script>
+    <script type='text/javascript' src=''></script>
+    <script type='text/javascript' src=''></script>
+    <script type='text/Javascript'></script>
 </body>
 </html>

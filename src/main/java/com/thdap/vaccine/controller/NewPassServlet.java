@@ -94,14 +94,14 @@ public class NewPassServlet extends HttpServlet {
         account = accountDAO.getAccountEmail(email);
         
         if (newPassword == null || confPassword == null || !newPassword.equals(confPassword)) {
-            request.setAttribute("tbsubmit", "Mật khẩu không giống nhau!");
+            request.setAttribute("tbsubmit", "Mật khẩu không giống nhau! Vui lòng nhập lại!");
             RequestDispatcher dispatcher = request.getRequestDispatcher("newPassword.jsp");
             dispatcher.forward(request, response);
             return;
         }
         
         if(newPassword.equals(account.getPassword()) || confPassword.equals(account.getPassword())){
-            request.setAttribute("tbsubmit", "Mật khẩu mới không đưuọc giống mật khẩu cũ!");
+            request.setAttribute("tbsubmit", "Mật khẩu mới không được giống mật khẩu cũ! Vui lòng nhập lại!");
             RequestDispatcher dispatcher = request.getRequestDispatcher("newPassword.jsp");
             dispatcher.forward(request, response);
             return;

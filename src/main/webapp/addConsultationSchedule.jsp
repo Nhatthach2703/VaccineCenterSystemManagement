@@ -181,9 +181,7 @@
                 <div style="color: red; font-family: 'Tilt Neon', sans-serif;">${errorMessage}</div><br>
             </div>
         </div>
-            <div  class="mb-5">
-                
-            </div>
+          
         <jsp:include page="footer.jsp"/>
         <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
         <script src="assets/vendor/aos/aos.js"></script>
