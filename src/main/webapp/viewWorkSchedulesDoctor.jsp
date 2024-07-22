@@ -21,13 +21,43 @@
 
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script>
-            function confirmSubmission(form) {
-                var confirmation = confirm("Bạn có chắc chắn muốn xác nhận việc đã hoàn tất lịch khám với khách?");
-                if (confirmation) {
-                    return true; // Cho phép gửi form
-                } else {
-                    return false; // Ngăn chặn gửi form
+            function confirmSubmission(event) {
+                event.preventDefault();
+
+                const today = new Date();
+
+                const mondayText = document.getElementById("monday").textContent;
+                const sundayText = document.getElementById("sunday").textContent;
+
+                const [day1, month1, year1] = mondayText.split('/').map(Number);
+                const mondate = new Date(year1, month1 - 1, day1);
+
+                const [day2, month2, year2] = sundayText.split('/').map(Number);
+                const sundate = new Date(year2, month2 - 1, day2);
+
+                if (today < mondate || today > sundate) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Không thể hoàn tất',
+                        text: 'Ngày hiện tại không nằm trong tuần làm việc.',
+                    });
+                    return;
                 }
+
+                Swal.fire({
+                    title: 'Xác nhận hoàn tất?',
+                    text: "Bạn có chắc chắn muốn xác nhận việc đã hoàn tất lịch khám với khách?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Có, hoàn tất!',
+                    cancelButtonText: 'Hủy'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        event.target.closest('form').submit();
+                    }
+                });
             }
         </script>
         <style>
@@ -114,6 +144,7 @@
 
 
         </style>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     </head>
 
 
@@ -289,7 +320,7 @@
                                                              <form action="UpdateScheduleStatusServlet" method="post" style="margin: 0;">
                                                                 <input type="hidden" id="scheduleID" name="scheduleID" value="` + scheduleID + `">
                                                                 <input type="hidden" id="workType" name="workType" value="` + workType + `">
-                                                                <button class="btn btn-danger" style="padding:1px" type="submit"  ` + disableButton + ` onclick="return confirmSubmission(this)">Hoàn tất</button>
+                                                                <button class="btn btn-danger" style="padding:1px" type="submit" ` + disableButton + ` onclick="confirmSubmission(event)">Hoàn tất</button>
                                                             </form>
                                                             
                                                         </div>
