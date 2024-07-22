@@ -29,7 +29,6 @@
         <!-- Template Main CSS File -->
         <link href="assets/css/style.css" rel="stylesheet" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
-        <link href="assets/css/style.css" rel="stylesheet" />
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <style>
             .table-title{
@@ -73,7 +72,7 @@
                 <div class="table-title pt-3 pb-3">
                     <div class="row">
                         <div class="col-sm-5">
-                            <h2 class="mx-3">Lịch tư vấn</h2>
+                            <h2 class="mx-3"  style="color: white;font-weight: 700">Lịch tư vấn</h2>
                         </div>
                         <div class="col-sm-7">
                             <div style="text-justify: auto; text-align: right" class="mr-4">
@@ -182,7 +181,9 @@
                 <div style="color: red; font-family: 'Tilt Neon', sans-serif;">${errorMessage}</div><br>
             </div>
         </div>
-        
+            <div  class="mb-5">
+                
+            </div>
         <jsp:include page="footer.jsp"/>
         <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
         <script src="assets/vendor/aos/aos.js"></script>
@@ -194,7 +195,6 @@
         <!-- Template Main JS File -->
         <script src="assets/js/main.js"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script src="assets/js/main.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
         <script>
             AOS.init();

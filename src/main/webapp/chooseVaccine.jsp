@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -56,12 +57,12 @@
                             <img src="uploads/${vaccine.image}" class="card-img-top" alt="${vaccine.name}">
                             <div class="card-body">
                                 <h5 class="card-title">${vaccine.name}</h5>
-                                <p class="card-text">${vaccine.summary}</p>
+                                <p class="card-text">${fn:substring(vaccine.summary, 0, 100)}...</p>
                                 
-                                    <p class="card-text"><small class="text-muted">Nguồn gốc: ${vaccine.source}</small></p>
+                                <p class="card-text"><small class="text-muted"><strong>Nguồn gốc:</strong> ${vaccine.source}</small></p>
                                
                                 <div>
-                                    <p class="card-text mt-5"><strong id="price-${vaccine.vaccineID}">${vaccine.price} VND</strong></p>
+                                    <p class="card-text mt-2 mb-3"><strong id="price-${vaccine.vaccineID}">${vaccine.price} VND</strong></p>
                                 </div>
                                 <a href="VaccineDetailsServlet?vaccineID=${vaccine.vaccineID}" class="btn btn-light">Chi tiết</a>
                                 <c:choose>

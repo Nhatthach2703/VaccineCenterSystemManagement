@@ -29,7 +29,7 @@
         <!-- Template Main CSS File -->
         <link href="assets/css/style.css" rel="stylesheet" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
-        <link href="assets/css/style.css" rel="stylesheet" />
+
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <style>
             .table-title{
@@ -177,12 +177,12 @@
                 </div>
             </div>
         </section>
-        <div class="container-xl mt-5 " data-aos="fade-up">
+        <div class="container-xl mt-5 " data-aos="fade-down">
             <div class="table-wrapper">
                 <div class="table-title pt-3 pb-3">
                     <div class="row">
                         <div class="col-sm-5">
-                            <h2 class="mx-3">Lịch tiêm phòng</h2>
+                            <h2 class="mx-3" style="color: white;font-weight: 700">Lịch tiêm phòng</h2>
                         </div>
                         <div class="col-sm-7">
                             <div style="text-justify: auto; text-align: right" class="mr-4">
@@ -273,13 +273,13 @@
                                             </c:when>
                                             <c:otherwise>
                                                 <!-- User is logged in -->
-<!--                                                <form action="BookInjectionServlet" method="post">
-                                                    <input type="hidden" name="injectionScheduleID" value="${injectionSchedule.scheduleID}">
-                                                    <input type="hidden" name="userID" value="${sessionScope.user.userID}">
-
-                                                    <button type="submit" class="btn btn-success" onclick="return confirmBooking(this)">Đặt lịch</button>
-
-                                                </form>-->
+                                                <!--                                                <form action="BookInjectionServlet" method="post">
+                                                                                                    <input type="hidden" name="injectionScheduleID" value="${injectionSchedule.scheduleID}">
+                                                                                                    <input type="hidden" name="userID" value="${sessionScope.user.userID}">
+                                                
+                                                                                                    <button type="submit" class="btn btn-success" onclick="return confirmBooking(this)">Đặt lịch</button>
+                                                
+                                                                                                </form>-->
                                                 <div class="nenmodal" id="nenmodal-1">
                                                     <div class="nenmodal2"></div>
                                                     <div class="ndmodal">
@@ -326,7 +326,7 @@
                 <div style="color: red; font-family: 'Tilt Neon', sans-serif;">${errorMessage}</div><br>
             </div>
         </div>
-
+      
         <jsp:include page="footer.jsp"/>
         <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
         <script src="assets/vendor/aos/aos.js"></script>
@@ -391,22 +391,22 @@
                 const room = row.querySelector('.room-name').textContent.trim();
                 const doctor = row.querySelector('.doctor-name').textContent.trim();
                 const location = row.querySelector('.work-location').textContent.trim();
-                
+
                 const vaccineName = row.querySelector('.card.selected p:first-of-type').textContent.trim().replace('Vaccine: ', '');
 //                console.log("Giờ: " + time);
 //                console.log("Ngày: " + date);
 //                console.log("Phòng: " + room);
 //                console.log("Bác sĩ: " + doctor);
 //                console.log("Cơ sở: " + location);
-                const confirmationMessage = 
-                    '<div style="text-align: center;">' +
-                    'Bạn có chắc chắn muốn đặt lịch tiêm vào:<br>' +
-                    '<strong>Giờ:</strong> ' + time + '<br>' +
-                    '<strong>Ngày:</strong> ' + date + '<br>' +
-                    '<strong>Phòng:</strong> ' + room + ' - ' + location + '<br>' +
-                    '<strong>Bác sĩ:</strong> ' + doctor + '<br>' +
-                    '<strong>Vaccine:</strong> ' + vaccineName +
-                    '</div>';
+                const confirmationMessage =
+                        '<div style="text-align: center;">' +
+                        'Bạn có chắc chắn muốn đặt lịch tiêm vào:<br>' +
+                        '<strong>Giờ:</strong> ' + time + '<br>' +
+                        '<strong>Ngày:</strong> ' + date + '<br>' +
+                        '<strong>Phòng:</strong> ' + room + ' - ' + location + '<br>' +
+                        '<strong>Bác sĩ:</strong> ' + doctor + '<br>' +
+                        '<strong>Vaccine:</strong> ' + vaccineName +
+                        '</div>';
 
                 Swal.fire({
                     title: 'Xác nhận đặt lịch',
