@@ -87,7 +87,7 @@
                                 <option value="">--Tuần--</option>
                             </select>
                             <select id="doctor" class="form-select">
-                                <option value="0" disabled="" selected="">--Bác sĩ--</option>
+                                <option value="0" selected="">--Bác sĩ--</option>
                                 <c:forEach var="doctor" items="${doctors}">
                                     <option value="${doctor.doctorID}">${doctor.fullName}</option>
                                 </c:forEach>
