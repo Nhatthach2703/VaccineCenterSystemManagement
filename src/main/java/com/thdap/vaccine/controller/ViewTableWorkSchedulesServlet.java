@@ -16,6 +16,7 @@ import com.thdap.vaccine.model.WorkLocation;
 import com.thdap.vaccine.model.WorkSchedule;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -94,6 +95,8 @@ public class ViewTableWorkSchedulesServlet extends HttpServlet {
         List<Shift> shifts = shiftDAO.getAllShifts();
         WorkLocationDAO workLocationDAO = new WorkLocationDAO();
         List<WorkLocation> workLocations = workLocationDAO.getAllWorkLocations();
+        
+        Collections.reverse(workSchedules);
 
         request.setAttribute("workSchedules", workSchedules);
         request.setAttribute("doctors", doctors);

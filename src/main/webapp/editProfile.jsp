@@ -273,6 +273,7 @@ Vinh --%> <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
                                 type="text"
                                 class="form-control mb-1"
                                 name="phoneNumber"
+                                pattern="0[0-9]{9,}" title="Số điện thoại phải ít nhất 10 số và bắt đầu bằng số 0!"
                                 value="${sessionScope.user.phoneNumber}"
                               />
                             </div>

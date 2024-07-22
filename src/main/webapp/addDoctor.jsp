@@ -102,7 +102,7 @@
 
                                         <div class="form-group " style="display: flex">
                                             <img src="assets/img/tuongtac.svg" style="width: 1rem; margin-right: 1rem;"/>
-                                            <input placeholder="Số Điện Thoại" type="number" id="" name="phoneNumber" required>
+                                            <input placeholder="Số Điện Thoại" type="text" id="" name="phoneNumber" pattern="0[0-9]{9,}" title="Số điện thoại phải ít nhất 10 số và bắt đầu bằng số 0!" required>
                                         </div>
 
                                         <div class="form-group " style="display: flex">
