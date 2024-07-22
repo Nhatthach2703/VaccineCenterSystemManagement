@@ -37,41 +37,32 @@
     <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet" />
     <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet" />
     <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet" />
-    <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet" />
+
 
     <!-- Template Main CSS File -->
     <link href="assets/css/style.css" rel="stylesheet" />
 
-    <!-- =======================================================
-      * Template Name: Vesperr
-      * Template URL: https://bootstrapmade.com/vesperr-free-bootstrap-template/
-      * Updated: Mar 17 2024 with Bootstrap v5.3.3
-      * Author: BootstrapMade.com
-      * License: https://bootstrapmade.com/license/
-      ======================================================== -->
 
     <head>
         <meta charset="UTF-8">
-        <title>Injection Regimens</title>
+        <title>THDAP</title>
         <style>
             body {
                 font-family: Arial, sans-serif;
-                background-color: #f0f8ff;
                 color: #333;
-                margin: 20px;
             }
             h2 {
                 color: #007acc;
                 border-bottom: 2px solid #007acc;
                 padding-bottom: 5px;
-                max-width: 800px;
+                width: 80%;
                 margin: 20px auto 10px;
                 margin-top: 30px
 
             }
             h1 {
                 color: #000000; /* Đổi màu chữ thành màu đen */
-                font-weight: bold; /* In đậm chữ */
+                font-weight: 700; /* In đậm chữ */
                 padding-bottom: 5px;
                 max-width: 800px;
                 margin: 20px auto 10px;
@@ -81,8 +72,8 @@
 
             
             table {
-                width: 100%;
-                max-width: 800px;
+                width: 80%;
+               
                 margin: 0 auto 30px;
                 border-collapse: collapse;
                 background-color: #fff;
@@ -92,10 +83,7 @@
                 margin-bottom: 100px;
                 
             }
-            table:hover {
-                transform: scale(1.05);
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            }
+         
             th, td {
                 padding: 12px 15px;
                 border: 1px solid #ddd;
@@ -117,13 +105,13 @@
     <body>
 
         <!-- ======= Header ======= -->
-        <jsp:include page="header.jsp"/>
+       
 
         <!-- End Hero -->
-        <main id="main"> 
-
-            <section>
-                <h1>PHÁT ĐỒ TIÊM CHỦNG</h1>
+        <div class="container-fluid">
+             <jsp:include page="header.jsp"/>
+            <div style="margin-top: 10%">
+                 <h1>PHÁT ĐỒ TIÊM CHỦNG</h1>
                 <c:forEach var="entry" items="${regimensMap}">
                     <h2> ${entry.key}</h2>
                     <table>
@@ -144,23 +132,14 @@
                         </tbody>
                     </table>
                 </c:forEach>
-            </section> 
+            </div>
+           
+        </div>
+             <jsp:include page="footer.jsp"/>
 
+            
 
-
-
-        </main>
-
-        <!-- ======= Footer ======= -->
-        <jsp:include page="footer.jsp"/>
-        <!-- End Footer -->
-
-        <a
-            href="#"
-            class="back-to-top d-flex align-items-center justify-content-center"
-            ><i class="bi bi-arrow-up-short"></i
-            ></a>
-
+      
         <!-- Vendor JS Files -->
         <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
         <script src="assets/vendor/aos/aos.js"></script>

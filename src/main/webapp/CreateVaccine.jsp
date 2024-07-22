@@ -62,8 +62,8 @@
                                     <form action="CreateVaccineServlet" method="post" class="register-form input_infor" id="login-form" enctype="multipart/form-data" accept-charset="UTF-8">
 
                                         <div class="form-group " style="display: flex">
-                                            <img src="assets/img/phacdotiem.svg" style="width: 1rem; margin-right: 1rem;" />
-                                            <input placeholder="Tên vaccine" type="text" id="name" name="name" value="" required>
+<!--                                            <img src="assets/img/phacdotiem.svg" style="width: 1rem; margin-right: 1rem;" />-->
+                                            <input placeholder="Tên vaccine" type="hidden" id="name" name="name" value="" required>
                                         </div>
                                         <div class="form-group " style="display: flex">
                                             <img src="assets/img/Tom tat.svg" style="width: 1rem; margin-right: 1rem;" />
@@ -130,7 +130,7 @@
                                         </div>
                                         <div class="form-group " style="display: flex">
                                             <img src="assets/img/gia.svg" style="width: 1rem; margin-right: 1rem;" />
-                                            <input placeholder="Giá" type="number" id="price" name="price" required>
+                                            <input placeholder="Giá" type="number" id="price" name="price" min="0" required>
                                         </div>
 
                                         <div class="form-group " style="display: flex; align-items: center;">

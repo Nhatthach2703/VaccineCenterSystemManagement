@@ -63,8 +63,8 @@
 
                             <form class="register-form input_infor" id="login-form" action="UpdateVaccineServlet" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
                                 <div class="form-group" style="display: flex; align-items: center;">
-                                    <img src="assets/img/Loai vaccin.svg" style="width: 1rem; margin-right: 1rem;" />
-                                    <input placeholder="Id Vaccine" type="text" id="vaccineID" name="vaccineID" value="${vaccine.vaccineID}" readonly>
+<!--                                    <img src="assets/img/Loai vaccin.svg" style="width: 1rem; margin-right: 1rem;" />-->
+                                    <input  placeholder="Id Vaccine" type="hidden" id="vaccineID" name="vaccineID" value="${vaccine.vaccineID}" readonly>
                                 </div>
                                 <div class="form-group" style="display: flex; align-items: center;">
                                     <img src="assets/img/phacdotiem.svg" style="width: 1rem; margin-right: 1rem;" />
@@ -128,7 +128,7 @@
                                 </div>
                                 <div class="form-group" style="display: flex; align-items: center;">
                                     <img src="assets/img/gia.svg" style="width: 1rem; margin-right: 1rem;" />
-                                    <input placeholder="Giá" type="number" id="price" name="price" value="${vaccine.price}" required>
+                                    <input placeholder="Giá" type="number" id="price" name="price" min="0" value="${vaccine.price}" required>
                                 </div>
                                 <div class="form-group" style="display: flex; align-items: center;">
                                     <label class="checkbox-container">
