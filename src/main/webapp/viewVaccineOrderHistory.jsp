@@ -6,7 +6,7 @@
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 
-    <title>Lịch sử đặt vaccine</title>
+    <title>THDAP</title>
     <meta content="" name="description"/>
     <meta content="" name="keywords"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
@@ -29,7 +29,6 @@
     <link href="assets/css/style.css" rel="stylesheet"/>
     <!--======-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -84,16 +83,16 @@
 </head>
 <body>
 <jsp:include page="header.jsp"/>
-<jsp:include page="banner.jsp"/>
-<div class="container-xl mt-5 " data-aos="fade-up">
+
+<div class="container-xl " data-aos="fade-up" style="margin-top: 10%; margin-bottom: 10%">
     <div class="table-wrapper">
         <div class="table-title pt-3 pb-3">
             <div class="row">
                 <div class="col-sm-5">
-                    <h2 class="ml-4 text-light">Lịch sử đặt vaccine</h2>
+                    <h2 class="ml-4 text-light" style="margin-left: 5%;font-weight: 700">Lịch sử đặt vaccine</h2>
                 </div>
                 <div class="col-sm-7">
-                    <div style="text-justify: auto;text-align: right" class="mr-4">
+                    <div style="text-justify: auto;text-align: right;margin-right: 7%">
                         <a href="ChooseVaccineServlet" class="btn btn-secondary"><span>Đặt vaccine</span></a>
                     </div>
                 </div>
@@ -157,7 +156,7 @@
                             </c:otherwise>
                         </c:choose>
                     </td>
-                    <td class="price">${order.totalPrice} VND</td>
+                    <td class="price"id="price-${order.totalPrice}">${order.totalPrice} VND</td>
                 </tr>
             </c:forEach>
             </tbody>
@@ -166,6 +165,7 @@
     </div>
 </div>
 <jsp:include page="footer.jsp"/>
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
 <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
@@ -233,6 +233,17 @@
             }
         }
     });
+    // Hàm định dạng số tiền với dấu phẩy
+                                            function formatCurrency() {
+                                                document.querySelectorAll('[id^="price-"]').forEach(function (el) {
+                                                    var priceText = el.textContent.replace(' VND', '');
+                                                    var formattedPrice = Number(priceText).toLocaleString('vi-VN');
+                                                    el.textContent = formattedPrice + ' VND';
+                                                });
+                                            }
+
+                                            // Gọi hàm định dạng khi trang tải xong
+                                            window.onload = formatCurrency;
 </script>
 </body>
 </html>

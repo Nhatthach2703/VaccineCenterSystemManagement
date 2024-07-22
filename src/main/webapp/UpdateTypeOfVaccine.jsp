@@ -68,8 +68,8 @@
                                     <form action="UpdateTypeOfVaccineServlet" method="post" class="register-form" id="login-form" style="margin-top: 20px">
                                         <h5 style="font-family: 'Tilt Neon'; font-weight: bold">ID Vaccine</h5>
                                         <div class="form-group" style="display: flex">
-                                            <img src="assets/img/Loai vaccin.svg" style="width: 1rem; margin-right: 1rem;" />
-                                            <input style="font-family: 'Tilt Neon'" class="input_infor" type="text" name="typeID" id="vaccine_id" placeholder="Loại Vaccine"
+<!--                                            <img src="assets/img/Loai vaccin.svg" style="width: 1rem; margin-right: 1rem;" />-->
+                                            <input style="font-family: 'Tilt Neon'" class="input_infor" type="hidden" name="typeID" id="vaccine_id" placeholder="Loại Vaccine"
                                                    value="${typeOfVaccine.typeID}" readonly/>
                                         </div>
                                         <h5 style="font-family: 'Tilt Neon'; font-weight: bold">Tên Vaccine</h5>

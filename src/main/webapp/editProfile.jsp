@@ -7,7 +7,7 @@ Vinh --%> <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
 
-    <title>Inner Page - Vesperr Bootstrap Template</title>
+    <title>THDAP</title>
     <meta content="" name="description" />
     <meta content="" name="keywords" />
     <link
