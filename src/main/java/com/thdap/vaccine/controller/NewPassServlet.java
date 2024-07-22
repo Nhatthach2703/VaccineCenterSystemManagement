@@ -5,6 +5,7 @@
 package com.thdap.vaccine.controller;
 
 import com.thdap.vaccine.dao.AccountDAO;
+import com.thdap.vaccine.model.Account;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -84,17 +85,28 @@ public class NewPassServlet extends HttpServlet {
         String confPassword = request.getParameter("confPassword");
         //Base64.Encoder encoder = Base64.getEncoder();
 
+        
+        AccountDAO accountDAO = new AccountDAO();
+
+        //String encodePass = encoder.encodeToString(newPassword.getBytes());
+        String email = (String) session.getAttribute("email");
+        Account account = new Account();
+        account = accountDAO.getAccountEmail(email);
+        
         if (newPassword == null || confPassword == null || !newPassword.equals(confPassword)) {
             request.setAttribute("tbsubmit", "Mật khẩu không giống nhau!");
             RequestDispatcher dispatcher = request.getRequestDispatcher("newPassword.jsp");
             dispatcher.forward(request, response);
             return;
         }
-
-        //String encodePass = encoder.encodeToString(newPassword.getBytes());
-        String email = (String) session.getAttribute("email");
-
-        AccountDAO accountDAO = new AccountDAO();
+        
+        if(newPassword.equals(account.getPassword()) || confPassword.equals(account.getPassword())){
+            request.setAttribute("tbsubmit", "Mật khẩu mới không đưuọc giống mật khẩu cũ!");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("newPassword.jsp");
+            dispatcher.forward(request, response);
+            return;
+        }
+        
         boolean isUpdated = accountDAO.updatePassword(email, confPassword);
 
         RequestDispatcher dispatcher;

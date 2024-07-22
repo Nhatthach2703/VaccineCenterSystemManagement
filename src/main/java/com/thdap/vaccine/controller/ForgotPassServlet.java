@@ -96,12 +96,13 @@ public class ForgotPassServlet extends HttpServlet {
             Account account = new Account();
             // gang gia tri account = ham getaccountemail thong qua accountDAO
             account = accountDAO.getAccountEmail(email);
+            System.out.println("email: " + account.getEmail());
             if (account != null) {
-                if (account.getRoleID().equalsIgnoreCase("Doctor") || account.getRoleID().equalsIgnoreCase("Admin")) {
+                if (account.getRoleID().equalsIgnoreCase("Admin")) {
                     RequestDispatcher dispatcher = request.getRequestDispatcher("forgotPassword.jsp");
-                    request.setAttribute("message", "Tài khoản nội bộ không thể tự đổi mật khẩu vui lòng liên hệ bộ phận IT!");
+                    request.setAttribute("message", "Tài khoản admin không thể tự đổi mật khẩu vui lòng liên hệ bộ phận IT!");
                     dispatcher.forward(request, response);
-                } else {
+                } else if (account.isStatus()) {
                     RequestDispatcher dispatcher = null;
                     int otpvalue = 0;
                     final HttpSession mySession = request.getSession();
@@ -110,8 +111,6 @@ public class ForgotPassServlet extends HttpServlet {
                         // sending otp
                         Random rand = new Random();
                         otpvalue = 1000 + rand.nextInt(9000); // Tạo một số ngẫu nhiên từ 1000 đến 9999 (bao gồm cả 1000 và 9999)
-
-                        ;
 
                         String to = email;// change accordingly
 
@@ -153,16 +152,19 @@ public class ForgotPassServlet extends HttpServlet {
                             throw new RuntimeException(e);
                         }
                         dispatcher = request.getRequestDispatcher("EnterOtp.jsp");
-                        request.setAttribute("message", "OTP is sent to your email");
 
                         mySession.setAttribute("otp", otpvalue);
                         mySession.setAttribute("email", email);
                         dispatcher.forward(request, response);
                     }
+                } else {
+                    RequestDispatcher dispatcher = request.getRequestDispatcher("forgotPassword.jsp");
+                    request.setAttribute("message", "Tài khoản đã bị khóa, vui lòng liện hệ bộ phận IT!");
+                    dispatcher.forward(request, response);
                 }
             } else {
                 RequestDispatcher dispatcher = request.getRequestDispatcher("forgotPassword.jsp");
-                request.setAttribute("message", "No email found!");
+                request.setAttribute("message", "Không tim thấy email!");
                 dispatcher.forward(request, response);
             }
         } catch (Exception ex) {

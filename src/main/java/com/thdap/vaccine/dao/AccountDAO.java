@@ -246,7 +246,7 @@ public class AccountDAO extends ContextDAO {
     public Account getAccountEmail(String email) {
 
         try {
-            String sql = "SELECT accountID, roleID, username, password, email "
+            String sql = "SELECT accountID, roleID, username, password, email, status "
                     + "FROM Account WHERE email = ?;";
 
             Connection connection = null;
@@ -264,7 +264,7 @@ public class AccountDAO extends ContextDAO {
                 account.setUsername(rs.getString("username"));
                 account.setPassword(rs.getString("password"));
                 account.setEmail(rs.getString("email"));
-
+                account.setStatus(rs.getBoolean("status"));
                 return account;
             }
 
