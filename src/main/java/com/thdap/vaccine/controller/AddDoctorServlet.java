@@ -150,7 +150,7 @@ public class AddDoctorServlet extends HttpServlet {
                 }
                 
                 if (accountDAO.usernameExists(username)) {
-                    request.setAttribute("errorMessage", "Username Đã tồn tại!Vui lòng thử lại.");
+                    request.setAttribute("errorMessage", "Username Đã tồn tại! Vui lòng thử lại.");
                     request.getRequestDispatcher("addDoctor.jsp").forward(request, response);
                     return;
                 }
