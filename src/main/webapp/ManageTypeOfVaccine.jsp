@@ -160,9 +160,7 @@
                             confirmButtonText: 'Vâng, xóa nó!'
                         }).then((result) => {
                             if (result.isConfirmed) {
-                                Swal.fire('Đã xóa loại vaccine thành công').then(() => {
-                                    window.location.href = element.href;
-                                });
+                                window.location.href = element.href;
                             }
                         });
                     }

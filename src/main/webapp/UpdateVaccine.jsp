@@ -63,8 +63,8 @@
 
                             <form class="register-form input_infor" id="login-form" action="UpdateVaccineServlet" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
                                 <div class="form-group" style="display: flex; align-items: center;">
-<!--                                    <img src="assets/img/Loai vaccin.svg" style="width: 1rem; margin-right: 1rem;" />-->
-                                    <input  placeholder="Id Vaccine" type="hidden" id="vaccineID" name="vaccineID" value="${vaccine.vaccineID}" readonly>
+                                    <img src="assets/img/Loai vaccin.svg" style="width: 1rem; margin-right: 1rem;" />
+                                    <input  placeholder="Id Vaccine" type="text" id="vaccineID" name="vaccineID" value="${vaccine.vaccineID}" readonly>
                                 </div>
                                 <div class="form-group" style="display: flex; align-items: center;">
                                     <img src="assets/img/phacdotiem.svg" style="width: 1rem; margin-right: 1rem;" />

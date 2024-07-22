@@ -201,9 +201,7 @@
                 confirmButtonText: 'Vâng, xóa nó!'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    Swal.fire('Đã xóa vaccine thành công').then(() => {
-                        window.location.href = element.href; // Điều hướng đến liên kết sau khi xác nhận
-                    });
+                    window.location.href = element.href;
                 }
             });
         }

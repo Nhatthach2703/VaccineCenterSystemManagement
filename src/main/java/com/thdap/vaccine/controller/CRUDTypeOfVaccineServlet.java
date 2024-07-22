@@ -90,7 +90,8 @@ public class CRUDTypeOfVaccineServlet extends HttpServlet {
                     break;
             }
         } catch (SQLException ex) {
-            throw new ServletException(ex);
+//            throw new ServletException(ex);
+            response.sendRedirect("error.jsp");
         }
     }
 
