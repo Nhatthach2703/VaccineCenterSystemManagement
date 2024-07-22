@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -28,13 +29,21 @@
                 </div>
             </div>
             <h1>Whooops</h1>
-            <p>Something went wrong, please try again.</p>
+            <p>Đã có vấn đề xảy ra, vui lòng thử lại!</p>
 
-            <button onclick="goToHomePage()">Go Home Page</button>
+            <button onclick="goToHomePage()">Về trang chủ</button>
             <script>
                 function goToHomePage() {
-                    // Chuyển hướng đến trang JSP khác
-                    window.location.href = 'homeIndex';
+                    // Determine the redirection URL based on the roleID
+                    var roleID = '<c:out value="${sessionScope.account.roleID}" />';
+                    console.log(roleID);
+                    if (roleID === 'Admin') {
+                        window.location.href = 'AdminIndexServlet';
+                    } else if (roleID === 'Doctor') {
+                        window.location.href = 'doctorIndexServlet';
+                    } else {
+                        window.location.href = 'homeIndex';
+                    }
                 }
             </script>
         </div>

@@ -124,7 +124,7 @@ public class AddDoctorServlet extends HttpServlet {
                     || address == null || gender == null || fields.get("workLocationID") == null
                     || degreeType == null || fields.get("yearsOfExperience") == null || fields.get("jobTitle") == null) {
                 request.setAttribute("errorMessage", "Invalid input parameters.");
-                request.getRequestDispatcher("error.jsp").forward(request, response);
+                request.getRequestDispatcher("addDoctor.jsp").forward(request, response);
                 return;
             }
 
@@ -134,7 +134,7 @@ public class AddDoctorServlet extends HttpServlet {
                 yearsOfExperience = Integer.parseInt(fields.get("yearsOfExperience"));
             } catch (IllegalArgumentException e) {
                 request.setAttribute("errorMessage", "Ngày hoặc số không hợp lệ.");
-                request.getRequestDispatcher("error.jsp").forward(request, response);
+                request.getRequestDispatcher("addDoctor.jsp").forward(request, response);
                 return;
             }
 
@@ -145,7 +145,7 @@ public class AddDoctorServlet extends HttpServlet {
                 // Check if email already exists
                 if (accountDAO.emailExists(email)) {
                     request.setAttribute("errorMessage", "Email Đã tồn tại.");
-                    request.getRequestDispatcher("error.jsp").forward(request, response);
+                    request.getRequestDispatcher("addDoctor.jsp").forward(request, response);
                     return;
                 }
 
@@ -156,12 +156,12 @@ public class AddDoctorServlet extends HttpServlet {
             } catch (SQLException e) {
                 e.printStackTrace();
                 request.setAttribute("errorMessage", "Thêm bác sĩ bị lỗi: " + e.getMessage());
-                request.getRequestDispatcher("error.jsp").forward(request, response);
+                request.getRequestDispatcher("addDoctor.jsp").forward(request, response);
             }
         } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute("errorMessage", "Error saving file: " + e.getMessage());
-            request.getRequestDispatcher("error.jsp").forward(request, response);
+            request.getRequestDispatcher("addDoctor.jsp").forward(request, response);
             return;
         }
     }

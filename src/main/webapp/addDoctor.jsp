@@ -149,9 +149,9 @@
                                             <img src="assets/img/gia.svg" style="width: 1rem; margin-right: 1rem;"/>
                                             <input placeholder="Năm Kinh Nghiệm" type="number" id="#" name="yearsOfExperience" min="0" required>
                                         </div>
-                                        <div style="color: red;font-family: 'Tilt Neon', sans-serif;font-size:20px; height: 30px">${error}</div><br>
+                                        <div style="color: red; font-family: 'Tilt Neon', sans-serif;font-size:20px; height: 30px">${errorMessage}</div><br>
                                         <div class="form-group">
-
+                                            
                                             <button style="margin-right: 1rem">Thêm</button>
 
 
