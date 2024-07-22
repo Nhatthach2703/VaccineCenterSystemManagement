@@ -144,7 +144,13 @@ public class AddDoctorServlet extends HttpServlet {
             try {
                 // Check if email already exists
                 if (accountDAO.emailExists(email)) {
-                    request.setAttribute("errorMessage", "Email Đã tồn tại.");
+                    request.setAttribute("errorMessage", "Email Đã tồn tại! Vui lòng thử lại.");
+                    request.getRequestDispatcher("addDoctor.jsp").forward(request, response);
+                    return;
+                }
+                
+                if (accountDAO.usernameExists(username)) {
+                    request.setAttribute("errorMessage", "Username Đã tồn tại!Vui lòng thử lại.");
                     request.getRequestDispatcher("addDoctor.jsp").forward(request, response);
                     return;
                 }
