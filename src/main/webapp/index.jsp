@@ -373,7 +373,7 @@
 
 
             <!-- ======= Contact Section ======= -->
-            <section id="contact" class="contact">
+<!--            <section id="contact" class="contact">
                 <div class="container">
                     <div class="section-title" data-aos="fade-up">
                         <h2>Contact Us</h2>
@@ -494,7 +494,7 @@
                         </div>
                     </div>
                 </div>
-            </section>
+            </section>-->
             <!-- End Contact Section -->
         </main>
         <!-- End #main -->
